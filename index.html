@@ -293,6 +293,13 @@ html.chk .splash{display:flex}
 #mini.nudge{animation:nudge 1.4s ease 2}
 @keyframes nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-14px)}60%{transform:translateX(10px)}}
 @media(prefers-reduced-motion:reduce){.hpop,#mini.nudge{animation:none;opacity:0}}
+
+.newHero{font-size:54px;text-align:center;margin:2px 0 6px;animation:newPop .7s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes newPop{0%{transform:scale(.3) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+.newList{list-style:none;margin:0 4px 18px;padding:0;display:grid;gap:10px}
+.newList li{word-break:keep-all;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:20px;background:var(--chip,rgba(127,127,127,.12));font-size:15px;line-height:1.45}
+.newList li b{flex:none;font-size:20px;line-height:1.1}
+@media(prefers-reduced-motion:reduce){.newHero{animation:none}}
 </style>
 </head>
 <body class="paused">
@@ -395,6 +402,7 @@ html.chk .splash{display:flex}
       <p class="hint" id="updVer" style="margin:0 2px 10px"></p>
       <label class="tgl"><input type="checkbox" id="updAuto"><span data-i18n="updAuto">앱을 켤 때 자동으로 확인</span></label>
       <button class="btn ghost" id="updCheckBtn" data-i18n="updCheck">업데이트 확인</button>
+      <button class="btn ghost" id="newBtn" type="button" style="margin-top:8px" data-i18n="newBtn">바뀐 내용 보기</button>
       <p class="hint" id="updMsg"></p>
     </div>
     <div class="field">
@@ -450,6 +458,17 @@ html.chk .splash{display:flex}
     <p class="hint" id="updProg" style="margin:4px 8px"></p>
     <button class="obCta" id="updGo" data-i18n="updNow">지금 업데이트</button>
     <button class="obLink" id="updSkipB" data-i18n="updSkip">이 버전 건너뛰기</button>
+  </div>
+</section>
+
+<section class="sheet glass" id="newSheet" aria-label="바뀐 내용">
+  <div class="grab"></div>
+  <div class="sh"><h3 id="newT"></h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
+  <div class="sb">
+    <div class="newHero">🎉</div>
+    <p class="hint" id="newSub" style="margin:0 8px 12px;font-size:15px;text-align:center"></p>
+    <ul class="newList" id="newList"></ul>
+    <button class="obCta" id="newOk"></button>
   </div>
 </section>
 
@@ -1248,7 +1267,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='4.4.1';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='4.4.2';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -1327,6 +1346,17 @@ $('updGo').onclick=()=>{if(!updInfo)return;$('updGo').disabled=true;
 $('updSkipB').onclick=()=>{if(updInfo)LS.set('updSkip',updInfo.version);closeSheet()};
 $('updAuto').onchange=()=>LS.set('updAuto',$('updAuto').checked);
 $('updCheckBtn').onclick=()=>checkUpdate(true);
+/* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
+const WEB_NOTES=[["✨","업데이트가 끝나면 바뀐 내용을 이렇게 바로 보여줘요","After an update, you'll see what's new right here"],
+ ["📋","설정 › 업데이트에서 '바뀐 내용 보기'로 언제든 다시 볼 수 있어요","See it again anytime in Settings › Update › What's new"],
+ ["👆","재생바 좌우로 밀기 · 커버 두 번 탭으로 좋아요 (4.4.1)","Swipe the player bar · double-tap the cover to like (4.4.1)"]];
+{const X=(k,e)=>[k,...Array(13).fill(e)];Object.assign(I18N.T,{newT:X("{v} 버전으로 업데이트됐어요","Updated to {v}"),newSub:X("다시 설치하지 않고 바로 적용됐어요","Applied instantly without reinstalling"),newBtn:X("바뀐 내용 보기","What's new"),newOk:X("좋아요","Nice")})}
+function showNew(){const ko=LIDX()===0;$('newT').textContent=t('newT',{v:WEB_VERSION});$('newSub').textContent=t('newSub');$('newOk').textContent=t('newOk');
+ $('newList').innerHTML='';for(const [e,k,en] of WEB_NOTES){const li=document.createElement('li'),b=document.createElement('b'),sp=document.createElement('span');b.textContent=e;sp.textContent=ko?k:en;li.append(b,sp);$('newList').append(li)}
+ openSheet('newSheet')}
+$('newOk').onclick=()=>closeSheet();$('newBtn').onclick=showNew;
+window.__new={showNew};
+
 addEventListener('focus',()=>{if(pendingApk&&AND&&AND.canInstall&&AND.canInstall()){pendingApk=false;$('updGo').disabled=true;startApk()}});
 
 /* ---------- 언어 ---------- */
@@ -1445,7 +1475,7 @@ function frame(){
   requestAnimationFrame(frame);
   setInterval(greetUI,60000);
   window.__ready=true;try{AND&&typeof AND.bootOk==='function'&&AND.bootOk()}catch(e){}
-  {const j=LS.get('updJust','');if(j){LS.set('updJust','');if(vcmp(WEB_VERSION,j)===0)setTimeout(()=>toast(t('updNewT',{v:j})+' ✓'),600)}}window.__player={audio,get cur(){return cur}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
+  {const j=LS.get('updJust','');if(j){LS.set('updJust','');if(vcmp(WEB_VERSION,j)===0)setTimeout(showNew,700)}}window.__player={audio,get cur(){return cur}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
 })();
 }
 </script>

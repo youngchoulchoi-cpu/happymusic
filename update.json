@@ -1,10 +1,10 @@
 {
- "version": "4.4.1",
+ "version": "4.4.2",
  "native": "4.4",
  "web": "index.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v4.4.apk",
  "notes": {
-  "ko": "· 재생바를 좌우로 밀면 곡이 넘어가요 (손가락을 따라 커버가 움직여요)\n· 재생바를 위로 밀면 재생 화면이 열려요\n· 커버를 두 번 탭하면 좋아요 ❤️",
-  "en": "· Swipe the player bar left/right to change songs\n· Swipe it up to open the player\n· Double-tap the cover to like ❤️"
+  "ko": "· 업데이트가 끝나면 바뀐 내용을 바로 보여줘요\n· 설정 › 업데이트에서 '바뀐 내용 보기'로 다시 볼 수 있어요",
+  "en": "· Shows what's new right after an update\n· See it again in Settings › Update › What's new"
  }
 }
