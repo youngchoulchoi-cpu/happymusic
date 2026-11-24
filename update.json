@@ -1,10 +1,1 @@
-{
-  "version": "4.3.0",
-  "native": "4.3",
-  "web": "index.html",
-  "apkUrl": "https://github.com/youngchoulchoi-cpu/happymusic/releases/download/v4.3/HappyMusic-v4.3.apk",
-  "notes": {
-    "ko": "· 앱 시작 전에 업데이트를 확인해요\n· 화면 업데이트는 다시 설치하지 않고 바로 적용돼요",
-    "en": "· Checks for updates before the app starts\n· UI updates apply instantly without reinstalling"
-  }
-}
+{"version": "4.3.0", "native": "4.3", "web": "index.html", "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v4.3.apk", "notes": {"ko": "· 앱 시작 전에 업데이트를 확인해요\n· 화면 업데이트는 다시 설치하지 않고 바로 적용돼요", "en": "· Checks for updates before the app starts\n· UI updates apply instantly without reinstalling"}}
