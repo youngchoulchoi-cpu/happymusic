@@ -51,3 +51,11 @@ func installUpdate(newExe string) error {
 	log.Print("install update (test mode)")
 	return os.WriteFile(filepath.Join(dataDir, "installed.flag"), []byte("1"), 0o644)
 }
+
+// 테스트용: 앱 안 브라우저 없음 → 화면이 대체 방식(iframe/외부 열기)을 쓴다
+func brHas() bool                            { return false }
+func uiBrOpen(u string, x, y, w, h int) bool { return false }
+func uiBrLoad(u string)                      {}
+func uiBrBounds(x, y, w, h int)              {}
+func uiBrCmd(op int)                         {}
+func openURL(u string) bool                  { return false }

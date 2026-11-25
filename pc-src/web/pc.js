@@ -21,6 +21,13 @@ var A={platform:'pc',
  canInstall:function(){return true},requestInstallPermission:function(){},
  downloadUpdate:function(u){return +x('POST','/api/download',u)||0},
  updateStatus:function(){return x('GET','/api/dlstatus')||'none'},
+ /* 앱 안 인터넷 브라우저: 위 top, 아래 bottom 만큼 비우고 가운데에 띄운다 (CSS px → 실제 픽셀) */
+ hasBrowser:function(){return x('GET','/api/br/has')==='1'},
+ brOpen:function(u,top,bot){var d=window.devicePixelRatio||1;return x('POST','/api/br/open',JSON.stringify({U:u||'',X:0,Y:Math.round(top*d),W:Math.round(innerWidth*d),H:Math.round((innerHeight-top-bot)*d)}))==='1'},
+ brBounds:function(top,bot){var d=window.devicePixelRatio||1;f('/api/br/bounds',{method:'POST',body:JSON.stringify({X:0,Y:Math.round(top*d),W:Math.round(innerWidth*d),H:Math.round((innerHeight-top-bot)*d)})}).catch(function(){})},
+ brLoad:function(u){f('/api/br/load',{method:'POST',body:u}).catch(function(){})},
+ brCmd:function(n){f('/api/br/cmd',{method:'POST',body:String(n)}).catch(function(){})},
+ openExternal:function(u){x('POST','/api/openurl',u)},
  installUpdate:function(){return x('POST','/api/install','')==='ok'}
 };
 window.Android=A;

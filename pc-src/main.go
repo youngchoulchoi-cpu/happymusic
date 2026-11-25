@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	AppVersion  = "1.2"
+	AppVersion  = "2.0"
 	Port        = 47831
 	RepoPrefix  = "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/"
 	RepoPrefix2 = "https://github.com/youngchoulchoi-cpu/happymusic/"
@@ -417,6 +417,52 @@ func routes() *http.ServeMux {
 		}
 		uiTitleBar(p[0] == "1", col)
 		io.WriteString(w, "ok")
+	})
+	// ---------- 앱 안 인터넷 브라우저 ----------
+	m.HandleFunc("/api/br/has", func(w http.ResponseWriter, r *http.Request) {
+		if brHas() {
+			io.WriteString(w, "1")
+		} else {
+			io.WriteString(w, "0")
+		}
+	})
+	m.HandleFunc("/api/br/open", func(w http.ResponseWriter, r *http.Request) {
+		var q struct {
+			U          string
+			X, Y, W, H int
+		}
+		if json.NewDecoder(io.LimitReader(r.Body, 8192)).Decode(&q) != nil || !uiBrOpen(q.U, q.X, q.Y, q.W, q.H) {
+			io.WriteString(w, "0")
+			return
+		}
+		io.WriteString(w, "1")
+	})
+	m.HandleFunc("/api/br/load", func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(io.LimitReader(r.Body, 8192))
+		uiBrLoad(strings.TrimSpace(string(b)))
+		io.WriteString(w, "ok")
+	})
+	m.HandleFunc("/api/br/bounds", func(w http.ResponseWriter, r *http.Request) {
+		var q struct{ X, Y, W, H int }
+		if json.NewDecoder(io.LimitReader(r.Body, 1024)).Decode(&q) == nil {
+			uiBrBounds(q.X, q.Y, q.W, q.H)
+		}
+		io.WriteString(w, "ok")
+	})
+	m.HandleFunc("/api/br/cmd", func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(io.LimitReader(r.Body, 16))
+		if n, err := strconv.Atoi(strings.TrimSpace(string(b))); err == nil {
+			uiBrCmd(n)
+		}
+		io.WriteString(w, "ok")
+	})
+	m.HandleFunc("/api/openurl", func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(io.LimitReader(r.Body, 8192))
+		if openURL(strings.TrimSpace(string(b))) {
+			io.WriteString(w, "1")
+		} else {
+			io.WriteString(w, "0")
+		}
 	})
 	m.HandleFunc("/api/title", func(w http.ResponseWriter, r *http.Request) {
 		b, _ := io.ReadAll(io.LimitReader(r.Body, 512))
