@@ -1586,7 +1586,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='4.6.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='4.6.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -1655,7 +1655,7 @@ function startApk(){
   updTimer=setInterval(()=>{const s=String(AND.updateStatus()||'none').split(',');if(s[0]==='none')return;
     const st=+s[0],so=+s[1],tot=+s[2],p=tot>0?Math.min(100,Math.round(so/tot*100)):0;
     $('ubarI').style.width=p+'%';$('updProg').textContent=t('updDl',{p});
-    if(st===8){clearInterval(updTimer);$('ubarI').style.width='100%';AND.installUpdate();$('updGo').disabled=false}
+    if(st===8){clearInterval(updTimer);$('ubarI').style.width='100%';if(!AND.installUpdate())$('updProg').textContent=t('updDlFail');$('updGo').disabled=false}
     else if(st===16){clearInterval(updTimer);$('updProg').textContent=t('updDlFail');$('updGo').disabled=false}},600);
 }
 $('updGo').onclick=()=>{if(!updInfo)return;$('updGo').disabled=true;

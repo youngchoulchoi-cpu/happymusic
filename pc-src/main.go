@@ -27,11 +27,14 @@ import (
 )
 
 const (
-	AppVersion  = "1.0"
+	AppVersion  = "1.2"
 	Port        = 47831
 	RepoPrefix  = "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/"
 	RepoPrefix2 = "https://github.com/youngchoulchoi-cpu/happymusic/"
 )
+
+// 받은 업데이트 파일이 정말 새 버전인지 확인하는 표시 (exe 안에 그대로 남는다)
+const versionMarker = "HM-APP-VERSION:" + AppVersion + ";"
 
 //go:embed web/index.html
 var embeddedIndex string
@@ -111,7 +114,7 @@ func main() {
 	}
 	srv := &http.Server{Handler: guard(routes()), ReadHeaderTimeout: 10 * time.Second}
 	go srv.Serve(ln)
-	log.Printf("HappyMusic PC %s on %s data=%s", AppVersion, addr, dataDir)
+	log.Printf("HappyMusic PC %s on %s data=%s (%s)", AppVersion, addr, dataDir, versionMarker)
 	if !noOpen && os.Getenv("HM_NOBROWSER") == "" {
 		openWindow(true)
 	}
@@ -638,6 +641,12 @@ func download(u string) {
 		fail(errors.New("not an exe"))
 		return
 	}
+	// 같은(또는 예전) 버전을 받으면 설치하지 않는다 → 업데이트 창이 계속 뜨는 일 방지
+	if v := exeVersion(part); v == "" || vcmp(v, AppVersion) <= 0 {
+		os.Remove(part)
+		fail(fmt.Errorf("downloaded version %q is not newer than %s", v, AppVersion))
+		return
+	}
 	dst := filepath.Join(dataDir, "update.exe")
 	os.Remove(dst)
 	if err := os.Rename(part, dst); err != nil {
@@ -647,4 +656,21 @@ func download(u string) {
 	dl.Lock()
 	dl.state = "ok"
 	dl.Unlock()
+}
+
+func exeVersion(p string) string {
+	b, err := os.ReadFile(p)
+	if err != nil {
+		return ""
+	}
+	i := strings.Index(string(b), "HM-APP-VERSION:")
+	if i < 0 {
+		return ""
+	}
+	rest := string(b[i+15:])
+	j := strings.IndexByte(rest, ';')
+	if j < 0 || j > 20 {
+		return ""
+	}
+	return rest[:j]
 }

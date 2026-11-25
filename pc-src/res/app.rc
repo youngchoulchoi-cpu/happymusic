@@ -2,8 +2,8 @@
 1 ICON "app.ico"
 1 24 "app.manifest"
 1 VERSIONINFO
-FILEVERSION 1,1,0,0
-PRODUCTVERSION 1,1,0,0
+FILEVERSION 1,2,0,0
+PRODUCTVERSION 1,2,0,0
 FILEOS 0x40004
 FILETYPE 0x1
 BEGIN
@@ -13,11 +13,11 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "HappyMusic"
       VALUE "FileDescription", "해피뮤직"
-      VALUE "FileVersion", "1.1.0.0"
+      VALUE "FileVersion", "1.2.0.0"
       VALUE "InternalName", "HappyMusic"
       VALUE "OriginalFilename", "HappyMusic.exe"
       VALUE "ProductName", "해피뮤직"
-      VALUE "ProductVersion", "1.1"
+      VALUE "ProductVersion", "1.2"
       VALUE "LegalCopyright", "HappyMusic"
     END
   END

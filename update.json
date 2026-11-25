@@ -1,12 +1,12 @@
 {
- "version": "4.6.0",
+ "version": "4.6.1",
  "native": "4.4",
- "web": "web/4.6.0.html",
+ "web": "web/4.6.1.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v4.4.apk",
  "notes": {
-  "ko": "· 💻 PC 전용 화면: 왼쪽 메뉴, 곡 목록 표, 아래 재생바·볼륨, 단축키\n· 🪟 PC 버전이 진짜 프로그램 창으로 열려요 (PC 1.1)",
-  "en": "· 💻 New PC layout: sidebar, song table, bottom player bar, shortcuts\n· 🪟 PC app now runs in its own native window (PC 1.1)"
+  "ko": "· PC 업데이트 창이 계속 뜨던 문제를 고쳤어요\n· 💻 PC 전용 화면과 진짜 프로그램 창 (PC 1.2)",
+  "en": "· Fixed the PC update prompt that kept reappearing\n· 💻 PC layout in a native window (PC 1.2)"
  },
- "pc": "1.1",
- "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup.exe"
+ "pc": "1.2",
+ "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-1.2.exe"
 }
