@@ -1,11 +1,11 @@
 {
- "version": "5.0.0",
- "native": "5.0",
- "web": "web/5.0.0.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.0.apk",
+ "version": "5.0.1",
+ "native": "5.1",
+ "web": "web/5.0.1.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.1.apk",
  "notes": {
-  "ko": "🚀 해피뮤직 Pro Max\n· 🌐 앱 안 인터넷 브라우저 (탭·북마크·방문 기록, 음악은 계속 재생)\n· 📂 내 플레이리스트\n· 🎚️ 5밴드 이퀄라이저 · 재생 속도\n· 💾 백업 · 복원\n· 오류 수정",
-  "en": "🚀 HappyMusic Pro Max\n· 🌐 Built-in web browser\n· 📂 Playlists\n· 🎚️ 5-band EQ & speed\n· 💾 Backup & restore\n· Bug fixes"
+  "ko": "· 📍 인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기 지원\n· 사이트마다 허용/차단을 물어보고 기억해요 (메뉴 › 사이트 권한)",
+  "en": "· 📍 Location, camera, microphone and file uploads in the browser\n· Per-site allow/block, remembered (Menu › Site permissions)"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe"

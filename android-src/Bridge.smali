@@ -771,3 +771,20 @@
     :e
     return-void
 .end method
+
+.method public brPerm(Z)V
+    .locals 4
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    new-instance v1, Lcom/turntable/player/BrTask;
+    const/16 v2, 0xa
+    const/4 v3, 0x0
+    if-eqz p1, :d
+    const/4 v3, 0x1
+    :d
+    const/4 p1, 0x0
+    invoke-direct {v1, v2, p1, v3, v3}, Lcom/turntable/player/BrTask;-><init>(ILjava/lang/String;II)V
+    invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+    return-void
+.end method

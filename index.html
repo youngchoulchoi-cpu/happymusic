@@ -623,6 +623,16 @@ html.desk .wStart{padding-top:60px}
 html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
 .tools2{flex-wrap:wrap}.tools2 .tool{flex:1 1 calc(50% - 6px)}
 .wAddr .clr[hidden],.wItem .x[hidden]{display:none}
+.wPerm{position:absolute;inset:0;z-index:5;display:grid;place-items:end center;padding:16px;background:rgba(0,0,0,.35)}
+.wPerm[hidden]{display:none}
+.wPermC{width:min(420px,100%);border-radius:26px;background:var(--bg1);border:1px solid var(--gb);box-shadow:0 30px 60px -20px rgba(0,0,0,.6);padding:22px 20px 18px;animation:wUp .25s ease}
+@keyframes wUp{from{transform:translateY(30px);opacity:0}}
+.wPermI{display:flex;gap:8px;margin-bottom:12px}.wPermI i{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-style:normal;font-size:22px;background:var(--bg2)}
+.wPermC b{display:block;font-size:16px;line-height:1.45;word-break:keep-all}
+.wPermC ul{margin:10px 0 14px;padding:0 0 0 20px;color:var(--sub);font-size:15px;line-height:1.7}
+.wPermB{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.wPermB button{height:48px;border-radius:16px;border:1px solid var(--gb);background:var(--glass);color:var(--ink);font:700 15px inherit;font-family:inherit;cursor:pointer}
+.wPermB button.pri{background:var(--blue);border-color:var(--blue);color:#fff}
 </style>
 </head>
 <body class="paused">
@@ -951,6 +961,7 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
     <div id="wStartP"></div>
     <div class="wPanel" id="wPanel" hidden></div>
     <div class="wMenu" id="wMenu" hidden></div>
+    <div class="wPerm" id="wPerm" hidden><div class="wPermC"><div class="wPermI" id="wPermI"></div><b id="wPermT"></b><ul id="wPermL"></ul><label class="tgl"><input type="checkbox" id="wPermR" checked><span data-i18n="wRemember">이 사이트에 대해 기억하기</span></label><div class="wPermB"><button type="button" id="wPermNo" data-i18n="wBlock">차단</button><button type="button" id="wPermYes" class="pri" data-i18n="wAllow">허용</button></div></div></div>
   </div>
   <div class="wBot" id="wBot">
     <button class="wIc" id="wBack" type="button" aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/></svg></button>
@@ -1025,6 +1036,7 @@ Object.assign(I18N.T,{
  wNewTab:X13('새 탭','New tab'),wHist:X13('방문 기록','History'),wClearAll:X13('모두 지우기','Clear all'),wCopyUrl:X13('주소 복사','Copy link'),wOpenExt:X13('다른 브라우저로 열기','Open in another browser'),wEngine:X13('검색 엔진','Search engine'),wQuick:X13('바로가기','Shortcuts'),wRecent:X13('최근 방문','Recent'),
  wBmAdd:X13('북마크에 추가했어요','Bookmarked'),wBmDel:X13('북마크에서 뺐어요','Bookmark removed'),wNoBm:X13('북마크가 없어요. 아래 ☆ 버튼으로 추가해요','No bookmarks yet. Tap ☆ to add'),wNoHist:X13('방문 기록이 없어요','No history'),wCopied:X13('주소를 복사했어요','Link copied'),
  wDl:X13('다운로드를 시작했어요: {f}','Download started: {f}'),wDlFail:X13('이 파일은 받을 수 없어요','Could not download this file'),wOldApp:X13('지금 앱 버전에서는 일부 사이트가 열리지 않을 수 있어요. 앱을 5.0으로 업데이트하면 모든 사이트가 열려요.','Some sites may not open in this app version. Update the app to 5.0 to open every site.'),
+ wPermT:X13('{s}에서 다음 권한을 사용하려고 해요','{s} wants to use'),wPGeo:X13('위치 (지도·주변 검색)','Your location'),wPCam:X13('카메라','Camera'),wPMic:X13('마이크','Microphone'),wPMedia:X13('보호된 콘텐츠 재생','Protected content'),wPOther:X13('기타 기능','Other features'),wAllow:X13('허용','Allow'),wBlock:X13('차단','Block'),wRemember:X13('이 사이트에 대해 기억하기','Remember for this site'),wSitePerms:X13('사이트 권한','Site permissions'),wNoSitePerms:X13('저장된 사이트 권한이 없어요','No saved site permissions'),wAllowed:X13('허용됨','Allowed'),wBlocked:X13('차단됨','Blocked'),wPermFail:X13('휴대폰 설정에서 해피뮤직의 권한을 허용해야 쓸 수 있어요','Allow the permission for HappyMusic in phone settings'),
  wTabMax:X13('탭은 10개까지 열 수 있어요','Up to 10 tabs'),wEngSet:X13('검색 엔진: {e}','Search engine: {e}'),pPro:X13('Pro Max 기능','Pro Max')
 });
 Object.assign(I18N.T,{"dPlayAll": ["전체 재생", "Play all", "すべて再生", "全部播放", "全部播放", "Reproducir todo", "Tout lire", "Alle abspielen", "Tocar tudo", "Слушать всё", "Phát tất cả", "เล่นทั้งหมด", "Putar semua", "सभी चलाएँ"], "dFun": ["즐기기", "Fun", "楽しむ", "娱乐", "娛樂", "Diversión", "Détente", "Spaß", "Diversão", "Развлечения", "Giải trí", "สนุก", "Seru", "मनोरंजन"], "dRescan": ["음악 다시 찾기", "Rescan music", "音楽を再検索", "重新扫描音乐", "重新掃描音樂", "Volver a buscar música", "Rechercher la musique", "Musik neu suchen", "Procurar músicas", "Найти музыку заново", "Quét lại nhạc", "สแกนเพลงใหม่", "Pindai ulang musik", "संगीत फिर से खोजें"], "dVolume": ["볼륨", "Volume", "音量", "音量", "音量", "Volumen", "Volume", "Lautstärke", "Volume", "Громкость", "Âm lượng", "ระดับเสียง", "Volume", "वॉल्यूम"], "dPlays": ["재생 수", "Plays", "再生回数", "播放次数", "播放次數", "Reproducciones", "Écoutes", "Wiedergaben", "Reproduções", "Прослушивания", "Lượt nghe", "จำนวนเล่น", "Diputar", "चलाए गए"], "dTime": ["시간", "Time", "時間", "时长", "時長", "Duración", "Durée", "Dauer", "Duração", "Время", "Thời lượng", "เวลา", "Durasi", "समय"], "dMore": ["모두 보기", "See all", "すべて表示", "查看全部", "查看全部", "Ver todo", "Tout voir", "Alle anzeigen", "Ver tudo", "Показать все", "Xem tất cả", "ดูทั้งหมด", "Lihat semua", "सभी देखें"], "dEmptyPC": ["내 음악, 다운로드, 바탕화면 폴더의 음악을 자동으로 찾아요. 음악 파일을 이 창에 끌어다 놓아도 돼요.", "Music in your Music, Downloads and Desktop folders is found automatically. You can also drag music files into this window.", "ミュージック・ダウンロード・デスクトップの音楽を自動で見つけます。ファイルをこのウィンドウにドラッグしても追加できます。", "会自动查找音乐、下载和桌面文件夹中的音乐，也可以把音乐文件拖到此窗口。", "會自動尋找音樂、下載和桌面資料夾中的音樂，也可以把音樂檔拖到此視窗。", "Se busca música en Música, Descargas y Escritorio. También puedes arrastrar archivos aquí.", "La musique des dossiers Musique, Téléchargements et Bureau est trouvée automatiquement. Vous pouvez aussi glisser des fichiers ici.", "Musik in Musik, Downloads und Desktop wird automatisch gefunden. Du kannst Dateien auch hierher ziehen.", "Músicas em Música, Downloads e Área de Trabalho são encontradas automaticamente. Você também pode arrastar arquivos aqui.", "Музыка из папок «Музыка», «Загрузки» и «Рабочий стол» находится автоматически. Можно перетащить файлы в это окно.", "Nhạc trong thư mục Nhạc, Tải xuống và Màn hình được tự tìm. Bạn cũng có thể kéo tệp vào cửa sổ này.", "ค้นหาเพลงในโฟลเดอร์เพลง ดาวน์โหลด และเดสก์ท็อปอัตโนมัติ หรือลากไฟล์มาวางที่หน้าต่างนี้", "Musik di folder Musik, Unduhan, dan Desktop ditemukan otomatis. Anda juga bisa menyeret file ke jendela ini.", "संगीत, डाउनलोड और डेस्कटॉप फ़ोल्डर का संगीत अपने आप मिल जाता है। फ़ाइलें इस विंडो में खींचकर भी जोड़ सकते हैं।"], "dScanning": ["PC에서 음악을 찾는 중…", "Searching your PC for music…", "PCの音楽を検索中…", "正在搜索电脑中的音乐…", "正在搜尋電腦中的音樂…", "Buscando música en tu PC…", "Recherche de musique sur le PC…", "Suche Musik auf dem PC…", "Procurando músicas no PC…", "Ищем музыку на ПК…", "Đang tìm nhạc trên PC…", "กำลังค้นหาเพลงใน PC…", "Mencari musik di PC…", "PC पर संगीत खोज रहे हैं…"]});
@@ -1774,7 +1786,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.0.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.0.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -1988,7 +2000,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🌐","앱 안 인터넷 브라우저: 주소창·탭·북마크·방문 기록, 음악은 계속 재생","Built-in web browser with tabs, bookmarks and history — music keeps playing"],
+const WEB_NOTES=[["📍","인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기를 쓸 수 있어요. 사이트마다 허용/차단을 물어보고 기억해요","Maps (location), camera, microphone and file uploads now work in the browser, with per-site permissions"],
+ ["🌐","앱 안 인터넷 브라우저: 주소창·탭·북마크·방문 기록, 음악은 계속 재생","Built-in web browser with tabs, bookmarks and history — music keeps playing"],
  ["📂","내 플레이리스트: 만들고, 담고, 이름 바꾸기","Your own playlists"],
  ["🎚️","사운드: 5밴드 이퀄라이저·프리셋, 재생 속도","Sound: 5-band equalizer with presets, playback speed"],
  ["💾","백업 · 복원 코드로 기록 옮기기","Backup & restore with one code"]];
@@ -2429,7 +2442,7 @@ function wNorm(q){q=String(q||'').trim();if(!q)return '';
   return ENG[brEngine].u+encodeURIComponent(q)}
 function wBounds(){const top=$('wBody').getBoundingClientRect().top,bot=innerHeight-$('wBot').getBoundingClientRect().top;return [Math.max(0,Math.round(top)),Math.max(0,Math.round(bot))]}
 function wShowNative(on){if(!W.native||!W.opened)return;try{AND.brCmd(on?7:6)}catch(e){}}
-function wNeedNative(){return W.native&&!!(wTab()&&wTab().url)&&!W.panel&&!W.editing&&!W.menu}
+function wNeedNative(){return W.native&&!!(wTab()&&wTab().url)&&!W.panel&&!W.editing&&!W.menu&&!W.perm}
 function wSync(){ // 화면 상태에 맞게 실제 웹 화면 보이기/숨기기
   const tb=wTab(),has=!!(tb&&tb.url);
   $('wStartP').hidden=has&&!W.editing;
@@ -2458,6 +2471,7 @@ function wLoad(u){const tb=wTab();if(!tb)return;tb.url=u;tb.title=wHost(u);W.loa
   wAddHist(u,tb.title)}
 function wAddHist(u,title){if(!u)return;brHist=brHist.filter(h=>h.u!==u);brHist.unshift({u,t:title||wHost(u),at:Date.now()});if(brHist.length>300)brHist.length=300;LS.set('brHist',brHist)}
 window.onBrowser=ev=>{try{
+  if(ev&&(ev.e==='perm'||ev.e==='permx')){wPermEv(ev);return}
   const tb=wTab();if(!tb||!ev)return;
   if(ev.e==='fail'){wFallback();return}
   if(ev.e==='dl'){toast(t('wDl',{f:ev.t||wHost(ev.u)}));return}
@@ -2490,12 +2504,13 @@ function wPanel(kind){W.panel=kind;W.menu=false;$('wMenu').hidden=true;const p=$
   if(kind==='tabs')h=`<h3>${esc(t('wTabs'))}<button type="button" data-wact="newtab">＋ ${esc(t('wNewTab'))}</button></h3><div class="wTabsG">${W.tabs.map((x,i)=>`<button type="button" class="wTab${i===W.cur?' on':''}" data-wtab="${i}"><span class="x" data-wtx="${i}">${SVG.x}</span><b>${esc(x.title||(x.url?wHost(x.url):t('wHome')))}</b><span>${esc(x.url?wHost(x.url):'')}</span></button>`).join('')}</div>`;
   if(kind==='bm')h=`<h3>${esc(t('wBm'))}</h3>`+(brBm.length?`<div class="wList">${brBm.map((b,i)=>`<button type="button" class="wItem" data-wu="${esc(b.u)}"><i style="background:${wColor(b.u)}">${wLetter(b.t,b.u)}</i><div><b>${esc(b.t||wHost(b.u))}</b><span>${esc(b.u)}</span></div><span class="x" data-wbx="${i}">${SVG.x}</span></button>`).join('')}</div>`:`<p class="wEmpty">${esc(t('wNoBm'))}</p>`);
   if(kind==='hist')h=`<h3>${esc(t('wHist'))}${brHist.length?`<button type="button" data-wact="clearhist">${esc(t('wClearAll'))}</button>`:''}</h3>`+(brHist.length?`<div class="wList">${brHist.slice(0,150).map((b,i)=>`<button type="button" class="wItem" data-wu="${esc(b.u)}"><i style="background:${wColor(b.u)}">${wLetter(b.t,b.u)}</i><div><b>${esc(b.t||wHost(b.u))}</b><span>${esc(new Date(b.at).toLocaleString())} · ${esc(wHost(b.u))}</span></div><span class="x" data-whx="${i}">${SVG.x}</span></button>`).join('')}</div>`:`<p class="wEmpty">${esc(t('wNoHist'))}</p>`);
+  if(kind==='perms'){const hs=Object.keys(brPerm);h=`<h3>${esc(t('wSitePerms'))}</h3>`+(hs.length?`<div class="wList">${hs.map(hh=>`<div class="wItem"><i style="background:${wColor(hh)}">${wLetter(hh,hh)}</i><div><b>${esc(hh)}</b><span>${Object.entries(brPerm[hh]).map(([k,v])=>esc(t((PK[k]||[0,'wPOther'])[1]))+' · '+esc(t(v?'wAllowed':'wBlocked'))).join(' / ')}</span></div><button type="button" class="x" data-wact="permdel" data-h="${esc(hh)}" aria-label="${esc(t('del'))}" style="border:0;background:none;cursor:pointer">${SVG.x}</button></div>`).join('')}</div>`:`<p class="wEmpty">${esc(t('wNoSitePerms'))}</p>`)}
   p.innerHTML=h;p.hidden=false;p.scrollTop=0;wSync();
 }
 function wMenu(on){W.menu=on;const m=$('wMenu');if(!on){m.hidden=true;wSync();return}
   const ext=AND&&typeof AND.openExternal==='function';
   m.innerHTML=`<button type="button" data-wact="newtab">${SVG.tab}${esc(t('wNewTab'))}</button><button type="button" data-wact="bm">${SVG.star}${esc(t('wBm'))}</button><button type="button" data-wact="hist">${SVG.hist}${esc(t('wHist'))}</button><hr>
-<button type="button" data-wact="copy">${SVG.copy}${esc(t('wCopyUrl'))}</button>${ext?`<button type="button" data-wact="ext">${SVG.ext}${esc(t('wOpenExt'))}</button>`:''}<button type="button" data-wact="engine">${SVG.search}${esc(t('wEngine'))} · ${ENG[brEngine].n}</button><hr><button type="button" data-wact="music">${SVG.pl}${esc(t('wExit'))}</button>`;
+<button type="button" data-wact="copy">${SVG.copy}${esc(t('wCopyUrl'))}</button>${ext?`<button type="button" data-wact="ext">${SVG.ext}${esc(t('wOpenExt'))}</button>`:''}<button type="button" data-wact="perms">${SVG.lock}${esc(t('wSitePerms'))}</button><button type="button" data-wact="engine">${SVG.search}${esc(t('wEngine'))} · ${ENG[brEngine].n}</button><hr><button type="button" data-wact="music">${SVG.pl}${esc(t('wExit'))}</button>`;
   m.hidden=false;wSync()}
 function wNewTab(u){if(W.tabs.length>=10){toast(t('wTabMax'));return}W.tabs.push({url:'',title:''});W.cur=W.tabs.length-1;W.canB=W.canF=false;wSave();wRenderStart();wPanel(null);if(u)wLoad(u);else wSync()}
 function wSwitch(i){if(i===W.cur){wPanel(null);return}W.cur=i;const tb=wTab();W.canB=W.canF=false;wSave();wPanel(null);
@@ -2510,6 +2525,8 @@ $('web').addEventListener('click',e=>{
   const u=e.target.closest('[data-wu]');if(u){W.panel=null;$('wPanel').hidden=true;wLoad(u.dataset.wu);return}
   const a=e.target.closest('[data-wact]');if(a){const k=a.dataset.wact;
     if(k==='newtab')wNewTab();else if(k==='bm'||k==='hist')wPanel(k);
+    else if(k==='perms')wPanel('perms');
+    else if(k==='permdel'){delete brPerm[a.dataset.h];LS.set('brPerm',brPerm);wPanel('perms')}
     else if(k==='clearhist'){brHist=[];LS.set('brHist',brHist);wPanel('hist')}
     else if(k==='copy'){const s=(wTab()||{}).url||'';wMenu(false);if(s){(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>toast(t('wCopied'))).catch(()=>{})}}
     else if(k==='ext'){const s=(wTab()||{}).url;wMenu(false);if(s)try{AND.openExternal(s)}catch(_){}}
@@ -2535,6 +2552,7 @@ $('wMusic').onclick=e=>{if(e.target.closest('#wMP')){toggle();return}closeWeb();
 $('wClose').onclick=()=>closeWeb();
 audio.addEventListener('play',()=>{if(webOn())wChrome()});audio.addEventListener('pause',()=>{if(webOn())wChrome()});
 function wBack(){ // 뒤로: 메뉴/패널 닫기 → 웹 뒤로 → 시작 페이지 → 브라우저 닫기
+  if(W.perm){wPermAnswer(false);return true}
   if(W.menu){wMenu(false);return true}
   if(W.panel){wPanel(null);return true}
   if(W.editing){$('wAddr').blur();return true}
@@ -2543,6 +2561,25 @@ function wBack(){ // 뒤로: 메뉴/패널 닫기 → 웹 뒤로 → 시작 페�
     if(!W.native&&W.frame){try{W.frame.contentWindow.history.back();return true}catch(e){}}
     $('wHome').click();return true}
   closeWeb();return true}
+/* 사이트 권한 (위치·카메라·마이크): 삼성 인터넷처럼 물어보고 사이트별로 기억 */
+let brPerm=LS.get('brPerm',{})||{};
+const PK={geo:['📍','wPGeo'],'android.webkit.resource.VIDEO_CAPTURE':['📷','wPCam'],'android.webkit.resource.AUDIO_CAPTURE':['🎙️','wPMic'],'android.webkit.resource.PROTECTED_MEDIA_ID':['🔒','wPMedia']};
+function wPermReply(allow){W.perm=null;$('wPerm').hidden=true;try{AND.brPerm(!!allow)}catch(e){}wSync()}
+function wPermEv(ev){
+  if(ev.e==='permx'){if(W.perm){W.perm=null;$('wPerm').hidden=true;wSync()}return}
+  const origin=String(ev.u||''),kinds=String(ev.t||'').split(',').filter(Boolean);
+  if(!kinds.length)return wPermReply(false);
+  const host=wHost(origin)||origin,saved=brPerm[host]||{};
+  if(kinds.every(k=>k in saved))return wPermReply(kinds.every(k=>saved[k]));
+  W.perm={host,kinds};
+  $('wPermI').innerHTML=kinds.map(k=>`<i>${(PK[k]||['⚙️'])[0]}</i>`).join('');
+  $('wPermT').textContent=t('wPermT',{s:host});
+  $('wPermL').innerHTML=kinds.map(k=>`<li>${esc(t((PK[k]||[0,'wPOther'])[1]))}</li>`).join('');
+  $('wPermR').checked=true;$('wPerm').hidden=false;
+  if(!webOn())openWeb();wSync();
+}
+function wPermAnswer(allow){const p=W.perm;if(!p)return;if($('wPermR').checked){const m=brPerm[p.host]||(brPerm[p.host]={});for(const k of p.kinds)m[k]=!!allow;LS.set('brPerm',brPerm)}wPermReply(allow)}
+$('wPermYes').onclick=()=>wPermAnswer(true);$('wPermNo').onclick=()=>wPermAnswer(false);
 function webOn(){return !$('web').hidden}
 function openWeb(u){
   closeAll&&closeAll();

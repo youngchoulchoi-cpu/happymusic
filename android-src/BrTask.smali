@@ -33,6 +33,13 @@
     invoke-static {v1}, Lcom/turntable/player/Br;->load(Ljava/lang/String;)V
     goto :end
     :n8
+    const/16 v4, 0xa
+    if-ne v0, v4, :n8b
+    invoke-static {v2}, Lcom/turntable/player/BrTask;->toBool(I)Z
+    move-result v4
+    invoke-static {v4}, Lcom/turntable/player/Br;->permReply(Z)V
+    goto :end
+    :n8b
     const/16 v4, 0x8
     if-ne v0, v4, :other
     invoke-static {v2, v3}, Lcom/turntable/player/Br;->bounds(II)V
@@ -43,4 +50,14 @@
     .catch Ljava/lang/Exception; {:try_start .. :try_end} :end
     :end
     return-void
+.end method
+
+.method static toBool(I)Z
+    .locals 1
+    if-eqz p0, :f
+    const/4 v0, 0x1
+    return v0
+    :f
+    const/4 v0, 0x0
+    return v0
 .end method
