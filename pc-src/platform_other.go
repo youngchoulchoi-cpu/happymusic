@@ -31,7 +31,12 @@ func scanRoots() []string {
 	return []string{filepath.Join(h, "Music")}
 }
 
-func openWindow(first bool) {}
+func openWindow(first bool)              {}
+func uiTitleBar(dark bool, color string) {}
+func uiTitle(title string)               {}
+func uiFocus() bool                      { return false }
+func uiQuit()                            {}
+func allowFocus()                        {}
 
 func cleanupOld() {}
 

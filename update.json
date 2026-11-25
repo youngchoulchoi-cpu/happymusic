@@ -1,12 +1,12 @@
 {
- "version": "4.5.1",
+ "version": "4.6.0",
  "native": "4.4",
- "web": "web/4.5.1.html",
+ "web": "web/4.6.0.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v4.4.apk",
  "notes": {
-  "ko": "· 💻 윈도우 PC 버전 출시! 휴대폰과 같은 업데이트를 함께 받아요\n· 🎮 리듬 탭 게임",
-  "en": "· 💻 HappyMusic for Windows PC — same updates as your phone\n· 🎮 Rhythm Tap game"
+  "ko": "· 💻 PC 전용 화면: 왼쪽 메뉴, 곡 목록 표, 아래 재생바·볼륨, 단축키\n· 🪟 PC 버전이 진짜 프로그램 창으로 열려요 (PC 1.1)",
+  "en": "· 💻 New PC layout: sidebar, song table, bottom player bar, shortcuts\n· 🪟 PC app now runs in its own native window (PC 1.1)"
  },
- "pc": "1.0",
+ "pc": "1.1",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup.exe"
 }

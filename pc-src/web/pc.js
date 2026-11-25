@@ -11,7 +11,8 @@ var A={platform:'pc',
  scan:function(){return '[]'},
  deepScan:function(){f('/api/deepscan').then(function(r){return r.text()}).then(function(j){window.onDeepScan&&window.onDeepScan(j)}).catch(function(){window.onDeepScan&&window.onDeepScan('[]')})},
  meta:function(p){return x('GET','/api/meta?p='+encodeURIComponent(p))||'{}'},
- mediaScan:function(){},setState:function(){},setBars:function(){},
+ mediaScan:function(){},setState:function(){},
+ setBars:function(d){setTimeout(function(){var c=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();f('/api/bars',{method:'POST',body:(d?'1':'0')+'|'+c}).catch(function(){})},0)},
  takeOpened:function(){return x('GET','/api/opened')},
  appVersion:function(){return ver||(ver=x('GET','/api/version')||'-')},
  saveWeb:function(h){return x('POST','/api/saveweb',h)==='ok'},
@@ -26,4 +27,7 @@ window.Android=A;
 var openBusy=false;
 function ping(){f('/api/ping',{cache:'no-store'}).then(function(r){if(r.status===403){location.reload();return ''}return r.text()}).then(function(t){if(t==='open'&&window.onAndroidOpen&&!openBusy){openBusy=true;Promise.resolve(window.onAndroidOpen()).finally(function(){openBusy=false})}}).catch(function(){})}
 ping();setInterval(ping,3000);
+/* 창 제목 = 지금 재생 중인 곡 (작업 표시줄에 보임) */
+var lastT='';function title(){var t=document.title||'';if(t&&t!==lastT){lastT=t;f('/api/title',{method:'POST',body:t}).catch(function(){})}}
+document.addEventListener('DOMContentLoaded',function(){title();var el=document.querySelector('title');if(el)new MutationObserver(title).observe(el,{childList:true,characterData:true,subtree:true})});
 })();

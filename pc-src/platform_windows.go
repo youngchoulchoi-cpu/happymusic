@@ -4,8 +4,11 @@ package main
 
 import (
 	"encoding/base64"
+	"runtime"
+
 	"encoding/binary"
 	"errors"
+	webview2 "github.com/jchv/go-webview2"
 	"io"
 	"log"
 	"os"
@@ -33,7 +36,20 @@ var (
 	pShellExecute     = shell32.NewProc("ShellExecuteW")
 	pGetDriveType     = kernel32.NewProc("GetDriveTypeW")
 	pGetLogicalDrives = kernel32.NewProc("GetLogicalDrives")
+	pGetDpiForSystem  = user32.NewProc("GetDpiForSystem")
+	pGetSystemMetrics = user32.NewProc("GetSystemMetrics")
+	pShowWindow       = user32.NewProc("ShowWindow")
+	pSetForeground    = user32.NewProc("SetForegroundWindow")
+	pIsIconic         = user32.NewProc("IsIconic")
+	pAllowSetFg       = user32.NewProc("AllowSetForegroundWindow")
+	dwmapi            = syscall.NewLazyDLL("dwmapi.dll")
+	pDwmSetAttr       = dwmapi.NewProc("DwmSetWindowAttribute")
 )
+
+// WebView2(윈도우 내장 Edge 엔진)는 프로그램을 시작한 스레드에서만 움직인다
+func init() { runtime.LockOSThread() }
+
+var wv webview2.WebView
 
 const (
 	appName   = "해피뮤직"
@@ -304,7 +320,11 @@ func installUpdate(newExe string) error {
 		}
 		os.Remove(newExe)
 	}
-	return exec.Command(self, "--noopen").Start()
+	flag := "--noopen"
+	if webviewActive() {
+		flag = "--wait"
+	}
+	return exec.Command(self, flag).Start()
 }
 
 func findBrowser() string {
@@ -327,15 +347,154 @@ func findBrowser() string {
 	return ""
 }
 
-// 앱 전용 창으로 열기 (주소창 없는 Edge 앱 창, 전용 프로필)
+// 진짜 프로그램 창: WebView2를 창 안에 넣는다 (주소창·브라우저 흔적 없음).
+// WebView2가 없는 PC에서만 Edge 앱 창으로 대신 연다.
 func openWindow(first bool) {
+	if first && os.Getenv("HM_EDGE") == "" && runWebView() {
+		requestQuit()
+		return
+	}
+	openEdge(first)
+}
+
+func scale(v int) uintptr {
+	dpi, _, _ := pGetDpiForSystem.Call()
+	if dpi == 0 {
+		dpi = 96
+	}
+	return uintptr(v) * dpi / 96
+}
+
+func runWebView() bool {
+	sw, _, _ := pGetSystemMetrics.Call(0)
+	sh, _, _ := pGetSystemMetrics.Call(1)
+	w, h := scale(1280), scale(820)
+	if sw > 0 && w > sw*92/100 {
+		w = sw * 92 / 100
+	}
+	if sh > 0 && h > sh*88/100 {
+		h = sh * 88 / 100
+	}
+	v := webview2.NewWithOptions(webview2.WebViewOptions{
+		AutoFocus: true,
+		DataPath:  filepath.Join(appDataDir(), "webview"),
+		WindowOptions: webview2.WindowOptions{
+			Title: appName, Width: uint(w), Height: uint(h), IconId: 1, Center: true,
+		},
+	})
+	if v == nil {
+		log.Print("WebView2 not available → Edge app window")
+		return false
+	}
+	wv = v
+	v.SetSize(int(scale(900)), int(scale(600)), webview2.HintMin)
+	setTitleBar(sysDark(), "")
+	v.Navigate(localURL())
+	v.Run()
+	wv = nil
+	v.Destroy()
+	return true
+}
+
+func sysDark() bool {
+	// 앱 테마를 받기 전 첫 화면: 윈도우 설정(앱 모드)을 따른다
+	out, err := hidden("reg", "query", `HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize`, "/v", "AppsUseLightTheme").Output()
+	return err == nil && strings.Contains(string(out), "0x0")
+}
+
+// 제목 표시줄을 앱 테마(라이트/다크)와 배경색에 맞춘다
+func setTitleBar(dark bool, color string) {
+	v := wv
+	if v == nil {
+		return
+	}
+	hwnd := uintptr(v.Window())
+	d := uint32(0)
+	if dark {
+		d = 1
+	}
+	pDwmSetAttr.Call(hwnd, 20, uintptr(unsafe.Pointer(&d)), 4) // DWMWA_USE_IMMERSIVE_DARK_MODE
+	if c, ok := parseHex(color); ok {
+		pDwmSetAttr.Call(hwnd, 35, uintptr(unsafe.Pointer(&c)), 4) // DWMWA_CAPTION_COLOR (Windows 11)
+	}
+}
+
+func parseHex(s string) (uint32, bool) {
+	s = strings.TrimPrefix(strings.TrimSpace(s), "#")
+	if len(s) == 3 {
+		s = string([]byte{s[0], s[0], s[1], s[1], s[2], s[2]})
+	}
+	if len(s) != 6 {
+		return 0, false
+	}
+	var r, g, b uint32
+	for i, p := range []*uint32{&r, &g, &b} {
+		var x uint32
+		for _, ch := range s[i*2 : i*2+2] {
+			x <<= 4
+			switch {
+			case ch >= '0' && ch <= '9':
+				x |= uint32(ch - '0')
+			case ch >= 'a' && ch <= 'f':
+				x |= uint32(ch-'a') + 10
+			case ch >= 'A' && ch <= 'F':
+				x |= uint32(ch-'A') + 10
+			default:
+				return 0, false
+			}
+		}
+		*p = x
+	}
+	return r | g<<8 | b<<16, true // COLORREF = 0x00BBGGRR
+}
+
+func uiTitleBar(dark bool, color string) {
+	if v := wv; v != nil {
+		v.Dispatch(func() { setTitleBar(dark, color) })
+	}
+}
+
+func uiTitle(title string) {
+	if v := wv; v != nil {
+		v.Dispatch(func() { v.SetTitle(title) })
+	}
+}
+
+// 이미 켜져 있는 창을 앞으로 가져온다
+func uiFocus() bool {
+	v := wv
+	if v == nil {
+		return false
+	}
+	v.Dispatch(func() {
+		hwnd := uintptr(v.Window())
+		if r, _, _ := pIsIconic.Call(hwnd); r != 0 {
+			pShowWindow.Call(hwnd, 9) // SW_RESTORE
+		}
+		pSetForeground.Call(hwnd)
+	})
+	return true
+}
+
+func uiQuit() {
+	if v := wv; v != nil {
+		v.Dispatch(func() { v.Terminate() })
+	}
+}
+
+func allowFocus() { pAllowSetFg.Call(^uintptr(0)) } // ASFW_ANY
+
+func webviewActive() bool { return wv != nil }
+
+// WebView2가 없을 때: Edge 앱 창 (전용 프로필)
+func openEdge(first bool) {
 	b := findBrowser()
 	if b == "" {
 		pShellExecute.Call(0, uintptr(unsafe.Pointer(u16("open"))), uintptr(unsafe.Pointer(u16(localURL()))), 0, 0, 1)
 		return
 	}
 	c := exec.Command(b, "--app="+localURL(), "--user-data-dir="+filepath.Join(appDataDir(), "browser"),
-		"--no-first-run", "--no-default-browser-check", "--disable-features=Translate", "--window-size=1100,860",
+		"--no-first-run", "--no-default-browser-check", "--disable-features=Translate", "--window-size=1280,820",
 		"--autoplay-policy=no-user-gesture-required")
 	if err := c.Start(); err != nil {
 		log.Print("browser: ", err)

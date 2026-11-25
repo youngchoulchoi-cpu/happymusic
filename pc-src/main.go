@@ -73,18 +73,20 @@ func main() {
 	if logf != nil {
 		log.SetOutput(logf)
 	}
-	noOpen := false
+	noOpen, wait := false, false
 	var fileArg string
 	for _, a := range args {
 		if a == "--noopen" {
 			noOpen = true
+		} else if a == "--wait" {
+			wait = true
 		} else if !strings.HasPrefix(a, "--") {
 			fileArg = a
 		}
 	}
 	cleanupOld()
 
-	ln, err := listenRetry(noOpen)
+	ln, err := listenRetry(noOpen || wait)
 	if err != nil {
 		// 이미 실행 중 → 그 앱에 파일을 넘기거나 창을 다시 연다
 		age, ok := helloAge()
@@ -92,7 +94,8 @@ func main() {
 			if fileArg != "" {
 				postOpen(fileArg)
 			}
-			if fileArg == "" || age > 10 {
+			allowFocus()
+			if !apiPost("/api/focus", "") && (fileArg == "" || age > 10) {
 				openWindow(false)
 			}
 			return
@@ -131,6 +134,15 @@ func listenRetry(wait bool) (net.Listener, error) {
 		time.Sleep(250 * time.Millisecond)
 	}
 	return nil, err
+}
+
+// 창(WebView2)이 있으면 창을 닫고, 없으면 서버만 끝낸다
+func requestQuit() {
+	uiQuit()
+	select {
+	case quitCh <- struct{}{}:
+	default:
+	}
 }
 
 func newToken() string { b := make([]byte, 16); rand.Read(b); return hex.EncodeToString(b) }
@@ -380,11 +392,33 @@ func routes() *http.ServeMux {
 			return
 		}
 		io.WriteString(w, "ok")
-		go func() { time.Sleep(400 * time.Millisecond); quitCh <- struct{}{} }()
+		go func() { time.Sleep(400 * time.Millisecond); requestQuit() }()
 	})
 	m.HandleFunc("/api/quit", func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "ok")
-		go func() { time.Sleep(200 * time.Millisecond); quitCh <- struct{}{} }()
+		go func() { time.Sleep(200 * time.Millisecond); requestQuit() }()
+	})
+	m.HandleFunc("/api/focus", func(w http.ResponseWriter, r *http.Request) {
+		if !uiFocus() {
+			http.Error(w, "no window", 409)
+			return
+		}
+		io.WriteString(w, "ok")
+	})
+	m.HandleFunc("/api/bars", func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(io.LimitReader(r.Body, 64))
+		p := strings.SplitN(string(b), "|", 2)
+		col := ""
+		if len(p) == 2 {
+			col = p[1]
+		}
+		uiTitleBar(p[0] == "1", col)
+		io.WriteString(w, "ok")
+	})
+	m.HandleFunc("/api/title", func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(io.LimitReader(r.Body, 512))
+		uiTitle(strings.TrimSpace(string(b)))
+		io.WriteString(w, "ok")
 	})
 	return m
 }
