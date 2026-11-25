@@ -633,6 +633,49 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
 .wPermB{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .wPermB button{height:48px;border-radius:16px;border:1px solid var(--gb);background:var(--glass);color:var(--ink);font:700 15px inherit;font-family:inherit;cursor:pointer}
 .wPermB button.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+/* ---------- 가위바위보 ---------- */
+.gameCard.rpsC{background:linear-gradient(120deg,rgba(255,190,90,.55),rgba(255,120,140,.42) 60%,var(--mixEnd))}
+.gameCard .emo{font-size:30px;line-height:1}
+#rps{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;gap:14px;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);color:#fff;
+  background:radial-gradient(120% 80% at 50% 0%,#3b2457 0%,#1a1230 55%,#0b0814 100%);overflow:auto;-webkit-user-select:none;user-select:none}
+#rps[hidden]{display:none}
+.rpsTop{display:flex;align-items:center;gap:12px;width:100%;max-width:560px}
+.rpsTop b{font-size:18px;font-weight:900;flex:1}
+.rpsTop span{font-size:12px;opacity:.7;text-align:right}
+.rpsTop .gx{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center}
+.rpsTop .gx svg{width:20px;height:20px;fill:currentColor}
+.rpsOpts{display:grid;gap:8px;width:100%;max-width:560px}
+.rpsSeg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:4px;border-radius:16px;background:rgba(255,255,255,.07)}
+.rpsSeg button{height:38px;border:0;border-radius:12px;background:transparent;color:#fff;font:700 13px inherit;font-family:inherit;opacity:.65;cursor:pointer}
+.rpsSeg button.on{background:rgba(255,255,255,.92);color:#1a1230;opacity:1}
+.rpsBoard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:100%;max-width:560px;margin-top:4px}
+.rpsSide{text-align:center}.rpsSide small{display:block;font-size:13px;opacity:.7}.rpsSide b{display:block;font:900 46px/1.1 ui-monospace,Menlo,monospace}
+.rpsMid{text-align:center;font-size:13px;opacity:.8}
+.rpsDots{display:flex;gap:6px;justify-content:center;margin-top:8px;min-height:12px}
+.rpsDots i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.25)}
+.rpsDots i.w{background:#7dffa8}.rpsDots i.l{background:#ff7d93}.rpsDots i.d{background:#ffe27a}
+.rpsArena{display:flex;align-items:center;justify-content:center;gap:18px;flex:1;min-height:170px;width:100%;max-width:560px}
+.rpsHand{font-size:clamp(78px,24vw,130px);line-height:1;filter:drop-shadow(0 12px 30px rgba(0,0,0,.5));transition:transform .2s}
+.rpsHand.r{transform:scaleX(-1)}
+.rpsHand.l.shake{animation:shL .33s ease}.rpsHand.r.shake{animation:shR .33s ease}
+@keyframes shL{0%,100%{transform:translateY(0)}50%{transform:translateY(-38px) rotate(-12deg)}}
+@keyframes shR{0%,100%{transform:scaleX(-1) translateY(0)}50%{transform:scaleX(-1) translateY(-38px) rotate(-12deg)}}
+.rpsHand.l.pop{animation:popL .5s ease}.rpsHand.r.pop{animation:popR .5s ease}
+@keyframes popL{50%{transform:scale(1.25)}}@keyframes popR{50%{transform:scaleX(-1) scale(1.25)}}
+.rpsPick[hidden]{display:none}
+.rpsVs{font:900 20px system-ui;opacity:.5}
+.rpsMsg{margin:0;min-height:40px;font-size:28px;font-weight:900;text-align:center;letter-spacing:-.01em}
+.rpsMsg.w{color:#7dffa8;text-shadow:0 0 24px rgba(125,255,168,.5)}.rpsMsg.l{color:#ff7d93}.rpsMsg.d{color:#ffe27a}
+.rpsPick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:520px}
+.rpsPick button{height:112px;border-radius:26px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-family:inherit;transition:transform .12s,background .2s}
+.rpsPick button:active,.rpsPick button.on{transform:scale(.94);background:rgba(255,255,255,.22)}
+.rpsPick i{font-style:normal;font-size:44px;line-height:1}.rpsPick span{font:800 15px inherit}
+.rpsEnd{width:min(380px,100%);text-align:center;padding:18px;border-radius:28px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.rpsEnd[hidden]{display:none}
+.rpsEnd .e{font-size:58px;animation:gIn .6s cubic-bezier(.2,.9,.3,1.3)}.rpsEnd b{display:block;font-size:26px;font-weight:900;margin:6px 0}
+.rpsEnd.w b{color:#ffe27a}.rpsEnd .s{font:800 22px ui-monospace,monospace;opacity:.85}
+.rpsStats{margin:0;font-size:12px;opacity:.6}
+@media(prefers-reduced-motion:reduce){.rpsHand.shake,.rpsHand.pop,.rpsEnd .e{animation:none!important}}
 </style>
 </head>
 <body class="paused">
@@ -666,6 +709,7 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
     <button class="mix b glass" id="mixAll"><span class="ic"><svg viewBox="0 0 24 24"><path d="M13.5.7s.7 2.6.7 4.8c0 2-1.3 3.7-3.4 3.7-2 0-3.6-1.6-3.6-3.7l.1-.4A13.4 13.4 0 0 0 4 13a8 8 0 0 0 16 0c0-5.4-2.6-10.2-6.5-12.3zM11.7 19c-1.8 0-3.2-1.4-3.2-3.1 0-1.6 1-2.8 2.8-3.1 1.8-.4 3.6-1.2 4.6-2.6.4 1.3.6 2.6.6 4 0 2.6-2.1 4.8-4.8 4.8z"/></svg></span><b data-i18n="mixAll">전체 셔플</b><span data-i18n="mixAllS">보관함 모든 곡에서</span></button>
   </div>
   <button class="gameCard glass" id="gameCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></span><b data-i18n="gameT">리듬 탭</b><span data-i18n="gCardSub">듣는 곡으로 박자 맞추기 게임</span><em class="new">NEW</em><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <button class="gameCard rpsC glass" id="rpsCard"><span class="ic"><span class="emo">✌️</span></span><b data-i18n="rTitle">가위바위보</b><span data-i18n="rCardSub">해피봇과 한판 승부!</span><em class="new">NEW</em></button>
   <div class="duo">
     <button class="mix c glass" id="plCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h12v2H3zm0 4h12v2H3zm0 4h8v2H3zm14-4v6.3a3 3 0 1 0 2 2.7V12h3v-2h-5z"/></svg></span><b data-i18n="pMyPls">내 플레이리스트</b><span data-i18n="pPls">플레이리스트</span><em class="cnt" id="plCnt">0</em></button>
     <button class="mix d glass" id="webCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 17.9A8 8 0 0 1 4 12l1-.1L9 16v1a2 2 0 0 0 2 2v.9zm6.9-2.5A2 2 0 0 0 16 16h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.4a8 8 0 0 1 2.9 12.8z"/></svg></span><b data-i18n="wTitle">인터넷</b><span data-i18n="wSub">음악을 들으면서 웹 서핑</span></button>
@@ -879,6 +923,7 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
       <button type="button" data-v="pls"><svg viewBox="0 0 24 24"><path d="M3 6h12v2H3zm0 4h12v2H3zm0 4h8v2H3zm14-4v6.3a3 3 0 1 0 2 2.7V12h3v-2h-5z"/></svg><span data-i18n="pPls">플레이리스트</span><em id="dcP"></em></button>
       <p data-i18n="dFun">즐기기</p>
       <button type="button" data-v="web"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 17.9A8 8 0 0 1 4 12l1-.1L9 16v1a2 2 0 0 0 2 2v.9zm6.9-2.5A2 2 0 0 0 16 16h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.4a8 8 0 0 1 2.9 12.8z"/></svg><span data-i18n="wTitle">인터넷</span></button>
+      <button type="button" data-v="rps" class="game"><svg viewBox="0 0 24 24"><path d="M9 2a2 2 0 0 0-2 2v7.3l-1.3-1.2a2 2 0 0 0-2.8 2.8l4.6 4.7A6 6 0 0 0 11.8 20H14a6 6 0 0 0 6-6V8a2 2 0 0 0-3-1.7V6a2 2 0 0 0-3-1.7V4a2 2 0 0 0-4-.3A2 2 0 0 0 9 2z"/></svg><span data-i18n="rTitle">가위바위보</span></button>
       <button type="button" data-v="game" class="game"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span data-i18n="gameT">리듬 탭</span></button>
     </nav>
     <div class="dFoot">
@@ -973,6 +1018,26 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
   </div>
 </div>
 
+<div id="rps" hidden role="dialog" aria-label="가위바위보" data-i18n-aria="rTitle">
+  <div class="rpsTop"><button class="gx" id="rpsX" type="button" aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button><b data-i18n="rTitle">가위바위보</b><span id="rpsStreak"></span></div>
+  <div class="rpsOpts"><div class="rpsSeg" id="rpsMode"><button type="button" data-m="1" data-i18n="rOne">단판</button><button type="button" data-m="3" data-i18n="rBo3">3판 2선승</button><button type="button" data-m="5" data-i18n="rBo5">5판 3선승</button></div>
+    <div class="rpsSeg" id="rpsLvl"><button type="button" data-l="easy" data-i18n="gEasy">쉬움</button><button type="button" data-l="normal" data-i18n="gNormal">보통</button><button type="button" data-l="hard" data-i18n="gHard">어려움</button></div></div>
+  <div class="rpsBoard">
+    <div class="rpsSide"><small data-i18n="rYou">나</small><b id="rpsMe">0</b></div>
+    <div class="rpsMid"><span id="rpsRound"></span><div class="rpsDots" id="rpsDots"></div></div>
+    <div class="rpsSide"><small data-i18n="rCpu">해피봇</small><b id="rpsCpu">0</b></div>
+  </div>
+  <div class="rpsArena"><div class="rpsHand l" id="rpsL">✊</div><div class="rpsVs">VS</div><div class="rpsHand r" id="rpsR">✊</div></div>
+  <p class="rpsMsg" id="rpsMsg"></p>
+  <div class="rpsPick" id="rpsPick">
+    <button type="button" data-mv="1"><i>✌️</i><span data-i18n="rScissors">가위</span></button>
+    <button type="button" data-mv="0"><i>✊</i><span data-i18n="rRock">바위</span></button>
+    <button type="button" data-mv="2"><i>✋</i><span data-i18n="rPaper">보</span></button>
+  </div>
+  <div class="rpsEnd" id="rpsEnd" hidden><div class="e" id="rpsEndE">🏆</div><b id="rpsEndT"></b><div class="s" id="rpsEndS"></div><button type="button" class="gGo" id="rpsAgain" data-i18n="gRetry">다시 하기</button><button type="button" class="gGhost" id="rpsExit" data-i18n="gExit">나가기</button></div>
+  <p class="rpsStats" id="rpsStats"></p>
+</div>
+
 <div class="splash" id="splash" role="status" aria-live="polite"><div class="vinyl"></div><b data-i18n="brand">해피뮤직</b><p id="splashMsg" data-i18n="updChecking">업데이트를 확인하는 중…</p><div class="ubar"><i id="splashBar" style="width:15%"></i></div></div>
 
 <div class="ob" id="ob" hidden>
@@ -1036,6 +1101,10 @@ Object.assign(I18N.T,{
  wNewTab:X13('새 탭','New tab'),wHist:X13('방문 기록','History'),wClearAll:X13('모두 지우기','Clear all'),wCopyUrl:X13('주소 복사','Copy link'),wOpenExt:X13('다른 브라우저로 열기','Open in another browser'),wEngine:X13('검색 엔진','Search engine'),wQuick:X13('바로가기','Shortcuts'),wRecent:X13('최근 방문','Recent'),
  wBmAdd:X13('북마크에 추가했어요','Bookmarked'),wBmDel:X13('북마크에서 뺐어요','Bookmark removed'),wNoBm:X13('북마크가 없어요. 아래 ☆ 버튼으로 추가해요','No bookmarks yet. Tap ☆ to add'),wNoHist:X13('방문 기록이 없어요','No history'),wCopied:X13('주소를 복사했어요','Link copied'),
  wDl:X13('다운로드를 시작했어요: {f}','Download started: {f}'),wDlFail:X13('이 파일은 받을 수 없어요','Could not download this file'),wOldApp:X13('지금 앱 버전에서는 일부 사이트가 열리지 않을 수 있어요. 앱을 5.0으로 업데이트하면 모든 사이트가 열려요.','Some sites may not open in this app version. Update the app to 5.0 to open every site.'),
+ rTitle:X13('가위바위보','Rock Paper Scissors'),rCardSub:X13('해피봇과 한판 승부!','Beat HappyBot!'),rOne:X13('단판','Single'),rBo3:X13('3판 2선승','Best of 3'),rBo5:X13('5판 3선승','Best of 5'),rYou:X13('나','You'),rCpu:X13('해피봇','HappyBot'),
+ rRock:X13('바위','Rock'),rScissors:X13('가위','Scissors'),rPaper:X13('보','Paper'),rS1:X13('가위!','Rock!'),rS2:X13('바위!','Paper!'),rS3:X13('보!','Scissors!'),rPick:X13('아래에서 하나를 골라요','Pick one below'),
+ rWin:X13('이겼다! 🎉','You win! 🎉'),rLose:X13('졌다… 😢','You lose… 😢'),rDraw:X13('비겼어요!','Draw!'),rChamp:X13('최종 승리!','Victory!'),rLost:X13('아쉽게 패배','Defeat'),
+ rRoundN:X13('{n} / {m} 판','Round {n} of {m}'),rStreak:X13('연승 {n} · 최고 {b}','Streak {n} · Best {b}'),rStats:X13('전적 {g}전 {w}승 · 승률 {p}%','{w} wins of {g} games · {p}%'),
  wPermT:X13('{s}에서 다음 권한을 사용하려고 해요','{s} wants to use'),wPGeo:X13('위치 (지도·주변 검색)','Your location'),wPCam:X13('카메라','Camera'),wPMic:X13('마이크','Microphone'),wPMedia:X13('보호된 콘텐츠 재생','Protected content'),wPOther:X13('기타 기능','Other features'),wAllow:X13('허용','Allow'),wBlock:X13('차단','Block'),wRemember:X13('이 사이트에 대해 기억하기','Remember for this site'),wSitePerms:X13('사이트 권한','Site permissions'),wNoSitePerms:X13('저장된 사이트 권한이 없어요','No saved site permissions'),wAllowed:X13('허용됨','Allowed'),wBlocked:X13('차단됨','Blocked'),wPermFail:X13('휴대폰 설정에서 해피뮤직의 권한을 허용해야 쓸 수 있어요','Allow the permission for HappyMusic in phone settings'),
  wTabMax:X13('탭은 10개까지 열 수 있어요','Up to 10 tabs'),wEngSet:X13('검색 엔진: {e}','Search engine: {e}'),pPro:X13('Pro Max 기능','Pro Max')
 });
@@ -1786,7 +1855,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.0.1';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.0.2';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2000,7 +2069,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["📍","인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기를 쓸 수 있어요. 사이트마다 허용/차단을 물어보고 기억해요","Maps (location), camera, microphone and file uploads now work in the browser, with per-site permissions"],
+const WEB_NOTES=[["✌️","새 미니 게임: 가위바위보! 해피봇은 어려움 단계에서 내 버릇을 읽어요","New mini game: Rock Paper Scissors — on Hard, HappyBot learns your habits"],
+ ["📍","인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기를 쓸 수 있어요. 사이트마다 허용/차단을 물어보고 기억해요","Maps (location), camera, microphone and file uploads now work in the browser, with per-site permissions"],
  ["🌐","앱 안 인터넷 브라우저: 주소창·탭·북마크·방문 기록, 음악은 계속 재생","Built-in web browser with tabs, bookmarks and history — music keeps playing"],
  ["📂","내 플레이리스트: 만들고, 담고, 이름 바꾸기","Your own playlists"],
  ["🎚️","사운드: 5밴드 이퀄라이저·프리셋, 재생 속도","Sound: 5-band equalizer with presets, playback speed"],
@@ -2603,6 +2673,62 @@ if(typeof DESK!=='undefined'&&DESK){
   $('dEq').onclick=openSound;$('dAddPl').onclick=()=>openAddTo(cur);
 }
 window.__pro={W,openWeb,closeWeb,wNorm,pls:()=>pls,plCreate,openAddTo,openList,eqG:()=>eqG,soundUI,wBack,webOn,onBrowser:window.onBrowser};
+
+/* ---------- 미니 게임: 가위바위보 ---------- */
+const RPS={on:false,mode:LS.get('rpsMode',3),lvl:LS.get('rpsLvl','normal'),me:0,cpu:0,round:0,streak:+LS.get('rpsStreak',0)||0,best:+LS.get('rpsBest',0)||0,
+  wins:+LS.get('rpsWins',0)||0,games:+LS.get('rpsGames',0)||0,hist:[],busy:false,trans:{}};
+const RH=['✊','✌️','✋'],RK=['rRock','rScissors','rPaper'];
+const beats=(a,b)=>(a===0&&b===1)||(a===1&&b===2)||(a===2&&b===0); // 바위>가위>보>바위
+let rpsAC=null;
+function rpsBeep(f,d=.09,type='triangle',v=.12){try{rpsAC=rpsAC||new (window.AudioContext||window.webkitAudioContext)();const o=rpsAC.createOscillator(),g=rpsAC.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;g.gain.exponentialRampToValueAtTime(.0001,rpsAC.currentTime+d);o.connect(g);g.connect(rpsAC.destination);o.start();o.stop(rpsAC.currentTime+d+.02)}catch(e){}}
+function rpsSfx(k){if(k==='tick')rpsBeep(520,.07);else if(k==='win'){[660,880,1180].forEach((f,i)=>setTimeout(()=>rpsBeep(f,.14,'triangle',.14),i*110))}else if(k==='lose'){[420,300].forEach((f,i)=>setTimeout(()=>rpsBeep(f,.2,'sawtooth',.07),i*150))}else if(k==='draw')rpsBeep(600,.12,'sine',.1);else if(k==='champ'){[523,659,784,1046,1318].forEach((f,i)=>setTimeout(()=>rpsBeep(f,.16,'triangle',.15),i*120))}}
+/* 컴퓨터: 쉬움=무작위, 보통=가끔 예측, 어려움=사용자의 다음 수를 예측해서 이기는 수 */
+function rpsCpu(){const last=RPS.hist.length?RPS.hist[RPS.hist.length-1].me:null;const p={easy:0,normal:.35,hard:.62}[RPS.lvl]||0;
+  if(last!==null&&Math.random()<p){const c=RPS.trans[last]||[0,0,0];let guess=c.indexOf(Math.max(...c));if(Math.max(...c)===0)guess=Math.random()*3|0;return [2,0,1][guess]}
+  return Math.random()*3|0}
+// guess의 천적: 바위(0)←보(2), 가위(1)←바위(0), 보(2)←가위(1) → [2,0,1][guess]
+function rpsNeed(){return Math.floor(RPS.mode/2)+1}
+function rpsUI(){
+  $('rpsMe').textContent=RPS.me;$('rpsCpu').textContent=RPS.cpu;
+  $('rpsRound').textContent=RPS.mode>1?t('rRoundN',{n:Math.min(RPS.round+1,RPS.mode),m:RPS.mode}):t('rOne');
+  $('rpsStreak').textContent=t('rStreak',{n:RPS.streak,b:RPS.best});
+  $('rpsDots').innerHTML=RPS.hist.slice(-RPS.mode).map(h=>`<i class="${h.r}"></i>`).join('');
+  for(const b of $('rpsMode').children)b.classList.toggle('on',+b.dataset.m===RPS.mode);
+  for(const b of $('rpsLvl').children)b.classList.toggle('on',b.dataset.l===RPS.lvl);
+  $('rpsStats').textContent=t('rStats',{w:RPS.wins,g:RPS.games,p:RPS.games?Math.round(RPS.wins/RPS.games*100):0});
+}
+function rpsReset(){RPS.over=false;RPS.me=RPS.cpu=RPS.round=0;RPS.hist=RPS.hist.slice(-20);$('rpsMsg').textContent=t('rPick');$('rpsMsg').className='rpsMsg';$('rpsL').textContent='✊';$('rpsR').textContent='✊';$('rpsEnd').hidden=true;$('rpsPick').hidden=false;rpsUI()}
+function openRps(){if(typeof closeAll==='function')closeAll();RPS.on=true;$('rps').hidden=false;rpsReset()}
+function closeRps(){RPS.on=false;$('rps').hidden=true;RPS.busy=false}
+async function rpsPlay(mv){
+  if(RPS.busy||RPS.over||!$('rpsEnd').hidden)return;RPS.busy=true;
+  for(const b of $('rpsPick').children)b.classList.toggle('on',+b.dataset.mv===mv);
+  const L=$('rpsL'),R=$('rpsR'),msg=$('rpsMsg');L.textContent='✊';R.textContent='✊';msg.className='rpsMsg';
+  const words=[t('rS1'),t('rS2'),t('rS3')];
+  for(let i=0;i<3;i++){msg.textContent=words[i];L.classList.remove('shake');R.classList.remove('shake');void L.offsetWidth;L.classList.add('shake');R.classList.add('shake');rpsSfx('tick');await new Promise(r=>setTimeout(r,330));if(!RPS.on){RPS.busy=false;return}}
+  const cpu=rpsCpu();L.textContent=RH[mv];R.textContent=RH[cpu];L.classList.remove('shake');R.classList.remove('shake');
+  const res=mv===cpu?'d':beats(mv,cpu)?'w':'l';
+  if(RPS.hist.length){const pm=RPS.hist[RPS.hist.length-1].me;(RPS.trans[pm]=RPS.trans[pm]||[0,0,0])[mv]++}
+  RPS.hist.push({me:mv,cpu,r:res});
+  if(res==='w'){RPS.me++;RPS.round++;msg.textContent=t('rWin');rpsSfx('win');L.classList.add('pop')}
+  else if(res==='l'){RPS.cpu++;RPS.round++;msg.textContent=t('rLose');rpsSfx('lose');R.classList.add('pop')}
+  else{msg.textContent=t('rDraw');rpsSfx('draw')}
+  msg.className='rpsMsg '+res;setTimeout(()=>{L.classList.remove('pop');R.classList.remove('pop')},600);
+  const need=rpsNeed();
+  if(RPS.me>=need||RPS.cpu>=need){const won=RPS.me>=need;RPS.over=true;RPS.games++;if(won){RPS.wins++;RPS.streak++;if(RPS.streak>RPS.best)RPS.best=RPS.streak}else RPS.streak=0;
+    LS.set('rpsWins',RPS.wins);LS.set('rpsGames',RPS.games);LS.set('rpsStreak',RPS.streak);LS.set('rpsBest',RPS.best);
+    setTimeout(()=>{$('rpsEndT').textContent=won?t('rChamp'):t('rLost');$('rpsEndE').textContent=won?'🏆':'😵';$('rpsEndS').textContent=`${RPS.me} : ${RPS.cpu}`;$('rpsEnd').className='rpsEnd '+(won?'w':'l');$('rpsEnd').hidden=false;$('rpsPick').hidden=true;if(won)rpsSfx('champ');rpsUI()},650)}
+  rpsUI();setTimeout(()=>{RPS.busy=false;for(const b of $('rpsPick').children)b.classList.remove('on')},400);
+}
+$('rpsPick').addEventListener('click',e=>{const b=e.target.closest('[data-mv]');if(b)rpsPlay(+b.dataset.mv)});
+$('rpsMode').addEventListener('click',e=>{const b=e.target.closest('[data-m]');if(!b||RPS.busy)return;RPS.mode=+b.dataset.m;LS.set('rpsMode',RPS.mode);rpsReset()});
+$('rpsLvl').addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(!b)return;RPS.lvl=b.dataset.l;LS.set('rpsLvl',RPS.lvl);rpsUI()});
+$('rpsAgain').onclick=rpsReset;$('rpsX').onclick=closeRps;$('rpsExit').onclick=closeRps;
+$('rpsCard').onclick=openRps;
+addEventListener('keydown',e=>{if(!RPS.on)return;const k=e.key.toLowerCase();const m={'1':0,'2':1,'3':2,r:0,s:1,p:2}[k];if(m!==undefined&&!e.ctrlKey&&!e.metaKey){e.preventDefault();e.stopImmediatePropagation();rpsPlay(m)}else if(k==='escape'){e.stopImmediatePropagation();closeRps()}else if(k==='enter'&&!$('rpsEnd').hidden){rpsReset()}},true);
+{const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(RPS.on){closeRps();return true}return _bk?_bk():false}}
+if(typeof DESK!=='undefined'&&DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(b&&b.dataset.v==='rps'){e.stopImmediatePropagation();openRps()}},true)}
+window.__rps={RPS,openRps,closeRps,rpsPlay,rpsCpu};
 
 initDesk();window.__player={audio,get cur(){return cur}};window.__lib={get tracks(){return tracks},playFrom,sorted,closeSheet,get obSteps(){return obSteps}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
 })();

@@ -1,11 +1,11 @@
 {
- "version": "5.0.1",
+ "version": "5.0.2",
  "native": "5.1",
- "web": "web/5.0.1.html",
+ "web": "web/5.0.2.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.1.apk",
  "notes": {
-  "ko": "· 📍 인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기 지원\n· 사이트마다 허용/차단을 물어보고 기억해요 (메뉴 › 사이트 권한)",
-  "en": "· 📍 Location, camera, microphone and file uploads in the browser\n· Per-site allow/block, remembered (Menu › Site permissions)"
+  "ko": "· ✌️ 새 미니 게임: 가위바위보 (단판·3판·5판, 해피봇 난이도 3단계)",
+  "en": "· ✌️ New mini game: Rock Paper Scissors"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe"
