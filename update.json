@@ -1,10 +1,10 @@
 {
- "version": "4.4.2",
+ "version": "4.4.3",
  "native": "4.4",
- "web": "index.html",
+ "web": "web/4.4.3.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v4.4.apk",
  "notes": {
-  "ko": "· 업데이트가 끝나면 바뀐 내용을 바로 보여줘요\n· 설정 › 업데이트에서 '바뀐 내용 보기'로 다시 볼 수 있어요",
-  "en": "· Shows what's new right after an update\n· See it again in Settings › Update › What's new"
+  "ko": "· 업데이트가 더 확실하게 적용돼요\n· 앱을 켜 둔 채 돌아와도 새 버전을 확인해요\n· 업데이트 후 바뀐 내용을 보여줘요",
+  "en": "· Updates apply more reliably\n· Checks for updates when you return to the app\n· Shows what's new after updating"
  }
 }

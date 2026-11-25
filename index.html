@@ -1267,7 +1267,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='4.4.2';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='4.4.3';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -1312,8 +1312,7 @@ async function preLaunchUpdate(){
       $('splashMsg').textContent=t('updNewT',{v:m.version});
       const w=await tf(RAW(repo,m.web||'web/index.html')+'?t='+Date.now(),15000);if(!w.ok)throw 0;
       const h=await w.text();bar.style.width='90%';
-      LS.set('updTried',m.version);
-      if(validWeb(h,m.version)&&AND.saveWeb(h)){LS.set('updJust',m.version);bar.style.width='100%';$('splashMsg').textContent=t('updDone');setTimeout(()=>location.reload(),500);return 'reload'}
+      if(validWeb(h,m.version)&&(LS.set('updTried',m.version),AND.saveWeb(h))){LS.set('updJust',m.version);bar.style.width='100%';$('splashMsg').textContent=t('updDone');setTimeout(()=>location.reload(),500);return 'reload'}
     }else if(needApk&&LS.get('updSkip','')!==m.version){updInfo={...m,repo,apk:true};done();setTimeout(showUpd,300);return}
   }catch(e){}
   done();
@@ -1346,8 +1345,11 @@ $('updGo').onclick=()=>{if(!updInfo)return;$('updGo').disabled=true;
 $('updSkipB').onclick=()=>{if(updInfo)LS.set('updSkip',updInfo.version);closeSheet()};
 $('updAuto').onchange=()=>LS.set('updAuto',$('updAuto').checked);
 $('updCheckBtn').onclick=()=>checkUpdate(true);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["✨","업데이트가 끝나면 바뀐 내용을 이렇게 바로 보여줘요","After an update, you'll see what's new right here"],
+const WEB_NOTES=[["🔄","업데이트가 더 확실하게 적용돼요 (받는 중 실패해도 다음에 다시 시도)","Updates apply more reliably (retries if a download fails)"],
+ ["⏰","앱을 오래 켜 두어도 돌아올 때 새 버전을 확인해요","Checks for new versions when you return to the app"],
+ ["✨","업데이트가 끝나면 바뀐 내용을 이렇게 바로 보여줘요","After an update, you'll see what's new right here"],
  ["📋","설정 › 업데이트에서 '바뀐 내용 보기'로 언제든 다시 볼 수 있어요","See it again anytime in Settings › Update › What's new"],
  ["👆","재생바 좌우로 밀기 · 커버 두 번 탭으로 좋아요 (4.4.1)","Swipe the player bar · double-tap the cover to like (4.4.1)"]];
 {const X=(k,e)=>[k,...Array(13).fill(e)];Object.assign(I18N.T,{newT:X("{v} 버전으로 업데이트됐어요","Updated to {v}"),newSub:X("다시 설치하지 않고 바로 적용됐어요","Applied instantly without reinstalling"),newBtn:X("바뀐 내용 보기","What's new"),newOk:X("좋아요","Nice")})}
