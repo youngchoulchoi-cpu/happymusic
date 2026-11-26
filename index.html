@@ -1613,6 +1613,7 @@ Object.assign(I18N.T,{
  tkNeedCode:X13('초대 코드는 관리자나 멤버에게 받으세요.','Get an invite code from the admin or a member.'),
  tkSrvChange:X13('서버 연결 바꾸기','Change server'),tkJoinT:X13('가입 마무리','Finish joining'),tkJoinD:X13('계정은 만들어졌어요. 닉네임과 초대 코드를 넣으면 들어갈 수 있어요.','Your account exists. Enter a nickname and invite code to get in.'),tkJoinGo:X13('들어가기','Join'),
  tkWelcome:X13('{n}님, 환영해요!','Welcome, {n}!'),tkWelcomeAdmin:X13('{n}님, 관리자로 가입했어요 👑','Welcome {n} — you’re the admin 👑'),tkLoggedOut:X13('로그아웃했어요','Signed out'),tkLogout:X13('로그아웃','Sign out'),
+ tkPrepT:X13('해피톡 서버 준비 중','HappyTalk server is being set up'),tkPrepD:X13('서버가 준비되면 업데이트 없이 자동으로 연결돼요. 잠시 후 다시 열어 주세요.','It connects automatically once the server is ready — no setup needed. Please check back soon.'),tkManual:X13('관리자: 직접 연결','Admin: connect manually'),
  tkSetupD:X13('해피톡을 쓰려면 서버(Supabase) 연결이 필요해요. 관리자가 한 번만 설정하면 돼요.','HappyTalk needs a server (Supabase). The admin sets this up once.'),tkSetupH:X13('서버 연결 (관리자)','Server connection (admin)'),tkConnect:X13('연결하기','Connect'),
  tkSetupNote:X13('Supabase › Project Settings › API 에서 Project URL과 Publishable(anon) 키를 복사해 넣으세요. 비밀 키(secret/service_role)는 절대 넣지 마세요.','Copy the Project URL and the publishable (anon) key from Supabase › Project Settings › API. Never paste the secret/service_role key.'),
  tkSetupBad:X13('주소(https://…supabase.co)와 키를 확인해 주세요','Check the URL (https://…supabase.co) and key'),tkSetupNoSql:X13('서버에 해피톡 설정이 없어요. SQL Editor에서 설정 SQL을 먼저 실행해 주세요.','The server isn’t set up yet. Run the setup SQL in the SQL Editor first.'),tkConnected:X13('서버에 연결했어요','Connected to the server'),
@@ -2461,7 +2462,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.5.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.5.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2479,7 +2480,7 @@ async function checkUpdate(manual){
   if(updBusy)return;updBusy=true;if(manual)updMsg(t('updChecking'));
   try{
     const r=await fetch(RAW(repo,'update.json')+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;
-    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||''});
+    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||'',talkUrl:m.talkUrl||'',talkKey:m.talkKey||''});
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(!newer&&!needApk){if(manual)updMsg(t('updLatest')+' · '+WEB_VERSION)}
     else if(!manual&&LS.get('updSkip','')===m.version){}
@@ -2501,7 +2502,7 @@ async function preLaunchUpdate(){
   try{
     const repo=REPO;bar.style.width='35%';
     const r=await tf(RAW(repo,'update.json')+'?t='+Date.now(),4000);if(!r.ok)throw 0;
-    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||''});bar.style.width='55%';
+    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||'',talkUrl:m.talkUrl||'',talkKey:m.talkKey||''});bar.style.width='55%';
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(newer&&LS.get('updTried','')!==m.version){
       $('splashMsg').textContent=t('updNewT',{v:m.version});
@@ -3593,7 +3594,10 @@ const TK_URL='',TK_KEY='';   // 서버 주소와 공개 키 (관리자가 알려
 const TK={cfg:null,ses:LS.get('tkSes',null),me:null,status:null,view:'chats',room:null,rooms:[],people:{},settings:null,
   msgs:[],firstId:0,lastId:0,read:LS.get('tkRead',{}),signed:{},poll:0,bgPoll:0,authTab:'in',fileFilter:'all',invite:null,
   sending:0,unread:0,loadingRoom:false,err:''};
-function tkCfg(){const c=LS.get('tkCfg',null);if(c&&c.url&&c.key)return c;return TK_URL&&TK_KEY?{url:TK_URL,key:TK_KEY}:null}
+function tkCfg(){const c=LS.get('tkCfg',null);if(c&&c.url&&c.key)return c;const m=LS.get('updMan',null)||{};
+  if(m.talkUrl&&m.talkKey)return {url:m.talkUrl,key:m.talkKey};return TK_URL&&TK_KEY?{url:TK_URL,key:TK_KEY}:null}
+async function tkFetchCfg(){try{const r=await fetch(RAW(REPO,'update.json')+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return null;const m=await r.json();
+  const o=Object.assign({},LS.get('updMan',null)||{},{talkUrl:m.talkUrl||'',talkKey:m.talkKey||''});LS.set('updMan',o);return tkCfg()}catch(e){return null}}
 TK.cfg=tkCfg();
 const tkOn=()=>!$('talk').hidden;
 const tkBase=()=>TK.cfg.url.replace(/\/+$/,'');
@@ -3652,7 +3656,7 @@ function openTalk(v){if(!labOn('talk'))return;closeAll();if(typeof webOn==='func
   $('talk').hidden=false;TK.view=v||(TK.room?'room':'chats');if(TK.view==='room'&&!TK.room)TK.view='chats';tkBoot()}
 function closeTalk(){tkStopPoll();$('talk').hidden=true;$('talk').classList.remove('inRoom');tkHideAct();tkCardUI()}
 async function tkBoot(){TK.cfg=tkCfg();
-  if(!TK.cfg){tkShow('setup');return}
+  if(!TK.cfg){tkShow('loading');TK.cfg=await tkFetchCfg();if(!TK.cfg){tkShow('setup');return}}
   if(!TK.ses){if(!TK.status)tkRpc('hm_status').then(s=>{TK.status=s;if(TK.view==='auth')tkRender()}).catch(()=>{});tkShow('auth');return}
   if(!TK.me){tkShow('loading');try{TK.me=await tkRpc('hm_me')}catch(e){if(!TK.ses){tkShow('auth');return}tkShow('error',tkMsg(e));return}
     if(!TK.me){tkShow('join');return}}
@@ -3688,8 +3692,10 @@ function tkRender(){tkHead();const M=$('tkMain'),v=TK.view;
   else if(v==='invite')M.innerHTML=tkInviteHTML();
   else if(v==='room')tkRoomRender(true)}
 /* ---------- 서버 연결 (관리자 처음 한 번) ---------- */
-function tkSetupHTML(){const c=LS.get('tkCfg',null)||{};return `<div class="tkWrap"><div class="tkHero"><i>💬</i><h2>${esc(t('tkT'))}</h2><p>${esc(t('tkSetupD'))}</p></div>
-  <form class="tkCard" id="tkSetupF"><h3>${esc(t('tkSetupH'))}</h3>
+function tkSetupHTML(){const c=LS.get('tkCfg',null)||{};return `<div class="tkWrap"><div class="tkHero"><i>🛠️</i><h2>${esc(t('tkPrepT'))}</h2><p>${esc(t('tkPrepD'))}</p></div>
+  <button class="tkBtn" type="button" data-a="retry">${esc(t('tkRetry'))}</button>
+  <button class="tkBtn ghost" type="button" data-a="manual" style="margin-top:8px" ${TK.manual?'hidden':''}>${esc(t('tkManual'))}</button>
+  <form class="tkCard" id="tkSetupF" ${TK.manual?'':'hidden'}><h3>${esc(t('tkSetupH'))}</h3>
   <label class="tkF"><span>Project URL</span><input id="tkSU" type="url" inputmode="url" placeholder="https://xxxx.supabase.co" value="${esc(c.url||'')}" autocomplete="off"></label>
   <label class="tkF"><span>Publishable / anon key</span><input id="tkSK" type="text" placeholder="sb_publishable_… / eyJ…" value="${esc(c.key||'')}" autocomplete="off"></label>
   <p class="tkErr" id="tkErr"></p><button class="tkBtn" type="submit">${esc(t('tkConnect'))}</button><p class="tkNote">${esc(t('tkSetupNote'))}</p></form></div>`}
@@ -3904,7 +3910,7 @@ $('tkMain').addEventListener('submit',e=>{e.preventDefault();const id=e.target.i
 $('tkMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
   if(b=g('[data-auth]')){TK.authTab=b.dataset.auth;tkRender();if(TK.authTab==='up'&&!TK.status)tkRpc('hm_status').then(s=>{TK.status=s;if(TK.view==='auth')tkRender()}).catch(()=>{});return}
   if(b=g('[data-a]')){const a=b.dataset.a;
-    if(a==='retry')tkBoot();else if(a==='logout')tkLogout();else if(a==='srv'){tkShow('setup')}
+    if(a==='retry')tkBoot();else if(a==='manual'){TK.manual=true;tkRender()}else if(a==='logout')tkLogout();else if(a==='srv'){tkShow('setup')}
     else if(a==='invite'){TK.invite=null;tkShow('invite')}else if(a==='share')tkShareInvite(TK.invite.code);
     else if(a==='copyinv'){navigator.clipboard.writeText(tkInviteText(TK.invite.code)).then(()=>toast(t('tkInvCopied'))).catch(()=>toast(t('tkCopyFail')))}
     else if(a==='older')tkLoadMsgs(true);return}

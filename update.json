@@ -1,14 +1,16 @@
 {
- "version": "5.5.0",
+ "version": "5.5.1",
  "native": "5.5",
- "web": "web/5.5.0.html",
+ "web": "web/5.5.1.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.5.apk",
  "notes": {
-  "ko": "· 💬 해피톡: 관리자·멤버 계정, 전체·1:1 채팅\n· 사진·음악·문서 파일 주고받기 (다운로드 폴더에 저장)\n· 초대 코드로 해피앱에 초대 (카톡·문자로 보내기)\n· 관리자: 회원 차단·역할, 초대 코드 관리, 저장 공간 확인\n· 앱 5.5: 초대 글 공유, 초대 링크로 바로 열기",
-  "en": "· 💬 HappyTalk: admin/member accounts, group & 1:1 chats\n· Share photos, music and documents\n· Invite codes to join HappyMusic\n· Admin: block members, roles, invites, storage\n· App 5.5: share invites, open invite links"
+  "ko": "· 💬 해피톡 서버 주소를 앱이 자동으로 받아와요 (입력할 필요 없음)\n· 💬 해피톡: 관리자·멤버 계정, 전체·1:1 채팅\n· 사진·음악·문서 파일 주고받기 (다운로드 폴더에 저장)\n· 초대 코드로 해피앱에 초대 (카톡·문자로 보내기)\n· 관리자: 회원 차단·역할, 초대 코드 관리, 저장 공간 확인\n· 앱 5.5: 초대 글 공유, 초대 링크로 바로 열기",
+  "en": "· 💬 HappyTalk now gets its server address automatically\n· 💬 HappyTalk: admin/member accounts, group & 1:1 chats\n· Share photos, music and documents\n· Invite codes to join HappyMusic\n· Admin: block members, roles, invites, storage\n· App 5.5: share invites, open invite links"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
  "agent": "1.0",
- "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk"
+ "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk",
+ "talkUrl": "",
+ "talkKey": ""
 }
