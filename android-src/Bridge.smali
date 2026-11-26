@@ -989,3 +989,146 @@
     return v1
 .end method
 
+# 해피톡 알림 대기 모드 설정 (on, url, key, at, rt, exp, me)
+.method public talkSvc(Ljava/lang/String;)V
+    .locals 6
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    new-instance v0, Lorg/json/JSONObject;
+    invoke-direct {v0, p1}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+    iget-object v1, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    const-string v2, "talk"
+    const/4 v3, 0x0
+    invoke-virtual {v1, v2, v3}, Lcom/turntable/player/MainActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v2
+    invoke-interface {v2}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    move-result-object v2
+    const-string v3, "on"
+    const/4 v4, 0x0
+    invoke-virtual {v0, v3, v4}, Lorg/json/JSONObject;->optBoolean(Ljava/lang/String;Z)Z
+    move-result v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+    const-string v3, "url"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s1
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    :s1
+    const-string v3, "key"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s2
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    :s2
+    const-string v3, "at"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s3
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    :s3
+    const-string v3, "rt"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s4
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    :s4
+    const-string v3, "me"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s5
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+    :s5
+    const-string v3, "exp"
+    invoke-virtual {v0, v3}, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+    move-result v4
+    if-eqz v4, :s6
+    const-wide/16 v4, 0x0
+    invoke-virtual {v0, v3, v4, v5}, Lorg/json/JSONObject;->optLong(Ljava/lang/String;J)J
+    move-result-wide v4
+    invoke-interface {v2, v3, v4, v5}, Landroid/content/SharedPreferences$Editor;->putLong(Ljava/lang/String;J)Landroid/content/SharedPreferences$Editor;
+    :s6
+    invoke-interface {v2}, Landroid/content/SharedPreferences$Editor;->commit()Z
+    iget-object v1, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-static {v1}, Lcom/turntable/player/TalkService;->apply(Landroid/content/Context;)V
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    return-void
+.end method
+
+# 앱 화면이 보이는지 (보일 때는 웹 화면이 직접 확인하므로 대기 모드는 쉰다)
+.method public talkFg(Z)V
+    .locals 4
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    const-string v1, "talk"
+    const/4 v2, 0x0
+    invoke-virtual {v0, v1, v2}, Lcom/turntable/player/MainActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v0
+    invoke-interface {v0}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
+    move-result-object v0
+    const-string v1, "fg"
+    invoke-interface {v0, v1, p1}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+    invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
+    if-nez p1, :r
+    sget-object v0, Lcom/turntable/player/TalkService;->inst:Lcom/turntable/player/TalkService;
+    if-eqz v0, :r
+    const-wide/16 v2, 0x4e20
+    invoke-virtual {v0, v2, v3}, Lcom/turntable/player/TalkService;->schedule(J)V
+    :r
+    nop
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    return-void
+.end method
+
+# 대기 모드가 새로 받은 로그인 토큰을 웹 화면에 넘겨준다
+.method public talkSes()Ljava/lang/String;
+    .locals 6
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    const-string v1, "talk"
+    const/4 v2, 0x0
+    invoke-virtual {v0, v1, v2}, Lcom/turntable/player/MainActivity;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    move-result-object v0
+    new-instance v1, Lorg/json/JSONObject;
+    invoke-direct {v1}, Lorg/json/JSONObject;-><init>()V
+    const-string v2, "at"
+    const-string v3, ""
+    invoke-interface {v0, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-virtual {v1, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    const-string v2, "rt"
+    invoke-interface {v0, v2, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v4
+    invoke-virtual {v1, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    const-string v2, "exp"
+    const-wide/16 v4, 0x0
+    invoke-interface {v0, v2, v4, v5}, Landroid/content/SharedPreferences;->getLong(Ljava/lang/String;J)J
+    move-result-wide v4
+    invoke-virtual {v1, v2, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
+    invoke-virtual {v1}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
+    move-result-object v0
+    return-object v0
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    const-string v0, "{}"
+    return-object v0
+.end method

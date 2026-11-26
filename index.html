@@ -1604,9 +1604,11 @@ Object.assign(I18N.T,{"gameT": ["리듬 탭", "Rhythm Tap", "リズムタップ"
 Object.assign(I18N.T,{
  tkT:X13('해피톡','HappyTalk'),tkCardSub:X13('멤버와 채팅하고 파일을 주고받아요','Chat and share files with members'),tkCardLogin:X13('로그인하고 멤버와 이야기해요','Sign in to talk with members'),tkCardNew:X13('새 메시지가 있는 대화 {n}개','{n} chats with new messages'),tkCardHi:X13('{n}님, 멤버들과 이야기해 보세요','Hi {n}, say hello to your members'),
  labTalk:X13('해피톡 (계정 · 채팅 · 파일)','HappyTalk (accounts · chat · files)'),labTalkD:X13('관리자·멤버 계정, 1:1·전체 채팅, 파일 주고받기, 초대 코드 · 켜면 홈에 카드가 생겨요','Admin/member accounts, chats, file sharing and invites · adds a Home card'),
+ tkPBg:X13('앱을 닫아도 알림 받기','Alerts even when the app is closed'),tkPBgD:X13('배터리 절약형 · 화면이 꺼져 있을 때만 확인하고, 대화가 뜸하면 확인 간격을 늘려요 (30초~5분)','Battery saver · checks only while the app is closed, less often when chats are quiet (30 s–5 min)'),
+ tkBgOn:X13('앱을 닫아도 알림이 와요. 위쪽에 "알림 대기 중" 표시가 생겨요','Alerts on even when closed — a small “waiting” notice stays in the status bar'),tkBgOff:X13('앱을 닫으면 알림이 오지 않아요','No alerts after the app is closed'),
  tkNewMsg:X13('새 메시지','New message'),tkView:X13('보기','View'),tkNtfH:X13('알림','Notifications'),tkPSnd:X13('알림음 (해피톡)','Sound (HappyTalk chime)'),tkPNtf:X13('새 메시지 알림','New message alerts'),
  tkChimeTry:X13('알림음 듣기','Play sound'),tkNtfPerm:X13('알림 권한 확인','Check permission'),tkNtfOn:X13('알림이 켜져 있어요','Notifications are on'),tkNtfOff:X13('알림이 꺼져 있어요. 휴대폰 설정에서 켜 주세요','Notifications are off. Turn them on in system settings'),tkNtfAsk:X13('알림을 허용해 주세요 (허용 창이 안 뜨면 휴대폰 설정 › 앱 › 해피뮤직 › 알림)','Please allow notifications (or Settings › Apps › HappyMusic › Notifications)'),
- tkNtfNote:X13('앱이 켜져 있거나 백그라운드에 있을 때 새 메시지를 알려 줘요. 앱을 완전히 종료하면 알림이 오지 않아요.','Alerts arrive while the app is open or in the background, not after it is fully closed.'),
+ tkNtfNote:X13('"앱을 닫아도 알림 받기"를 켜면 앱을 밀어서 닫아도 알림이 와요 (앱 5.7). 휴대폰이 깊은 절전 상태면 알림이 몇 분 늦을 수 있어요.','With “Alerts even when closed” on, alerts arrive after you swipe the app away (app 5.7). Deep sleep can delay them a few minutes.'),
  tkChats:X13('채팅','Chats'),tkMembers:X13('멤버','Members'),tkFiles:X13('파일','Files'),tkAdmin:X13('관리','Admin'),tkMe:X13('내 정보','My profile'),tkRefresh:X13('새로고침','Refresh'),
  tkAttach:X13('파일 보내기','Send file'),tkMsgPh:X13('메시지 입력','Type a message'),tkSend:X13('보내기','Send'),
  tkHeroD:X13('멤버끼리 채팅하고 사진·음악·문서를 주고받는 공간이에요. 초대받은 사람만 가입할 수 있어요.','A private space to chat and share photos, music and documents. Invite only.'),
@@ -2465,7 +2467,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.6.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.7.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2679,7 +2681,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
+const WEB_NOTES=[["🔋","해피톡: 앱을 닫아도 알림 받기 (배터리 절약형 알림 대기 모드, 앱 5.7)","HappyTalk: alerts even when the app is closed (battery-saving, app 5.7)"],
+ ["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
  ["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],
  ["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
  ["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
@@ -3424,6 +3427,7 @@ function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
     if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
     if(k==='diary'&&$('diarySheet').classList.contains('on'))closeSheet();
     if(k==='talk'&&tkOn())closeTalk();
+    if(k==='talk'&&window.__tk&&__tk.tkSvcSync)__tk.tkSvcSync();
     if(k==='web'&&typeof webOn==='function'&&webOn())closeWeb();
     if(k==='tools'&&toolOn())closeTool();
     if(k==='games'){if(RPS.on)closeRps();if(typeof gameOn==='function'&&gameOn())exitGame()}}
@@ -3666,7 +3670,7 @@ async function tkBoot(){TK.cfg=tkCfg();
     if(!TK.me){tkShow('join');return}}
   if(TK.me.status==='blocked'){tkShow('blocked');return}
   tkRpc('hm_touch').catch(()=>{});
-  await tkLoadBase();tkAskNotify();try{AND&&AND.cancelNotify&&AND.cancelNotify()}catch(e){}
+  await tkLoadBase();tkAskNotify();tkSvcSync();try{AND&&AND.cancelNotify&&AND.cancelNotify()}catch(e){}
   if(TK.pendingRoom){const id=TK.pendingRoom;TK.pendingRoom=null;if(TK.rooms.some(r=>r.id===id)){tkOpenRoom(id);return}}
   tkShow(TK.view==='room'&&TK.room?'room':['members','files','admin','me','invite'].includes(TK.view)?TK.view:'chats')}
 async function tkLoadBase(){try{const [ps,st,rooms]=await Promise.all([tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at&order=nick.asc'),tkGet('hm_settings?select=*'),tkRpc('hm_rooms')]);
@@ -3892,6 +3896,7 @@ function tkMeHTML(){const m=TK.me;return `<div class="tkWrap"><div class="tkHero
   <div class="tkCard"><h3>🔔 ${esc(t('tkNtfH'))}</h3>
     <label class="tkSw"><span>${esc(t('tkPSnd'))}</span><input type="checkbox" class="sw" id="tkPSnd"${tkPref('snd')?' checked':''}></label>
     <label class="tkSw"><span>${esc(t('tkPNtf'))}</span><input type="checkbox" class="sw" id="tkPNtf"${tkPref('ntf')?' checked':''}></label>
+    ${tkSvcAvail()?`<label class="tkSw"><span>${esc(t('tkPBg'))}<br><small style="color:var(--mute);font-size:12px">${esc(t('tkPBgD'))}</small></span><input type="checkbox" class="sw" id="tkPBg"${tkPref('bg')?' checked':''}></label>`:''}
     <div class="tkRow2" style="margin-top:6px"><button class="tkBtn ghost" type="button" data-a="chime">🔊 ${esc(t('tkChimeTry'))}</button><button class="tkBtn ghost" type="button" data-a="ntfperm">${esc(t('tkNtfPerm'))}</button></div>
     <p class="tkNote">${esc(t('tkNtfNote'))}</p></div>
   ${tkCanInvite()?`<button class="tkBtn ghost" type="button" data-a="invite">✉️ ${esc(t('tkInviteBtn'))}</button>`:''}
@@ -3914,7 +3919,7 @@ function tkAlert(room,sender,body,file){
   if(sender&&!TK.people[sender]&&!room._retry){room._retry=1;tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at').then(ps=>{for(const p of ps||[])TK.people[p.id]=p}).catch(()=>{}).finally(()=>{tkAlert(room,sender,body,file);delete room._retry});return}
   const title=room.kind==='all'?t('tkAllRoom')+' · '+tkName(sender):(TK.people[sender]?TK.people[sender].nick:(room.peer_nick||t('tkT')));
   const text=String(tkPreview(body,file)).slice(0,200);
-  if(document.hidden){if(!tkNativeNotify(title,text,room.id))tkChime();return}
+  if(document.hidden){if(tkSvcOn())return;if(!tkNativeNotify(title,text,room.id))tkChime();return}
   if(tkOn()&&TK.view==='room'&&TK.room&&TK.room.id===room.id){tkChime(.45);return}
   tkChime();if(tkPref('ntf'))toast('💬 '+title+' · '+text.slice(0,40),t('tkView'),()=>{TK.pendingRoom=room.id;openTalk('chats')})}
 function tkCheckNew(){if(!TK.me)return;let ch=false;
@@ -3926,6 +3931,18 @@ function tkCheckNew(){if(!TK.me)return;let ch=false;
 function tkAskNotify(){if(LS.get('tkAskedN',false))return;LS.set('tkAskedN',true);
   if(AND&&typeof AND.notifyPerm==='function'&&!IS_PC){try{AND.notifyPerm()}catch(e){}}
   else if('Notification' in window&&Notification.permission==='default'){try{Notification.requestPermission()}catch(e){}}}
+
+/* ---------- 알림 대기 모드: 앱을 닫아도 알림 (안드로이드 · 배터리 절약형) ---------- */
+const tkSvcAvail=()=>!!(AND&&typeof AND.talkSvc==='function'&&!IS_PC);
+function tkSvcOn(){return tkSvcAvail()&&tkPref('bg')&&tkPref('ntf')&&labOn('talk')&&!!TK.ses&&!!TK.me&&TK.me.status==='active'&&!!TK.cfg}
+function tkSvcSync(){if(!tkSvcAvail())return;try{AND.talkSvc(JSON.stringify(tkSvcOn()?{on:true,url:tkBase(),key:TK.cfg.key,at:TK.ses.access_token,rt:TK.ses.refresh_token,exp:TK.ses.expires_at,me:TK.me.id}:{on:false}))}catch(e){}}
+function tkSvcAdopt(){if(!tkSvcAvail()||!TK.ses||typeof AND.talkSes!=='function')return;
+  try{const n=JSON.parse(AND.talkSes()||'{}');if(n.at&&n.rt&&+n.exp>(+TK.ses.expires_at||0)){TK.ses.access_token=n.at;TK.ses.refresh_token=n.rt;TK.ses.expires_at=+n.exp;LS.set('tkSes',TK.ses)}}catch(e){}}
+const tkFg=v=>{try{if(tkSvcAvail()&&typeof AND.talkFg==='function')AND.talkFg(!!v)}catch(e){}};
+{const _s=tkSaveSes;tkSaveSes=function(){_s.apply(this,arguments);tkSvcSync()}}
+{const _r=tkRefresh;tkRefresh=function(){tkSvcAdopt();return _r.apply(this,arguments)}}
+document.addEventListener('visibilitychange',()=>{tkFg(!document.hidden);if(!document.hidden)tkSvcAdopt()});
+tkFg(!document.hidden);
 /* ---------- 새 메시지 확인 (주기적) ---------- */
 function tkStartPoll(){tkStopPoll();if(!TK.me||TK.me.status!=='active')return;
   TK.poll=setInterval(async()=>{if(document.hidden||!tkOn())return;
@@ -3974,7 +3991,8 @@ $('tkMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
   if(b=g('[data-revoke]')){tkAdminDo('hm_revoke_invite',{p_code:b.dataset.revoke});return}
   if(b=g('[data-ishare]')){tkShareInvite(b.dataset.ishare);return}
   if(b=g('#tkSetMax [data-v]')){tkRpc('hm_admin_settings',{p_members_can_invite:null,p_max_file_mb:+b.dataset.v}).then(()=>{TK.settings.max_file_mb=+b.dataset.v;tkAdminRender();toast(t('tkSaved'))}).catch(err=>toast(tkMsg(err)));return}});
-$('tkMain').addEventListener('change',e=>{if(e.target.id==='tkPSnd'||e.target.id==='tkPNtf'){LS.set('tkN_'+(e.target.id==='tkPSnd'?'snd':'ntf'),e.target.checked);if(e.target.id==='tkPSnd'&&e.target.checked)tkChime(.9,true);return}
+$('tkMain').addEventListener('change',e=>{if(e.target.id==='tkPBg'){LS.set('tkN_bg',e.target.checked);tkSvcSync();toast(t(e.target.checked?'tkBgOn':'tkBgOff'));return}
+  if(e.target.id==='tkPSnd'||e.target.id==='tkPNtf'){LS.set('tkN_'+(e.target.id==='tkPSnd'?'snd':'ntf'),e.target.checked);if(e.target.id==='tkPNtf')tkSvcSync();if(e.target.id==='tkPSnd'&&e.target.checked)tkChime(.9,true);return}
   if(e.target.id==='tkSetInv'){const v=e.target.checked;tkRpc('hm_admin_settings',{p_members_can_invite:v,p_max_file_mb:null}).then(()=>{TK.settings.members_can_invite=v;toast(t('tkSaved'))}).catch(err=>{e.target.checked=!v;toast(tkMsg(err))})}});
 $('tkBar').addEventListener('submit',e=>{e.preventDefault();tkSendText()});
 $('tkIn').addEventListener('input',tkGrow);
@@ -3991,7 +4009,7 @@ setInterval(()=>{if(tkOn()&&TK.me&&!document.hidden)tkRpc('hm_touch').catch(()=>
 tkCardUI();
 {const _al=applyLang;applyLang=function(){_al.apply(this,arguments);tkCardUI();if(tkOn())tkRender()}}
 if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=talk]');if(b){e.stopImmediatePropagation();openTalk()}},true)}
-window.__tk={TK,openTalk,closeTalk,tkDeepLink,tkBoot,tkShow,tkLogout,tkSendFiles,tkBgCheck,tkInviteText};
+window.__tk={tkSvcSync,tkSvcOn,TK,openTalk,closeTalk,tkDeepLink,tkBoot,tkShow,tkLogout,tkSendFiles,tkBgCheck,tkInviteText};
 
 /* ---------- 긴 오디오 이어 듣기 (10분 이상) ---------- */
 const RES=LS.get('resumeAt',{});let resSaveT=0;

@@ -1,11 +1,11 @@
 {
- "version": "5.6.0",
- "native": "5.6",
- "web": "web/5.6.0.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.6.apk",
+ "version": "5.7.0",
+ "native": "5.7",
+ "web": "web/5.7.0.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.7.apk",
  "notes": {
-  "ko": "· 🔔 해피톡 새 메시지 알림: 전용 알림음 '띠링' + 휴대폰 알림 (앱 5.6)\n· 알림을 누르면 그 대화방이 바로 열려요\n· 앱 안에서는 알림음과 배너로 알려 줘요\n· 해피톡 › 내 정보에서 알림음·알림 켜고 끄기",
-  "en": "· 🔔 HappyTalk alerts: its own chime + phone notifications (app 5.6)\n· Tap an alert to open that chat\n· In-app chime and banner\n· Toggle sound/alerts in HappyTalk › My profile"
+  "ko": "· 🔋 해피톡: 앱을 닫아도 새 메시지 알림 (앱 5.7)\n· 배터리 절약형: 화면이 꺼져 있을 때만 확인, 대화가 뜸하면 확인 간격을 30초→1분 30초→5분으로 늘림\n· 인터넷이 없으면 쉬고, 로그아웃하면 자동으로 꺼짐\n· 해피톡 › 내 정보 › 알림에서 켜고 끄기",
+  "en": "· 🔋 HappyTalk: alerts even when the app is closed (app 5.7)\n· Battery saver: checks only while closed, backing off from 30 s to 5 min when chats are quiet\n· Pauses without internet, stops on sign-out\n· Toggle in HappyTalk › My profile › Notifications"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
