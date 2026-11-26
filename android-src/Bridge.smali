@@ -876,3 +876,57 @@
     const-string v0, ""
     return-object v0
 .end method
+
+.method public share(Ljava/lang/String;)V
+    .locals 3
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    new-instance v0, Landroid/content/Intent;
+    const-string v1, "android.intent.action.SEND"
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    const-string v1, "text/plain"
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->setType(Ljava/lang/String;)Landroid/content/Intent;
+    const-string v1, "android.intent.extra.TEXT"
+    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+    const/4 v1, 0x0
+    invoke-static {v0, v1}, Landroid/content/Intent;->createChooser(Landroid/content/Intent;Ljava/lang/CharSequence;)Landroid/content/Intent;
+    move-result-object v0
+    const/high16 v1, 0x10000000
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+    iget-object v2, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-virtual {v2, v0}, Lcom/turntable/player/MainActivity;->startActivity(Landroid/content/Intent;)V
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    return-void
+.end method
+
+.method public dlFile(Ljava/lang/String;Ljava/lang/String;)Z
+    .locals 5
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    move-result-object v0
+    new-instance v1, Landroid/app/DownloadManager$Request;
+    invoke-direct {v1, v0}, Landroid/app/DownloadManager$Request;-><init>(Landroid/net/Uri;)V
+    const/4 v2, 0x1
+    invoke-virtual {v1, v2}, Landroid/app/DownloadManager$Request;->setNotificationVisibility(I)Landroid/app/DownloadManager$Request;
+    invoke-virtual {v1, p2}, Landroid/app/DownloadManager$Request;->setTitle(Ljava/lang/CharSequence;)Landroid/app/DownloadManager$Request;
+    sget-object v2, Landroid/os/Environment;->DIRECTORY_DOWNLOADS:Ljava/lang/String;
+    invoke-virtual {v1, v2, p2}, Landroid/app/DownloadManager$Request;->setDestinationInExternalPublicDir(Ljava/lang/String;Ljava/lang/String;)Landroid/app/DownloadManager$Request;
+    iget-object v3, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    const-string v4, "download"
+    invoke-virtual {v3, v4}, Lcom/turntable/player/MainActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    move-result-object v3
+    check-cast v3, Landroid/app/DownloadManager;
+    invoke-virtual {v3, v1}, Landroid/app/DownloadManager;->enqueue(Landroid/app/DownloadManager$Request;)J
+    const/4 v0, 0x1
+    return v0
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    const/4 v0, 0x0
+    return v0
+.end method

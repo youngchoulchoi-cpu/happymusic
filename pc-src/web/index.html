@@ -691,6 +691,125 @@ html.lab-no-report #repCard,html.lab-no-report .dNav [data-v=report]{display:non
 .labC{background:linear-gradient(120deg,rgba(190,150,255,.5),rgba(120,140,255,.32) 60%,var(--mixEnd))}
 #repSheet [hidden]{display:none!important}
 #diarySheet [hidden]{display:none!important}
+#talk{position:fixed;inset:0;z-index:74;display:flex;flex-direction:column;background:var(--bg,#f4f5fb);color:var(--fg,inherit);overflow:hidden}
+html.dark #talk,html[data-theme=dark] #talk{background:#101016}
+#talk[hidden]{display:none}
+#talk [hidden]{display:none!important}
+.tkTop{display:flex;align-items:center;gap:4px;padding:calc(env(safe-area-inset-top,0px) + 8px) 8px 8px;border-bottom:1px solid rgba(127,127,127,.2);background:var(--card,rgba(255,255,255,.6));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tkHt{flex:1;min-width:0;display:flex;flex-direction:column;padding:0 4px}
+.tkHt b{font-size:18px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkHt span{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkHt span:empty{display:none}
+.tkB{width:42px;height:42px;border-radius:50%;border:0;background:none;color:inherit;display:grid;place-items:center;cursor:pointer;flex:none;padding:0;font:inherit}
+.tkB:hover{background:rgba(127,127,127,.12)}
+.tkB svg{width:23px;height:23px;fill:currentColor}
+.tkTabs{display:flex;gap:4px;padding:6px 8px;border-bottom:1px solid rgba(127,127,127,.2)}
+.tkTabs button{flex:1;position:relative;height:44px;border:0;border-radius:14px;background:none;color:var(--mute);display:flex;align-items:center;justify-content:center;gap:6px;font:700 14px inherit;font-family:inherit;cursor:pointer}
+.tkTabs button i{font-style:normal;font-size:17px}
+.tkTabs button.on{background:rgba(127,127,127,.14);color:inherit}
+.tkTabs em{position:absolute;top:5px;right:calc(50% - 40px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#ff4d6d;color:#fff;font:800 11px/18px inherit;font-family:inherit;font-style:normal;box-sizing:border-box}
+.tkMain{flex:1;overflow:auto;padding:12px 14px calc(env(safe-area-inset-bottom,0px) + 16px);-webkit-overflow-scrolling:touch}
+#talk.inRoom .tkMain{padding-bottom:10px}
+.tkWrap{max-width:720px;margin:0 auto}
+.tkHero{text-align:center;padding:18px 6px 8px}
+.tkHero i{font-style:normal;font-size:52px;display:block}
+.tkHero h2{margin:6px 0 4px;font-size:22px;font-weight:900}
+.tkHero p{margin:0 auto;max-width:440px;color:var(--mute);font-size:14px;line-height:1.55}
+.tkCard{padding:16px;border-radius:20px;background:var(--card,rgba(255,255,255,.7));border:1px solid rgba(127,127,127,.2);margin:12px 0}
+.tkCard h3{margin:0 0 10px;font-size:15px;font-weight:900}
+.tkF{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.tkF span{font-size:12.5px;font-weight:700;color:var(--sub)}
+.tkF input,.tkF select{height:46px;border-radius:14px;border:1.5px solid rgba(127,127,127,.3);background:var(--card,#fff);color:inherit;padding:0 14px;font:16px inherit;font-family:inherit;box-sizing:border-box;width:100%}
+.tkF input:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.tkSeg{display:flex;gap:4px;padding:4px;border-radius:16px;background:rgba(127,127,127,.12);margin-bottom:14px}
+.tkSeg button{flex:1;height:40px;border:0;border-radius:12px;background:none;color:var(--mute);font:800 14px inherit;font-family:inherit;cursor:pointer}
+.tkSeg button.on{background:var(--card,#fff);color:inherit;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.tkErr{color:#e5484d;font-size:13.5px;margin:2px 2px 10px;line-height:1.45}
+.tkErr:empty{display:none}
+.tkNote{font-size:12.5px;color:var(--mute);line-height:1.5;margin:8px 2px 0}
+.tkBtn{width:100%;height:48px;border:0;border-radius:15px;background:var(--blue);color:#fff;font:800 15px inherit;font-family:inherit;cursor:pointer;margin-top:4px}
+.tkBtn.ghost{background:rgba(127,127,127,.14);color:inherit}
+.tkBtn.red{background:rgba(229,72,77,.12);color:#e5484d}
+.tkBtn:disabled{opacity:.5;cursor:default}
+.tkRow2{display:flex;gap:8px}.tkRow2>*{flex:1}
+.tkList{display:flex;flex-direction:column}
+.tkIt{display:flex;align-items:center;gap:12px;width:100%;padding:11px 6px;border:0;border-bottom:1px solid rgba(127,127,127,.2);background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.tkIt:last-child{border-bottom:0}
+.tkIt:hover{background:rgba(127,127,127,.06)}
+.tkAv{width:46px;height:46px;border-radius:16px;flex:none;display:grid;place-items:center;font:900 18px inherit;font-family:inherit;color:#fff;position:relative}
+.tkAv.on::after{content:"";position:absolute;right:-2px;bottom:-2px;width:13px;height:13px;border-radius:50%;background:#22c55e;border:2px solid var(--bg,#fff)}
+.tkIt>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tkIt b{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkIt small{font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkIt .r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.tkIt .r time{font-size:11.5px;color:var(--mute)}
+.tkDot{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#ff4d6d;color:#fff;font:800 11px/20px inherit;font-family:inherit;text-align:center;box-sizing:border-box}
+.tkTag{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:2px;background:rgba(90,140,255,.16);color:var(--blue)}
+.tkTag.adm{background:rgba(255,170,40,.2);color:#c77700}
+.tkTag.blk{background:rgba(229,72,77,.14);color:#e5484d}
+.tkTag.me{background:rgba(34,197,94,.15);color:#16a34a}
+.tkEmpty{text-align:center;color:var(--mute);padding:30px 10px;font-size:14px;line-height:1.6}
+.tkEmpty i{display:block;font-style:normal;font-size:40px;margin-bottom:6px}
+.tkSecH{display:flex;align-items:center;justify-content:space-between;margin:14px 2px 6px}
+.tkSecH h4{margin:0;font-size:13px;font-weight:900;color:var(--sub)}
+.tkSecH button{border:0;background:none;color:var(--blue);font:800 13px inherit;font-family:inherit;cursor:pointer;padding:6px}
+/* 대화 */
+.tkMsgs{display:flex;flex-direction:column;gap:3px;max-width:760px;margin:0 auto}
+.tkDay{align-self:center;font-size:12px;color:var(--mute);background:rgba(127,127,127,.12);padding:4px 12px;border-radius:99px;margin:12px 0 6px}
+.tkM{display:flex;flex-direction:column;align-items:flex-start;max-width:82%}
+.tkM.mine{align-self:flex-end;align-items:flex-end}
+.tkM .who{font-size:12px;font-weight:800;color:var(--sub);margin:8px 6px 3px}
+.tkM .bw{display:flex;align-items:flex-end;gap:6px}
+.tkM.mine .bw{flex-direction:row-reverse}
+.tkM .bb{padding:9px 13px;border-radius:18px 18px 18px 6px;background:var(--card,#fff);border:1px solid rgba(127,127,127,.2);font-size:15px;line-height:1.45;white-space:pre-wrap;word-break:break-word;cursor:pointer;-webkit-user-select:text;user-select:text}
+.tkM.mine .bb{background:var(--blue);color:#fff;border-color:transparent;border-radius:18px 18px 6px 18px}
+.tkM .bb.del{font-style:italic;opacity:.6;background:none}
+.tkM .bb.pend{opacity:.6}
+.tkM .bb.fail{background:rgba(229,72,77,.15);color:#e5484d}
+.tkM time{font-size:10.5px;color:var(--mute);white-space:nowrap;flex:none}
+.tkM .bb a{color:inherit;text-decoration:underline}
+.tkFileB{display:flex;align-items:center;gap:10px;min-width:200px;max-width:280px;text-align:left}
+.tkFileB .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:rgba(127,127,127,.15);flex:none}
+.tkM.mine .tkFileB .ic{background:rgba(255,255,255,.2)}
+.tkFileB div{flex:1;min-width:0;display:flex;flex-direction:column}
+.tkFileB b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkFileB small{font-size:12px;opacity:.75}
+.tkImg{display:block;max-width:240px;max-height:260px;min-width:120px;min-height:80px;border-radius:12px;background:rgba(127,127,127,.15);object-fit:cover}
+.tkProg{height:4px;border-radius:2px;background:rgba(127,127,127,.25);overflow:hidden;margin-top:6px}
+.tkProg i{display:block;height:100%;background:currentColor;width:0;transition:width .2s}
+.tkMore{align-self:center;border:0;background:rgba(127,127,127,.12);color:inherit;border-radius:99px;padding:8px 16px;font:700 13px inherit;font-family:inherit;cursor:pointer;margin:4px 0 8px}
+.tkAct{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);transform:translateX(-50%);display:flex;gap:6px;padding:8px;border-radius:18px;background:var(--card,#fff);box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:80}
+.tkAct button{border:0;background:rgba(127,127,127,.12);color:inherit;border-radius:12px;padding:10px 14px;font:700 14px inherit;font-family:inherit;cursor:pointer;white-space:nowrap}
+.tkAct button.red{color:#e5484d}
+.tkBar{display:flex;align-items:flex-end;gap:6px;padding:8px 8px calc(env(safe-area-inset-bottom,0px) + 8px);border-top:1px solid rgba(127,127,127,.2);background:var(--card,rgba(255,255,255,.75));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tkBar textarea{flex:1;min-width:0;min-height:42px;max-height:140px;border-radius:21px;border:1.5px solid rgba(127,127,127,.28);background:var(--card,#fff);color:inherit;padding:10px 16px;font:16px/1.35 inherit;font-family:inherit;resize:none;box-sizing:border-box}
+.tkBar textarea:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.tkSend{background:var(--blue);color:#fff}
+.tkSend:hover{background:var(--blue);filter:brightness(1.08)}
+.tkChips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.tkChips button{border:1px solid rgba(127,127,127,.2);background:none;color:inherit;border-radius:99px;padding:7px 13px;font:700 13px inherit;font-family:inherit;cursor:pointer}
+.tkChips button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tkCode{font:900 30px ui-monospace,monospace;letter-spacing:.12em;text-align:center;padding:14px;border-radius:16px;background:rgba(127,127,127,.1);margin:6px 0 10px;-webkit-user-select:all;user-select:all}
+.tkInv{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(127,127,127,.2);font-size:13px}
+.tkInv:last-child{border-bottom:0}
+.tkInv code{font:800 15px ui-monospace,monospace;letter-spacing:.06em}
+.tkInv div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tkInv small{color:var(--mute)}
+.tkInv.off{opacity:.5}
+.tkInv button,.tkMem button{border:0;background:rgba(127,127,127,.12);color:inherit;border-radius:10px;padding:7px 10px;font:700 12.5px inherit;font-family:inherit;cursor:pointer;flex:none}
+.tkMem{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(127,127,127,.2)}
+.tkMem:last-child{border-bottom:0}
+.tkMem>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tkMem b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkMem small{font-size:12px;color:var(--mute)}
+.tkMem button.red{color:#e5484d}
+.tkSw{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;font-size:14.5px}
+.tkMeter{height:10px;border-radius:5px;background:rgba(127,127,127,.15);overflow:hidden;margin:8px 0 4px}
+.tkMeter i{display:block;height:100%;background:linear-gradient(90deg,#38d39f,#5b8cff)}
+.tkC{background:linear-gradient(120deg,rgba(90,160,255,.5),rgba(60,200,180,.32) 60%,var(--mixEnd))}
+html.lab-no-talk #talkCard,html.lab-no-talk .dNav [data-v=talk]{display:none!important}
+.gameCard .tkCardBadge{position:absolute;right:14px;top:14px;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:#ff4d6d;color:#fff;font:800 12px/22px inherit;font-family:inherit;font-style:normal;text-align:center;box-sizing:border-box}
+@media(min-width:900px){.tkMain{padding:18px 24px 24px}.tkM{max-width:62%}}
 html.lab-no-diary #diaryCard,html.lab-no-diary .dNav [data-v=diary]{display:none!important}
 .dyC{background:linear-gradient(120deg,rgba(255,170,120,.5),rgba(255,120,160,.32) 60%,var(--mixEnd))}
 .dyMon{display:flex;align-items:center;justify-content:space-between;margin:2px 0 10px}
@@ -943,6 +1062,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix g glass" id="starCard"><span class="ic"><span class="emo">🎞️</span></span><em class="new">NEW</em><b data-i18n="stName">해피플레이어</b><span data-i18n="stCardSub">배속·구간 반복·이어보기</span></button>
     <button class="mix i glass" id="repCard"><span class="ic"><span class="emo">📊</span></span><em class="new">NEW</em><b data-i18n="repT">음악 리포트</b><span id="repSub" data-i18n="repCardSub">나의 감상 기록</span></button>
   </div>
+  <button class="gameCard tkC glass" id="talkCard"><span class="ic"><span class="emo">💬</span></span><em class="tkCardBadge" id="tkCardBadge" hidden></em><b data-i18n="tkT">해피톡</b><span id="tkCardSub" data-i18n="tkCardSub">멤버와 채팅하고 파일을 주고받아요</span></button>
   <button class="gameCard dyC glass" id="diaryCard"><span class="ic"><span class="emo" id="dyCardEmo">📔</span></span><em class="new">NEW</em><b data-i18n="dyT">음악 일기</b><span id="dySub" data-i18n="dyCardSub">오늘 하루와 노래를 기록해요</span></button>
   <button class="gameCard labC glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span id="labSub" data-i18n="labCardSub">기능 켜고 끄기</span></button>
 
@@ -1170,6 +1290,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button type="button" data-v="game" class="game"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span data-i18n="gameT">리듬 탭</span></button>
       <p data-i18n="labT">실험실</p>
       <button type="button" data-v="star"><span style="width:20px;text-align:center;flex:none">🎞️</span><span data-i18n="stName">해피플레이어</span></button>
+      <button type="button" data-v="talk"><span style="width:20px;text-align:center;flex:none">💬</span><span data-i18n="tkT">해피톡</span></button>
       <button type="button" data-v="diary"><span style="width:20px;text-align:center;flex:none">📔</span><span data-i18n="dyT">음악 일기</span></button>
       <button type="button" data-v="report"><span style="width:20px;text-align:center;flex:none">📊</span><span data-i18n="repT">음악 리포트</span></button>
       <button type="button" data-v="labs"><span style="width:20px;text-align:center;flex:none">🧪</span><span data-i18n="labT">실험실</span></button>
@@ -1310,6 +1431,27 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
 <div id="tool" hidden role="dialog" aria-label="도구" data-i18n-aria="tTools">
   <div class="tlTop"><button type="button" id="tlX" aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button><b id="tlT"></b><button type="button" id="tlReload" aria-label="다시 불러오기" data-i18n-aria="wReload"><svg viewBox="0 0 24 24"><path d="M17.6 6.4A8 8 0 1 0 19.7 14h-2.1a6 6 0 1 1-1.4-6.2L13 11h7V4l-2.4 2.4z"/></svg></button></div>
   <div class="tlBody" id="tlBody"></div>
+</div>
+<div id="talk" hidden role="dialog" aria-label="해피톡" data-i18n-aria="tkT">
+  <header class="tkTop">
+    <button type="button" class="tkB" id="tkX" aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button>
+    <div class="tkHt"><b id="tkTitle" data-i18n="tkT">해피톡</b><span id="tkSubT"></span></div>
+    <button type="button" class="tkB" id="tkRef" aria-label="새로고침" data-i18n-aria="tkRefresh"><svg viewBox="0 0 24 24"><path d="M17.6 6.4A8 8 0 1 0 19.7 14h-2.1a6 6 0 1 1-1.4-6.2L13 11h7V4l-2.4 2.4z"/></svg></button>
+    <button type="button" class="tkB" id="tkMeB" aria-label="내 정보" data-i18n-aria="tkMe"><svg viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></button>
+  </header>
+  <nav class="tkTabs" id="tkTabs" hidden>
+    <button type="button" data-tv="chats"><i>💬</i><span data-i18n="tkChats">채팅</span><em id="tkUnr" hidden></em></button>
+    <button type="button" data-tv="members"><i>👥</i><span data-i18n="tkMembers">멤버</span></button>
+    <button type="button" data-tv="files"><i>📁</i><span data-i18n="tkFiles">파일</span></button>
+    <button type="button" data-tv="admin" id="tkAdminTab" hidden><i>🛡️</i><span data-i18n="tkAdmin">관리</span></button>
+  </nav>
+  <main class="tkMain" id="tkMain"></main>
+  <form class="tkBar" id="tkBar" hidden autocomplete="off">
+    <button type="button" class="tkB" id="tkAtt" aria-label="파일 보내기" data-i18n-aria="tkAttach"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6h-1.5z"/></svg></button>
+    <textarea id="tkIn" rows="1" maxlength="4000" placeholder="메시지 입력" data-i18n-ph="tkMsgPh" aria-label="메시지" data-i18n-aria="tkMsgPh"></textarea>
+    <button type="submit" class="tkB tkSend" id="tkSend" aria-label="보내기" data-i18n-aria="tkSend"><svg viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
+  </form>
+  <input type="file" id="tkFile" multiple hidden>
 </div>
 <div id="star" hidden role="dialog" aria-label="해피플레이어" data-i18n-aria="stName">
   <div class="stStage" id="stStage">
@@ -1459,6 +1601,53 @@ Object.assign(I18N.T,{
 });
 Object.assign(I18N.T,{"dPlayAll": ["전체 재생", "Play all", "すべて再生", "全部播放", "全部播放", "Reproducir todo", "Tout lire", "Alle abspielen", "Tocar tudo", "Слушать всё", "Phát tất cả", "เล่นทั้งหมด", "Putar semua", "सभी चलाएँ"], "dFun": ["즐기기", "Fun", "楽しむ", "娱乐", "娛樂", "Diversión", "Détente", "Spaß", "Diversão", "Развлечения", "Giải trí", "สนุก", "Seru", "मनोरंजन"], "dRescan": ["음악 다시 찾기", "Rescan music", "音楽を再検索", "重新扫描音乐", "重新掃描音樂", "Volver a buscar música", "Rechercher la musique", "Musik neu suchen", "Procurar músicas", "Найти музыку заново", "Quét lại nhạc", "สแกนเพลงใหม่", "Pindai ulang musik", "संगीत फिर से खोजें"], "dVolume": ["볼륨", "Volume", "音量", "音量", "音量", "Volumen", "Volume", "Lautstärke", "Volume", "Громкость", "Âm lượng", "ระดับเสียง", "Volume", "वॉल्यूम"], "dPlays": ["재생 수", "Plays", "再生回数", "播放次数", "播放次數", "Reproducciones", "Écoutes", "Wiedergaben", "Reproduções", "Прослушивания", "Lượt nghe", "จำนวนเล่น", "Diputar", "चलाए गए"], "dTime": ["시간", "Time", "時間", "时长", "時長", "Duración", "Durée", "Dauer", "Duração", "Время", "Thời lượng", "เวลา", "Durasi", "समय"], "dMore": ["모두 보기", "See all", "すべて表示", "查看全部", "查看全部", "Ver todo", "Tout voir", "Alle anzeigen", "Ver tudo", "Показать все", "Xem tất cả", "ดูทั้งหมด", "Lihat semua", "सभी देखें"], "dEmptyPC": ["내 음악, 다운로드, 바탕화면 폴더의 음악을 자동으로 찾아요. 음악 파일을 이 창에 끌어다 놓아도 돼요.", "Music in your Music, Downloads and Desktop folders is found automatically. You can also drag music files into this window.", "ミュージック・ダウンロード・デスクトップの音楽を自動で見つけます。ファイルをこのウィンドウにドラッグしても追加できます。", "会自动查找音乐、下载和桌面文件夹中的音乐，也可以把音乐文件拖到此窗口。", "會自動尋找音樂、下載和桌面資料夾中的音樂，也可以把音樂檔拖到此視窗。", "Se busca música en Música, Descargas y Escritorio. También puedes arrastrar archivos aquí.", "La musique des dossiers Musique, Téléchargements et Bureau est trouvée automatiquement. Vous pouvez aussi glisser des fichiers ici.", "Musik in Musik, Downloads und Desktop wird automatisch gefunden. Du kannst Dateien auch hierher ziehen.", "Músicas em Música, Downloads e Área de Trabalho são encontradas automaticamente. Você também pode arrastar arquivos aqui.", "Музыка из папок «Музыка», «Загрузки» и «Рабочий стол» находится автоматически. Можно перетащить файлы в это окно.", "Nhạc trong thư mục Nhạc, Tải xuống và Màn hình được tự tìm. Bạn cũng có thể kéo tệp vào cửa sổ này.", "ค้นหาเพลงในโฟลเดอร์เพลง ดาวน์โหลด และเดสก์ท็อปอัตโนมัติ หรือลากไฟล์มาวางที่หน้าต่างนี้", "Musik di folder Musik, Unduhan, dan Desktop ditemukan otomatis. Anda juga bisa menyeret file ke jendela ini.", "संगीत, डाउनलोड और डेस्कटॉप फ़ोल्डर का संगीत अपने आप मिल जाता है। फ़ाइलें इस विंडो में खींचकर भी जोड़ सकते हैं।"], "dScanning": ["PC에서 음악을 찾는 중…", "Searching your PC for music…", "PCの音楽を検索中…", "正在搜索电脑中的音乐…", "正在搜尋電腦中的音樂…", "Buscando música en tu PC…", "Recherche de musique sur le PC…", "Suche Musik auf dem PC…", "Procurando músicas no PC…", "Ищем музыку на ПК…", "Đang tìm nhạc trên PC…", "กำลังค้นหาเพลงใน PC…", "Mencari musik di PC…", "PC पर संगीत खोज रहे हैं…"]});
 Object.assign(I18N.T,{"gameT": ["리듬 탭", "Rhythm Tap", "リズムタップ", "节奏点击", "節奏點擊", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "Ритм-тап", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "रिदम टैप"], "gCardSub": ["듣는 곡으로 박자 맞추기 게임", "Tap to the beat of your own songs", "自分の曲でリズムゲーム", "用你的歌曲玩节奏游戏", "用你的歌曲玩節奏遊戲", "Sigue el ritmo de tus canciones", "Jouez au rythme de vos titres", "Tippe im Takt deiner Songs", "Jogue no ritmo das suas músicas", "Попадайте в ритм своих песен", "Chơi theo nhịp bài hát của bạn", "แตะตามจังหวะเพลงของคุณ", "Ketuk mengikuti irama lagumu", "अपने गानों की ताल पर टैप करें"], "gHow": ["노트가 선에 닿는 순간 그 줄을 탭하세요", "Tap a lane the moment its note hits the line", "ノートがラインに重なった瞬間にタップ", "音符碰到判定线时点击该轨道", "音符碰到判定線時點擊該軌道", "Toca el carril cuando la nota llegue a la línea", "Touchez la colonne quand la note atteint la ligne", "Tippe die Spur, wenn die Note die Linie erreicht", "Toque a faixa quando a nota tocar a linha", "Нажмите на дорожку, когда нота коснётся линии", "Chạm làn khi nốt chạm vạch", "แตะเลนเมื่อโน้ตถึงเส้น", "Ketuk jalur saat not menyentuh garis", "नोट रेखा पर पहुँचते ही उस लेन पर टैप करें"], "gEmpty": ["보관함에 곡을 먼저 추가해 주세요", "Add some songs to your library first", "先にライブラリに曲を追加してください", "请先在曲库中添加歌曲", "請先在音樂庫中新增歌曲", "Primero añade canciones a tu biblioteca", "Ajoutez d'abord des titres à votre bibliothèque", "Füge zuerst Songs zur Mediathek hinzu", "Adicione músicas à biblioteca primeiro", "Сначала добавьте песни в медиатеку", "Hãy thêm bài hát vào thư viện trước", "เพิ่มเพลงในคลังก่อน", "Tambahkan lagu ke koleksi dulu", "पहले लाइब्रेरी में गाने जोड़ें"], "gPick": ["곡 선택", "Song", "曲", "歌曲", "歌曲", "Canción", "Titre", "Song", "Música", "Песня", "Bài hát", "เพลง", "Lagu", "गाना"], "gDiffL": ["난이도", "Difficulty", "難易度", "难度", "難度", "Dificultad", "Difficulté", "Schwierigkeit", "Dificuldade", "Сложность", "Độ khó", "ความยาก", "Kesulitan", "कठिनाई"], "gEasy": ["쉬움", "Easy", "かんたん", "简单", "簡單", "Fácil", "Facile", "Leicht", "Fácil", "Легко", "Dễ", "ง่าย", "Mudah", "आसान"], "gNormal": ["보통", "Normal", "ふつう", "普通", "普通", "Normal", "Normal", "Normal", "Normal", "Средне", "Thường", "ปกติ", "Normal", "सामान्य"], "gHard": ["어려움", "Hard", "むずかしい", "困难", "困難", "Difícil", "Difficile", "Schwer", "Difícil", "Сложно", "Khó", "ยาก", "Sulit", "कठिन"], "gSync": ["싱크 조절 (노트가 소리보다 빠르면 +)", "Sync (use + if notes arrive before the sound)", "タイミング調整（ノートが早ければ＋）", "同步调整（音符比声音早就按 +）", "同步調整（音符比聲音早就按 +）", "Sincronía (+ si las notas llegan antes que el sonido)", "Synchro (+ si les notes arrivent avant le son)", "Sync (+ wenn Noten vor dem Ton kommen)", "Sincronia (+ se as notas chegam antes do som)", "Синхронизация (+ если ноты опережают звук)", "Đồng bộ (+ nếu nốt đến trước âm thanh)", "ปรับซิงก์ (+ ถ้าโน้ตมาก่อนเสียง)", "Sinkron (+ jika not datang sebelum suara)", "सिंक (+ अगर नोट आवाज़ से पहले आएँ)"], "gBest": ["최고 기록 {n}", "Best {n}", "ベスト {n}", "最高 {n}", "最高 {n}", "Récord {n}", "Record {n}", "Bestwert {n}", "Recorde {n}", "Рекорд {n}", "Kỷ lục {n}", "สถิติ {n}", "Terbaik {n}", "सर्वश्रेष्ठ {n}"], "gStartB": ["시작", "Start", "スタート", "开始", "開始", "Empezar", "Jouer", "Start", "Começar", "Старт", "Bắt đầu", "เริ่ม", "Mulai", "शुरू करें"], "gAnalyzing": ["곡 분석 중…", "Analyzing song…", "曲を解析中…", "正在分析歌曲…", "正在分析歌曲…", "Analizando…", "Analyse…", "Analysiere…", "Analisando…", "Анализ песни…", "Đang phân tích…", "กำลังวิเคราะห์…", "Menganalisis…", "गाना विश्लेषण हो रहा है…"], "gAnalyzingD": ["박자를 찾아 노트를 만들고 있어요", "Finding the beat and building notes", "ビートを見つけてノートを作成中", "正在寻找节拍并生成音符", "正在尋找節拍並產生音符", "Buscando el ritmo y creando notas", "Détection du rythme et création des notes", "Takt wird erkannt, Noten werden erstellt", "Encontrando o ritmo e criando notas", "Ищем ритм и создаём ноты", "Đang tìm nhịp và tạo nốt", "กำลังหาจังหวะและสร้างโน้ต", "Mencari ketukan dan membuat not", "ताल ढूँढकर नोट बना रहे हैं"], "gFail": ["이 곡은 분석할 수 없어요. 다른 곡을 골라 주세요", "Couldn't analyze this song. Try another", "この曲は解析できません。別の曲を選んでください", "无法分析这首歌，请换一首", "無法分析這首歌，請換一首", "No se pudo analizar. Prueba otra", "Analyse impossible. Essayez un autre titre", "Analyse fehlgeschlagen. Anderen Song wählen", "Não foi possível analisar. Tente outra", "Не удалось проанализировать. Выберите другую", "Không phân tích được. Hãy chọn bài khác", "วิเคราะห์ไม่ได้ ลองเพลงอื่น", "Tidak bisa dianalisis. Coba lagu lain", "विश्लेषण नहीं हो सका, दूसरा गाना चुनें"], "gCombo": ["콤보", "Combo", "コンボ", "连击", "連擊", "Combo", "Combo", "Combo", "Combo", "Комбо", "Combo", "คอมโบ", "Kombo", "कॉम्बो"], "gAcc": ["정확도", "Accuracy", "精度", "准确率", "準確率", "Precisión", "Précision", "Genauigkeit", "Precisão", "Точность", "Độ chính xác", "ความแม่นยำ", "Akurasi", "सटीकता"], "gMaxCombo": ["최대 콤보", "Max combo", "最大コンボ", "最大连击", "最大連擊", "Combo máx.", "Combo max", "Max. Combo", "Combo máx.", "Макс. комбо", "Combo tối đa", "คอมโบสูงสุด", "Kombo maks", "अधिकतम कॉम्बो"], "gNew": ["새 최고 기록!", "New best!", "自己ベスト更新！", "新纪录！", "新紀錄！", "¡Nuevo récord!", "Nouveau record !", "Neuer Rekord!", "Novo recorde!", "Новый рекорд!", "Kỷ lục mới!", "สถิติใหม่!", "Rekor baru!", "नया रिकॉर्ड!"], "gRetry": ["다시 하기", "Play again", "もう一度", "再玩一次", "再玩一次", "Otra vez", "Rejouer", "Nochmal", "Jogar de novo", "Ещё раз", "Chơi lại", "เล่นอีกครั้ง", "Main lagi", "फिर से खेलें"], "gOther": ["다른 곡 / 난이도", "Change song / difficulty", "曲・難易度を変更", "换歌曲 / 难度", "換歌曲 / 難度", "Cambiar canción / dificultad", "Changer de titre / difficulté", "Song / Schwierigkeit ändern", "Trocar música / dificuldade", "Другая песня / сложность", "Đổi bài / độ khó", "เปลี่ยนเพลง / ความยาก", "Ganti lagu / kesulitan", "गाना / कठिनाई बदलें"], "gExit": ["나가기", "Exit", "終了", "退出", "退出", "Salir", "Quitter", "Beenden", "Sair", "Выйти", "Thoát", "ออก", "Keluar", "बाहर निकलें"]});
+Object.assign(I18N.T,{
+ tkT:X13('해피톡','HappyTalk'),tkCardSub:X13('멤버와 채팅하고 파일을 주고받아요','Chat and share files with members'),tkCardLogin:X13('로그인하고 멤버와 이야기해요','Sign in to talk with members'),tkCardNew:X13('새 메시지가 있는 대화 {n}개','{n} chats with new messages'),tkCardHi:X13('{n}님, 멤버들과 이야기해 보세요','Hi {n}, say hello to your members'),
+ labTalk:X13('해피톡 (계정 · 채팅 · 파일)','HappyTalk (accounts · chat · files)'),labTalkD:X13('관리자·멤버 계정, 1:1·전체 채팅, 파일 주고받기, 초대 코드 · 켜면 홈에 카드가 생겨요','Admin/member accounts, chats, file sharing and invites · adds a Home card'),
+ tkChats:X13('채팅','Chats'),tkMembers:X13('멤버','Members'),tkFiles:X13('파일','Files'),tkAdmin:X13('관리','Admin'),tkMe:X13('내 정보','My profile'),tkRefresh:X13('새로고침','Refresh'),
+ tkAttach:X13('파일 보내기','Send file'),tkMsgPh:X13('메시지 입력','Type a message'),tkSend:X13('보내기','Send'),
+ tkHeroD:X13('멤버끼리 채팅하고 사진·음악·문서를 주고받는 공간이에요. 초대받은 사람만 가입할 수 있어요.','A private space to chat and share photos, music and documents. Invite only.'),
+ tkLogin:X13('로그인','Sign in'),tkSignup:X13('가입','Sign up'),tkLoginGo:X13('로그인','Sign in'),tkSignupGo:X13('가입하기','Create account'),
+ tkEmail:X13('이메일','Email'),tkPw:X13('비밀번호 (6자 이상)','Password (6+ characters)'),tkNick:X13('닉네임','Nickname'),tkCode:X13('초대 코드','Invite code'),
+ tkFirstAdmin:X13('첫 번째 가입자예요. 가입하면 관리자가 되고, 이후 다른 사람은 초대 코드로만 가입할 수 있어요.','You’re the first one here. You’ll become the admin, and others can join only with an invite code.'),
+ tkNeedCode:X13('초대 코드는 관리자나 멤버에게 받으세요.','Get an invite code from the admin or a member.'),
+ tkSrvChange:X13('서버 연결 바꾸기','Change server'),tkJoinT:X13('가입 마무리','Finish joining'),tkJoinD:X13('계정은 만들어졌어요. 닉네임과 초대 코드를 넣으면 들어갈 수 있어요.','Your account exists. Enter a nickname and invite code to get in.'),tkJoinGo:X13('들어가기','Join'),
+ tkWelcome:X13('{n}님, 환영해요!','Welcome, {n}!'),tkWelcomeAdmin:X13('{n}님, 관리자로 가입했어요 👑','Welcome {n} — you’re the admin 👑'),tkLoggedOut:X13('로그아웃했어요','Signed out'),tkLogout:X13('로그아웃','Sign out'),
+ tkSetupD:X13('해피톡을 쓰려면 서버(Supabase) 연결이 필요해요. 관리자가 한 번만 설정하면 돼요.','HappyTalk needs a server (Supabase). The admin sets this up once.'),tkSetupH:X13('서버 연결 (관리자)','Server connection (admin)'),tkConnect:X13('연결하기','Connect'),
+ tkSetupNote:X13('Supabase › Project Settings › API 에서 Project URL과 Publishable(anon) 키를 복사해 넣으세요. 비밀 키(secret/service_role)는 절대 넣지 마세요.','Copy the Project URL and the publishable (anon) key from Supabase › Project Settings › API. Never paste the secret/service_role key.'),
+ tkSetupBad:X13('주소(https://…supabase.co)와 키를 확인해 주세요','Check the URL (https://…supabase.co) and key'),tkSetupNoSql:X13('서버에 해피톡 설정이 없어요. SQL Editor에서 설정 SQL을 먼저 실행해 주세요.','The server isn’t set up yet. Run the setup SQL in the SQL Editor first.'),tkConnected:X13('서버에 연결했어요','Connected to the server'),
+ tkLoading:X13('불러오는 중…','Loading…'),tkRetry:X13('다시 시도','Try again'),
+ tkBlockedT:X13('이용이 중지된 계정이에요','This account is suspended'),tkBlockedD:X13('관리자에게 문의해 주세요.','Please contact the admin.'),
+ tkAllRoom:X13('전체 채팅','Everyone'),tkGone:X13('(알 수 없음)','(unknown)'),tkNoMsg:X13('아직 메시지가 없어요','No messages yet'),tkDeleted:X13('삭제된 메시지예요','Message deleted'),tkMeShort:X13('나','Me'),
+ tkNoRooms:X13('대화가 없어요','No chats yet'),tkDmHint:X13('멤버 탭에서 사람을 누르면 1:1 대화를 시작해요','Tap someone in Members to start a 1:1 chat'),tkYesterday:X13('어제','Yesterday'),
+ tkNMembers:X13('멤버 {n}명','{n} members'),tkNOnline:X13('접속 중 {n}명','{n} online'),tkOnline:X13('접속 중','Online'),tkSeen:X13('{t} 접속','Seen {t}'),tkAdminR:X13('관리자','Admin'),
+ tkOlder:X13('이전 메시지 보기','Load earlier messages'),tkFirstMsg:X13('첫 메시지를 보내 보세요','Say hello!'),tkUploading:X13('올리는 중','Uploading'),tkTapDl:X13('눌러서 받기','Tap to download'),
+ tkTooBig:X13('"{n}" 파일이 너무 커요 (최대 {m}MB)','"{n}" is too large (max {m} MB)'),tkDlStart:X13('"{n}" 받는 중 · 다운로드 폴더','Downloading "{n}"'),tkDlBrowser:X13('브라우저에서 파일을 받아요','Downloading in your browser'),
+ tkCopy:X13('복사','Copy'),tkDl:X13('받기','Download'),tkDel:X13('삭제','Delete'),tkDel2:X13('정말 삭제','Really delete'),tkDeletedT:X13('메시지를 삭제했어요','Message deleted'),tkResend:X13('다시 보내기','Resend'),
+ tkInvite:X13('초대하기','Invite'),tkInviteBtn:X13('해피앱으로 초대하기','Invite to HappyMusic'),tkInviteH:X13('친구를 해피톡에 초대해요','Invite a friend'),
+ tkInviteD:X13('초대 코드를 만들어 카카오톡·문자로 보내면, 받은 사람이 해피뮤직을 설치하고 코드로 가입해요.','Create a code and send it by message. They install HappyMusic and join with the code.'),
+ tkInvNew:X13('새 초대 코드','New invite code'),tkInvAnother:X13('다른 코드 만들기','Make another code'),tkInvUses:X13('사용할 수 있는 사람 수','How many people'),tkInvExp:X13('유효 기간','Valid for'),
+ tkInvNote:X13('메모 (선택)','Note (optional)'),tkInvNotePh:X13('예: 우리 가족','e.g. Family'),tkMakeCode:X13('초대 코드 만들기','Create code'),tkCodeMade:X13('초대 코드가 만들어졌어요','Invite code ready'),
+ tkCodeInfo:X13('{n}명까지 · {d}','Up to {n} · {d}'),tkPeople:X13('{n}명','{n}'),tkDaysN:X13('{n}일','{n} days'),tkNoExp:X13('기한 없음','No expiry'),
+ tkShare:X13('보내기','Share'),tkCopyInv:X13('초대 글 복사','Copy message'),tkInvCopied:X13('초대 글을 복사했어요. 카톡이나 문자에 붙여 넣으세요','Invite copied — paste it into a message'),tkCopyFail:X13('복사하지 못했어요','Couldn’t copy'),
+ tkInvText:X13('🎵 {n}님이 해피뮤직 해피톡에 초대했어요!\n\n초대 코드: {c}\n\n① 안드로이드 앱 받기: {a}\n② 설치 후 홈 › 해피톡 › 가입에서 코드를 입력하세요\n\n💻 PC: {p}\n📱 이미 설치했다면: {l}','🎵 {n} invited you to HappyTalk on HappyMusic!\n\nInvite code: {c}\n\n1) Get the Android app: {a}\n2) Open Home › HappyTalk › Sign up and enter the code\n\n💻 PC: {p}\n📱 Already installed: {l}'),
+ tkCodeFilled:X13('초대 코드를 넣어 두었어요. 가입을 마쳐 주세요','Invite code filled in — finish signing up'),tkAlreadyIn:X13('이미 해피톡에 가입되어 있어요','You’re already in HappyTalk'),
+ tkFAll:X13('전체','All'),tkFImg:X13('사진','Photos'),tkFVid:X13('동영상','Videos'),tkFAud:X13('음악','Music'),tkFDoc:X13('문서·기타','Docs'),tkFMine:X13('내가 보낸','Sent by me'),
+ tkNoFiles:X13('주고받은 파일이 없어요. 대화방에서 📎 버튼으로 보내 보세요','No files yet. Send one with 📎 in a chat'),tkFilesNote:X13('파일은 한 번에 최대 {n}MB · 대화방 멤버만 받을 수 있어요','Up to {n} MB per file · only chat members can download'),
+ tkAdmMembers:X13('회원 관리','Members'),tkAdmInv:X13('초대 코드','Invite codes'),tkAdmSet:X13('설정','Settings'),tkAdmStore:X13('저장 공간','Storage'),tkAdmSrv:X13('서버','Server'),
+ tkAdmSrvD:X13('무료 요금제: 파일 1GB, 한 달 전송 5GB. 1주일 동안 아무도 안 쓰면 서버가 일시정지돼요 (Supabase에서 다시 켜기).','Free plan: 1 GB files, 5 GB transfer/month. Pauses after a week of no use (resume in Supabase).'),
+ tkJoined:X13('{d} 가입','Joined {d}'),tkMkAdmin:X13('관리자로','Make admin'),tkMkMember:X13('멤버로','Make member'),tkBlock:X13('차단','Block'),tkBlock2:X13('정말 차단','Really block'),tkUnblock:X13('차단 풀기','Unblock'),tkBlockedTag:X13('차단됨','Blocked'),
+ tkIvUses:X13('{u}/{m}명 사용','{u}/{m} used'),tkIvUntil:X13('{d}까지','until {d}'),tkIvRevoked:X13('취소됨','Revoked'),tkIvUsed:X13('다 씀','Used up'),tkIvExpired:X13('만료','Expired'),tkRevoke:X13('취소','Revoke'),tkNoInv:X13('만든 초대 코드가 없어요','No invite codes yet'),
+ tkMemInv:X13('멤버도 초대 코드 만들기 허용','Let members create invites'),tkMaxFile:X13('파일 한 개 최대 크기','Max size per file'),tkStoreUse:X13('{u} 사용 · 파일 {n}개 (무료 1GB 기준)','{u} used · {n} files (of 1 GB free)'),
+ tkDone:X13('바꿨어요','Updated'),tkSaved:X13('저장했어요','Saved'),
+ tkPrivacy:X13('대화와 파일은 관리자가 만든 서버(Supabase)에 저장되고, 대화방 멤버만 볼 수 있어요.','Chats and files are stored on your admin’s Supabase server and visible only to room members.'),
+ tkENet:X13('서버에 연결할 수 없어요. 인터넷을 확인해 주세요','Can’t reach the server. Check your connection'),tkENoSrv:X13('서버가 연결되지 않았어요','No server connected'),
+ tkEInvite:X13('초대 코드가 맞지 않거나 만료됐어요','Invite code is invalid or expired'),tkEExists:X13('이미 가입된 이메일이에요. 로그인해 주세요','This email is already registered. Please sign in'),
+ tkELogin:X13('이메일 또는 비밀번호가 맞지 않아요','Wrong email or password'),tkEConfirm:X13('이메일 확인이 필요해요. 메일함의 확인 링크를 누른 뒤 로그인하세요 (관리자: Supabase › Authentication › Sign In / Providers › Email › Confirm email 끄기)','Email confirmation required. Click the link in your inbox, then sign in (admin: turn off Confirm email in Supabase)'),
+ tkEPw:X13('비밀번호는 6자 이상이어야 해요','Password must be at least 6 characters'),tkEEmail:X13('이메일 주소를 확인해 주세요','Check the email address'),tkENick:X13('닉네임을 1~20자로 넣어 주세요','Nickname must be 1–20 characters'),
+ tkEPerm:X13('권한이 없어요','You don’t have permission'),tkELastAdmin:X13('관리자가 최소 한 명은 있어야 해요','There must be at least one admin'),tkENotSelf:X13('자기 자신은 바꿀 수 없어요','You can’t change yourself'),
+ tkEBig:X13('파일이 너무 커요','File is too large'),tkERate:X13('요청이 너무 많아요. 잠시 후 다시 시도해 주세요','Too many requests. Try again shortly'),tkEGen:X13('문제가 생겼어요: {m}','Something went wrong: {m}'),
+});
 Object.assign(I18N.T,{
  labT:X13('실험실','Labs'),labD:X13('새 기능과 추가 기능을 직접 켜고 끌 수 있어요. 끈 기능은 화면에서 사라지고, 다시 켜면 그대로 돌아와요.','Turn new and extra features on or off. Turned-off features disappear and come back exactly as they were.'),
  labCardSub:X13('기능 켜고 끄기','Turn features on/off'),labCnt:X13('기능 켜고 끄기 · {n}/{m}개 켜짐','Turn features on/off · {n} of {m} on'),
@@ -1845,6 +2034,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)onReturn()
 async function handleOpen(){
   if(!AND)return;let raw='',u='',dn='';try{raw=AND.takeOpened()||''}catch(e){}if(!raw)return;
   if(raw[0]==='{'){try{const o=JSON.parse(raw);u=o.u||'';dn=o.n||''}catch(e){}}else u=raw;if(!u)return;
+  if(/^happymusic:/i.test(u)){setTimeout(()=>{window.__tk&&window.__tk.tkDeepLink(u)},0);return}
   const m=u.match(/^content:\/\/media\/external(?:_primary)?\/audio\/media\/(\d+)/);
   if(m){const t=byId('d'+m[1]);if(t){closeAll();showView('home');playFrom(sorted(),t.id,t_('fromFile'));openSheet('player');return}}
   toast(t('opening'));
@@ -2271,7 +2461,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.4.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.5.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2485,7 +2675,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
+const WEB_NOTES=[["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],
+ ["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
  ["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
  ["🔖","긴 오디오 이어 듣기 · 취침 타이머 부드럽게 끄기 (실험실에서 켜고 끄기)","Resume long audio · gentle sleep timer fade (toggle in Labs)"],
  ["🎞️","해피플레이어: 강의 영상용 플레이어 (0.5~4배속, A↔B 구간 반복, 책갈피 메모, 이어보기·진도율, SMI·SRT 자막, 화면 캡처)","HappyPlayer: lecture video player (0.5–4x, A-B repeat, bookmarks, resume & progress, SMI/SRT subtitles, capture)"],
@@ -3212,9 +3403,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={star:false,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
+const LAB_DEF={star:false,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['talk','💬','labTalk','labTalkD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
 window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
@@ -3227,6 +3418,7 @@ function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
     if(k==='star'&&ST.on)closeStar();
     if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
     if(k==='diary'&&$('diarySheet').classList.contains('on'))closeSheet();
+    if(k==='talk'&&tkOn())closeTalk();
     if(k==='web'&&typeof webOn==='function'&&webOn())closeWeb();
     if(k==='tools'&&toolOn())closeTool();
     if(k==='games'){if(RPS.on)closeRps();if(typeof gameOn==='function'&&gameOn())exitGame()}}
@@ -3394,6 +3586,359 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){dyFlush();
 dyCardUI();setInterval(dyCardUI,60000);
 {const _al=applyLang;applyLang=function(){_al.apply(this,arguments);dyCardUI();if($('diarySheet').classList.contains('on')){dyFlush();dyRender()}}}
 window.__dy={DY,openDiary,dyRender,dyCardUI,dyHash};
+
+
+/* ---------- 해피톡: 계정 · 관리자 · 채팅 · 파일 주고받기 · 초대 (Supabase) ---------- */
+const TK_URL='',TK_KEY='';   // 서버 주소와 공개 키 (관리자가 알려 주면 여기에 넣어 배포)
+const TK={cfg:null,ses:LS.get('tkSes',null),me:null,status:null,view:'chats',room:null,rooms:[],people:{},settings:null,
+  msgs:[],firstId:0,lastId:0,read:LS.get('tkRead',{}),signed:{},poll:0,bgPoll:0,authTab:'in',fileFilter:'all',invite:null,
+  sending:0,unread:0,loadingRoom:false,err:''};
+function tkCfg(){const c=LS.get('tkCfg',null);if(c&&c.url&&c.key)return c;return TK_URL&&TK_KEY?{url:TK_URL,key:TK_KEY}:null}
+TK.cfg=tkCfg();
+const tkOn=()=>!$('talk').hidden;
+const tkBase=()=>TK.cfg.url.replace(/\/+$/,'');
+class TkErr extends Error{constructor(m,code,st){super(m);this.code=code;this.st=st}}
+async function tkReq(path,o={}){
+  if(!TK.cfg)throw new TkErr('no_server','no_server',0);
+  const h=Object.assign({apikey:TK.cfg.key},o.headers||{});
+  if(o.auth!==false){await tkEnsure();if(TK.ses)h.Authorization='Bearer '+TK.ses.access_token}
+  let body=o.body;if(body!==undefined&&!(body instanceof Blob)&&typeof body!=='string'){body=JSON.stringify(body);h['Content-Type']='application/json'}
+  let r;try{r=await fetch(tkBase()+path,{method:o.method||(body!==undefined?'POST':'GET'),headers:h,body})}catch(e){throw new TkErr('network','network',0)}
+  const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch(e){}
+  if(!r.ok){const m=(j&&(j.message||j.msg||j.error_description||j.error))||('HTTP '+r.status);
+    if(r.status===401&&o.auth!==false&&!o.retried&&TK.ses){try{await tkRefresh(true);return tkReq(path,Object.assign({},o,{retried:true}))}catch(e){}}
+    throw new TkErr(String(m),(j&&(j.error_code||j.code))||r.status,r.status)}
+  return j}
+const tkRpc=(fn,args)=>tkReq('/rest/v1/rpc/'+fn,{method:'POST',body:args||{}});
+const tkGet=q=>tkReq('/rest/v1/'+q);
+function tkSaveSes(s){TK.ses=s&&s.access_token?{access_token:s.access_token,refresh_token:s.refresh_token,expires_at:s.expires_at||Math.floor(Date.now()/1000)+(s.expires_in||3600),email:(s.user&&s.user.email)||(TK.ses&&TK.ses.email)||'',uid:(s.user&&s.user.id)||(TK.ses&&TK.ses.uid)||''}:null;LS.set('tkSes',TK.ses)}
+let tkRefreshing=null;
+async function tkRefresh(force){if(!TK.ses)return;if(!force&&TK.ses.expires_at*1000-Date.now()>90e3)return;
+  if(tkRefreshing)return tkRefreshing;
+  tkRefreshing=(async()=>{try{const r=await fetch(tkBase()+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:TK.cfg.key,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:TK.ses.refresh_token})});
+      const j=await r.json().catch(()=>null);if(r.ok&&j&&j.access_token)tkSaveSes(j);else if(r.status>=400&&r.status<500){tkSaveSes(null);TK.me=null}}catch(e){}finally{tkRefreshing=null}})();
+  return tkRefreshing}
+const tkEnsure=()=>tkRefresh(false);
+const tkMsg=e=>{const c=String((e&&e.code)||''),m=String((e&&e.message)||e||'');
+  if(c==='network')return t('tkENet');if(c==='no_server')return t('tkENoSrv');
+  if(/invalid_invite/.test(m))return t('tkEInvite');if(/already.*registered|user_already_exists/i.test(m+c))return t('tkEExists');
+  if(/invalid.*(credentials|login|grant)/i.test(m+c))return t('tkELogin');if(/not.*confirmed/i.test(m+c))return t('tkEConfirm');
+  if(/password/i.test(m)&&/(6|short|weak)/i.test(m))return t('tkEPw');if(/email/i.test(m)&&/invalid/i.test(m))return t('tkEEmail');
+  if(/bad_nick/.test(m))return t('tkENick');if(/not_allowed|row-level|permission|403/i.test(m+c))return t('tkEPerm');
+  if(/last_admin/.test(m))return t('tkELastAdmin');if(/not_self/.test(m))return t('tkENotSelf');
+  if(/too large|exceeded|413|Payload/i.test(m+c))return t('tkEBig');if(/rate limit|429/i.test(m+c))return t('tkERate');
+  return t('tkEGen',{m:m.slice(0,80)})};
+/* ---------- 공통 ---------- */
+const TK_COL=['#5b8cff','#ff7a59','#22b07d','#a46cff','#ff5c93','#f2a81d','#1fb6c9','#7a8699'];
+const tkAvCol=id=>{let h=0;for(const c of String(id||''))h=(h*31+c.charCodeAt(0))>>>0;return TK_COL[h%TK_COL.length]};
+const tkAv=(id,nick,on)=>`<span class="tkAv${on?' on':''}" style="background:${tkAvCol(id)}">${esc((nick||'?').trim().slice(0,1).toUpperCase())}</span>`;
+const tkOnline=p=>p&&p.last_seen&&Date.now()-Date.parse(p.last_seen)<180e3;
+const tkSize=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(0)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':(b/1073741824).toFixed(2)+' GB';
+const tkTime=s=>{const d=new Date(s),n=new Date();if(d.toDateString()===n.toDateString())return d.toLocaleTimeString(lang,{hour:'numeric',minute:'2-digit'});
+  const y=new Date(n);y.setDate(n.getDate()-1);if(d.toDateString()===y.toDateString())return t('tkYesterday');return d.toLocaleDateString(lang,{month:'short',day:'numeric'})};
+const tkClock=s=>new Date(s).toLocaleTimeString(lang,{hour:'numeric',minute:'2-digit'});
+const tkFIcon=(type,name)=>{type=type||'';name=(name||'').toLowerCase();
+  if(type.startsWith('image/'))return '🖼️';if(type.startsWith('audio/')||/\.(mp3|m4a|flac|ogg|wav|aac)$/.test(name))return '🎵';if(type.startsWith('video/')||/\.(mp4|mkv|webm|mov|avi)$/.test(name))return '🎬';
+  if(/pdf/.test(type)||name.endsWith('.pdf'))return '📕';if(/\.(zip|rar|7z|apk)$/.test(name))return '🗜️';if(/\.(xlsx?|csv)$/.test(name))return '📊';if(/\.(pptx?)$/.test(name))return '📽️';if(/\.(docx?|hwp|hwpx|txt)$/.test(name))return '📄';return '📎'};
+const tkKind=(type,name)=>{const i=tkFIcon(type,name);return i==='🖼️'?'img':i==='🎵'?'aud':i==='🎬'?'vid':'doc'};
+const tkName=id=>{const p=TK.people[id];return p?p.nick:t('tkGone')};
+const tkRoomName=r=>r.kind==='all'?t('tkAllRoom'):(r.peer_nick||t('tkGone'));
+async function tkSigned(path,dl){const k=path+'|'+(dl||'');const c=TK.signed[k];if(c&&c.exp>Date.now())return c.u;
+  const j=await tkReq('/storage/v1/object/sign/hm-files/'+path.split('/').map(encodeURIComponent).join('/'),{method:'POST',body:{expiresIn:3600}});
+  let u=j.signedURL||j.signedUrl;u=(/^https?:/.test(u)?u:tkBase()+'/storage/v1'+(u.startsWith('/')?u:'/'+u));if(dl)u+=(u.includes('?')?'&':'?')+'download='+encodeURIComponent(dl);
+  TK.signed[k]={u,exp:Date.now()+50*60e3};return u}
+/* ---------- 화면 열기 · 닫기 ---------- */
+function openTalk(v){if(!labOn('talk'))return;closeAll();if(typeof webOn==='function'&&webOn())closeWeb();if(toolOn())closeTool();if(RPS.on)closeRps();if(ST.on)closeStar();
+  $('talk').hidden=false;TK.view=v||(TK.room?'room':'chats');if(TK.view==='room'&&!TK.room)TK.view='chats';tkBoot()}
+function closeTalk(){tkStopPoll();$('talk').hidden=true;$('talk').classList.remove('inRoom');tkHideAct();tkCardUI()}
+async function tkBoot(){TK.cfg=tkCfg();
+  if(!TK.cfg){tkShow('setup');return}
+  if(!TK.ses){if(!TK.status)tkRpc('hm_status').then(s=>{TK.status=s;if(TK.view==='auth')tkRender()}).catch(()=>{});tkShow('auth');return}
+  if(!TK.me){tkShow('loading');try{TK.me=await tkRpc('hm_me')}catch(e){if(!TK.ses){tkShow('auth');return}tkShow('error',tkMsg(e));return}
+    if(!TK.me){tkShow('join');return}}
+  if(TK.me.status==='blocked'){tkShow('blocked');return}
+  tkRpc('hm_touch').catch(()=>{});
+  await tkLoadBase();
+  tkShow(TK.view==='room'&&TK.room?'room':['members','files','admin','me','invite'].includes(TK.view)?TK.view:'chats')}
+async function tkLoadBase(){try{const [ps,st,rooms]=await Promise.all([tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at&order=nick.asc'),tkGet('hm_settings?select=*'),tkRpc('hm_rooms')]);
+  TK.people={};for(const p of ps||[])TK.people[p.id]=p;TK.settings=(st&&st[0])||{members_can_invite:false,max_file_mb:20};TK.rooms=rooms||[];
+  const me=TK.people[TK.me.id];if(me)TK.me=Object.assign(TK.me,me);tkUnread()}catch(e){toast(tkMsg(e))}}
+function tkShow(v,arg){TK.view=v;TK.err=arg||'';if(v!=='room')$('talk').classList.remove('inRoom');tkHideAct();tkRender();tkStartPoll()}
+function tkHead(){const v=TK.view,inApp=TK.me&&TK.me.status==='active'&&['chats','members','files','admin','room','me','invite'].includes(v);
+  $('tkTabs').hidden=!inApp||v==='room'||v==='me'||v==='invite';$('tkAdminTab').hidden=!(TK.me&&TK.me.role==='admin');
+  for(const b of $('tkTabs').querySelectorAll('[data-tv]'))b.classList.toggle('on',b.dataset.tv===v);
+  $('tkMeB').hidden=!inApp||v==='me';$('tkRef').hidden=!inApp;
+  $('tkBar').hidden=v!=='room';
+  let title=t('tkT'),sub='';
+  if(v==='room'&&TK.room){title=tkRoomName(TK.room);if(TK.room.kind==='all')sub=t('tkNMembers',{n:Object.values(TK.people).filter(p=>p.status==='active').length});else{const p=TK.people[TK.room.peer];sub=tkOnline(p)?t('tkOnline'):p&&p.last_seen?t('tkSeen',{t:tkTime(p.last_seen)}):''}}
+  else if(v==='me')title=t('tkMe');else if(v==='invite')title=t('tkInvite');else if(TK.me&&inApp)sub=TK.me.nick+(TK.me.role==='admin'?' · '+t('tkAdminR'):'');
+  $('tkTitle').textContent=title;$('tkSubT').textContent=sub}
+function tkRender(){tkHead();const M=$('tkMain'),v=TK.view;
+  if(v==='setup')M.innerHTML=tkSetupHTML();
+  else if(v==='auth')M.innerHTML=tkAuthHTML();
+  else if(v==='join')M.innerHTML=tkJoinHTML();
+  else if(v==='loading')M.innerHTML=`<div class="tkEmpty"><i>⏳</i>${esc(t('tkLoading'))}</div>`;
+  else if(v==='error')M.innerHTML=`<div class="tkWrap"><div class="tkEmpty"><i>⚠️</i>${esc(TK.err)}</div><button class="tkBtn" type="button" data-a="retry">${esc(t('tkRetry'))}</button><button class="tkBtn ghost" type="button" data-a="logout" style="margin-top:8px">${esc(t('tkLogout'))}</button></div>`;
+  else if(v==='blocked')M.innerHTML=`<div class="tkWrap"><div class="tkHero"><i>🚫</i><h2>${esc(t('tkBlockedT'))}</h2><p>${esc(t('tkBlockedD'))}</p></div><button class="tkBtn ghost" type="button" data-a="logout">${esc(t('tkLogout'))}</button></div>`;
+  else if(v==='chats'){if(TK.me)tkUnread();M.innerHTML=tkChatsHTML()}
+  else if(v==='members')M.innerHTML=tkMembersHTML();
+  else if(v==='files'){M.innerHTML=`<div class="tkEmpty"><i>⏳</i>${esc(t('tkLoading'))}</div>`;tkFiles()}
+  else if(v==='admin'){M.innerHTML=`<div class="tkEmpty"><i>⏳</i>${esc(t('tkLoading'))}</div>`;tkAdmin()}
+  else if(v==='me')M.innerHTML=tkMeHTML();
+  else if(v==='invite')M.innerHTML=tkInviteHTML();
+  else if(v==='room')tkRoomRender(true)}
+/* ---------- 서버 연결 (관리자 처음 한 번) ---------- */
+function tkSetupHTML(){const c=LS.get('tkCfg',null)||{};return `<div class="tkWrap"><div class="tkHero"><i>💬</i><h2>${esc(t('tkT'))}</h2><p>${esc(t('tkSetupD'))}</p></div>
+  <form class="tkCard" id="tkSetupF"><h3>${esc(t('tkSetupH'))}</h3>
+  <label class="tkF"><span>Project URL</span><input id="tkSU" type="url" inputmode="url" placeholder="https://xxxx.supabase.co" value="${esc(c.url||'')}" autocomplete="off"></label>
+  <label class="tkF"><span>Publishable / anon key</span><input id="tkSK" type="text" placeholder="sb_publishable_… / eyJ…" value="${esc(c.key||'')}" autocomplete="off"></label>
+  <p class="tkErr" id="tkErr"></p><button class="tkBtn" type="submit">${esc(t('tkConnect'))}</button><p class="tkNote">${esc(t('tkSetupNote'))}</p></form></div>`}
+async function tkSetupSubmit(){const u=$('tkSU').value.trim().replace(/\/+$/,''),k=$('tkSK').value.trim(),E=$('tkErr');
+  if(!/^https:\/\/[^\s/]+$/.test(u)||k.length<20){E.textContent=t('tkSetupBad');return}
+  const old=TK.cfg;TK.cfg={url:u,key:k};
+  try{TK.status=await tkReq('/rest/v1/rpc/hm_status',{method:'POST',body:{},auth:false});if(!TK.status||!('has_admin' in TK.status))throw new TkErr('schema','schema',0)}
+  catch(e){TK.cfg=old;E.textContent=e.code==='schema'||e.st===404?t('tkSetupNoSql'):tkMsg(e);return}
+  LS.set('tkCfg',{url:u,key:k});toast(t('tkConnected'));tkShow('auth')}
+/* ---------- 로그인 · 가입 ---------- */
+function tkAuthHTML(){const up=TK.authTab==='up',first=TK.status&&!TK.status.has_admin,code=LS.get('tkInvCode','');
+  return `<div class="tkWrap"><div class="tkHero"><i>💬</i><h2>${esc(t('tkT'))}</h2><p>${esc(t('tkHeroD'))}</p></div>
+  <div class="tkSeg"><button type="button" data-auth="in" class="${up?'':'on'}">${esc(t('tkLogin'))}</button><button type="button" data-auth="up" class="${up?'on':''}">${esc(t('tkSignup'))}</button></div>
+  <form class="tkCard" id="tkAuthF">
+  ${up&&first?`<p class="tkNote" style="margin:0 0 12px">👑 ${esc(t('tkFirstAdmin'))}</p>`:''}
+  <label class="tkF"><span>${esc(t('tkEmail'))}</span><input id="tkAE" type="email" autocomplete="email" inputmode="email" required></label>
+  <label class="tkF"><span>${esc(t('tkPw'))}</span><input id="tkAP" type="password" autocomplete="${up?'new-password':'current-password'}" minlength="6" required></label>
+  ${up?`<label class="tkF"><span>${esc(t('tkNick'))}</span><input id="tkAN" type="text" maxlength="20" required value="${esc(typeof nick==='string'?nick:'')}"></label>
+  ${first?'':`<label class="tkF"><span>${esc(t('tkCode'))}</span><input id="tkAC" type="text" maxlength="12" autocapitalize="characters" style="text-transform:uppercase;letter-spacing:.1em" value="${esc(code)}" required></label>`}`:''}
+  <p class="tkErr" id="tkErr"></p><button class="tkBtn" type="submit" id="tkAuthGo">${esc(t(up?'tkSignupGo':'tkLoginGo'))}</button>
+  ${up&&!first?`<p class="tkNote">${esc(t('tkNeedCode'))}</p>`:''}</form>
+  ${LS.get('tkCfg',null)?`<button class="tkBtn ghost" type="button" data-a="srv" style="margin-top:4px">${esc(t('tkSrvChange'))}</button>`:''}</div>`}
+async function tkAuthSubmit(){const up=TK.authTab==='up',E=$('tkErr'),btn=$('tkAuthGo');const em=$('tkAE').value.trim(),pw=$('tkAP').value;
+  if(pw.length<6){E.textContent=t('tkEPw');return}
+  let nk='',code='';if(up){nk=$('tkAN').value.trim();if(!nk){E.textContent=t('tkENick');return}const ci=$('tkAC');code=ci?ci.value.trim().toUpperCase():'';if(ci&&!code){E.textContent=t('tkEInvite');return}}
+  btn.disabled=true;E.textContent='';
+  try{
+    if(up){if(code){const st=await tkReq('/rest/v1/rpc/hm_status',{method:'POST',body:{},auth:false}).catch(()=>null);if(st)TK.status=st}
+      const j=await tkReq('/auth/v1/signup',{method:'POST',body:{email:em,password:pw},auth:false});
+      if(!j||!j.access_token){E.textContent=t('tkEConfirm');btn.disabled=false;return}
+      tkSaveSes(j);
+      try{TK.me=await tkRpc('hm_join',{p_nick:nk,p_code:code||null})}catch(e){btn.disabled=false;LS.set('tkJoinNick',nk);TK.me=null;tkShow('join',tkMsg(e));return}
+      LS.set('tkInvCode','');toast(t(TK.me.role==='admin'?'tkWelcomeAdmin':'tkWelcome',{n:TK.me.nick}))}
+    else{const j=await tkReq('/auth/v1/token?grant_type=password',{method:'POST',body:{email:em,password:pw},auth:false});tkSaveSes(j);TK.me=null}
+    TK.view='chats';tkBoot()}
+  catch(e){E.textContent=tkMsg(e);btn.disabled=false}}
+function tkJoinHTML(){return `<div class="tkWrap"><div class="tkHero"><i>🎟️</i><h2>${esc(t('tkJoinT'))}</h2><p>${esc(t('tkJoinD'))}</p></div>
+  <form class="tkCard" id="tkJoinF"><label class="tkF"><span>${esc(t('tkNick'))}</span><input id="tkJN" maxlength="20" required value="${esc(LS.get('tkJoinNick','')||(typeof nick==='string'?nick:''))}"></label>
+  <label class="tkF"><span>${esc(t('tkCode'))}</span><input id="tkJC" maxlength="12" style="text-transform:uppercase;letter-spacing:.1em" value="${esc(LS.get('tkInvCode',''))}"></label>
+  <p class="tkErr" id="tkErr">${esc(TK.err||'')}</p><button class="tkBtn" type="submit">${esc(t('tkJoinGo'))}</button></form>
+  <button class="tkBtn ghost" type="button" data-a="logout">${esc(t('tkLogout'))}</button></div>`}
+async function tkJoinSubmit(){const nk=$('tkJN').value.trim(),code=$('tkJC').value.trim().toUpperCase(),E=$('tkErr');
+  try{TK.me=await tkRpc('hm_join',{p_nick:nk,p_code:code||null});LS.set('tkInvCode','');LS.set('tkJoinNick','');toast(t(TK.me.role==='admin'?'tkWelcomeAdmin':'tkWelcome',{n:TK.me.nick}));TK.view='chats';tkBoot()}catch(e){E.textContent=tkMsg(e)}}
+async function tkLogout(){try{if(TK.ses)await tkReq('/auth/v1/logout',{method:'POST',body:{}})}catch(e){}
+  tkSaveSes(null);TK.me=null;TK.room=null;TK.authTab='in';TK.rooms=[];TK.people={};TK.signed={};TK.unread=0;TK.read={};LS.set('tkRead',{});toast(t('tkLoggedOut'));tkCardUI();tkShow('auth')}
+/* ---------- 채팅 목록 ---------- */
+function tkUnread(){let n=0;for(const r of TK.rooms){if(r.last_id&&r.last_sender!==TK.me.id&&r.last_id>(TK.read[r.id]||0))n++}TK.unread=n;
+  const e=$('tkUnr');e.hidden=!n;e.textContent=n>99?'99+':n;tkCardUI()}
+function tkChatsHTML(){const rs=TK.rooms;
+  const row=r=>{const un=r.last_id&&r.last_sender!==TK.me.id&&r.last_id>(TK.read[r.id]||0),p=r.kind==='dm'?TK.people[r.peer]:null;
+    const prev=r.last_id?(r.last_body!=null?r.last_body:r.last_file?'📎 '+r.last_file:t('tkDeleted')):t('tkNoMsg');
+    const who=r.kind==='all'&&r.last_sender&&r.last_id?(r.last_sender===TK.me.id?t('tkMeShort'):tkName(r.last_sender))+': ':'';
+    return `<button type="button" class="tkIt" data-room="${r.id}">${r.kind==='all'?'<span class="tkAv" style="background:linear-gradient(135deg,#5b8cff,#22b07d)">👥</span>':tkAv(r.peer,r.peer_nick,tkOnline(p))}<div><b>${esc(tkRoomName(r))}</b><small>${esc(who+prev)}</small></div><div class="r"><time>${r.last_at?esc(tkTime(r.last_at)):''}</time>${un?'<span class="tkDot">N</span>':''}</div></button>`};
+  return `<div class="tkWrap">${tkCanInvite()?`<button class="tkBtn ghost" type="button" data-a="invite" style="margin:0 0 10px">✉️ ${esc(t('tkInviteBtn'))}</button>`:''}
+  <div class="tkList">${rs.map(row).join('')||`<div class="tkEmpty"><i>💬</i>${esc(t('tkNoRooms'))}</div>`}</div>
+  <p class="tkNote" style="text-align:center;margin-top:16px">${esc(t('tkDmHint'))}</p></div>`}
+/* ---------- 대화방 ---------- */
+async function tkOpenRoom(id){const r=TK.rooms.find(x=>x.id===id);if(!r)return;TK.room=r;TK.msgs=[];TK.firstId=0;TK.lastId=0;TK.noMore=false;
+  $('talk').classList.add('inRoom');tkShow('room');await tkLoadMsgs();setTimeout(()=>{if(TK.view==='room')$('tkIn').focus({preventScroll:true})},50)}
+async function tkLoadMsgs(older){if(!TK.room||TK.loadingRoom)return;TK.loadingRoom=true;const rid=TK.room.id;
+  try{let q='hm_messages?select=*&room_id=eq.'+rid;
+    if(older)q+='&id=lt.'+TK.firstId+'&order=id.desc&limit=40';else if(TK.lastId)q+='&id=gt.'+TK.lastId+'&order=id.asc&limit=200';else q+='&order=id.desc&limit=40';
+    let l=await tkGet(q)||[];if(!TK.room||TK.room.id!==rid)return;
+    if(older||!TK.lastId)l.reverse();
+    if(older){if(l.length<40)TK.noMore=true;if(l.length){TK.msgs=l.concat(TK.msgs);TK.firstId=l[0].id;tkRoomRender(false,true)}else tkRoomRender(false,true)}
+    else if(l.length){const fresh=!TK.lastId;if(fresh&&l.length<40)TK.noMore=true;
+      const ids=new Set(TK.msgs.map(m=>m.id));for(const m of l)if(!ids.has(m.id))TK.msgs.push(m);      TK.firstId=TK.msgs.find(m=>m.id>0)?TK.msgs.find(m=>m.id>0).id:0;TK.lastId=Math.max(TK.lastId,...l.map(m=>m.id));
+      const nearBottom=tkNearBottom();tkRoomRender(fresh||nearBottom||l.some(m=>m.sender===TK.me.id));tkMarkRead()}
+    if(l.some(m=>m.sender&&!TK.people[m.sender]))tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at').then(ps=>{for(const p of ps||[])TK.people[p.id]=p;tkRoomRender(false)}).catch(()=>{})
+    else if(!TK.lastId){TK.noMore=true;tkRoomRender(true)}}
+  catch(e){if(TK.view==='room'&&!TK.msgs.length)$('tkMain').innerHTML=`<div class="tkEmpty"><i>⚠️</i>${esc(tkMsg(e))}</div>`}
+  finally{TK.loadingRoom=false}}
+function tkMarkRead(){if(!TK.room||!TK.lastId)return;TK.read[TK.room.id]=Math.max(TK.read[TK.room.id]||0,TK.lastId);LS.set('tkRead',TK.read);const r=TK.rooms.find(x=>x.id===TK.room.id);if(r&&TK.lastId>=(r.last_id||0)){const m=TK.msgs[TK.msgs.length-1];if(m&&m.id>0){r.last_id=m.id;r.last_body=m.deleted?null:m.body;r.last_file=m.file_name;r.last_sender=m.sender;r.last_at=m.created_at}}tkUnread()}
+const tkNearBottom=()=>{const M=$('tkMain');return M.scrollHeight-M.scrollTop-M.clientHeight<140};
+function tkMsgHTML(m,prev){const mine=m.sender===TK.me.id,day=new Date(m.created_at).toDateString();let h='';
+  if(!prev||new Date(prev.created_at).toDateString()!==day)h+=`<div class="tkDay">${esc(new Date(m.created_at).toLocaleDateString(lang,{year:'numeric',month:'long',day:'numeric',weekday:'short'}))}</div>`;
+  const showWho=!mine&&TK.room.kind==='all'&&(!prev||prev.sender!==m.sender||h);
+  let inner;
+  if(m.deleted)inner=`<div class="bb del">${esc(t('tkDeleted'))}</div>`;
+  else if(m.file_path||m._up){const k=tkKind(m.file_type,m.file_name);
+    const fb=`<div class="tkFileB"><span class="ic">${tkFIcon(m.file_type,m.file_name)}</span><div><b>${esc(m.file_name||'')}</b><small>${esc(tkSize(m.file_size||0))}${m._up?' · '+esc(t('tkUploading')):m._fail?'':' · '+esc(t('tkTapDl'))}</small>${m._up?`<div class="tkProg"><i style="width:${m._p||0}%"></i></div>`:''}</div></div>`;
+    inner=`<div class="bb${m._fail?' fail':''}" data-mid="${m.id}"${m.file_path?` data-file="${m.id}"`:''}>${k==='img'&&m.file_path?`<img class="tkImg" data-sig="${esc(m.file_path)}" alt="${esc(m.file_name||'')}" loading="lazy">`:fb}${m.body?`<div style="margin-top:6px">${tkLinkify(m.body)}</div>`:''}</div>`}
+  else inner=`<div class="bb${m._tmp?' pend':''}${m._fail?' fail':''}" data-mid="${m.id}">${tkLinkify(m.body||'')}</div>`;
+  return h+`<div class="tkM${mine?' mine':''}">${showWho?`<span class="who">${esc(tkName(m.sender))}</span>`:''}<div class="bw">${inner}<time>${m._tmp?'…':m._fail?'⚠️':esc(tkClock(m.created_at))}</time></div></div>`}
+const tkLinkify=s=>esc(s).replace(/https?:\/\/[^\s<]+/g,u=>`<a href="#" data-url="${u}">${u}</a>`);
+function tkRoomRender(toBottom,keepTop){const M=$('tkMain');if(TK.view!=='room')return;tkHead();
+  const oldH=M.scrollHeight,oldT=M.scrollTop;
+  let h='<div class="tkMsgs">';if(TK.msgs.length&&!TK.noMore)h+=`<button type="button" class="tkMore" data-a="older">${esc(t('tkOlder'))}</button>`;
+  if(!TK.msgs.length)h+=`<div class="tkEmpty"><i>👋</i>${esc(t(TK.loadingRoom&&!TK.noMore?'tkLoading':'tkFirstMsg'))}</div>`;
+  TK.msgs.forEach((m,i)=>{h+=tkMsgHTML(m,TK.msgs[i-1])});M.innerHTML=h+'</div>';
+  tkLoadImgs();
+  if(keepTop)M.scrollTop=M.scrollHeight-oldH+oldT;else if(toBottom)M.scrollTop=M.scrollHeight;else M.scrollTop=oldT}
+function tkLoadImgs(){for(const im of $('tkMain').querySelectorAll('img[data-sig]:not([src])')){const p=im.dataset.sig;tkSigned(p).then(u=>{im.src=u;im.onload=()=>{if(tkNearBottom())$('tkMain').scrollTop=$('tkMain').scrollHeight}}).catch(()=>{im.alt='⚠️'})}}
+async function tkSendText(){const ta=$('tkIn'),v=ta.value.replace(/\s+$/,'');if(!v.trim()||!TK.room)return;ta.value='';tkGrow();
+  const tmp={id:-(++TK.sending),_tmp:true,room_id:TK.room.id,sender:TK.me.id,body:v,created_at:new Date().toISOString()};TK.msgs.push(tmp);tkRoomRender(true);
+  try{const r=await tkReq('/rest/v1/hm_messages',{method:'POST',headers:{Prefer:'return=representation'},body:{room_id:TK.room.id,sender:TK.me.id,body:v}});
+    const m=r&&r[0];TK.msgs=TK.msgs.filter(x=>x!==tmp);if(m&&!TK.msgs.some(x=>x.id===m.id)){TK.msgs.push(m);TK.msgs.sort((a,b)=>(a.id<0?1e15:a.id)-(b.id<0?1e15:b.id));TK.lastId=Math.max(TK.lastId,m.id)}tkRoomRender(true);tkMarkRead()}
+  catch(e){tmp._tmp=false;tmp._fail=true;tkRoomRender(true);toast(tkMsg(e))}}
+function tkUpload(path,file,onp){return new Promise((res,rej)=>{const x=new XMLHttpRequest();x.open('POST',tkBase()+'/storage/v1/object/hm-files/'+path.split('/').map(encodeURIComponent).join('/'));
+  x.setRequestHeader('apikey',TK.cfg.key);x.setRequestHeader('Authorization','Bearer '+TK.ses.access_token);x.setRequestHeader('Content-Type',file.type||'application/octet-stream');x.setRequestHeader('x-upsert','false');x.setRequestHeader('cache-control','3600');
+  x.upload.onprogress=e=>{if(e.lengthComputable)onp(Math.round(e.loaded/e.total*100))};
+  x.onload=()=>{if(x.status>=200&&x.status<300)res();else{let m='HTTP '+x.status;try{const j=JSON.parse(x.responseText);m=j.message||j.error||m}catch(e){}rej(new TkErr(m,x.status,x.status))}};
+  x.onerror=()=>rej(new TkErr('network','network',0));x.send(file)})}
+async function tkSendFiles(files){if(!TK.room)return;const max=((TK.settings&&TK.settings.max_file_mb)||20)*1048576;
+  for(const f of files){if(f.size>max){toast(t('tkTooBig',{n:f.name,m:Math.round(max/1048576)}));continue}if(!f.size){continue}
+    await tkEnsure();const ext=(f.name.match(/\.([a-z0-9]{1,8})$/i)||[])[1];const path=TK.room.id+'/'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)+(ext?'.'+ext.toLowerCase():'');
+    const tmp={id:-(++TK.sending),_tmp:true,_up:true,_p:0,room_id:TK.room.id,sender:TK.me.id,file_name:f.name,file_size:f.size,file_type:f.type,created_at:new Date().toISOString()};TK.msgs.push(tmp);tkRoomRender(true);
+    let last=0;try{await tkUpload(path,f,p=>{tmp._p=p;if(Date.now()-last>250){last=Date.now();const b=$('tkMain').querySelector(`[data-mid="${tmp.id}"] .tkProg i`);if(b)b.style.width=p+'%'}});
+      const r=await tkReq('/rest/v1/hm_messages',{method:'POST',headers:{Prefer:'return=representation'},body:{room_id:TK.room.id,sender:TK.me.id,file_path:path,file_name:f.name.slice(0,200),file_size:f.size,file_type:f.type||null}});
+      TK.msgs=TK.msgs.filter(x=>x!==tmp);const m=r&&r[0];if(m&&!TK.msgs.some(x=>x.id===m.id)){TK.msgs.push(m);TK.lastId=Math.max(TK.lastId,m.id)}tkRoomRender(true);tkMarkRead()}
+    catch(e){tmp._up=false;tmp._tmp=false;tmp._fail=true;tkRoomRender(true);toast(tkMsg(e))}}}
+async function tkDownload(m){try{const u=await tkSigned(m.file_path,m.file_name);
+    if(AND&&typeof AND.dlFile==='function'&&!IS_PC){AND.dlFile(u,(m.file_name||'file').replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').slice(0,120));toast(t('tkDlStart',{n:m.file_name}));return}
+    if(IS_PC||!AND){const a=document.createElement('a');a.href=u;a.download=m.file_name;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();toast(t('tkDlStart',{n:m.file_name}));return}
+    AND.openExternal(u);toast(t('tkDlBrowser'))}catch(e){toast(tkMsg(e))}}
+function tkHideAct(){const a=document.querySelector('.tkAct');if(a)a.remove()}
+function tkMsgAct(m){tkHideAct();const mine=m.sender===TK.me.id,adm=TK.me.role==='admin';const d=document.createElement('div');d.className='tkAct';
+  d.innerHTML=(m.body?`<button type="button" data-act="copy">${esc(t('tkCopy'))}</button>`:'')+(m.file_path?`<button type="button" data-act="dl">${esc(t('tkDl'))}</button>`:'')+((mine||adm)&&m.id>0&&!m.deleted?`<button type="button" class="red" data-act="del">${esc(t('tkDel'))}</button>`:'')+`<button type="button" data-act="x">✕</button>`;
+  if(m._fail&&m.body)d.innerHTML=`<button type="button" data-act="resend">${esc(t('tkResend'))}</button><button type="button" data-act="x">✕</button>`;
+  $('talk').appendChild(d);let armed=0;
+  d.onclick=async e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
+    if(a==='copy'){try{await navigator.clipboard.writeText(m.body);toast(t('pCopied'))}catch(_){}}
+    else if(a==='dl')tkDownload(m);
+    else if(a==='resend'){TK.msgs=TK.msgs.filter(x=>x!==m);$('tkIn').value=m.body;tkSendText()}
+    else if(a==='del'){if(!armed){armed=1;b.textContent=t('tkDel2');return}
+      try{const fp=await tkRpc('hm_delete_message',{p_id:m.id});if(fp)tkReq('/storage/v1/object/hm-files',{method:'DELETE',body:{prefixes:[fp]}}).catch(()=>{});m.deleted=true;m.body=null;tkRoomRender(false);toast(t('tkDeletedT'))}catch(err){toast(tkMsg(err))}}
+    tkHideAct()};
+  setTimeout(()=>{const off=ev=>{if(!d.contains(ev.target)){tkHideAct();document.removeEventListener('pointerdown',off,true)}};document.addEventListener('pointerdown',off,true)},0)}
+function tkGrow(){const ta=$('tkIn');ta.style.height='auto';ta.style.height=Math.min(140,ta.scrollHeight)+'px'}
+/* ---------- 멤버 ---------- */
+const tkCanInvite=()=>TK.me&&(TK.me.role==='admin'||(TK.settings&&TK.settings.members_can_invite));
+function tkMembersHTML(){const ps=Object.values(TK.people).filter(p=>p.status==='active').sort((a,b)=>(b.id===TK.me.id)-(a.id===TK.me.id)||(tkOnline(b)-tkOnline(a))||a.nick.localeCompare(b.nick));
+  const on=ps.filter(tkOnline).length;
+  return `<div class="tkWrap">${tkCanInvite()?`<button class="tkBtn" type="button" data-a="invite" style="margin:0 0 6px">✉️ ${esc(t('tkInviteBtn'))}</button>`:''}
+  <div class="tkSecH"><h4>${esc(t('tkNMembers',{n:ps.length}))} · ${esc(t('tkNOnline',{n:on}))}</h4></div>
+  <div class="tkList">${ps.map(p=>`<button type="button" class="tkIt" data-dm="${p.id}"${p.id===TK.me.id?' disabled':''}>${tkAv(p.id,p.nick,tkOnline(p))}<div><b>${esc(p.nick)}${p.id===TK.me.id?`<span class="tkTag me">${esc(t('tkMeShort'))}</span>`:''}${p.role==='admin'?`<span class="tkTag adm">${esc(t('tkAdminR'))}</span>`:''}</b><small>${esc(tkOnline(p)?t('tkOnline'):t('tkSeen',{t:tkTime(p.last_seen)}))}</small></div>${p.id===TK.me.id?'':`<div class="r"><span style="font-size:20px">💬</span></div>`}</button>`).join('')}</div></div>`}
+async function tkOpenDm(uid){try{const id=await tkRpc('hm_dm',{p_other:uid});TK.rooms=await tkRpc('hm_rooms')||TK.rooms;tkOpenRoom(id)}catch(e){toast(tkMsg(e))}}
+/* ---------- 초대 ---------- */
+function tkInviteHTML(){const iv=TK.invite;return `<div class="tkWrap"><div class="tkHero"><i>✉️</i><h2>${esc(t('tkInviteH'))}</h2><p>${esc(t('tkInviteD'))}</p></div>
+  ${iv?`<div class="tkCard"><h3>${esc(t('tkCodeMade'))}</h3><div class="tkCode" id="tkCodeV">${esc(iv.code)}</div><p class="tkNote" style="margin:0 0 10px;text-align:center">${esc(t('tkCodeInfo',{n:iv.max,d:iv.days?t('tkDaysN',{n:iv.days}):t('tkNoExp')}))}</p>
+    <div class="tkRow2"><button class="tkBtn" type="button" data-a="share">📤 ${esc(t('tkShare'))}</button><button class="tkBtn ghost" type="button" data-a="copyinv">${esc(t('tkCopyInv'))}</button></div></div>`:''}
+  <form class="tkCard" id="tkInvF"><h3>${esc(t(iv?'tkInvAnother':'tkInvNew'))}</h3>
+  <div class="tkF"><span>${esc(t('tkInvUses'))}</span><div class="tkChips" data-g="max">${[1,5,20,100].map((n,i)=>`<button type="button" data-v="${n}" class="${i===0?'on':''}">${esc(t('tkPeople',{n}))}</button>`).join('')}</div></div>
+  <div class="tkF"><span>${esc(t('tkInvExp'))}</span><div class="tkChips" data-g="days">${[1,7,30,0].map((n,i)=>`<button type="button" data-v="${n}" class="${i===1?'on':''}">${esc(n?t('tkDaysN',{n}):t('tkNoExp'))}</button>`).join('')}</div></div>
+  <label class="tkF"><span>${esc(t('tkInvNote'))}</span><input id="tkInvN" maxlength="40" placeholder="${esc(t('tkInvNotePh'))}"></label>
+  <p class="tkErr" id="tkErr"></p><button class="tkBtn" type="submit">${esc(t('tkMakeCode'))}</button></form></div>`}
+async function tkMakeInvite(){const g=n=>+$('tkInvF').querySelector(`[data-g="${n}"] .on`).dataset.v;const max=g('max'),days=g('days'),note=$('tkInvN').value.trim();
+  try{const code=await tkRpc('hm_create_invite',{p_max:max,p_days:days,p_note:note||null});TK.invite={code,max,days};tkRender();$('tkMain').scrollTop=0}catch(e){$('tkErr').textContent=tkMsg(e)}}
+function tkInviteText(code){const raw='https://raw.githubusercontent.com/'+REPO+'/main/';
+  return t('tkInvText',{n:TK.me?TK.me.nick:'',c:code,a:raw+'apk/HappyMusic.apk',p:raw+'pc/HappyMusic-Setup.exe',l:'happymusic://invite/'+code})}
+async function tkShareInvite(code){const txt=tkInviteText(code);
+  if(AND&&typeof AND.share==='function'&&!IS_PC){AND.share(txt);return}
+  if(navigator.share&&!IS_PC){try{await navigator.share({text:txt});return}catch(e){}}
+  try{await navigator.clipboard.writeText(txt);toast(t('tkInvCopied'))}catch(e){toast(t('tkCopyFail'))}}
+function tkDeepLink(u){const m=String(u).match(/invite\/([A-Za-z0-9]{4,12})/);if(!m)return false;LS.set('tkInvCode',m[1].toUpperCase());TK.authTab='up';
+  if(TK.ses&&TK.me){toast(t('tkAlreadyIn'));openTalk('chats')}else{openTalk('auth');toast(t('tkCodeFilled'))}return true}
+/* ---------- 파일 ---------- */
+async function tkFiles(){try{const l=await tkGet('hm_messages?select=id,room_id,sender,file_path,file_name,file_size,file_type,created_at&file_path=not.is.null&deleted=is.false&order=id.desc&limit=200')||[];
+    if(TK.view!=='files')return;TK.fileList=l;tkFilesRender()}catch(e){$('tkMain').innerHTML=`<div class="tkEmpty"><i>⚠️</i>${esc(tkMsg(e))}</div>`}}
+function tkFilesRender(){const f=TK.fileFilter,l=(TK.fileList||[]).filter(m=>f==='all'||tkKind(m.file_type,m.file_name)===f||(f==='mine'&&m.sender===TK.me.id));
+  const rn=id=>{const r=TK.rooms.find(x=>x.id===id);return r?tkRoomName(r):''};
+  $('tkMain').innerHTML=`<div class="tkWrap"><div class="tkChips" id="tkFF">${[['all','tkFAll'],['img','tkFImg'],['vid','tkFVid'],['aud','tkFAud'],['doc','tkFDoc'],['mine','tkFMine']].map(([k,l])=>`<button type="button" data-ff="${k}" class="${f===k?'on':''}">${esc(t(l))}</button>`).join('')}</div>
+  <div class="tkList">${l.map(m=>`<button type="button" class="tkIt" data-fdl="${m.id}"><span class="tkAv" style="background:var(--soft2,rgba(127,127,127,.15));font-size:22px">${tkFIcon(m.file_type,m.file_name)}</span><div><b>${esc(m.file_name)}</b><small>${esc(tkSize(m.file_size||0))} · ${esc(tkName(m.sender))} · ${esc(rn(m.room_id))}</small></div><div class="r"><time>${esc(tkTime(m.created_at))}</time><span>⬇️</span></div></button>`).join('')||`<div class="tkEmpty"><i>📁</i>${esc(t('tkNoFiles'))}</div>`}</div>
+  <p class="tkNote" style="text-align:center">${esc(t('tkFilesNote',{n:(TK.settings&&TK.settings.max_file_mb)||20}))}</p></div>`}
+/* ---------- 관리 ---------- */
+async function tkAdmin(){if(TK.me.role!=='admin'){tkShow('chats');return}
+  try{const [inv,use,ps]=await Promise.all([tkGet('hm_invites?select=*&order=created_at.desc&limit=100'),tkRpc('hm_storage_used'),tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at&order=created_at.asc')]);
+    if(TK.view!=='admin')return;TK.people={};for(const p of ps||[])TK.people[p.id]=p;TK.adm={inv:inv||[],use:use||{bytes:0,files:0}};tkAdminRender()}
+  catch(e){$('tkMain').innerHTML=`<div class="tkEmpty"><i>⚠️</i>${esc(tkMsg(e))}</div>`}}
+function tkAdminRender(){const A=TK.adm,ps=Object.values(TK.people).sort((a,b)=>(a.created_at||'').localeCompare(b.created_at||'')),S=TK.settings||{},lim=1073741824,pct=Math.min(100,A.use.bytes/lim*100);
+  const now=Date.now(),ivState=i=>i.revoked?t('tkIvRevoked'):i.uses>=i.max_uses?t('tkIvUsed'):i.expires_at&&Date.parse(i.expires_at)<now?t('tkIvExpired'):'';
+  $('tkMain').innerHTML=`<div class="tkWrap">
+  <div class="tkCard"><h3>👥 ${esc(t('tkAdmMembers'))} (${ps.length})</h3>${ps.map(p=>`<div class="tkMem">${tkAv(p.id,p.nick,tkOnline(p))}<div><b>${esc(p.nick)}${p.role==='admin'?`<span class="tkTag adm">${esc(t('tkAdminR'))}</span>`:''}${p.status==='blocked'?`<span class="tkTag blk">${esc(t('tkBlockedTag'))}</span>`:''}${p.id===TK.me.id?`<span class="tkTag me">${esc(t('tkMeShort'))}</span>`:''}</b><small>${esc(t('tkJoined',{d:new Date(p.created_at).toLocaleDateString(lang)}))} · ${esc(tkOnline(p)?t('tkOnline'):t('tkSeen',{t:tkTime(p.last_seen)}))}</small></div>
+    ${p.id===TK.me.id?'':`<button type="button" data-role="${p.id}">${esc(t(p.role==='admin'?'tkMkMember':'tkMkAdmin'))}</button><button type="button" class="${p.status==='blocked'?'':'red'}" data-block="${p.id}">${esc(t(p.status==='blocked'?'tkUnblock':'tkBlock'))}</button>`}</div>`).join('')}</div>
+  <div class="tkCard"><h3>🎟️ ${esc(t('tkAdmInv'))}</h3><button class="tkBtn" type="button" data-a="invite" style="margin:0 0 8px">✉️ ${esc(t('tkInviteBtn'))}</button>
+    ${A.inv.length?A.inv.map(i=>{const s=ivState(i);return `<div class="tkInv${s?' off':''}"><code>${esc(i.code)}</code><div><span>${esc(i.note||'')}</span><small>${esc(t('tkIvUses',{u:i.uses,m:i.max_uses}))} · ${esc(i.expires_at?t('tkIvUntil',{d:new Date(i.expires_at).toLocaleDateString(lang)}):t('tkNoExp'))}${s?' · '+esc(s):''}</small></div>${s?'':`<button type="button" data-ishare="${esc(i.code)}">📤</button><button type="button" data-revoke="${esc(i.code)}">${esc(t('tkRevoke'))}</button>`}</div>`}).join(''):`<p class="tkNote">${esc(t('tkNoInv'))}</p>`}</div>
+  <div class="tkCard"><h3>⚙️ ${esc(t('tkAdmSet'))}</h3>
+    <label class="tkSw"><span>${esc(t('tkMemInv'))}</span><input type="checkbox" class="sw" id="tkSetInv"${S.members_can_invite?' checked':''}></label>
+    <div class="tkF" style="margin-top:6px"><span>${esc(t('tkMaxFile'))}</span><div class="tkChips" id="tkSetMax">${[5,10,20,50].map(n=>`<button type="button" data-v="${n}" class="${S.max_file_mb===n?'on':''}">${n} MB</button>`).join('')}</div></div></div>
+  <div class="tkCard"><h3>💾 ${esc(t('tkAdmStore'))}</h3><div class="tkMeter"><i style="width:${pct.toFixed(1)}%"></i></div><p class="tkNote" style="margin:0">${esc(t('tkStoreUse',{u:tkSize(A.use.bytes),n:A.use.files}))}</p></div>
+  <div class="tkCard"><h3>🔗 ${esc(t('tkAdmSrv'))}</h3><p class="tkNote" style="margin:0 0 8px;word-break:break-all">${esc(tkBase())}</p><p class="tkNote" style="margin:0">${esc(t('tkAdmSrvD'))}</p></div></div>`}
+async function tkAdminDo(fn,args){try{await tkRpc(fn,args);await tkAdmin();toast(t('tkDone'))}catch(e){toast(tkMsg(e))}}
+/* ---------- 내 정보 ---------- */
+function tkMeHTML(){const m=TK.me;return `<div class="tkWrap"><div class="tkHero"><span class="tkAv" style="width:72px;height:72px;font-size:30px;margin:0 auto;background:${tkAvCol(m.id)}">${esc(m.nick.slice(0,1).toUpperCase())}</span><h2>${esc(m.nick)}</h2><p>${esc((TK.ses&&TK.ses.email)||'')}${m.role==='admin'?' · 👑 '+esc(t('tkAdminR')):''}</p></div>
+  <form class="tkCard" id="tkNickF"><label class="tkF"><span>${esc(t('tkNick'))}</span><input id="tkMN" maxlength="20" value="${esc(m.nick)}"></label><button class="tkBtn" type="submit">${esc(t('save'))}</button></form>
+  ${tkCanInvite()?`<button class="tkBtn ghost" type="button" data-a="invite">✉️ ${esc(t('tkInviteBtn'))}</button>`:''}
+  <button class="tkBtn red" type="button" data-a="logout" style="margin-top:8px">${esc(t('tkLogout'))}</button>
+  <p class="tkNote" style="text-align:center;margin-top:14px">${esc(t('tkPrivacy'))}</p></div>`}
+/* ---------- 새 메시지 확인 (주기적) ---------- */
+function tkStartPoll(){tkStopPoll();if(!TK.me||TK.me.status!=='active')return;
+  TK.poll=setInterval(async()=>{if(document.hidden||!tkOn())return;
+    if(TK.view==='room')tkLoadMsgs();else if(TK.view==='chats'||TK.view==='members'){try{const [rooms,ps]=await Promise.all([tkRpc('hm_rooms'),tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at')]);TK.rooms=rooms||[];for(const p of ps||[])TK.people[p.id]=p;tkUnread();if(TK.view==='chats'||TK.view==='members'){const M=$('tkMain'),st=M.scrollTop;tkRender();M.scrollTop=st}}catch(e){}}},TK.view==='room'?3000:10000)}
+function tkStopPoll(){clearInterval(TK.poll);TK.poll=0}
+async function tkBgCheck(){if(!labOn('talk')||!TK.cfg||!TK.ses||document.hidden||tkOn())return;
+  try{if(!TK.me){TK.me=await tkRpc('hm_me');if(!TK.me)return}tkRpc('hm_touch').catch(()=>{});TK.rooms=await tkRpc('hm_rooms')||[];tkUnread()}catch(e){}}
+function tkCardUI(){if(!labOn('talk'))return;const s=$('tkCardSub'),b=$('tkCardBadge');
+  b.hidden=!TK.unread;b.textContent=TK.unread>99?'99+':TK.unread;
+  s.textContent=!TK.cfg?t('tkCardSub'):!TK.ses?t('tkCardLogin'):TK.unread?t('tkCardNew',{n:TK.unread}):TK.me?t('tkCardHi',{n:TK.me.nick}):t('tkCardSub')}
+/* ---------- 이벤트 ---------- */
+$('talkCard').onclick=()=>openTalk();
+$('tkX').onclick=()=>tkBack()||closeTalk();
+function tkBack(){if(document.querySelector('.tkAct')){tkHideAct();return true}
+  if(TK.view==='room'){TK.room=null;TK.msgs=[];tkShow('chats');return true}
+  if(['members','files','admin','me','invite'].includes(TK.view)){TK.invite=null;tkShow('chats');return true}
+  return false}
+$('tkMeB').onclick=()=>tkShow('me');
+$('tkRef').onclick=async()=>{if(TK.view==='room'){tkLoadMsgs();return}await tkLoadBase();tkRender()};
+$('tkTabs').addEventListener('click',e=>{const b=e.target.closest('[data-tv]');if(b){TK.room=null;tkShow(b.dataset.tv)}});
+$('tkMain').addEventListener('submit',e=>{e.preventDefault();const id=e.target.id;
+  if(id==='tkSetupF')tkSetupSubmit();else if(id==='tkAuthF')tkAuthSubmit();else if(id==='tkJoinF')tkJoinSubmit();else if(id==='tkInvF')tkMakeInvite();
+  else if(id==='tkNickF'){const v=$('tkMN').value.trim();tkRpc('hm_set_nick',{p_nick:v}).then(()=>{TK.me.nick=v;if(TK.people[TK.me.id])TK.people[TK.me.id].nick=v;toast(t('tkSaved'));tkHead()}).catch(err=>toast(tkMsg(err)))}});
+$('tkMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
+  if(b=g('[data-auth]')){TK.authTab=b.dataset.auth;tkRender();if(TK.authTab==='up'&&!TK.status)tkRpc('hm_status').then(s=>{TK.status=s;if(TK.view==='auth')tkRender()}).catch(()=>{});return}
+  if(b=g('[data-a]')){const a=b.dataset.a;
+    if(a==='retry')tkBoot();else if(a==='logout')tkLogout();else if(a==='srv'){tkShow('setup')}
+    else if(a==='invite'){TK.invite=null;tkShow('invite')}else if(a==='share')tkShareInvite(TK.invite.code);
+    else if(a==='copyinv'){navigator.clipboard.writeText(tkInviteText(TK.invite.code)).then(()=>toast(t('tkInvCopied'))).catch(()=>toast(t('tkCopyFail')))}
+    else if(a==='older')tkLoadMsgs(true);return}
+  if(b=g('[data-room]')){tkOpenRoom(b.dataset.room);return}
+  if(b=g('[data-dm]')){if(!b.disabled)tkOpenDm(b.dataset.dm);return}
+  if(b=g('.tkChips[data-g] [data-v]')){for(const x of b.parentNode.children)x.classList.toggle('on',x===b);return}
+  if(b=g('[data-ff]')){TK.fileFilter=b.dataset.ff;tkFilesRender();return}
+  if(b=g('[data-fdl]')){const m=(TK.fileList||[]).find(x=>String(x.id)===b.dataset.fdl);if(m)tkDownload(m);return}
+  if(b=g('[data-url]')){e.preventDefault();const u=b.dataset.url;if(AND&&AND.openExternal)AND.openExternal(u);else window.open(u,'_blank','noopener');return}
+  if(b=g('.bb[data-mid]')){if(window.getSelection&&String(window.getSelection()).length)return;const m=TK.msgs.find(x=>String(x.id)===b.dataset.mid);if(!m)return;
+    if(m.file_path&&!m.deleted&&g('.tkFileB,.tkImg')&&!e.target.closest('a')){if(tkKind(m.file_type,m.file_name)==='img'&&g('.tkImg')){tkSigned(m.file_path).then(u=>{if(AND&&AND.openExternal&&!IS_PC)AND.openExternal(u);else window.open(u,'_blank','noopener')}).catch(err=>toast(tkMsg(err)));return}tkDownload(m);return}
+    tkMsgAct(m);return}
+  if(b=g('[data-role]')){const p=TK.people[b.dataset.role];if(p)tkAdminDo('hm_admin_member',{p_user:p.id,p_role:p.role==='admin'?'member':'admin',p_status:null});return}
+  if(b=g('[data-block]')){const p=TK.people[b.dataset.block];if(!p)return;if(p.status!=='blocked'&&!b.dataset.arm){b.dataset.arm=1;b.textContent=t('tkBlock2');return}tkAdminDo('hm_admin_member',{p_user:p.id,p_role:null,p_status:p.status==='blocked'?'active':'blocked'});return}
+  if(b=g('[data-revoke]')){tkAdminDo('hm_revoke_invite',{p_code:b.dataset.revoke});return}
+  if(b=g('[data-ishare]')){tkShareInvite(b.dataset.ishare);return}
+  if(b=g('#tkSetMax [data-v]')){tkRpc('hm_admin_settings',{p_members_can_invite:null,p_max_file_mb:+b.dataset.v}).then(()=>{TK.settings.max_file_mb=+b.dataset.v;tkAdminRender();toast(t('tkSaved'))}).catch(err=>toast(tkMsg(err)));return}});
+$('tkMain').addEventListener('change',e=>{if(e.target.id==='tkSetInv'){const v=e.target.checked;tkRpc('hm_admin_settings',{p_members_can_invite:v,p_max_file_mb:null}).then(()=>{TK.settings.members_can_invite=v;toast(t('tkSaved'))}).catch(err=>{e.target.checked=!v;toast(tkMsg(err))})}});
+$('tkBar').addEventListener('submit',e=>{e.preventDefault();tkSendText()});
+$('tkIn').addEventListener('input',tkGrow);
+$('tkIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&(DESK||IS_PC)){e.preventDefault();tkSendText()}});
+$('tkAtt').onclick=()=>$('tkFile').click();
+$('tkFile').onchange=e=>{const f=[...e.target.files];e.target.value='';tkSendFiles(f)};
+$('tkMain').addEventListener('scroll',()=>{if(TK.view==='room'&&$('tkMain').scrollTop<30&&!TK.noMore&&!TK.loadingRoom&&TK.msgs.length)tkLoadMsgs(true)},{passive:true});
+$('talk').addEventListener('dragover',e=>{if(TK.view==='room')e.preventDefault()});
+$('talk').addEventListener('drop',e=>{if(TK.view!=='room')return;e.preventDefault();const f=[...(e.dataTransfer&&e.dataTransfer.files||[])];if(f.length)tkSendFiles(f)});
+{const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(tkOn()){if(!tkBack())closeTalk();return true}return _bk?_bk():false}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(tkOn()&&TK.me){tkRpc('hm_touch').catch(()=>{});if(TK.view==='room')tkLoadMsgs()}else tkBgCheck()}});
+setInterval(tkBgCheck,45000);setTimeout(tkBgCheck,2500);
+setInterval(()=>{if(tkOn()&&TK.me&&!document.hidden)tkRpc('hm_touch').catch(()=>{})},60000);
+tkCardUI();
+{const _al=applyLang;applyLang=function(){_al.apply(this,arguments);tkCardUI();if(tkOn())tkRender()}}
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=talk]');if(b){e.stopImmediatePropagation();openTalk()}},true)}
+window.__tk={TK,openTalk,closeTalk,tkDeepLink,tkBoot,tkShow,tkLogout,tkSendFiles,tkBgCheck,tkInviteText};
 
 /* ---------- 긴 오디오 이어 듣기 (10분 이상) ---------- */
 const RES=LS.get('resumeAt',{});let resSaveT=0;

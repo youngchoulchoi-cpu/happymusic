@@ -1,11 +1,11 @@
 {
- "version": "5.4.0",
- "native": "5.4",
- "web": "web/5.4.0.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.4.apk",
+ "version": "5.5.0",
+ "native": "5.5",
+ "web": "web/5.5.0.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.5.apk",
  "notes": {
-  "ko": "· 📔 음악 일기: 오늘 기분과 그날의 노래를 함께 기록\n· 달력에 기분 이모지 표시, 일기 검색, 연속 기록\n· 비밀번호 4자리 잠금 (앱을 나가면 다시 잠김)\n· 일기는 이 기기에만 저장되고 백업 코드에 함께 담겨요",
-  "en": "· 📔 Music diary: write your day with a mood and a song\n· Mood calendar, search and streaks\n· 4-digit PIN lock (relocks when you leave)\n· Stored on this device and included in backups"
+  "ko": "· 💬 해피톡: 관리자·멤버 계정, 전체·1:1 채팅\n· 사진·음악·문서 파일 주고받기 (다운로드 폴더에 저장)\n· 초대 코드로 해피앱에 초대 (카톡·문자로 보내기)\n· 관리자: 회원 차단·역할, 초대 코드 관리, 저장 공간 확인\n· 앱 5.5: 초대 글 공유, 초대 링크로 바로 열기",
+  "en": "· 💬 HappyTalk: admin/member accounts, group & 1:1 chats\n· Share photos, music and documents\n· Invite codes to join HappyMusic\n· Admin: block members, roles, invites, storage\n· App 5.5: share invites, open invite links"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
