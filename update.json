@@ -11,6 +11,6 @@
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
  "agent": "1.0",
  "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk",
- "talkUrl": "",
- "talkKey": ""
+ "talkUrl": "https://rcntvjtlmrircjcynuiv.supabase.co",
+ "talkKey": "sb_publishable_OBK-qqAb5xfn056S4hIFFQ_cHZ5PuMP"
 }
