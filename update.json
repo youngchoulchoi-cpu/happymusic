@@ -1,11 +1,11 @@
 {
- "version": "5.1.1",
- "native": "5.3",
- "web": "web/5.1.1.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.3.apk",
+ "version": "5.2.0",
+ "native": "5.4",
+ "web": "web/5.2.0.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.4.apk",
  "notes": {
-  "ko": "· 🛠 업데이트 도우미: 업데이트가 잘 안 되는 기기용 별도 앱 (설정 › 업데이트 방식)\n· 해피뮤직 자체 업데이트는 도우미를 설치해도 그대로 유지\n· 휴대폰: 도우미 앱 감지·바로 열기 (앱 5.3)",
-  "en": "· 🛠 Update helper: separate app for devices where updates fail (Settings › Update method)\n· Built-in update keeps working with the helper installed\n· Phone: detects and opens the helper (app 5.3)"
+  "ko": "· 🧪 실험실: 기능을 스위치로 켜고 끄기 (홈 › 실험실)\n· 🎞️ 해피플레이어: 휴대폰 동영상 재생 (배속·구간 반복·책갈피·이어보기·자막) — 실험실에서 켜면 홈에 카드가 생겨요\n· 휴대폰: 화면 캡처를 사진에 저장 (앱 5.4)",
+  "en": "· 🧪 Labs: switch features on or off (Home › Labs)\n· 🎞️ HappyPlayer: play videos from your phone (speed, A-B repeat, bookmarks, resume, subtitles) — turn it on in Labs to add a Home card\n· Phone: save captures to Pictures (app 5.4)"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",

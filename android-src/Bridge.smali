@@ -835,3 +835,44 @@
     const/4 v0, 0x0
     return v0
 .end method
+.method public saveImage(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 6
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    const/4 v0, 0x0
+    invoke-static {p1, v0}, Landroid/util/Base64;->decode(Ljava/lang/String;I)[B
+    move-result-object v0
+    sget-object v1, Landroid/os/Environment;->DIRECTORY_PICTURES:Ljava/lang/String;
+    invoke-static {v1}, Landroid/os/Environment;->getExternalStoragePublicDirectory(Ljava/lang/String;)Ljava/io/File;
+    move-result-object v1
+    new-instance v2, Ljava/io/File;
+    const-string v3, "HappyMusic"
+    invoke-direct {v2, v1, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-virtual {v2}, Ljava/io/File;->mkdirs()Z
+    new-instance v3, Ljava/io/File;
+    invoke-direct {v3, p2}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    invoke-virtual {v3}, Ljava/io/File;->getName()Ljava/lang/String;
+    move-result-object v3
+    new-instance v4, Ljava/io/File;
+    invoke-direct {v4, v2, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    new-instance v5, Ljava/io/FileOutputStream;
+    invoke-direct {v5, v4}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    invoke-virtual {v5, v0}, Ljava/io/FileOutputStream;->write([B)V
+    invoke-virtual {v5}, Ljava/io/FileOutputStream;->close()V
+    invoke-virtual {v4}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    const/4 v1, 0x1
+    new-array v1, v1, [Ljava/lang/String;
+    const/4 v2, 0x0
+    aput-object v0, v1, v2
+    iget-object v3, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    const/4 v2, 0x0
+    invoke-static {v3, v1, v2, v2}, Landroid/media/MediaScannerConnection;->scanFile(Landroid/content/Context;[Ljava/lang/String;[Ljava/lang/String;Landroid/media/MediaScannerConnection$OnScanCompletedListener;)V
+    return-object v0
+    :try_end
+    .catch Ljava/lang/Throwable; {:try_start .. :try_end} :no
+    :no
+    const-string v0, ""
+    return-object v0
+.end method
