@@ -684,7 +684,36 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
 .mix .ic .emo{font-size:22px;line-height:1}
 .mix .new{position:absolute;right:14px;top:14px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:99px;background:#ff4d6d;color:#fff}
 html.lab-no-star #starCard,html.lab-no-star .dNav [data-v=star]{display:none!important}
-html.lab-no-star #labCard{grid-column:1/-1}
+html.lab-no-star #repCard,html.lab-no-report #starCard{grid-column:1/-1}
+html.lab-no-star.lab-no-report .labDuo{display:none}
+html.lab-no-report #repCard,html.lab-no-report .dNav [data-v=report]{display:none!important}
+.mix.i{background:linear-gradient(135deg,rgba(40,200,150,.55),var(--mixEnd))}
+.labC{background:linear-gradient(120deg,rgba(190,150,255,.5),rgba(120,140,255,.32) 60%,var(--mixEnd))}
+#repSheet [hidden]{display:none!important}
+.repHero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.repBox{padding:14px;border-radius:20px;background:var(--soft2,rgba(127,127,127,.12));display:flex;flex-direction:column;gap:2px;min-width:0}
+.repBox span{font-size:12.5px;color:var(--mute)}
+.repBox b{font-size:24px;font-weight:900;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.repBox em{font-style:normal;font-size:12px;color:var(--mute)}
+.repBox em.up{color:#16a34a}.repBox em.dn{color:#e5484d}
+.repChart{display:flex;align-items:flex-end;gap:8px;height:150px;padding:14px 12px 8px;border-radius:20px;background:var(--soft2,rgba(127,127,127,.12));margin-bottom:12px}
+.repChart div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;min-width:0}
+.repChart i{display:block;width:100%;max-width:34px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#38d39f,#1fa37a);min-height:3px;transition:height .4s}
+.repChart div.today i{background:linear-gradient(180deg,var(--blue),#5b8cff)}
+.repChart small{font-size:11px;color:var(--mute);white-space:nowrap}
+.repChart small b{display:block;font-size:10.5px;font-weight:700;color:var(--sub);text-align:center}
+.repFacts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.repTip{margin:0 0 14px;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,rgba(40,200,150,.18),rgba(90,140,255,.12));font-size:13.5px;line-height:1.5}
+.repH{margin:16px 2px 8px;font-size:13px;font-weight:800;color:var(--sub)}
+.repRow{display:flex;align-items:center;gap:12px;width:100%;padding:9px 6px;border:0;background:none;color:inherit;text-align:left;border-radius:14px;cursor:pointer;font:inherit}
+.repRow:hover{background:var(--soft2,rgba(127,127,127,.1))}
+.repRow .n{width:24px;flex:none;text-align:center;font-weight:900;color:var(--blue)}
+.repRow div{flex:1;min-width:0;display:flex;flex-direction:column}
+.repRow div b{font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.repRow div span{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.repRow em{font-style:normal;font-size:12.5px;color:var(--mute);white-space:nowrap}
+.repEmpty{text-align:center;padding:26px 10px;color:var(--mute);font-size:14px;line-height:1.6}
+.repEmpty i{display:block;font-style:normal;font-size:44px;margin-bottom:6px}
 html.lab-no-web #webBtn,html.lab-no-web #webCard,html.lab-no-web .dNav [data-v=web]{display:none!important}
 html.lab-no-web #plCard{grid-column:1/-1}
 html.lab-no-games #gameCard,html.lab-no-games #rpsCard,html.lab-no-games .dNav .game,html.lab-no-games .dNav p[data-i18n=dFun]{display:none!important}
@@ -853,10 +882,11 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix e glass" id="playerCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm-7.5 6.5v-7L15 12z"/></svg></span><b data-i18n="tPlayer">동영상 · 뷰어</b><span data-i18n="tPlayerSub">영상, PDF, 한글, PPT, 엑셀</span></button>
     <button class="mix f glass" id="clockCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg></span><b data-i18n="tClock">디지털 시계</b><span data-i18n="tClockSub">알람, 타이머, 시각 안내</span></button>
   </div>
-  <div class="duo">
+  <div class="duo labDuo">
     <button class="mix g glass" id="starCard"><span class="ic"><span class="emo">🎞️</span></span><em class="new">NEW</em><b data-i18n="stName">해피플레이어</b><span data-i18n="stCardSub">배속·구간 반복·이어보기</span></button>
-    <button class="mix h glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span data-i18n="labCardSub">기능 켜고 끄기</span></button>
+    <button class="mix i glass" id="repCard"><span class="ic"><span class="emo">📊</span></span><em class="new">NEW</em><b data-i18n="repT">음악 리포트</b><span id="repSub" data-i18n="repCardSub">나의 감상 기록</span></button>
   </div>
+  <button class="gameCard labC glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span id="labSub" data-i18n="labCardSub">기능 켜고 끄기</span></button>
 
   <div class="sec" style="margin-top:34px"><h2 id="againT">다시 듣기</h2><span class="cnt" id="againCnt"></span></div>
   <div class="grid" id="again"></div>
@@ -1082,6 +1112,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button type="button" data-v="game" class="game"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span data-i18n="gameT">리듬 탭</span></button>
       <p data-i18n="labT">실험실</p>
       <button type="button" data-v="star"><span style="width:20px;text-align:center;flex:none">🎞️</span><span data-i18n="stName">해피플레이어</span></button>
+      <button type="button" data-v="report"><span style="width:20px;text-align:center;flex:none">📊</span><span data-i18n="repT">음악 리포트</span></button>
       <button type="button" data-v="labs"><span style="width:20px;text-align:center;flex:none">🧪</span><span data-i18n="labT">실험실</span></button>
     </nav>
     <div class="dFoot">
@@ -1150,6 +1181,11 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <textarea class="backupTa" id="bkTa" spellcheck="false" placeholder="백업 코드를 여기에 붙여 넣으세요" data-i18n-ph="pPastePh" style="margin-top:14px"></textarea>
     <button class="btn ghost" id="bkRestore" type="button" data-i18n="pRestore">복원하기</button>
   </div>
+</section>
+<section class="sheet glass" id="repSheet" aria-label="음악 리포트" data-i18n-aria="repT">
+  <div class="grab"></div>
+  <div class="sh"><h3 data-i18n="repT">음악 리포트</h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
+  <div class="sb" id="repBody"></div>
 </section>
 <section class="sheet glass" id="labSheet" aria-label="실험실" data-i18n-aria="labT">
   <div class="grab"></div>
@@ -1361,7 +1397,19 @@ Object.assign(I18N.T,{"dPlayAll": ["전체 재생", "Play all", "すべて再生
 Object.assign(I18N.T,{"gameT": ["리듬 탭", "Rhythm Tap", "リズムタップ", "节奏点击", "節奏點擊", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "Ритм-тап", "Rhythm Tap", "Rhythm Tap", "Rhythm Tap", "रिदम टैप"], "gCardSub": ["듣는 곡으로 박자 맞추기 게임", "Tap to the beat of your own songs", "自分の曲でリズムゲーム", "用你的歌曲玩节奏游戏", "用你的歌曲玩節奏遊戲", "Sigue el ritmo de tus canciones", "Jouez au rythme de vos titres", "Tippe im Takt deiner Songs", "Jogue no ritmo das suas músicas", "Попадайте в ритм своих песен", "Chơi theo nhịp bài hát của bạn", "แตะตามจังหวะเพลงของคุณ", "Ketuk mengikuti irama lagumu", "अपने गानों की ताल पर टैप करें"], "gHow": ["노트가 선에 닿는 순간 그 줄을 탭하세요", "Tap a lane the moment its note hits the line", "ノートがラインに重なった瞬間にタップ", "音符碰到判定线时点击该轨道", "音符碰到判定線時點擊該軌道", "Toca el carril cuando la nota llegue a la línea", "Touchez la colonne quand la note atteint la ligne", "Tippe die Spur, wenn die Note die Linie erreicht", "Toque a faixa quando a nota tocar a linha", "Нажмите на дорожку, когда нота коснётся линии", "Chạm làn khi nốt chạm vạch", "แตะเลนเมื่อโน้ตถึงเส้น", "Ketuk jalur saat not menyentuh garis", "नोट रेखा पर पहुँचते ही उस लेन पर टैप करें"], "gEmpty": ["보관함에 곡을 먼저 추가해 주세요", "Add some songs to your library first", "先にライブラリに曲を追加してください", "请先在曲库中添加歌曲", "請先在音樂庫中新增歌曲", "Primero añade canciones a tu biblioteca", "Ajoutez d'abord des titres à votre bibliothèque", "Füge zuerst Songs zur Mediathek hinzu", "Adicione músicas à biblioteca primeiro", "Сначала добавьте песни в медиатеку", "Hãy thêm bài hát vào thư viện trước", "เพิ่มเพลงในคลังก่อน", "Tambahkan lagu ke koleksi dulu", "पहले लाइब्रेरी में गाने जोड़ें"], "gPick": ["곡 선택", "Song", "曲", "歌曲", "歌曲", "Canción", "Titre", "Song", "Música", "Песня", "Bài hát", "เพลง", "Lagu", "गाना"], "gDiffL": ["난이도", "Difficulty", "難易度", "难度", "難度", "Dificultad", "Difficulté", "Schwierigkeit", "Dificuldade", "Сложность", "Độ khó", "ความยาก", "Kesulitan", "कठिनाई"], "gEasy": ["쉬움", "Easy", "かんたん", "简单", "簡單", "Fácil", "Facile", "Leicht", "Fácil", "Легко", "Dễ", "ง่าย", "Mudah", "आसान"], "gNormal": ["보통", "Normal", "ふつう", "普通", "普通", "Normal", "Normal", "Normal", "Normal", "Средне", "Thường", "ปกติ", "Normal", "सामान्य"], "gHard": ["어려움", "Hard", "むずかしい", "困难", "困難", "Difícil", "Difficile", "Schwer", "Difícil", "Сложно", "Khó", "ยาก", "Sulit", "कठिन"], "gSync": ["싱크 조절 (노트가 소리보다 빠르면 +)", "Sync (use + if notes arrive before the sound)", "タイミング調整（ノートが早ければ＋）", "同步调整（音符比声音早就按 +）", "同步調整（音符比聲音早就按 +）", "Sincronía (+ si las notas llegan antes que el sonido)", "Synchro (+ si les notes arrivent avant le son)", "Sync (+ wenn Noten vor dem Ton kommen)", "Sincronia (+ se as notas chegam antes do som)", "Синхронизация (+ если ноты опережают звук)", "Đồng bộ (+ nếu nốt đến trước âm thanh)", "ปรับซิงก์ (+ ถ้าโน้ตมาก่อนเสียง)", "Sinkron (+ jika not datang sebelum suara)", "सिंक (+ अगर नोट आवाज़ से पहले आएँ)"], "gBest": ["최고 기록 {n}", "Best {n}", "ベスト {n}", "最高 {n}", "最高 {n}", "Récord {n}", "Record {n}", "Bestwert {n}", "Recorde {n}", "Рекорд {n}", "Kỷ lục {n}", "สถิติ {n}", "Terbaik {n}", "सर्वश्रेष्ठ {n}"], "gStartB": ["시작", "Start", "スタート", "开始", "開始", "Empezar", "Jouer", "Start", "Começar", "Старт", "Bắt đầu", "เริ่ม", "Mulai", "शुरू करें"], "gAnalyzing": ["곡 분석 중…", "Analyzing song…", "曲を解析中…", "正在分析歌曲…", "正在分析歌曲…", "Analizando…", "Analyse…", "Analysiere…", "Analisando…", "Анализ песни…", "Đang phân tích…", "กำลังวิเคราะห์…", "Menganalisis…", "गाना विश्लेषण हो रहा है…"], "gAnalyzingD": ["박자를 찾아 노트를 만들고 있어요", "Finding the beat and building notes", "ビートを見つけてノートを作成中", "正在寻找节拍并生成音符", "正在尋找節拍並產生音符", "Buscando el ritmo y creando notas", "Détection du rythme et création des notes", "Takt wird erkannt, Noten werden erstellt", "Encontrando o ritmo e criando notas", "Ищем ритм и создаём ноты", "Đang tìm nhịp và tạo nốt", "กำลังหาจังหวะและสร้างโน้ต", "Mencari ketukan dan membuat not", "ताल ढूँढकर नोट बना रहे हैं"], "gFail": ["이 곡은 분석할 수 없어요. 다른 곡을 골라 주세요", "Couldn't analyze this song. Try another", "この曲は解析できません。別の曲を選んでください", "无法分析这首歌，请换一首", "無法分析這首歌，請換一首", "No se pudo analizar. Prueba otra", "Analyse impossible. Essayez un autre titre", "Analyse fehlgeschlagen. Anderen Song wählen", "Não foi possível analisar. Tente outra", "Не удалось проанализировать. Выберите другую", "Không phân tích được. Hãy chọn bài khác", "วิเคราะห์ไม่ได้ ลองเพลงอื่น", "Tidak bisa dianalisis. Coba lagu lain", "विश्लेषण नहीं हो सका, दूसरा गाना चुनें"], "gCombo": ["콤보", "Combo", "コンボ", "连击", "連擊", "Combo", "Combo", "Combo", "Combo", "Комбо", "Combo", "คอมโบ", "Kombo", "कॉम्बो"], "gAcc": ["정확도", "Accuracy", "精度", "准确率", "準確率", "Precisión", "Précision", "Genauigkeit", "Precisão", "Точность", "Độ chính xác", "ความแม่นยำ", "Akurasi", "सटीकता"], "gMaxCombo": ["최대 콤보", "Max combo", "最大コンボ", "最大连击", "最大連擊", "Combo máx.", "Combo max", "Max. Combo", "Combo máx.", "Макс. комбо", "Combo tối đa", "คอมโบสูงสุด", "Kombo maks", "अधिकतम कॉम्बो"], "gNew": ["새 최고 기록!", "New best!", "自己ベスト更新！", "新纪录！", "新紀錄！", "¡Nuevo récord!", "Nouveau record !", "Neuer Rekord!", "Novo recorde!", "Новый рекорд!", "Kỷ lục mới!", "สถิติใหม่!", "Rekor baru!", "नया रिकॉर्ड!"], "gRetry": ["다시 하기", "Play again", "もう一度", "再玩一次", "再玩一次", "Otra vez", "Rejouer", "Nochmal", "Jogar de novo", "Ещё раз", "Chơi lại", "เล่นอีกครั้ง", "Main lagi", "फिर से खेलें"], "gOther": ["다른 곡 / 난이도", "Change song / difficulty", "曲・難易度を変更", "换歌曲 / 难度", "換歌曲 / 難度", "Cambiar canción / dificultad", "Changer de titre / difficulté", "Song / Schwierigkeit ändern", "Trocar música / dificuldade", "Другая песня / сложность", "Đổi bài / độ khó", "เปลี่ยนเพลง / ความยาก", "Ganti lagu / kesulitan", "गाना / कठिनाई बदलें"], "gExit": ["나가기", "Exit", "終了", "退出", "退出", "Salir", "Quitter", "Beenden", "Sair", "Выйти", "Thoát", "ออก", "Keluar", "बाहर निकलें"]});
 Object.assign(I18N.T,{
  labT:X13('실험실','Labs'),labD:X13('새 기능과 추가 기능을 직접 켜고 끌 수 있어요. 끈 기능은 화면에서 사라지고, 다시 켜면 그대로 돌아와요.','Turn new and extra features on or off. Turned-off features disappear and come back exactly as they were.'),
- labCardSub:X13('기능 켜고 끄기','Turn features on/off'),
+ labCardSub:X13('기능 켜고 끄기','Turn features on/off'),labCnt:X13('기능 켜고 끄기 · {n}/{m}개 켜짐','Turn features on/off · {n} of {m} on'),
+ labRep:X13('음악 리포트','Music report'),labRepD:X13('오늘·이번 주 감상 시간, 많이 들은 곡과 아티스트, 연속 감상일 · 켜면 홈에 카드가 생겨요','Listening time, top songs and artists, streaks · adds a Home card'),
+ labRes:X13('긴 오디오 이어 듣기','Resume long audio'),labResD:X13('10분이 넘는 오디오북·강의·팟캐스트는 멈춘 곳부터 다시 재생','Audiobooks, lectures and podcasts over 10 min pick up where you stopped'),
+ labFade:X13('취침 타이머 부드럽게 끄기','Gentle sleep timer'),labFadeD:X13('타이머가 끝나기 30초 전부터 소리를 천천히 줄여요','Fades the volume out over the last 30 seconds'),
+ repT:X13('음악 리포트','Music report'),repCardSub:X13('나의 감상 기록','Your listening'),repCardV:X13('오늘 {a} · 이번 주 {b}','Today {a} · This week {b}'),
+ repToday:X13('오늘','Today'),repWeek:X13('이번 주 (7일)','Last 7 days'),repVs:X13('지난주보다 {p}% {d}','{p}% {d} than last week'),repMore:X13('더','more'),repLess:X13('덜','less'),repSame:X13('지난주와 비슷해요','About the same as last week'),repNew:X13('첫 주 기록 중','First week'),
+ repStreak:X13('연속 감상','Streak'),repDays:X13('{n}일','{n} days'),repPeak:X13('자주 듣는 시간','Favorite time'),repTotal:X13('지금까지','All time'),repSongsN:X13('들은 곡','Songs played'),repSongN:X13('{n}곡','{n} songs'),
+ repTopS:X13('많이 들은 곡','Top songs'),repTopA:X13('많이 들은 아티스트','Top artists'),repTipT:X13('💡 {h}에 가장 많이 들어요. {s}','💡 You listen most around {h}. {s}'),
+ repTipS0:X13('오늘도 한 곡 어때요?','How about a song today?'),repTipS1:X13('{n}일째 매일 듣고 있어요. 내일도 이어가 볼까요?','{n} days in a row — keep it going tomorrow!'),
+ repEmpty:X13('아직 기록이 없어요. 음악을 들으면 여기에 감상 시간과 많이 들은 곡이 쌓여요. 기록은 이 기기에만 저장돼요.','No listening yet. Play some music and your time and top songs will show up here. Stored on this device only.'),
+ repClear:X13('기록 지우기','Clear history'),repClear2:X13('한 번 더 누르면 지워요','Tap again to clear'),repCleared:X13('감상 기록을 지웠어요','History cleared'),repPlay:X13('이 곡들 재생','Play these'),
+ repMin:X13('{n}분','{n} min'),repHM:X13('{h}시간 {m}분','{h}h {m}m'),repLocal:X13('기록은 이 기기에만 저장돼요','Stored on this device only'),
+ resAt:X13('{t}부터 이어서 들어요','Resuming from {t}'),
  labStar:X13('해피플레이어','HappyPlayer'),labStarD:X13('휴대폰 동영상 재생: 배속·구간 반복·책갈피·이어보기·자막 · 켜면 홈에 카드가 생겨요','Play videos from your phone: speed, A-B repeat, bookmarks, resume, subtitles · adds a Home card'),
  labWeb:X13('인터넷 브라우저','Web browser'),labWebD:X13('앱 안에서 쓰는 인터넷','Browse the web inside the app'),
  labGames:X13('미니 게임','Mini games'),labGamesD:X13('리듬 탭 · 가위바위보','Rhythm Tap · Rock Paper Scissors'),
@@ -2089,7 +2137,11 @@ $('sleepOpts').addEventListener('click',e=>{const b=e.target.closest('[data-sl]'
   else if(v==='end'){sleepAt=0;sleepEnd=true;toast(t('sleepSetEnd'))}
   else{sleepEnd=false;sleepAt=Date.now()+(+v)*60000;toast(t('sleepSetN',{n:v}))}
   sleepUI();closeSheet()});
-setInterval(()=>{if(sleepAt){if(Date.now()>=sleepAt){sleepAt=0;audio.pause();toast(t('sleepDone'))}sleepUI()}},1000);
+window.__sleep={set:sec=>{sleepEnd=false;sleepAt=Date.now()+sec*1000},get base(){return sleepBase}};let sleepBase=null;const sleepRestore=()=>{if(sleepBase!=null){audio.volume=sleepBase;sleepBase=null}};
+setInterval(()=>{if(sleepAt){const r=(sleepAt-Date.now())/1000;
+  if(r<=0){sleepAt=0;audio.pause();sleepRestore();toast(t('sleepDone'))}
+  else if(r<=30&&!audio.paused&&(!window.__labOn||window.__labOn('fade'))){if(sleepBase==null)sleepBase=audio.volume;audio.volume=sleepBase*Math.max(.03,r/30)}
+  sleepUI()}else sleepRestore()},500);
 /* ---------- 처음 실행: 환영 화면 ---------- */
 let obSteps=[],obIdx=0;
 function obVisible(){return !$('ob').hidden}
@@ -2141,7 +2193,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.2.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.3.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2355,7 +2407,9 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🎞️","해피플레이어: 강의 영상용 플레이어 (0.5~4배속, A↔B 구간 반복, 책갈피 메모, 이어보기·진도율, SMI·SRT 자막, 화면 캡처)","HappyPlayer: lecture video player (0.5–4x, A-B repeat, bookmarks, resume & progress, SMI/SRT subtitles, capture)"],
+const WEB_NOTES=[["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
+ ["🔖","긴 오디오 이어 듣기 · 취침 타이머 부드럽게 끄기 (실험실에서 켜고 끄기)","Resume long audio · gentle sleep timer fade (toggle in Labs)"],
+ ["🎞️","해피플레이어: 강의 영상용 플레이어 (0.5~4배속, A↔B 구간 반복, 책갈피 메모, 이어보기·진도율, SMI·SRT 자막, 화면 캡처)","HappyPlayer: lecture video player (0.5–4x, A-B repeat, bookmarks, resume & progress, SMI/SRT subtitles, capture)"],
  ["🧪","실험실: 해피플레이어 · 브라우저 · 미니 게임 · 도구를 스위치로 켜고 끄기. 해피플레이어를 켜면 홈에 카드가 생겨요 (홈 › 실험실, 설정 › 실험실)","Labs: switch HappyPlayer, browser, mini games and tools on or off (Settings › Labs)"],
  ["🛠️","설정 › 업데이트: 업데이트가 잘 안 되는 기기를 위한 '업데이트 도우미' 앱 받기와 업데이트 방식 선택 (해피뮤직 자체 업데이트는 그대로)","Settings › Update: get the Update helper app and choose the update method (built-in updates still work)"],
  ["🎬","도구 추가: 보안 동영상 플레이어 · 만능 뷰어 (영상·PDF·한글·PPT·엑셀)","New tool: secure video player & document viewer"],
@@ -3079,17 +3133,20 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={star:false,web:true,games:true,tools:true};
+const LAB_DEF={star:false,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['star','🎞️','labStar','labStarD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['star','🎞️','labStar','labStarD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
+window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
 function labUI(){
   $('labList').innerHTML=LAB_ROWS.map(([k,ic,tk,dk])=>`<label class="labRow"><span class="labIc">${ic}</span><div><b>${esc(t(tk))}</b><span>${esc(t(dk))}</span></div><input type="checkbox" role="switch" class="sw" data-lab="${k}" aria-label="${esc(t(tk))}"${labOn(k)?' checked':''}></label>`).join('');
-  $('labStarGo').hidden=!labOn('star')}
+  $('labStarGo').hidden=!labOn('star');labSubUI()}
+function labSubUI(){const ks=Object.keys(LAB_DEF);$('labSub').textContent=t('labCnt',{n:ks.filter(labOn).length,m:ks.length})}
 function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
   if(!v){
     if(k==='star'&&ST.on)closeStar();
+    if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
     if(k==='web'&&typeof webOn==='function'&&webOn())closeWeb();
     if(k==='tools'&&toolOn())closeTool();
     if(k==='games'){if(RPS.on)closeRps();if(typeof gameOn==='function'&&gameOn())exitGame()}}
@@ -3099,7 +3156,75 @@ $('labList').addEventListener('change',e=>{const i=e.target.closest('[data-lab]'
 $('labReset').onclick=()=>{Object.assign(LAB,LAB_DEF);LS.set('labs',LAB);applyLabs();labUI();toast(t('labResetT'))};
 $('labStarGo').onclick=()=>{closeAll();openStar()};
 $('labCard').onclick=openLabs;$('labBtn').onclick=openLabs;
-applyLabs();
+applyLabs();labSubUI();
+
+
+/* ---------- 음악 리포트: 감상 시간 기록 (이 기기에만 저장) ---------- */
+const dk=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const LIS=Object.assign({d:{},h:[],t:{}},LS.get('listen',{}));if(!Array.isArray(LIS.h)||LIS.h.length!==24)LIS.h=Array(24).fill(0);
+let lisT=0,lisSaveT=0;
+function lisSave(){lisSaveT=Date.now();
+  const dks=Object.keys(LIS.d).sort();if(dks.length>400)for(const k of dks.slice(0,dks.length-400))delete LIS.d[k];
+  const tk=Object.keys(LIS.t);if(tk.length>600){tk.sort((a,b)=>LIS.t[a]-LIS.t[b]);for(const k of tk.slice(0,tk.length-600))delete LIS.t[k]}
+  LS.set('listen',LIS)}
+function lisTick(){const n=Date.now();
+  if(!audio.paused&&cur&&lisT){const dt=(n-lisT)/1000;if(dt>0&&dt<30){const d=new Date(n),k=dk(d);LIS.d[k]=(LIS.d[k]||0)+dt;LIS.h[d.getHours()]+=dt;LIS.t[cur]=(LIS.t[cur]||0)+dt;if(n-lisSaveT>15000)lisSave()}}
+  lisT=audio.paused?0:n}
+audio.addEventListener('timeupdate',lisTick);
+audio.addEventListener('play',()=>{lisT=Date.now()});
+audio.addEventListener('pause',()=>{lisTick();lisT=0;lisSave();repCardUI()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)lisSave();else repCardUI()});
+const repDur=sec=>{const m=Math.round((sec||0)/60);return m<60?t('repMin',{n:m}):t('repHM',{h:Math.floor(m/60),m:m%60})};
+const repDay=i=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-i);return d};
+const repSec=i=>LIS.d[dk(repDay(i))]||0;
+function repStats(){
+  const days=[...Array(7)].map((_,i)=>repDay(6-i)),vals=days.map(d=>LIS.d[dk(d)]||0);
+  const week=vals.reduce((a,b)=>a+b,0);let prev=0;for(let i=7;i<14;i++)prev+=repSec(i);
+  let i=repSec(0)>=60?0:1,streak=0;while(repSec(i)>=60){streak++;i++}
+  let peak=-1,pv=0;LIS.h.forEach((v,h)=>{if(v>pv){pv=v;peak=h}});
+  const total=Object.values(LIS.d).reduce((a,b)=>a+b,0);
+  const top=Object.entries(LIS.t).filter(([id])=>byId(id)).sort((a,b)=>b[1]-a[1]);
+  const art={};for(const [id,v] of top){const a=(byId(id).artist||'').trim();if(a)art[a]=(art[a]||0)+v}
+  return {days,vals,week,prev,today:vals[6],streak,peak,total,top,arts:Object.entries(art).sort((a,b)=>b[1]-a[1])}}
+const repHour=h=>{try{return new Date(2000,0,1,h).toLocaleTimeString(lang,{hour:'numeric'})}catch(e){return h+':00'}};
+function repCardUI(){if(!labOn('report'))return;const S=repStats();$('repSub').textContent=S.total>=60?t('repCardV',{a:repDur(S.today),b:repDur(S.week)}):t('repCardSub')}
+function repRender(){const S=repStats(),B=$('repBody');
+  if(S.total<60){B.innerHTML=`<div class="repEmpty"><i>🎧</i>${esc(t('repEmpty'))}</div>`;return}
+  let vs;if(S.prev<60)vs=t('repNew');else{const p=Math.round((S.week-S.prev)/S.prev*100);vs=Math.abs(p)<5?t('repSame'):t('repVs',{p:Math.abs(p),d:t(p>0?'repMore':'repLess')});var cls=Math.abs(p)<5?'':p>0?'up':'dn'}
+  const mx=Math.max(...S.vals,60);
+  const bars=S.days.map((d,k)=>`<div class="${k===6?'today':''}"><i style="height:${Math.max(2,S.vals[k]/mx*100)}%"></i><small><b>${S.vals[k]>=60?Math.round(S.vals[k]/60):''}</b>${esc(d.toLocaleDateString(lang,{weekday:'short'}))}</small></div>`).join('');
+  const row=(n,title,sub,v,id)=>`<button type="button" class="repRow"${id?` data-rp="${esc(id)}"`:''}><span class="n">${n}</span><div><b>${esc(title)}</b>${sub?`<span>${esc(sub)}</span>`:''}</div><em>${esc(repDur(v))}</em></button>`;
+  const tipS=S.streak>=2?t('repTipS1',{n:S.streak}):t('repTipS0');
+  B.innerHTML=`<div class="repHero"><div class="repBox"><span>${esc(t('repToday'))}</span><b>${esc(repDur(S.today))}</b></div><div class="repBox"><span>${esc(t('repWeek'))}</span><b>${esc(repDur(S.week))}</b><em class="${cls||''}">${esc(vs)}</em></div></div>
+  <div class="repChart" aria-hidden="true">${bars}</div>
+  ${S.peak>=0?`<p class="repTip">${esc(t('repTipT',{h:repHour(S.peak),s:tipS}))}</p>`:''}
+  <div class="repFacts"><div class="repBox"><span>${esc(t('repStreak'))}</span><b>${esc(t('repDays',{n:S.streak}))}</b></div><div class="repBox"><span>${esc(t('repPeak'))}</span><b>${esc(S.peak>=0?repHour(S.peak):'-')}</b></div>
+  <div class="repBox"><span>${esc(t('repTotal'))}</span><b>${esc(repDur(S.total))}</b></div><div class="repBox"><span>${esc(t('repSongsN'))}</span><b>${esc(t('repSongN',{n:S.top.length}))}</b></div></div>
+  ${S.top.length?`<h4 class="repH">${esc(t('repTopS'))}</h4>${S.top.slice(0,5).map(([id,v],k)=>{const x=byId(id);return row(k+1,x.title,x.artist,v,id)}).join('')}<button class="btn" type="button" id="repPlayB" style="margin-top:10px">▶ ${esc(t('repPlay'))}</button>`:''}
+  ${S.arts.length?`<h4 class="repH">${esc(t('repTopA'))}</h4>${S.arts.slice(0,3).map(([a,v],k)=>row(k+1,a,'',v)).join('')}`:''}
+  <button class="btn ghost" type="button" id="repClearB" style="margin-top:16px">${esc(t('repClear'))}</button>
+  <p class="hint" style="text-align:center;margin-top:8px">${esc(t('repLocal'))}</p>`}
+let repClrArm=0;
+$('repBody').addEventListener('click',e=>{
+  const r=e.target.closest('[data-rp]');if(r){const l=repStats().top.slice(0,20).map(([id])=>byId(id));playFrom(l,r.dataset.rp);return}
+  if(e.target.closest('#repPlayB')){const l=repStats().top.slice(0,20).map(([id])=>byId(id));if(l.length)playFrom(l,l[0].id);return}
+  const c=e.target.closest('#repClearB');if(c){if(Date.now()-repClrArm>3000){repClrArm=Date.now();c.textContent=t('repClear2');setTimeout(()=>{if(c.isConnected)c.textContent=t('repClear')},3000);return}
+    LIS.d={};LIS.h=Array(24).fill(0);LIS.t={};lisSave();repClrArm=0;toast(t('repCleared'));repRender();repCardUI()}});
+function openReport(){if(!labOn('report'))return;lisTick();repRender();openSheet('repSheet')}
+$('repCard').onclick=openReport;
+repCardUI();setInterval(repCardUI,60000);
+{const _al=applyLang;applyLang=function(){_al.apply(this,arguments);labSubUI();repCardUI();if($('repSheet').classList.contains('on'))repRender()}}
+
+/* ---------- 긴 오디오 이어 듣기 (10분 이상) ---------- */
+const RES=LS.get('resumeAt',{});let resSaveT=0;
+audio.addEventListener('timeupdate',()=>{if(!cur||!labOn('resume'))return;const d=audio.duration;if(!(d>=600))return;
+  const n=Date.now();if(n-resSaveT<4000)return;resSaveT=n;const p=audio.currentTime;
+  if(p>15&&p<d-20)RES[cur]=Math.floor(p);else delete RES[cur];
+  const ks=Object.keys(RES);if(ks.length>200)delete RES[ks[0]];LS.set('resumeAt',RES)});
+{const _go=go;go=function(id,fromHist,seekTo){
+  if(!(seekTo>1)&&id!==cur&&labOn('resume')&&RES[id]>15){const p=RES[id];seekTo=p;setTimeout(()=>{if(cur===id)toast(t('resAt',{t:fmt(p)}),t('stFromStart'),()=>{if(cur===id)audio.currentTime=0})},500)}
+  return _go.call(this,id,fromHist,seekTo)}}
+window.__rep={LIS,RES,repStats,openReport,lisSave,repCardUI,dk};
 
 /* ---------- 해피플레이어: 강의·영상 학습용 플레이어 ---------- */
 const ST={on:false,list:[],idx:-1,a:null,b:null,cues:[],subHide:false,seg:null,lastT:null,lastW:0,ctlT:0,saveT:0,tab:null,
@@ -3379,7 +3504,7 @@ addEventListener('keydown',e=>{if(!ST.on)return;const tg=e.target;
   e.stopImmediatePropagation();if(h){e.preventDefault();if(stCur())stShowCtl()}},true);
 {const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(ST.on){if(!$('stSpd').hidden)$('stSpd').hidden=true;else if(stPanelOn())stPanel(null);else if(stFsEl())stFull();else closeStar();return true}return _bk?_bk():false}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ST.on&&stCur())stSave()});
-if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}},true)}
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}else if(b.dataset.v==='report'){e.stopImmediatePropagation();openReport()}},true)}
 window.__star={ST,openStar,closeStar,stAddFiles,stOpenUrl,stLoad,stSrt,stSmi,stCover,stABCycle,stBmAdd,stRate,stCapture,labOn,setLab,openLabs};
 
 initDesk();window.__player={audio,get cur(){return cur}};window.__lib={get tracks(){return tracks},playFrom,sorted,closeSheet,get obSteps(){return obSteps}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
