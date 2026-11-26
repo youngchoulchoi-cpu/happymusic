@@ -930,3 +930,62 @@
     const/4 v0, 0x0
     return v0
 .end method
+
+.method public notify(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    .locals 1
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-static {v0, p1, p2, p3}, Lcom/turntable/player/TalkNotify;->show(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    return-void
+.end method
+
+.method public cancelNotify()V
+    .locals 1
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-static {v0}, Lcom/turntable/player/TalkNotify;->cancel(Landroid/content/Context;)V
+    return-void
+.end method
+
+# 알림 허용 여부 (Android 13+는 없으면 요청)
+.method public notifyPerm()Z
+    .locals 5
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    :try_start
+    sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
+    const/16 v2, 0x21
+    if-lt v1, v2, :old
+    const-string v1, "android.permission.POST_NOTIFICATIONS"
+    invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
+    move-result v2
+    if-nez v2, :yes
+    const/4 v2, 0x1
+    new-array v3, v2, [Ljava/lang/String;
+    const/4 v4, 0x0
+    aput-object v1, v3, v4
+    const/16 v4, 0x4d
+    invoke-virtual {v0, v3, v4}, Lcom/turntable/player/MainActivity;->requestPermissions([Ljava/lang/String;I)V
+    const/4 v1, 0x0
+    return v1
+    :old
+    const-string v1, "notification"
+    invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Landroid/app/NotificationManager;
+    invoke-virtual {v1}, Landroid/app/NotificationManager;->areNotificationsEnabled()Z
+    move-result v1
+    return v1
+    :yes
+    const/4 v1, 0x1
+    return v1
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    :e
+    const/4 v1, 0x0
+    return v1
+.end method
+

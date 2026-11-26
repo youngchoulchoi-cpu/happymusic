@@ -1604,6 +1604,9 @@ Object.assign(I18N.T,{"gameT": ["리듬 탭", "Rhythm Tap", "リズムタップ"
 Object.assign(I18N.T,{
  tkT:X13('해피톡','HappyTalk'),tkCardSub:X13('멤버와 채팅하고 파일을 주고받아요','Chat and share files with members'),tkCardLogin:X13('로그인하고 멤버와 이야기해요','Sign in to talk with members'),tkCardNew:X13('새 메시지가 있는 대화 {n}개','{n} chats with new messages'),tkCardHi:X13('{n}님, 멤버들과 이야기해 보세요','Hi {n}, say hello to your members'),
  labTalk:X13('해피톡 (계정 · 채팅 · 파일)','HappyTalk (accounts · chat · files)'),labTalkD:X13('관리자·멤버 계정, 1:1·전체 채팅, 파일 주고받기, 초대 코드 · 켜면 홈에 카드가 생겨요','Admin/member accounts, chats, file sharing and invites · adds a Home card'),
+ tkNewMsg:X13('새 메시지','New message'),tkView:X13('보기','View'),tkNtfH:X13('알림','Notifications'),tkPSnd:X13('알림음 (해피톡)','Sound (HappyTalk chime)'),tkPNtf:X13('새 메시지 알림','New message alerts'),
+ tkChimeTry:X13('알림음 듣기','Play sound'),tkNtfPerm:X13('알림 권한 확인','Check permission'),tkNtfOn:X13('알림이 켜져 있어요','Notifications are on'),tkNtfOff:X13('알림이 꺼져 있어요. 휴대폰 설정에서 켜 주세요','Notifications are off. Turn them on in system settings'),tkNtfAsk:X13('알림을 허용해 주세요 (허용 창이 안 뜨면 휴대폰 설정 › 앱 › 해피뮤직 › 알림)','Please allow notifications (or Settings › Apps › HappyMusic › Notifications)'),
+ tkNtfNote:X13('앱이 켜져 있거나 백그라운드에 있을 때 새 메시지를 알려 줘요. 앱을 완전히 종료하면 알림이 오지 않아요.','Alerts arrive while the app is open or in the background, not after it is fully closed.'),
  tkChats:X13('채팅','Chats'),tkMembers:X13('멤버','Members'),tkFiles:X13('파일','Files'),tkAdmin:X13('관리','Admin'),tkMe:X13('내 정보','My profile'),tkRefresh:X13('새로고침','Refresh'),
  tkAttach:X13('파일 보내기','Send file'),tkMsgPh:X13('메시지 입력','Type a message'),tkSend:X13('보내기','Send'),
  tkHeroD:X13('멤버끼리 채팅하고 사진·음악·문서를 주고받는 공간이에요. 초대받은 사람만 가입할 수 있어요.','A private space to chat and share photos, music and documents. Invite only.'),
@@ -2462,7 +2465,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.5.1';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.6.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2676,7 +2679,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],
+const WEB_NOTES=[["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
+ ["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],
  ["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
  ["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
  ["🔖","긴 오디오 이어 듣기 · 취침 타이머 부드럽게 끄기 (실험실에서 켜고 끄기)","Resume long audio · gentle sleep timer fade (toggle in Labs)"],
@@ -3591,7 +3595,7 @@ window.__dy={DY,openDiary,dyRender,dyCardUI,dyHash};
 
 /* ---------- 해피톡: 계정 · 관리자 · 채팅 · 파일 주고받기 · 초대 (Supabase) ---------- */
 const TK_URL='',TK_KEY='';   // 서버 주소와 공개 키 (관리자가 알려 주면 여기에 넣어 배포)
-const TK={cfg:null,ses:LS.get('tkSes',null),me:null,status:null,view:'chats',room:null,rooms:[],people:{},settings:null,
+const TK={pollN:0,pendingRoom:null,cfg:null,ses:LS.get('tkSes',null),me:null,status:null,view:'chats',room:null,rooms:[],people:{},settings:null,
   msgs:[],firstId:0,lastId:0,read:LS.get('tkRead',{}),signed:{},poll:0,bgPoll:0,authTab:'in',fileFilter:'all',invite:null,
   sending:0,unread:0,loadingRoom:false,err:''};
 function tkCfg(){const c=LS.get('tkCfg',null);if(c&&c.url&&c.key)return c;const m=LS.get('updMan',null)||{};
@@ -3662,7 +3666,8 @@ async function tkBoot(){TK.cfg=tkCfg();
     if(!TK.me){tkShow('join');return}}
   if(TK.me.status==='blocked'){tkShow('blocked');return}
   tkRpc('hm_touch').catch(()=>{});
-  await tkLoadBase();
+  await tkLoadBase();tkAskNotify();try{AND&&AND.cancelNotify&&AND.cancelNotify()}catch(e){}
+  if(TK.pendingRoom){const id=TK.pendingRoom;TK.pendingRoom=null;if(TK.rooms.some(r=>r.id===id)){tkOpenRoom(id);return}}
   tkShow(TK.view==='room'&&TK.room?'room':['members','files','admin','me','invite'].includes(TK.view)?TK.view:'chats')}
 async function tkLoadBase(){try{const [ps,st,rooms]=await Promise.all([tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at&order=nick.asc'),tkGet('hm_settings?select=*'),tkRpc('hm_rooms')]);
   TK.people={};for(const p of ps||[])TK.people[p.id]=p;TK.settings=(st&&st[0])||{members_can_invite:false,max_file_mb:20};TK.rooms=rooms||[];
@@ -3763,6 +3768,8 @@ async function tkLoadMsgs(older){if(!TK.room||TK.loadingRoom)return;TK.loadingRo
     if(older){if(l.length<40)TK.noMore=true;if(l.length){TK.msgs=l.concat(TK.msgs);TK.firstId=l[0].id;tkRoomRender(false,true)}else tkRoomRender(false,true)}
     else if(l.length){const fresh=!TK.lastId;if(fresh&&l.length<40)TK.noMore=true;
       const ids=new Set(TK.msgs.map(m=>m.id));for(const m of l)if(!ids.has(m.id))TK.msgs.push(m);      TK.firstId=TK.msgs.find(m=>m.id>0)?TK.msgs.find(m=>m.id>0).id:0;TK.lastId=Math.max(TK.lastId,...l.map(m=>m.id));
+      const inc=fresh?null:[...l].reverse().find(m=>m.sender&&m.sender!==TK.me.id&&!m.deleted);if(inc)tkAlert(TK.room,inc.sender,inc.body,inc.file_name);
+      TK.notified[rid]=Math.max(TK.notified[rid]||0,TK.lastId);LS.set('tkNotified',TK.notified);
       const nearBottom=tkNearBottom();tkRoomRender(fresh||nearBottom||l.some(m=>m.sender===TK.me.id));tkMarkRead()}
     if(l.some(m=>m.sender&&!TK.people[m.sender]))tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at').then(ps=>{for(const p of ps||[])TK.people[p.id]=p;tkRoomRender(false)}).catch(()=>{})
     else if(!TK.lastId){TK.noMore=true;tkRoomRender(true)}}
@@ -3850,7 +3857,8 @@ async function tkShareInvite(code){const txt=tkInviteText(code);
   if(AND&&typeof AND.share==='function'&&!IS_PC){AND.share(txt);return}
   if(navigator.share&&!IS_PC){try{await navigator.share({text:txt});return}catch(e){}}
   try{await navigator.clipboard.writeText(txt);toast(t('tkInvCopied'))}catch(e){toast(t('tkCopyFail'))}}
-function tkDeepLink(u){const m=String(u).match(/invite\/([A-Za-z0-9]{4,12})/);if(!m)return false;LS.set('tkInvCode',m[1].toUpperCase());TK.authTab='up';
+function tkDeepLink(u){const rm=String(u).match(/talk\/([0-9a-f-]{36})/i);if(rm){TK.pendingRoom=rm[1];if(tkOn()&&TK.me&&TK.rooms.some(r=>r.id===rm[1])){TK.pendingRoom=null;tkOpenRoom(rm[1])}else openTalk('chats');return true}
+  const m=String(u).match(/invite\/([A-Za-z0-9]{4,12})/);if(!m)return false;LS.set('tkInvCode',m[1].toUpperCase());TK.authTab='up';
   if(TK.ses&&TK.me){toast(t('tkAlreadyIn'));openTalk('chats')}else{openTalk('auth');toast(t('tkCodeFilled'))}return true}
 /* ---------- 파일 ---------- */
 async function tkFiles(){try{const l=await tkGet('hm_messages?select=id,room_id,sender,file_path,file_name,file_size,file_type,created_at&file_path=not.is.null&deleted=is.false&order=id.desc&limit=200')||[];
@@ -3881,16 +3889,50 @@ async function tkAdminDo(fn,args){try{await tkRpc(fn,args);await tkAdmin();toast
 /* ---------- 내 정보 ---------- */
 function tkMeHTML(){const m=TK.me;return `<div class="tkWrap"><div class="tkHero"><span class="tkAv" style="width:72px;height:72px;font-size:30px;margin:0 auto;background:${tkAvCol(m.id)}">${esc(m.nick.slice(0,1).toUpperCase())}</span><h2>${esc(m.nick)}</h2><p>${esc((TK.ses&&TK.ses.email)||'')}${m.role==='admin'?' · 👑 '+esc(t('tkAdminR')):''}</p></div>
   <form class="tkCard" id="tkNickF"><label class="tkF"><span>${esc(t('tkNick'))}</span><input id="tkMN" maxlength="20" value="${esc(m.nick)}"></label><button class="tkBtn" type="submit">${esc(t('save'))}</button></form>
+  <div class="tkCard"><h3>🔔 ${esc(t('tkNtfH'))}</h3>
+    <label class="tkSw"><span>${esc(t('tkPSnd'))}</span><input type="checkbox" class="sw" id="tkPSnd"${tkPref('snd')?' checked':''}></label>
+    <label class="tkSw"><span>${esc(t('tkPNtf'))}</span><input type="checkbox" class="sw" id="tkPNtf"${tkPref('ntf')?' checked':''}></label>
+    <div class="tkRow2" style="margin-top:6px"><button class="tkBtn ghost" type="button" data-a="chime">🔊 ${esc(t('tkChimeTry'))}</button><button class="tkBtn ghost" type="button" data-a="ntfperm">${esc(t('tkNtfPerm'))}</button></div>
+    <p class="tkNote">${esc(t('tkNtfNote'))}</p></div>
   ${tkCanInvite()?`<button class="tkBtn ghost" type="button" data-a="invite">✉️ ${esc(t('tkInviteBtn'))}</button>`:''}
   <button class="tkBtn red" type="button" data-a="logout" style="margin-top:8px">${esc(t('tkLogout'))}</button>
   <p class="tkNote" style="text-align:center;margin-top:14px">${esc(t('tkPrivacy'))}</p></div>`}
+
+/* ---------- 해피톡 알림음 · 새 메시지 알림 ---------- */
+const TK_SND='data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//tQwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAkAAAeMwANDRQUFBsbGyIiIikpMDAwNzc3Pj4+RUVMTExSUlJZWVlgYGBnZ25ubnV1dXx8fIODioqKkZGRmJiYn5+fpqasrKyzs7O6urrBwcjIyM/Pz9bW1t3d3eTk6+vr8vLy+fn5//8AAAAATGF2YzYwLjMxAAAAAAAAAAAAAAAAJAS2AAAAAAAAHjNVTq6SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UMQAAApUdzx1jAABcJBsNzWAAgADOAP/PPPOnp6eMOwpgX8AADEIDAZKYUn7x8oBoPKudY7X4fp4w7DDF2OJZhty4fsYfnT09PT09JKIxLMZW/8P1n/f+X28xOD7rvwQd+kEAQDGo1xAABKADa+uAAAAACu0IKuv8LlWaR0KC/MOjXMAhsFBaI+gONC3b4Z+LA72d725Wfw1qnCAO/3yZ7Yv8WS6P/WbmdKKis3U3D1lht/lGPyfD3ev2a9oMa9LWjkASgAAf///zVHWnpL/+1LEBgHL5Hc2ne4AAU+OpaAPdKA4zxJlmAcAOYAAF5gxCtGqgKibZSxn0DIRAADoDXVfae3ViLkzqbxg8OGJSIdBvQk6AoDDBgSRWRSfrtLzLVaNZsxMBBEwwrTM4aAwWS9VKyWHbIEmFHLX1ehfaDAjANCgFgJCRC6ehlKnpmGY3mlYXGHwDg4Ji/K1nVgai5cj7wLLHAKEY0maX+hYOQgBwcT5MBrnSG1e7z//KrDQMSsMSaE3E7UWcggAB///6rzEdc1p6VgOLNQA8zzB8P/7UsQKgcx4dSas+40RcA6k4a91gAgMc0OA+bRVDF2CjMH8KgwGgOTADASCgAKczKYlnLodhpwVbgYAWYDYOhkNJVGGKBMMgQmbiWCg0rl+pbax/eWOVK7QAxoOrT2zCHpMDcgJP///6eHJE8S8y+gNFmEQGVlmBwGcYV7LJn0qeGaAzAa4QwohINRoBlQt9CJfMy6TPexQoAYwuAc83a0zwAYwODowrG5AS6URrVdb//ypYaBCrhx7QdUVRJgByfrOFkmhxCoh4wcECiMBq6YP//tSxAiBy9x1Igp7rAFejmTVn3WAYHBjuIMn80Ooa2nIabGSYmiQYNA6YDgMXJUCazWuxx212IBzAYCjDcXT8LDTPMTzCURTB0ewUADW4xT4Z4c7zKldoAMOGHU+UwqiTATkN////Ujc5BbAEE4EGMlk3vDBNCnMQhOQ3WkVzQUFTQUJQULgsCaoG/hEvpJibiDprACMCTAAYjX3sDCoOjAgCDEIGCYC3Mk97vP//7jGgofo0M0mqPSq1cZVDLksOVKXeMQk3bDBgCvMa1wg+/X/+1LECwPMUHUeAGfEwW4Oo8GvdYAhzEgEXMeMNQwegUTAzAgMBIAsBADIosSiuNSCWfI6iEBYwDAmzFXXDMKIEcLgHGESBkEAWqxOrLrNrn/zKy/xgAC/iQPT2TDPSYAnL///1XhiXwwkOYAEY8maJUcmyYTgaxkDq8n3CrcbrByaAEYYThWYBAQieyh24xL6OQwp5V7BACmGIdHnWTEUDGBIdmJw5lkmGw1Ka2P/3nbMaAikjQXQiYelFnIO7QAAAATAAf/6jFIXsR8AAo0qk//7UsQKAAx0xVmtNxTRcJVtdabumwJU2smFLkdSODg8zAKmeW/jK33CoEOBqUFx1r286cEaKCBxBk3+tNMqC8CcF8uFxv/5vPv/MOQpQAADATnESPbsrnfpnDuQ5LOf++/hSUmAH/4CTAN3AA//+ItFYixFLYKAzNHTDFVFKtndIiTA1fVWUtZUxMtYDDalyv3e7x29z3+pIkguQHFFwmAnDmReLyVJ/8qamtcppVDzcSGTMlDAUFLGZa/tmtiaEikCXgAAAYAH//6i0vlkKbFN//tSxAgBTCShRY5ukslhlCj8/c14r4MCuwyIAJOp2VD4YfLa5yILOY/bkKBmAAoaF1R1BUYMQAEEZfLLeMFFU6jXIStsmGe///+OVWVLxMJkwdgxa6A8ULMJ1Jv/+gZgQXgobND+gFSwgCD/82AMw5xZGtNM5ODDW4O9Gbt4Ag4J0i/K7ozLpa7xbE2u3E3ULDAhBGuxqlrSkwcZe25GlEygB////3q7MNHEE6hjEKQPOKKSx9v/+zgUOFTnnrUAlyAAAAAQAP//aonY3VhVWWz/+1LECQFMNKlBzu6SwXeVJ9HN0pDzamEILkTSp9o2AUjTGMcEDCgFHnfxw0tBCE5hhDJhZqAgNyVGIVZytjSIt+VvCWAUmCdf///cKeMMPMakwddsshgMJjMof//ZIXADpx586B6x//8eXRGX+jLsw0qqYTbproBuM/Rg4nnTAwCgcEAlp0JedXgYFzYhDOMg8wSNxAF2jR2grvoY6SMklEMFULRZ////7y1OuMY8PD4M3kQDJSGpf//WZAgKApGNedUDZgAAAQAH//6cyEvNLf/7UsQHAYtQoUGN8nEBdBPn8c3SWX1jyso78mcA7PE0zAmQ7ZXKAdCOMTcGMJFQ0Y28hmEQJapbq+gWesQWFBbN5yMkAbUf///9brTLCgYjgUbpTkHIkXNm//9ZwJaBRy6wL4IA///byuo387AMcWWYEgpj8DtIXyYBNRukeoSQ4JPLA7XEvzAQWNG6g/AsMKLAaDMHllvkeMAKHmuw6WAOE////63Um18GAzwGJH/l4goOI3b//1nAhQCcj9i1AHhRAAAAIgDxeAyEgJdyjpGd//tSxAkBCryhQcVuh8FgE+dR3UpYmHQod/wK0gwU1PZNh4FXRN00tcYsqb36hPCFCIdCGIxqltS0DC7mVCaDJV/3QNyCAYtUCMQOMmwxwgSf//6ANRwtidQF0X//0MGvE3GGmvOKjkDhIGnKVhS2ChLmUwzKLCwStnfhpaMghDEwoqMwkMFB04UsXuncpszQtm8rj5IBhfP///mWNM1kx98PmwfXD/FBH//9AEOA7A9YAJhBAAAABwQAPEkAnDTg00apXCAisJUUJfstoc8EqSn/+1LEEAEKEKFF5W6FwT4UKDgOUHguV6XvwnWao1gMPBoehNjl1SygA8MXEDQbpb/1nB/CccLHTjA22FEHk+z//+Q4RZ6gBoYgMADcLgZxYea1EU3hhVAorTrdyApAUeuWi1JrdA8IqCDF0sA+IgIgQ1EUsTpsxZBMeazYapC/6ZgQ8AiSBJGThcEdkFQf//6xnw4F6gBpgAAAACEA9AVNPZI8y2ptmAJXAGHDvvIYDAg1tkKWJS2fhhlYUBRlOXGbAwBAYmk684myQAAAhUy6Sv/7UsQeAQo0oT/FcoXBQpQneN3Q+I3/92LYCgEKXyQMBEyZV//+sO+IF1ACw4gJgHnBzBbwmkbciNrCGJzQLDF1poAlvNfWEuCgEo/nXWLMnD74nUgwgHQpnMapcrAsJPZULBGjF/rSMR1AETgJWiqoV0zS///WEQYtuqoAWFMAAAAGGAA//+5QPS3aUw7FlmhgaKIbC4kBBabGBSYSasWpImzAdCZgbImvqK75NRkVnK6CDy/Mvojf/rUdHwCGgLwzTDmC3Euedv/+sMlXNGgN//tSxCqBCnifPe5ikkE9lCd0fdC4mARAwAPKA4jL/UsMyppJg72DwFwl9gBKOcQUY1R3rEPtcLXnASJ7oWYCSiAHgChOHSwEI4yYtHBi/6CZFABVwIoBPmYXoGWT///h/R711QJsAAAJCAegYir9NdTliTCRC0zIgBcJkIJKxrMYqYiwCituabiIQkZIyhqsKFUGod1rRU2ROgGhyRURYjBhf7JE6ACLBbCVzMRIpI///xnRVtWAnABgAfBRQfLYBki2wBETEYFuMMMGkE4yRB7/+1LENoEKRKE5g/KFwUOUJrBeUPgIq43K3ASrAAeM8/w00NDBAcAoAXvFLdi+NBB765RH4b/9SzIaoEcYDTkyYPSJw1f//80EXasCWkAAFDBAAeoFAQB6k/SMPMMmwjve1mQiaTZEZow0Exbc49xdE4WBI8AEEQhCmsyqltUhgoNAlQmBfDa/qWYDrAWlhaeXEAsjEekg7f//GoMLWBJgIGAf//dmaCSuktadc4weBUiY9UCsZgkAhp0EIkCzPaaUPGooQhKFohOjFUbkKtgadv/7UsRDAQpUoTei7ofBQpQmcdzSSNTIiTu9K4vB6/s5oT4GCNgpfIgYDXMf//6hFBta1QFIAAAYgAeoHKojDTXoyuYwsqAVimKJbiJLEBzTHHg8/McdtUhgkDmtn+cLD5gsahQJtImzh0pAOIESWOEN0PX+kiQIARgCLEWlC0nUv//1B3isA5QCIPUHnpa7y5o6qkDIEZlAz0vIYPDRSdwwGopRnOJMhBoYM0c412GCEKlUDqXPyTyMA4GQiBNDcNv61HRuBOsFlR1MTqSZbZ////tSxE8BSlyfMYFyhcE6k+Y0XlC4/iXFRQFGAAARAAfBgcEnolH1FATADCQGYGkYBTuZ7MCEBWBItJXQTTAgcM09Q08LjAgaLrL/ilvCnLoxeuR4um/0EyGAGugLICfMxjCef//+NYhAKTA9BQcAOEfcvYYlihsIDLrZEYSOZ3QbAIHAoKtam4EXEChCbpcYnHDBRMCoiTldqU2pgChSWYC4A1IkH/dj5IgsOCoAiZmLoyX///JoVSoG0AAxAAAPQMDDSmHYst0wpD4rPZdSW5j/+1LEXAFJ8J8xgvKHwT6T5WQuUTAcQBo4O5WBo0BchjzY0OhKG4XssxcEVIJMBC15oralI6Cct0NIUwhP6lmQ6QEywJTTZYWXEANUm//+UxiAaBjD0IAoDUsZhpTEw6pQFtVLkqTAaKN7lcv6EB5yYIa2kIYLCJsa2nJxaYRHoACrKInU3WBAAkWxlRnhvf1LMB9gUrihy4gGFxPpIH2//+N0eQGAAMgAPQQJAoday4QoApge0pmIC6oi4hhSNpu6PAkIJcSH4q5SGJgWGRmdUf/7UsRqAUqMnytBdofBSpPlaF5Q+BryFgVEERBCEAMy2HqW4PA08lQWofQqH9ky4OeBhooEtY4CYDiyAof//rErJEYgP//+dsX7MpfAhAMwCa8wRBeHEOwWNcywJwqAAECKsZuqwAhAUwGEAyfwQ7xcMWLACDDwG8kjsSswINi9cgZQG9/uakWAwRYFuxIGAvTqv//4pq4MQAAD1AtSvhXdgKgCYeNCaGgyDgIBwDmHAGHKgjgIUhQA2wO2yRFsIEU1RNk4GAYwaHAwBDpAS0og//tSxHSBS0ifJSF2h8FSE+SZ3dJIJeKAIURlFUWxAr/UtRRF8BD0ApCMXCzo4ysz+j/+KaSf//7q3LtaehCkzEggwiwwgCAqBYEQAwqMsBAOJCkpa0pVEsAQQCqYP+Wf7KJCi1AsVX9AsujIFIwm4LiJkVX9aBmMYATqAYOEXL4YgFxFdrdL/8jSFkA8aHw8Asaf5hoFAQxcU43nBQOAFRgxHIA8FA0w0BMwZBJEFQwuuYEAYYaiObWZGdFj6Ygk6YLCSWcZXEJumCAsavXGdLL/+1LEewPLVJ8gYvaFwVST5AHdUkg2f7sbjsAyqwEbgZMmxICaX+3/7CrIT1BxYCxpwlgRGChhBIBpaGgoBIUBowhTk1vQoHCQPDInkwVQYCAKYPicafdscfiIYBjeKB6YHgAmC5UZjxgeBjqUgzg1xvf0kS8LNAwtUCZkkjofkUEX+r3/j4G1IQAP//+ev3qaJNFJAMMA4WFAoT9LnGEhcnAwyGCYGGDwDo9KOoyBUDzAoWjLf/j0HwyA2MLCB4TaBC5yJhQXleYsYjEbLd9Szv/7UsSBA0tonxoi9ofBdpPjSF7Q+Auwg3gMASggOItHn+3V/j8SSvQDB8OZ1HDCgDGJMNGmwPLOBoFmGx7HGxzjwzAYQ01FrpcCwJlA0m1oZnTwRGFxMGCInCAA2RQDNXAsD0i2MiOskdfsmXBZ4GGygMVxwFwOjIKh+l/+L42VIwAPQMDBVZa9ycBieWgddg0BQMAMwVPQ2DKMAAWYWgAiitJN0hAwQC2Ym/qZyDSAQMEAECQMr2fmLS0DAO+VQgQ/ntf3PFYFAgMbkgYBeI6U//tSxIKDS0yfHE7uklFjk+MEXtD6l/R6/8fTGR//JAgtzCdJLgASYuoubqASPBOYGAEYkkidZlQCh1MAAGUrTkLhmAwGGF4lmwGfnDo9mHJDmCQelmGtxiv0FArC64tYvUa1qX0jEZ4AzAA1eLqQhCXzZrdLr/yOLSpQPQEFQ9Swy0oRASYPuaaEA6uIYAYRImZeGYMAMDhlRGYKsYtiYLhoaIWMblhQYBiuIgvBQFLpf6Mx4GgVSYFws/61GY+AI2A+Avpk4bPt//5kWv6vhl7/+1LEhoNK5J8aQXaHwXgT4sj+0Wi/ZiLVCECwA+5gMEqGBdsaGQ42DMwnAALAKsphaWgXA0wGFQyV74y4HIwaC4wFAAiA9qBJlQmwiNMZWMX/rQTIoAKkBSAT5mM4Xn/9X+stVRA///ctqU96haQFwKY245u0QgAABUJmBIsZib4CCY8XlCWLqQFgOJEw7CEjjAIDCIfDAUPEZW5RGt4IAKT5l0zf+7JEVAFJgtVLaYvjiO/X/+Uy1Wj1ChAaCpArGYjGODqvTgZaYVjMcTgqYP/7UsSJg8qQnxgi9ofBRpPjAF7QuOASYHgMnKvJRUdAgLCmYx+GZ9C+CQUCwGCQKr2fmXTqLUgqFIsn/6lnB8gnBAsNMmLyDfq//KLlf///1FA9Q4YLTRpyUTjDopDU0AkAowBBgma5o+Ww0FAsHC110JjgQAjBkNTQinzXkWTCMWTAgIUUHfpM9l1bey+gf/1oEPAc1CzZcQJs1b9f/5Z/////9HqLMA00NOCIwCMGFqM4wURRL/GDBPmzgsGBICAIMVNmusuRRMEQgM7IENlw//tSxJQDSoyhFi52kkFOE6LELtEyQMAxNCwSlxmukWLpSBqBU0d/+xuDckHvKiA+zFW3V1/5165APls+amxNDOhPCN2DCsHHlLVmEhQG0xNjQfA4F2GMDTQEIEmAAoGOPIGMQ0GCgNFriYD2zSeiroI7Pl5E//0SaAdwFTHlEan/X1/6J+7//Z//6fQGOIdqPuIAEYt3RswLKjLymDXYdTUIIA4KKyXKn1mCQDAxEOkpg/sJjEBwMCjZN14o7W2mpI8zFT/0VLJQIXAlIzdn79X/+1LEngPKhJ8WIXaHwTqTosAuzPD/8/V+d///////9NX0MDCAxoupYYblsBooEgHLWGE4jm3ItBgcpGNlepnpCAAUD0xhvszUEMRgkMAQJAK06Kz15MKcwQS/3pmAEcAoQ3TKCW1dXhm3/////p9Al2tSy1+kfTEUlQi3RYBxABBYQcyOMQQAEHCyoUtRIsAAIYNh+aIXebFjKYTi6YEBGXwd8nDdECgVzdur3uahy4VabrJRStUs66Rnf/9v1ft//WrzCCirMpdIUAJhejm3gv/7UsSqg0pgnxQo9mtBRJQiQF5Q+CwJdYKIp9QMgYbFqWtO64yYJg8LG5uMeNAxgMliARoAnJjVLWUUteip9X6iyCeQWClMlf19f+c2f/s/r+eY2NSZGsEccX8wwBlNwVAUCGEYvE2GAOUBmzRy2ACoBgwPjEXBDCoUjAoCkRisAXNJI84oM9SV/6imCWxzwQD3VX7P+v2/R////0fv8okjjA4AQRmHLqaTCbKF2mHS8e/DJhAAgYLMFc5kiFZhgAHDW0eeEhhgsGAxMo/BVDcr//tSxLYDybBzFAF2aYFPjmIALsy4s1t5nfV7psbgQoPZogWWq2zNktX+3oq/2X/s+7////t/6qVhU4wcwuMEIfdaqDBgaU5n+SBEDgsDjjwA2FHYGBqY31iZ2ByOg0QAUJAC20O2ryt2GmX1fdkgtwD0yjq+qrfR///o/2f/rvVTBa0uh1dRhUJAZBSXKYxgcQpqIJQGAIICFmzqMTLqGBYUmWUdme4imCYagAD1LH7NE0RK2uYf1NWcCUBPxNz8rVvv//2f17///b+3/6fKLMH/+1LEwwPJOJ8SAXJnwTUNYkEOzWBpo07JeYxBUjf4OTYLTmIkYeeRY0OggFwBGXWStMKhI4FqAPVjBJTCgpQDNZjVLTMMtbRdv6dMwBDQPcTTMLTiWSTk0O5hl7fl/tI08V9UDX2UzcX9KGp0+6zt1ABAACRJbclStoQploxUSgQHsYJFR4ZXEropnSG3KG7jgKMBzoQBJYkKbPRFI846tUv/fYcQrD2ddf7bf6K9VPKb0fkjlbK2a3FWUpR/srgADM7BTiDCOmIgEYfzRpAMF//7UsTVg8pocRABcimBJg5iAD7FMIy2hisgn5y0EEFNx/YHYIXzMOAo4/Jj3QwMOGAwGKlF4Imbl1dufVoVtboVGIIZBw5k2rXOZOSp4rbkmBfl5fofapNjNariz+65Pdd81GHlIW4VfYvwAAAX3+eOst4bwjbEDI6oFxCdaMhDPmcOicg0QvdKINWUFAlMZYpM0gnLALEgDJIv1LbXG5a4yTdH9YS5dYHkpl6nxs7Zu3/nLerHqH2KbM0jMr1VbYH85fbtzFYACAV3c5GRhtQ6//tSxOUDydhrEAF2Z4F5DiGALkz4YHA484YtLy3oZdUkms2rEbZQFwOZEjpmMKgkFpyvxbJHYQba//UDIW7er99/R1+fp9wgWqp1is3/+6qrzymPvTWgAAEBGXv97q9jlSyl9k9TCLhNbAdW5D8EJgzEey/ZWDZNqRM1MEgA10+B85GARyFgusNDMapazyWtp37K1bjkBraDft16ErJyPRb76v18nTkugKhhsjAxJSlmT+csUtAx6gXbpGkppZ5wrFnHDthhxtC0TAgQM/5XpND/+1LE7IEJ8GsboPGpQZoQoVQ+STJrPSSnUMDMqjIVBwOf7LWnWc5h4yQBBeABcEOJI3uskxK4iun+2gYDbfdZ2dH/s4x13R00eiyKNI7tbkq2uknoRTKKcAAAACgLU7RpMIZhn5gG+AnO8yAArp0qgiwkxfp4cYmAgQ5HAPgEjBCgLhTp0Fept2c/r1rbd9AFEaLqf+m+vV9LmSlP9zOQrBW8gKii1ikJVEBV4oKKaorFrKVGFqHssIyZARGH5hiAQ/G5flEHcch+LDMC7gAEjf/7UsTvgQuEaw8N9jCBLQ1i8B4pKAlMFYSNEbCradUSDUwUwxINjDBgIMDAYKAsxTRzcAeIieHCObbosRdjXIYrxhyHchy9K4bjcbsbt09PTuU9gJnhAEIAMFQfFgfA8gfUKUEFr1+jYMr/2dNfT//fdUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUABa3SymMxm9DTlLucl+RCQ3mQ5hBV8mZ48ACHNRy3ruF1jFUO//tSxPmBDmTjDS40VkEpDaMwHikoNgqvnlaNBmMOhqqUKYjoShCMYmlxkuemrS575ZPQEGgVcIgZiI9I//t//X/1Wfkuz1RLXvVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+1LE+IEM/KUPgO2pgbcNYcW8ccBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7UsTOg8swaQ5MZZBQAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+TK.notified=LS.get('tkNotified',{});TK.nInit=false;
+const tkPref=k=>LS.get('tkN_'+k,true);
+let tkAud=null,tkLastChime=0;
+function tkChime(vol,force){if(!force&&!tkPref('snd'))return;const n=Date.now();if(!force&&n-tkLastChime<1500)return;tkLastChime=n;
+  try{if(!tkAud)tkAud=new Audio(TK_SND);tkAud.volume=vol||.9;tkAud.currentTime=0;const p=tkAud.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}
+function tkNativeNotify(title,text,room){if(!tkPref('ntf'))return false;
+  if(AND&&typeof AND.notify==='function'&&!IS_PC){try{AND.notify(title,text,room||'');return true}catch(e){}}
+  if('Notification' in window&&Notification.permission==='granted'){try{const n=new Notification(title,{body:text,tag:'happytalk',silent:true});n.onclick=()=>{try{window.focus()}catch(_){}TK.pendingRoom=room;openTalk('chats')};tkChime();return true}catch(e){}}
+  return false}
+const tkPreview=(b,f)=>b!=null&&b!==''?b:f?'📎 '+f:t('tkNewMsg');
+function tkAlert(room,sender,body,file){
+  if(sender&&!TK.people[sender]&&!room._retry){room._retry=1;tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at').then(ps=>{for(const p of ps||[])TK.people[p.id]=p}).catch(()=>{}).finally(()=>{tkAlert(room,sender,body,file);delete room._retry});return}
+  const title=room.kind==='all'?t('tkAllRoom')+' · '+tkName(sender):(TK.people[sender]?TK.people[sender].nick:(room.peer_nick||t('tkT')));
+  const text=String(tkPreview(body,file)).slice(0,200);
+  if(document.hidden){if(!tkNativeNotify(title,text,room.id))tkChime();return}
+  if(tkOn()&&TK.view==='room'&&TK.room&&TK.room.id===room.id){tkChime(.45);return}
+  tkChime();if(tkPref('ntf'))toast('💬 '+title+' · '+text.slice(0,40),t('tkView'),()=>{TK.pendingRoom=room.id;openTalk('chats')})}
+function tkCheckNew(){if(!TK.me)return;let ch=false;
+  for(const r of TK.rooms){if(!r.last_id)continue;const prev=TK.notified[r.id]||0;if(r.last_id<=prev)continue;
+    if(TK.nInit&&r.last_sender&&r.last_sender!==TK.me.id&&r.last_id>(TK.read[r.id]||0))tkAlert(r,r.last_sender,r.last_body,r.last_file);
+    TK.notified[r.id]=r.last_id;ch=true}
+  TK.nInit=true;if(ch)LS.set('tkNotified',TK.notified)}
+{const _u=tkUnread;tkUnread=function(){tkCheckNew();return _u.apply(this,arguments)}}
+function tkAskNotify(){if(LS.get('tkAskedN',false))return;LS.set('tkAskedN',true);
+  if(AND&&typeof AND.notifyPerm==='function'&&!IS_PC){try{AND.notifyPerm()}catch(e){}}
+  else if('Notification' in window&&Notification.permission==='default'){try{Notification.requestPermission()}catch(e){}}}
 /* ---------- 새 메시지 확인 (주기적) ---------- */
 function tkStartPoll(){tkStopPoll();if(!TK.me||TK.me.status!=='active')return;
   TK.poll=setInterval(async()=>{if(document.hidden||!tkOn())return;
-    if(TK.view==='room')tkLoadMsgs();else if(TK.view==='chats'||TK.view==='members'){try{const [rooms,ps]=await Promise.all([tkRpc('hm_rooms'),tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at')]);TK.rooms=rooms||[];for(const p of ps||[])TK.people[p.id]=p;tkUnread();if(TK.view==='chats'||TK.view==='members'){const M=$('tkMain'),st=M.scrollTop;tkRender();M.scrollTop=st}}catch(e){}}},TK.view==='room'?3000:10000)}
+    if(TK.view==='room'){tkLoadMsgs();if(++TK.pollN%3===0)tkRpc('hm_rooms').then(r=>{TK.rooms=r||TK.rooms;tkUnread()}).catch(()=>{})}else if(TK.view==='chats'||TK.view==='members'){try{const [rooms,ps]=await Promise.all([tkRpc('hm_rooms'),tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at')]);TK.rooms=rooms||[];for(const p of ps||[])TK.people[p.id]=p;tkUnread();if(TK.view==='chats'||TK.view==='members'){const M=$('tkMain'),st=M.scrollTop;tkRender();M.scrollTop=st}}catch(e){}}},TK.view==='room'?3000:10000)}
 function tkStopPoll(){clearInterval(TK.poll);TK.poll=0}
-async function tkBgCheck(){if(!labOn('talk')||!TK.cfg||!TK.ses||document.hidden||tkOn())return;
-  try{if(!TK.me){TK.me=await tkRpc('hm_me');if(!TK.me)return}tkRpc('hm_touch').catch(()=>{});TK.rooms=await tkRpc('hm_rooms')||[];tkUnread()}catch(e){}}
+async function tkBgCheck(){if(!labOn('talk')||!TK.cfg||!TK.ses||(tkOn()&&!document.hidden))return;
+  try{if(!TK.me){TK.me=await tkRpc('hm_me');if(!TK.me)return}if(!document.hidden)tkRpc('hm_touch').catch(()=>{});if(!Object.keys(TK.people).length){const ps=await tkGet('hm_profiles?select=id,nick,role,status,last_seen,created_at');for(const p of ps||[])TK.people[p.id]=p}TK.rooms=await tkRpc('hm_rooms')||[];tkUnread()}catch(e){}}
 function tkCardUI(){if(!labOn('talk'))return;const s=$('tkCardSub'),b=$('tkCardBadge');
   b.hidden=!TK.unread;b.textContent=TK.unread>99?'99+':TK.unread;
   s.textContent=!TK.cfg?t('tkCardSub'):!TK.ses?t('tkCardLogin'):TK.unread?t('tkCardNew',{n:TK.unread}):TK.me?t('tkCardHi',{n:TK.me.nick}):t('tkCardSub')}
@@ -3913,7 +3955,11 @@ $('tkMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
     if(a==='retry')tkBoot();else if(a==='manual'){TK.manual=true;tkRender()}else if(a==='logout')tkLogout();else if(a==='srv'){tkShow('setup')}
     else if(a==='invite'){TK.invite=null;tkShow('invite')}else if(a==='share')tkShareInvite(TK.invite.code);
     else if(a==='copyinv'){navigator.clipboard.writeText(tkInviteText(TK.invite.code)).then(()=>toast(t('tkInvCopied'))).catch(()=>toast(t('tkCopyFail')))}
-    else if(a==='older')tkLoadMsgs(true);return}
+    else if(a==='older')tkLoadMsgs(true);
+    else if(a==='chime')tkChime(.9,true);
+    else if(a==='ntfperm'){let ok=false;if(AND&&typeof AND.notifyPerm==='function'&&!IS_PC){try{ok=AND.notifyPerm()}catch(e){}}else if('Notification' in window){if(Notification.permission==='default')Notification.requestPermission().then(p=>toast(t(p==='granted'?'tkNtfOn':'tkNtfOff')));ok=Notification.permission==='granted'}
+      toast(t(ok?'tkNtfOn':'tkNtfAsk'))}
+    return}
   if(b=g('[data-room]')){tkOpenRoom(b.dataset.room);return}
   if(b=g('[data-dm]')){if(!b.disabled)tkOpenDm(b.dataset.dm);return}
   if(b=g('.tkChips[data-g] [data-v]')){for(const x of b.parentNode.children)x.classList.toggle('on',x===b);return}
@@ -3928,7 +3974,8 @@ $('tkMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
   if(b=g('[data-revoke]')){tkAdminDo('hm_revoke_invite',{p_code:b.dataset.revoke});return}
   if(b=g('[data-ishare]')){tkShareInvite(b.dataset.ishare);return}
   if(b=g('#tkSetMax [data-v]')){tkRpc('hm_admin_settings',{p_members_can_invite:null,p_max_file_mb:+b.dataset.v}).then(()=>{TK.settings.max_file_mb=+b.dataset.v;tkAdminRender();toast(t('tkSaved'))}).catch(err=>toast(tkMsg(err)));return}});
-$('tkMain').addEventListener('change',e=>{if(e.target.id==='tkSetInv'){const v=e.target.checked;tkRpc('hm_admin_settings',{p_members_can_invite:v,p_max_file_mb:null}).then(()=>{TK.settings.members_can_invite=v;toast(t('tkSaved'))}).catch(err=>{e.target.checked=!v;toast(tkMsg(err))})}});
+$('tkMain').addEventListener('change',e=>{if(e.target.id==='tkPSnd'||e.target.id==='tkPNtf'){LS.set('tkN_'+(e.target.id==='tkPSnd'?'snd':'ntf'),e.target.checked);if(e.target.id==='tkPSnd'&&e.target.checked)tkChime(.9,true);return}
+  if(e.target.id==='tkSetInv'){const v=e.target.checked;tkRpc('hm_admin_settings',{p_members_can_invite:v,p_max_file_mb:null}).then(()=>{TK.settings.members_can_invite=v;toast(t('tkSaved'))}).catch(err=>{e.target.checked=!v;toast(tkMsg(err))})}});
 $('tkBar').addEventListener('submit',e=>{e.preventDefault();tkSendText()});
 $('tkIn').addEventListener('input',tkGrow);
 $('tkIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&(DESK||IS_PC)){e.preventDefault();tkSendText()}});
@@ -3938,8 +3985,8 @@ $('tkMain').addEventListener('scroll',()=>{if(TK.view==='room'&&$('tkMain').scro
 $('talk').addEventListener('dragover',e=>{if(TK.view==='room')e.preventDefault()});
 $('talk').addEventListener('drop',e=>{if(TK.view!=='room')return;e.preventDefault();const f=[...(e.dataTransfer&&e.dataTransfer.files||[])];if(f.length)tkSendFiles(f)});
 {const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(tkOn()){if(!tkBack())closeTalk();return true}return _bk?_bk():false}}
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(tkOn()&&TK.me){tkRpc('hm_touch').catch(()=>{});if(TK.view==='room')tkLoadMsgs()}else tkBgCheck()}});
-setInterval(tkBgCheck,45000);setTimeout(tkBgCheck,2500);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(tkOn()&&TK.me){try{AND&&AND.cancelNotify&&AND.cancelNotify()}catch(e){}tkRpc('hm_touch').catch(()=>{});if(TK.view==='room')tkLoadMsgs()}else tkBgCheck()}});
+setInterval(tkBgCheck,20000);setTimeout(tkBgCheck,2500);
 setInterval(()=>{if(tkOn()&&TK.me&&!document.hidden)tkRpc('hm_touch').catch(()=>{})},60000);
 tkCardUI();
 {const _al=applyLang;applyLang=function(){_al.apply(this,arguments);tkCardUI();if(tkOn())tkRender()}}
