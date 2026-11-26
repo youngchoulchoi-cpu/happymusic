@@ -689,6 +689,9 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
 .tlBody{flex:1;min-height:0;position:relative}
 .tlBody iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .tlBody iframe[hidden]{display:none}
+.viaSeg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border-radius:16px;background:var(--soft2,rgba(127,127,127,.1))}
+.viaSeg button{height:40px;border:0;border-radius:12px;background:transparent;color:var(--sub);font:700 14px inherit;font-family:inherit;cursor:pointer}
+.viaSeg button.on{background:var(--blue);color:#fff}
 </style>
 </head>
 <body class="paused">
@@ -802,6 +805,13 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
       <label class="tgl"><input type="checkbox" id="updAuto"><span data-i18n="updAuto">앱을 켤 때 자동으로 확인</span></label>
       <button class="btn ghost" id="updCheckBtn" data-i18n="updCheck">업데이트 확인</button>
       <button class="btn ghost" id="newBtn" type="button" style="margin-top:8px" data-i18n="newBtn">바뀐 내용 보기</button>
+      <div id="agentBox" hidden>
+        <label style="margin-top:16px" data-i18n="agVia">업데이트 방식</label>
+        <div class="viaSeg" id="updVia"><button type="button" data-via="self" data-i18n="agSelf">해피뮤직이 직접</button><button type="button" data-via="agent" data-i18n="agAgent">업데이트 도우미</button></div>
+        <p class="hint" id="agentSt" style="margin:8px 2px"></p>
+        <button class="btn ghost" id="agentBtn" type="button"></button>
+        <button class="obLink" id="agentExt" type="button" data-i18n="agExt">브라우저로 받기</button>
+      </div>
       <p class="hint" id="updMsg"></p>
     </div>
     <div class="field">
@@ -860,6 +870,7 @@ html.desk .wQuick{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
     <div class="ubar" id="ubar" hidden><i id="ubarI"></i></div>
     <p class="hint" id="updProg" style="margin:4px 8px"></p>
     <button class="obCta" id="updGo" data-i18n="updNow">지금 업데이트</button>
+    <button class="obLink" id="updAgentB" type="button" data-i18n="agTry">업데이트가 잘 안 되나요? 업데이트 도우미로 설치</button>
     <button class="obLink" id="updSkipB" data-i18n="updSkip">이 버전 건너뛰기</button>
   </div>
 </section>
@@ -1126,6 +1137,8 @@ Object.assign(I18N.T,{
  wBmAdd:X13('북마크에 추가했어요','Bookmarked'),wBmDel:X13('북마크에서 뺐어요','Bookmark removed'),wNoBm:X13('북마크가 없어요. 아래 ☆ 버튼으로 추가해요','No bookmarks yet. Tap ☆ to add'),wNoHist:X13('방문 기록이 없어요','No history'),wCopied:X13('주소를 복사했어요','Link copied'),
  wDl:X13('다운로드를 시작했어요: {f}','Download started: {f}'),wDlFail:X13('이 파일은 받을 수 없어요','Could not download this file'),wOldApp:X13('지금 앱 버전에서는 일부 사이트가 열리지 않을 수 있어요. 앱을 5.0으로 업데이트하면 모든 사이트가 열려요.','Some sites may not open in this app version. Update the app to 5.0 to open every site.'),
  tTools:X13('도구','Tools'),tPlayer:X13('동영상 · 뷰어','Video & viewer'),tPlayerSub:X13('영상, PDF, 한글, PPT, 엑셀','Video, PDF, HWP, PPT, Excel'),tClock:X13('디지털 시계','Digital clock'),tClockSub:X13('알람, 타이머, 시각 안내','Alarms, timer, spoken time'),
+ agVia:X13('업데이트 방식','Update method'),agSelf:X13('해피뮤직이 직접','HappyMusic itself'),agAgent:X13('업데이트 도우미','Update helper'),agOn:X13('업데이트 도우미 {v} 설치됨 · 해피뮤직 자체 업데이트도 그대로 쓸 수 있어요','Update helper {v} installed · built-in updates still work'),agOff:X13('업데이트가 잘 안 되는 기기라면 업데이트 도우미 앱을 받아 두세요. 해피뮤직 자체 업데이트는 그대로 유지돼요','If updates fail on this device, get the update helper app. Built-in updates keep working'),agUnknown:X13('앱을 5.3 이상으로 업데이트하면 도우미 설치 여부를 확인할 수 있어요','Update the app to 5.3+ to detect the helper'),
+ agGet:X13('업데이트 도우미 받기','Get update helper'),agOpen:X13('업데이트 도우미 열기','Open update helper'),agExt:X13('브라우저로 받기','Download in browser'),agTry:X13('업데이트가 잘 안 되나요? 업데이트 도우미로 설치','Having trouble? Install with the update helper'),agOpened:X13('업데이트 도우미에서 [최신 버전 설치]를 눌러 주세요','Tap [Install latest] in the update helper'),agNeed:X13('업데이트 도우미가 없어서 해피뮤직이 직접 설치할게요','Helper not installed — updating directly'),agDl:X13('업데이트 도우미 내려받는 중… {p}%','Downloading update helper… {p}%'),agInst:X13('설치 화면에서 [설치]를 눌러 주세요','Tap [Install] on the next screen'),
  rTitle:X13('가위바위보','Rock Paper Scissors'),rCardSub:X13('해피봇과 한판 승부!','Beat HappyBot!'),rOne:X13('단판','Single'),rBo3:X13('3판 2선승','Best of 3'),rBo5:X13('5판 3선승','Best of 5'),rYou:X13('나','You'),rCpu:X13('해피봇','HappyBot'),
  rRock:X13('바위','Rock'),rScissors:X13('가위','Scissors'),rPaper:X13('보','Paper'),rS1:X13('가위!','Rock!'),rS2:X13('바위!','Paper!'),rS3:X13('보!','Scissors!'),rPick:X13('아래에서 하나를 골라요','Pick one below'),
  rWin:X13('이겼다! 🎉','You win! 🎉'),rLose:X13('졌다… 😢','You lose… 😢'),rDraw:X13('비겼어요!','Draw!'),rChamp:X13('최종 승리!','Victory!'),rLost:X13('아쉽게 패배','Defeat'),
@@ -1880,7 +1893,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.1.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.1.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -1898,7 +1911,7 @@ async function checkUpdate(manual){
   if(updBusy)return;updBusy=true;if(manual)updMsg(t('updChecking'));
   try{
     const r=await fetch(RAW(repo,'update.json')+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;
-    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());
+    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||''});
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(!newer&&!needApk){if(manual)updMsg(t('updLatest')+' · '+WEB_VERSION)}
     else if(!manual&&LS.get('updSkip','')===m.version){}
@@ -1920,7 +1933,7 @@ async function preLaunchUpdate(){
   try{
     const repo=REPO;bar.style.width='35%';
     const r=await tf(RAW(repo,'update.json')+'?t='+Date.now(),4000);if(!r.ok)throw 0;
-    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());bar.style.width='55%';
+    const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||''});bar.style.width='55%';
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(newer&&LS.get('updTried','')!==m.version){
       $('splashMsg').textContent=t('updNewT',{v:m.version});
@@ -2094,7 +2107,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🎬","도구 추가: 보안 동영상 플레이어 · 만능 뷰어 (영상·PDF·한글·PPT·엑셀)","New tool: secure video player & document viewer"],
+const WEB_NOTES=[["🛠️","설정 › 업데이트: 업데이트가 잘 안 되는 기기를 위한 '업데이트 도우미' 앱 받기와 업데이트 방식 선택 (해피뮤직 자체 업데이트는 그대로)","Settings › Update: get the Update helper app and choose the update method (built-in updates still work)"],
+ ["🎬","도구 추가: 보안 동영상 플레이어 · 만능 뷰어 (영상·PDF·한글·PPT·엑셀)","New tool: secure video player & document viewer"],
  ["⏰","도구 추가: 디지털 시계 (알람·타이머·시각 음성 안내·빗소리)","New tool: digital clock with alarms and timer"],
  ["✌️","새 미니 게임: 가위바위보! 해피봇은 어려움 단계에서 내 버릇을 읽어요","New mini game: Rock Paper Scissors — on Hard, HappyBot learns your habits"],
  ["📍","인터넷에서 지도(내 위치)·카메라·마이크·파일 올리기를 쓸 수 있어요. 사이트마다 허용/차단을 물어보고 기억해요","Maps (location), camera, microphone and file uploads now work in the browser, with per-site permissions"],
@@ -2782,6 +2796,37 @@ if(typeof DESK!=='undefined'&&DESK){$('dNav').addEventListener('click',e=>{const
 // 시계 알람이 바로 동작하도록 앱이 켜지면 시계를 뒤에서 미리 띄워 둔다 (저장된 알람이 있을 때)
 try{if(JSON.parse(localStorage.getItem('clk_alarms')||'[]').some(a=>a&&a.active))setTimeout(()=>{toolFrame('clock').hidden=true},1500)}catch(e){}
 window.__tool={openTool,closeTool,toolOn,TL};
+
+
+/* ---------- 업데이트 도우미 (업데이트가 잘 안 되는 기기용 별도 앱) ---------- */
+const AGENT='com.turntable.updater';
+function agVer(){try{return AND&&typeof AND.pkgVersion==='function'?AND.pkgVersion(AGENT):null}catch(e){return null}}
+function agUrl(){const m=LS.get('updMan',{})||{};return m.agentUrl||RAW(REPO,'apk/HappyMusic-UpdateAgent-1.0.apk')}
+function agOpen(){try{return !!(AND&&typeof AND.openApp==='function'&&AND.openApp(AGENT))}catch(e){return false}}
+let agTimer=null;
+function agDownload(msgEl){
+  if(typeof AND.canInstall==='function'&&!AND.canInstall()){msgEl.textContent=t('updPerm');try{AND.requestInstallPermission()}catch(e){}return}
+  const id=AND.downloadUpdate(agUrl());if(!(id>0)){msgEl.textContent=t('updDlFail');return}
+  clearInterval(agTimer);agTimer=setInterval(()=>{const s=String(AND.updateStatus()||'none').split(',');if(s[0]==='none')return;const k=+s[0],p=+s[2]>0?Math.min(100,Math.round(+s[1]/+s[2]*100)):0;
+    msgEl.textContent=t('agDl',{p});if(k===8){clearInterval(agTimer);msgEl.textContent=AND.installUpdate()?t('agInst'):t('updDlFail')}else if(k===16){clearInterval(agTimer);msgEl.textContent=t('updDlFail')}},600)}
+function agentUI(){
+  const box=$('agentBox');if(!box)return;const show=!!(AND&&!IS_PC&&typeof AND.downloadUpdate==='function');box.hidden=!show;if(!show)return;
+  const via=LS.get('updVia','self'),v=agVer();
+  for(const b of $('updVia').children)b.classList.toggle('on',b.dataset.via===via);
+  $('agentSt').textContent=v?t('agOn',{v}):v===''?t('agOff'):t('agUnknown');
+  $('agentBtn').textContent=t(v?'agOpen':'agGet');
+  $('updAgentB').hidden=IS_PC;
+}
+$('updVia').addEventListener('click',e=>{const b=e.target.closest('[data-via]');if(!b)return;LS.set('updVia',b.dataset.via);agentUI()});
+$('agentBtn').onclick=()=>{if(agVer()){if(!agOpen())$('agentSt').textContent=t('updDlFail')}else agDownload($('agentSt'))};
+$('agentExt').onclick=()=>{const u=agUrl();try{if(AND&&typeof AND.openExternal==='function'){AND.openExternal(u);return}}catch(e){}openWeb(u)};
+$('updAgentB').onclick=()=>{if(agOpen()){$('updProg').textContent=t('agOpened');return}agDownload($('updProg'))};
+// 업데이트 방식이 '도우미'면 앱 업데이트를 도우미에게 맡긴다 (도우미가 없으면 해피뮤직이 직접)
+{const _go=$('updGo').onclick;$('updGo').onclick=()=>{if(updInfo&&updInfo.apk&&!IS_PC&&LS.get('updVia','self')==='agent'){if(agOpen()){$('updProg').textContent=t('agOpened');return}toast(t('agNeed'))}return _go()}}
+{const _u=updUI;updUI=function(){_u.apply(this,arguments);agentUI()}}
+{const _s=showUpd;showUpd=function(){_s.apply(this,arguments);$('updAgentB').hidden=!(updInfo&&updInfo.apk)||IS_PC||!AND}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settings').classList.contains('on'))agentUI()});
+agentUI();
 
 initDesk();window.__player={audio,get cur(){return cur}};window.__lib={get tracks(){return tracks},playFrom,sorted,closeSheet,get obSteps(){return obSteps}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
 })();

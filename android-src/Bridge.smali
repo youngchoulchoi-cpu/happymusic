@@ -788,3 +788,50 @@
     invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->runOnUiThread(Ljava/lang/Runnable;)V
     return-void
 .end method
+
+# 다른 앱(업데이트 도우미 등)이 설치돼 있으면 버전, 없으면 ""
+.method public pkgVersion(Ljava/lang/String;)Ljava/lang/String;
+    .locals 3
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-virtual {v0}, Lcom/turntable/player/MainActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    move-result-object v0
+    const/4 v1, 0x0
+    invoke-virtual {v0, p1, v1}, Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
+    move-result-object v0
+    iget-object v0, v0, Landroid/content/pm/PackageInfo;->versionName:Ljava/lang/String;
+    if-nez v0, :r
+    const-string v0, "?"
+    :r
+    return-object v0
+    :try_end
+    .catch Ljava/lang/Throwable; {:try_start .. :try_end} :no
+    :no
+    const-string v0, ""
+    return-object v0
+.end method
+
+.method public openApp(Ljava/lang/String;)Z
+    .locals 3
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    :try_start
+    iget-object v0, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    invoke-virtual {v0}, Lcom/turntable/player/MainActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    move-result-object v1
+    invoke-virtual {v1, p1}, Landroid/content/pm/PackageManager;->getLaunchIntentForPackage(Ljava/lang/String;)Landroid/content/Intent;
+    move-result-object v1
+    if-eqz v1, :no
+    const/high16 v2, 0x10000000
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+    invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->startActivity(Landroid/content/Intent;)V
+    const/4 v0, 0x1
+    return v0
+    :try_end
+    .catch Ljava/lang/Throwable; {:try_start .. :try_end} :no
+    :no
+    const/4 v0, 0x0
+    return v0
+.end method

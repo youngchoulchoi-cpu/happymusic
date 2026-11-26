@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>해피뮤직 업데이트</title>
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--ink:#141824;--mute:#6b7285;--line:#e3e7f0;--ac:#12b76a;--ac2:#2342ff;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1017;--card:#171b25;--ink:#eef1f8;--mute:#9aa2b5;--line:#272d3b}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;-webkit-tap-highlight-color:transparent}
+body{padding:calc(env(safe-area-inset-top,0px) + 18px) 16px 30px;max-width:560px;margin:0 auto;word-break:keep-all}
+h1{font-size:22px;margin:4px 4px 2px;display:flex;align-items:center;gap:10px}
+h1 i{width:38px;height:38px;border-radius:12px;background:var(--ac);display:grid;place-items:center;font-style:normal;color:#fff;font-size:20px}
+.sub{margin:0 4px 16px;color:var(--mute);font-size:14px;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:15px}
+.row b{font-variant-numeric:tabular-nums}
+.st{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;margin-bottom:6px}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--mute);flex:none}
+.ok .dot{background:var(--ac)}.new .dot{background:#ff8a00}.bad .dot{background:#ef4444}
+button{width:100%;height:52px;border:0;border-radius:16px;font:700 16px inherit;font-family:inherit;margin-top:10px;cursor:pointer}
+.pri{background:var(--ac);color:#fff}.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:disabled{opacity:.5}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .3s}
+.msg{min-height:20px;margin:10px 2px 0;font-size:14px;color:var(--mute);line-height:1.5}
+.notes{white-space:pre-wrap;font-size:14px;line-height:1.6;color:var(--mute);margin-top:6px}
+ol{margin:6px 0 0;padding-left:20px;color:var(--mute);font-size:14px;line-height:1.8}
+small{color:var(--mute)}
+</style></head><body>
+<h1><i>⬇</i>해피뮤직 업데이트</h1>
+<p class="sub">해피뮤직이 스스로 업데이트되지 않을 때 이 앱으로 최신 버전을 받아 설치해요. 해피뮤직 안의 업데이트 기능은 그대로 쓸 수 있어요.</p>
+<div class="card" id="stCard">
+  <div class="st" id="st"><span class="dot"></span><span id="stT">확인 중…</span></div>
+  <div class="row"><span>설치된 해피뮤직</span><b id="vCur">-</b></div>
+  <div class="row"><span>최신 해피뮤직</span><b id="vNew">-</b></div>
+  <div class="row"><span>최신 화면 버전</span><b id="vWeb">-</b></div>
+  <div class="notes" id="notes"></div>
+  <div class="bar" id="bar" hidden><i id="barI"></i></div>
+  <p class="msg" id="msg"></p>
+  <button class="pri" id="go" disabled>최신 버전 설치</button>
+  <button class="sec" id="open">해피뮤직 열기</button>
+  <button class="sec" id="recheck">다시 확인</button>
+</div>
+<div class="card">
+  <div class="st"><span>🛠</span><span>설치가 안 될 때</span></div>
+  <ol><li>'출처를 알 수 없는 앱 설치'를 이 앱에 허용해요 (아래 버튼).</li><li>저장 공간이 200MB 이상 남아 있는지 확인해요.</li><li>그래도 안 되면 '브라우저로 받기'로 파일을 받아 직접 열어요.</li><li>"앱이 설치되지 않았습니다"가 나오면 기존 해피뮤직을 삭제하고 설치해요. (설정·기록이 지워지니 해피뮤직의 '백업 · 복원'으로 먼저 백업해요.)</li></ol>
+  <button class="sec" id="perm">설치 권한 허용</button>
+  <button class="sec" id="ext">브라우저로 받기</button>
+</div>
+<div class="card" id="selfCard" hidden>
+  <div class="st"><span>⬆</span><span>도우미 앱 새 버전 <small id="selfV"></small></span></div>
+  <button class="sec" id="selfGo">도우미 앱 업데이트</button>
+</div>
+<p style="text-align:center"><small id="me"></small></p>
+<script>
+const $=i=>document.getElementById(i),A=window.Android||null,PKG='com.turntable.player',RAW=p=>'https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/'+p;
+let M=null,timer=null,target='';
+function vcmp(a,b){a=String(a||'0').split('.');b=String(b||'0').split('.');for(let i=0;i<Math.max(a.length,b.length);i++){const x=+a[i]||0,y=+b[i]||0;if(x!==y)return x<y?-1:1}return 0}
+function st(cls,txt){$('stCard').className='card '+cls;$('stT').textContent=txt}
+function installed(){try{return A&&A.pkgVersion?A.pkgVersion(PKG):''}catch(e){return ''}}
+async function check(){
+  $('msg').textContent='';st('','확인 중…');$('go').disabled=true;
+  const cur=installed();$('vCur').textContent=cur||'설치 안 됨';$('open').hidden=!cur;
+  try{const r=await fetch(RAW('update.json')+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;M=await r.json()}
+  catch(e){st('bad','인터넷 연결을 확인해 주세요');$('go').disabled=false;$('go').textContent='다시 시도';$('go').onclick=check;return}
+  $('vNew').textContent=M.native||'-';$('vWeb').textContent=M.version||'-';
+  const n=M.notes&&(M.notes.ko||M.notes.en)||'';$('notes').textContent=n;
+  if(!cur){st('new','해피뮤직이 설치되어 있지 않아요');$('go').textContent='해피뮤직 설치';}
+  else if(vcmp(cur,M.native)<0){st('new','새 버전이 있어요 ('+cur+' → '+M.native+')');$('go').textContent='최신 버전 설치';}
+  else{st('ok','최신 버전이에요');$('go').textContent='다시 설치 (복구)';}
+  $('go').disabled=false;$('go').onclick=()=>install(M.apkUrl);
+  const me=A&&A.appVersion?A.appVersion():'';$('me').textContent='업데이트 도우미 '+(me||'');
+  if(M.agent&&M.agentUrl&&me&&vcmp(me,M.agent)<0){$('selfCard').hidden=false;$('selfV').textContent=me+' → '+M.agent;$('selfGo').onclick=()=>install(M.agentUrl)}
+}
+function install(url){
+  if(!A||!url){$('msg').textContent='이 기기에서는 바로 설치할 수 없어요. 브라우저로 받아 주세요.';return}
+  if(A.canInstall&&!A.canInstall()){$('msg').textContent='설치 권한을 허용한 뒤 다시 눌러 주세요.';try{A.requestInstallPermission()}catch(e){}return}
+  const id=A.downloadUpdate(url);if(!(id>0)){$('msg').textContent='내려받기를 시작하지 못했어요. 브라우저로 받아 주세요.';return}
+  target=url;$('go').disabled=true;$('bar').hidden=false;$('barI').style.width='0';clearInterval(timer);
+  timer=setInterval(()=>{const s=String(A.updateStatus()||'none').split(',');if(s[0]==='none')return;const k=+s[0],so=+s[1],tot=+s[2],p=tot>0?Math.min(100,Math.round(so/tot*100)):0;
+    $('barI').style.width=p+'%';$('msg').textContent='내려받는 중… '+p+'%';
+    if(k===8){clearInterval(timer);$('barI').style.width='100%';$('msg').textContent=A.installUpdate()?'설치 화면에서 [설치]를 눌러 주세요. 끝나면 [해피뮤직 열기]':'설치 화면을 열지 못했어요. 브라우저로 받아 주세요.';$('go').disabled=false}
+    else if(k===16){clearInterval(timer);$('msg').textContent='내려받기에 실패했어요. 인터넷을 확인하거나 브라우저로 받아 주세요.';$('go').disabled=false}},600);
+}
+$('open').onclick=()=>{if(!(A&&A.openApp&&A.openApp(PKG)))$('msg').textContent='해피뮤직을 열 수 없어요.'};
+$('recheck').onclick=check;
+$('perm').onclick=()=>{try{A.requestInstallPermission()}catch(e){}};
+$('ext').onclick=()=>{const u=M&&M.apkUrl||RAW('apk/');try{A.openExternal(u)}catch(e){location.href=u}};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+try{A&&A.bootOk&&A.bootOk()}catch(e){}
+window.__ready=true;check();
+</script></body></html>

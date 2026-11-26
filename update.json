@@ -1,12 +1,14 @@
 {
- "version": "5.1.0",
- "native": "5.2",
- "web": "web/5.1.0.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.2.apk",
+ "version": "5.1.1",
+ "native": "5.3",
+ "web": "web/5.1.1.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.3.apk",
  "notes": {
-  "ko": "· 🎬 도구: 보안 동영상 플레이어 · 만능 뷰어 (영상·PDF·한글·PPT·엑셀)\n· ⏰ 도구: 디지털 시계 (알람·타이머·시각 안내·빗소리)\n· 휴대폰: 동영상·문서 파일 선택, 전체 화면 지원 (앱 5.2)",
-  "en": "· 🎬 Tool: secure video player & document viewer\n· ⏰ Tool: digital clock with alarms and timer\n· Phone: video/document picking and fullscreen (app 5.2)"
+  "ko": "· 🛠 업데이트 도우미: 업데이트가 잘 안 되는 기기용 별도 앱 (설정 › 업데이트 방식)\n· 해피뮤직 자체 업데이트는 도우미를 설치해도 그대로 유지\n· 휴대폰: 도우미 앱 감지·바로 열기 (앱 5.3)",
+  "en": "· 🛠 Update helper: separate app for devices where updates fail (Settings › Update method)\n· Built-in update keeps working with the helper installed\n· Phone: detects and opens the helper (app 5.3)"
  },
  "pc": "2.0",
- "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe"
+ "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
+ "agent": "1.0",
+ "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk"
 }
