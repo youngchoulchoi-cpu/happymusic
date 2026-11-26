@@ -1,11 +1,11 @@
 {
- "version": "5.3.0",
+ "version": "5.4.0",
  "native": "5.4",
- "web": "web/5.3.0.html",
+ "web": "web/5.4.0.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.4.apk",
  "notes": {
-  "ko": "· 📊 음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)\n· 🔖 긴 오디오 이어 듣기: 10분 넘는 오디오북·강의는 멈춘 곳부터\n· 🌙 취침 타이머가 끝날 때 소리를 천천히 줄여요\n· 모두 실험실에서 켜고 끌 수 있어요",
-  "en": "· 📊 Music report: listening time, weekly chart, top songs & artists, streaks (Home card)\n· 🔖 Resume long audio (over 10 min) where you stopped\n· 🌙 Sleep timer fades out gently\n· All can be toggled in Labs"
+  "ko": "· 📔 음악 일기: 오늘 기분과 그날의 노래를 함께 기록\n· 달력에 기분 이모지 표시, 일기 검색, 연속 기록\n· 비밀번호 4자리 잠금 (앱을 나가면 다시 잠김)\n· 일기는 이 기기에만 저장되고 백업 코드에 함께 담겨요",
+  "en": "· 📔 Music diary: write your day with a mood and a song\n· Mood calendar, search and streaks\n· 4-digit PIN lock (relocks when you leave)\n· Stored on this device and included in backups"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",

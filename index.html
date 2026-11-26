@@ -690,6 +690,63 @@ html.lab-no-report #repCard,html.lab-no-report .dNav [data-v=report]{display:non
 .mix.i{background:linear-gradient(135deg,rgba(40,200,150,.55),var(--mixEnd))}
 .labC{background:linear-gradient(120deg,rgba(190,150,255,.5),rgba(120,140,255,.32) 60%,var(--mixEnd))}
 #repSheet [hidden]{display:none!important}
+#diarySheet [hidden]{display:none!important}
+html.lab-no-diary #diaryCard,html.lab-no-diary .dNav [data-v=diary]{display:none!important}
+.dyC{background:linear-gradient(120deg,rgba(255,170,120,.5),rgba(255,120,160,.32) 60%,var(--mixEnd))}
+.dyMon{display:flex;align-items:center;justify-content:space-between;margin:2px 0 10px}
+.dyMon b{font-size:18px;font-weight:900}
+.dyMon button{width:40px;height:40px;border-radius:50%;border:0;background:var(--soft2,rgba(127,127,127,.12));color:inherit;font-size:20px;cursor:pointer}
+.dyMon button:disabled{opacity:.3;cursor:default}
+.dyCal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.dyCal .wd{text-align:center;font-size:11.5px;font-weight:700;color:var(--mute);padding:2px 0}
+.dyCal .wd:first-child{color:#e5484d}
+.dyD{aspect-ratio:1/1.08;border:0;border-radius:14px;background:none;color:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:600 13px inherit;font-family:inherit;cursor:pointer;padding:0;min-width:0}
+.dyD:hover{background:var(--soft2,rgba(127,127,127,.12))}
+.dyD .e{font-size:19px;line-height:1;height:20px}
+.dyD.has{background:var(--soft2,rgba(127,127,127,.12))}
+.dyD.today{box-shadow:inset 0 0 0 2px var(--blue)}
+.dyD.today>span:first-child{color:var(--blue);font-weight:900}
+.dyD:disabled{opacity:.3;cursor:default;background:none}
+.dyStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.dyStats div{padding:12px 10px;border-radius:16px;background:var(--soft2,rgba(127,127,127,.12));text-align:center}
+.dyStats b{display:block;font-size:20px;font-weight:900}
+.dyStats span{font-size:11.5px;color:var(--mute)}
+.dyQ{width:100%;height:44px;border-radius:14px;border:1px solid var(--gb);background:var(--soft2,rgba(127,127,127,.08));color:inherit;padding:0 14px;font:15px inherit;font-family:inherit;margin:4px 0 8px;box-sizing:border-box}
+.dyIt{display:flex;gap:12px;align-items:flex-start;width:100%;padding:12px 8px;border:0;border-bottom:1px solid var(--gb);background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.dyIt .e{font-size:26px;line-height:1;flex:none;width:32px;text-align:center}
+.dyIt div{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.dyIt b{font-size:13px;font-weight:800;color:var(--sub)}
+.dyIt p{margin:0;font-size:14.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all}
+.dyIt small{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dyNone{text-align:center;color:var(--mute);font-size:14px;padding:18px 8px;line-height:1.6}
+.dyDate{font-size:14px;font-weight:800;color:var(--sub);margin:0 2px 10px}
+.dyMoods{display:flex;gap:6px;margin-bottom:14px}
+.dyMoods button{flex:1;min-width:0;border:0;border-radius:16px;background:var(--soft2,rgba(127,127,127,.12));color:inherit;padding:10px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font:600 11.5px inherit;font-family:inherit;transition:transform .15s}
+.dyMoods button i{font-style:normal;font-size:28px;line-height:1;filter:grayscale(.6);opacity:.7}
+.dyMoods button.on{background:color-mix(in srgb,var(--blue) 16%,transparent);box-shadow:inset 0 0 0 2px var(--blue);transform:translateY(-2px)}
+.dyMoods button.on i{filter:none;opacity:1}
+.dyTa{width:100%;min-height:200px;border-radius:18px;border:1px solid var(--gb);background:var(--soft2,rgba(127,127,127,.06));color:inherit;padding:14px;font:16px/1.6 inherit;font-family:inherit;resize:vertical;box-sizing:border-box}
+.dyTa:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.dyMeta{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin:6px 4px 14px}
+.dySongH{font-size:13px;font-weight:800;color:var(--sub);margin:4px 2px 8px}
+.dySong{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--soft2,rgba(127,127,127,.12));margin-bottom:8px}
+.dySong .e{font-size:24px}
+.dySong div{flex:1;min-width:0;display:flex;flex-direction:column}
+.dySong div b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dySong div span{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dySong button{border:0;background:none;color:inherit;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px;flex:none}
+.dySong button:hover{background:rgba(127,127,127,.15)}
+.dyChips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.dyChips button{max-width:100%;border:1px solid var(--gb);background:none;color:inherit;border-radius:99px;padding:7px 12px;font:600 13px inherit;font-family:inherit;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dyChips button.now{border-color:var(--blue);color:var(--blue)}
+.dyLock{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 10px;text-align:center}
+.dyLock i{font-style:normal;font-size:48px}
+.dyLock p{margin:0;color:var(--mute);font-size:14px;line-height:1.5}
+.dyPin{width:180px;height:54px;border-radius:16px;border:1px solid var(--gb);background:var(--soft2,rgba(127,127,127,.08));color:inherit;text-align:center;font:800 26px inherit;font-family:inherit;letter-spacing:.5em;padding-left:.5em;box-sizing:border-box}
+.dyPin.bad{animation:dyShake .35s}
+@keyframes dyShake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.dyRow2{display:flex;gap:8px;margin-top:10px}
+.dyRow2 .btn{flex:1;margin:0}
 .repHero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .repBox{padding:14px;border-radius:20px;background:var(--soft2,rgba(127,127,127,.12));display:flex;flex-direction:column;gap:2px;min-width:0}
 .repBox span{font-size:12.5px;color:var(--mute)}
@@ -886,6 +943,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix g glass" id="starCard"><span class="ic"><span class="emo">🎞️</span></span><em class="new">NEW</em><b data-i18n="stName">해피플레이어</b><span data-i18n="stCardSub">배속·구간 반복·이어보기</span></button>
     <button class="mix i glass" id="repCard"><span class="ic"><span class="emo">📊</span></span><em class="new">NEW</em><b data-i18n="repT">음악 리포트</b><span id="repSub" data-i18n="repCardSub">나의 감상 기록</span></button>
   </div>
+  <button class="gameCard dyC glass" id="diaryCard"><span class="ic"><span class="emo" id="dyCardEmo">📔</span></span><em class="new">NEW</em><b data-i18n="dyT">음악 일기</b><span id="dySub" data-i18n="dyCardSub">오늘 하루와 노래를 기록해요</span></button>
   <button class="gameCard labC glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span id="labSub" data-i18n="labCardSub">기능 켜고 끄기</span></button>
 
   <div class="sec" style="margin-top:34px"><h2 id="againT">다시 듣기</h2><span class="cnt" id="againCnt"></span></div>
@@ -1112,6 +1170,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button type="button" data-v="game" class="game"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span data-i18n="gameT">리듬 탭</span></button>
       <p data-i18n="labT">실험실</p>
       <button type="button" data-v="star"><span style="width:20px;text-align:center;flex:none">🎞️</span><span data-i18n="stName">해피플레이어</span></button>
+      <button type="button" data-v="diary"><span style="width:20px;text-align:center;flex:none">📔</span><span data-i18n="dyT">음악 일기</span></button>
       <button type="button" data-v="report"><span style="width:20px;text-align:center;flex:none">📊</span><span data-i18n="repT">음악 리포트</span></button>
       <button type="button" data-v="labs"><span style="width:20px;text-align:center;flex:none">🧪</span><span data-i18n="labT">실험실</span></button>
     </nav>
@@ -1181,6 +1240,11 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <textarea class="backupTa" id="bkTa" spellcheck="false" placeholder="백업 코드를 여기에 붙여 넣으세요" data-i18n-ph="pPastePh" style="margin-top:14px"></textarea>
     <button class="btn ghost" id="bkRestore" type="button" data-i18n="pRestore">복원하기</button>
   </div>
+</section>
+<section class="sheet glass" id="diarySheet" aria-label="음악 일기" data-i18n-aria="dyT">
+  <div class="grab"></div>
+  <div class="sh"><button class="cb" id="dyBack" hidden aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button><h3 id="dyTitle" data-i18n="dyT">음악 일기</h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
+  <div class="sb" id="dyBody"></div>
 </section>
 <section class="sheet glass" id="repSheet" aria-label="음악 리포트" data-i18n-aria="repT">
   <div class="grab"></div>
@@ -1398,6 +1462,20 @@ Object.assign(I18N.T,{"gameT": ["리듬 탭", "Rhythm Tap", "リズムタップ"
 Object.assign(I18N.T,{
  labT:X13('실험실','Labs'),labD:X13('새 기능과 추가 기능을 직접 켜고 끌 수 있어요. 끈 기능은 화면에서 사라지고, 다시 켜면 그대로 돌아와요.','Turn new and extra features on or off. Turned-off features disappear and come back exactly as they were.'),
  labCardSub:X13('기능 켜고 끄기','Turn features on/off'),labCnt:X13('기능 켜고 끄기 · {n}/{m}개 켜짐','Turn features on/off · {n} of {m} on'),
+ labDiary:X13('음악 일기','Music diary'),labDiaryD:X13('하루 기분과 그날의 노래를 함께 기록 · 달력·검색·잠금 · 켜면 홈에 카드가 생겨요','Write about your day with a mood and a song · calendar, search, lock · adds a Home card'),
+ dyT:X13('음악 일기','Music diary'),dyCardSub:X13('오늘 하루와 노래를 기록해요','Write about today and its song'),dyCardDone:X13('오늘 {e} 썼어요 · 이번 달 {n}편','Today {e} done · {n} this month'),dyCardTodo:X13('오늘 일기를 아직 안 썼어요 · 이번 달 {n}편','Not written today yet · {n} this month'),
+ dyWriteToday:X13('✏️ 오늘 일기 쓰기','✏️ Write today'),dyOpenToday:X13('📖 오늘 일기 보기','📖 Open today'),
+ dyMonthN:X13('이번 달','This month'),dyStreakN:X13('연속','Streak'),dyTotalN:X13('전체','Total'),dyPieces:X13('{n}편','{n}'),dyDaysN:X13('{n}일','{n}d'),
+ dySearch:X13('일기 검색','Search diary'),dyRecent:X13('최근 일기','Recent entries'),dyNone:X13('아직 쓴 일기가 없어요. 달력에서 날짜를 누르거나 "오늘 일기 쓰기"로 시작해 보세요.','No entries yet. Tap a date or "Write today" to start.'),dyNoHit:X13('검색 결과가 없어요','No matches'),
+ dyMood:X13('오늘 기분','Mood'),dyM0:X13('최고','Great'),dyM1:X13('좋음','Good'),dyM2:X13('보통','Okay'),dyM3:X13('슬픔','Sad'),dyM4:X13('화남','Angry'),
+ dySongT:X13('🎵 오늘의 노래','🎵 Song of the day'),dySongNone:X13('노래를 골라 하루와 함께 남겨요','Pick a song to remember the day'),dyNowP:X13('지금 듣는 곡','Now playing'),dyPlayS:X13('재생','Play'),dyRmS:X13('노래 빼기','Remove song'),
+ dyPh0:X13('오늘 가장 기억에 남는 순간은 무엇이었나요?','What was the best moment today?'),dyPh1:X13('오늘 들은 노래가 어떤 기분을 줬나요?','How did today’s music make you feel?'),dyPh2:X13('오늘 고마웠던 일 한 가지를 적어 보세요','Write one thing you were grateful for'),dyPh3:X13('내일의 나에게 한마디','A note to tomorrow’s you'),
+ dySaved:X13('자동 저장됨','Saved'),dyChars:X13('{n}자','{n} chars'),dyDel:X13('이 일기 지우기','Delete entry'),dyDel2:X13('한 번 더 누르면 지워요','Tap again to delete'),dyDeleted:X13('일기를 지웠어요','Entry deleted'),dyDone:X13('완료','Done'),
+ dyLockSet:X13('🔒 잠금 설정','🔒 Set lock'),dyLockOff:X13('🔓 잠금 해제','🔓 Remove lock'),dyLockT:X13('일기가 잠겨 있어요','Diary is locked'),dyLockD:X13('숫자 4자리 비밀번호를 입력하세요','Enter your 4-digit PIN'),
+ dyNewPin:X13('새 비밀번호 4자리를 입력하세요','Enter a new 4-digit PIN'),dyPin2:X13('한 번 더 입력하세요','Enter it again'),dyPinBad:X13('비밀번호가 맞지 않아요','Wrong PIN'),dyPinMis:X13('두 번 입력한 비밀번호가 달라요','PINs don’t match'),
+ dyLocked:X13('잠금을 설정했어요. 앱을 나가면 다시 잠겨요','Lock set. It locks again when you leave the app'),dyUnlockedOff:X13('잠금을 해제했어요','Lock removed'),dyCancel:X13('취소','Cancel'),
+ dyLockNote:X13('비밀번호를 잊으면 일기를 열 수 없어요. 일기는 이 기기에만 저장되고, 설정 › 백업 코드에 함께 담겨요.','If you forget the PIN you can’t open the diary. Entries stay on this device and are included in Settings › Backup.'),
+ dyFuture:X13('아직 오지 않은 날이에요','That day hasn’t come yet'),
  labRep:X13('음악 리포트','Music report'),labRepD:X13('오늘·이번 주 감상 시간, 많이 들은 곡과 아티스트, 연속 감상일 · 켜면 홈에 카드가 생겨요','Listening time, top songs and artists, streaks · adds a Home card'),
  labRes:X13('긴 오디오 이어 듣기','Resume long audio'),labResD:X13('10분이 넘는 오디오북·강의·팟캐스트는 멈춘 곳부터 다시 재생','Audiobooks, lectures and podcasts over 10 min pick up where you stopped'),
  labFade:X13('취침 타이머 부드럽게 끄기','Gentle sleep timer'),labFadeD:X13('타이머가 끝나기 30초 전부터 소리를 천천히 줄여요','Fades the volume out over the last 30 seconds'),
@@ -1956,7 +2034,7 @@ $('scrim').onclick=closeSheet;
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeSheet);
 /* 아래로 끌어 닫기 */
 document.querySelectorAll('.sheet').forEach(s=>{let y0=null,dy=0;
-  s.addEventListener('touchstart',e=>{const sb=s.querySelector('.sb');if(e.target.closest('input[type=range]')||(sb&&sb.scrollTop>0&&sb.contains(e.target)))return;y0=e.touches[0].clientY;dy=0},{passive:true});
+  s.addEventListener('touchstart',e=>{const sb=s.querySelector('.sb');if(e.target.closest('input[type=range],textarea')||(sb&&sb.scrollTop>0&&sb.contains(e.target)))return;y0=e.touches[0].clientY;dy=0},{passive:true});
   s.addEventListener('touchmove',e=>{if(y0==null)return;dy=Math.max(0,e.touches[0].clientY-y0);if(dy>0){s.style.transition='none';s.style.transform=`translateY(${dy}px)`}},{passive:true});
   s.addEventListener('touchend',()=>{if(y0==null)return;s.style.transition='';s.style.transform='';if(dy>110&&stack[stack.length-1]===s.id)closeSheet();y0=null});
 });
@@ -2193,7 +2271,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.3.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.4.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2407,7 +2485,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
+const WEB_NOTES=[["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
+ ["📊","음악 리포트: 오늘·이번 주 감상 시간, 요일별 그래프, 많이 들은 곡·아티스트, 연속 감상일 (홈 카드)","Music report: listening time, weekly chart, top songs and artists, streaks (Home card)"],
  ["🔖","긴 오디오 이어 듣기 · 취침 타이머 부드럽게 끄기 (실험실에서 켜고 끄기)","Resume long audio · gentle sleep timer fade (toggle in Labs)"],
  ["🎞️","해피플레이어: 강의 영상용 플레이어 (0.5~4배속, A↔B 구간 반복, 책갈피 메모, 이어보기·진도율, SMI·SRT 자막, 화면 캡처)","HappyPlayer: lecture video player (0.5–4x, A-B repeat, bookmarks, resume & progress, SMI/SRT subtitles, capture)"],
  ["🧪","실험실: 해피플레이어 · 브라우저 · 미니 게임 · 도구를 스위치로 켜고 끄기. 해피플레이어를 켜면 홈에 카드가 생겨요 (홈 › 실험실, 설정 › 실험실)","Labs: switch HappyPlayer, browser, mini games and tools on or off (Settings › Labs)"],
@@ -3133,9 +3212,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={star:false,report:true,resume:true,fade:true,web:true,games:true,tools:true};
+const LAB_DEF={star:false,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['star','🎞️','labStar','labStarD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
 window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
@@ -3147,6 +3226,7 @@ function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
   if(!v){
     if(k==='star'&&ST.on)closeStar();
     if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
+    if(k==='diary'&&$('diarySheet').classList.contains('on'))closeSheet();
     if(k==='web'&&typeof webOn==='function'&&webOn())closeWeb();
     if(k==='tools'&&toolOn())closeTool();
     if(k==='games'){if(RPS.on)closeRps();if(typeof gameOn==='function'&&gameOn())exitGame()}}
@@ -3214,6 +3294,106 @@ function openReport(){if(!labOn('report'))return;lisTick();repRender();openSheet
 $('repCard').onclick=openReport;
 repCardUI();setInterval(repCardUI,60000);
 {const _al=applyLang;applyLang=function(){_al.apply(this,arguments);labSubUI();repCardUI();if($('repSheet').classList.contains('on'))repRender()}}
+
+
+/* ---------- 음악 일기: 기분 + 그날의 노래 (이 기기에만 저장) ---------- */
+const DY_EMO=['😄','🙂','😐','😢','😠'];
+const DY={data:LS.get('diary',{}),view:'home',date:null,mon:null,q:'',unlocked:false,pinStep:null,pin1:'',delArm:0,saveT:0};
+BK_KEYS.push('diary','diaryLock','labs','listen','resumeAt','starCfg');
+const dyKeyD=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d,12)};
+const dyLong=k=>{try{return dyKeyD(k).toLocaleDateString(lang,{year:'numeric',month:'long',day:'numeric',weekday:'long'})}catch(e){return k}};
+const dyHas=e=>e&&((e.x||'').trim()||e.m!=null||e.s);
+function dySaveAll(){LS.set('diary',DY.data)}
+async function dyHash(p){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('hm-diary:'+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=5381;for(const c of 'hm-diary:'+p)h=(h*33+c.charCodeAt(0))>>>0;return 'x'+h}}
+const dyLocked=()=>!!LS.get('diaryLock','')&&!DY.unlocked;
+function dyStreak(){let i=0,n=0;const k=j=>dk(repDay(j));if(!dyHas(DY.data[k(0)]))i=1;while(dyHas(DY.data[k(i)])){n++;i++}return n}
+function dyCardUI(){if(!labOn('diary'))return;const td=dk(new Date()),e=DY.data[td],pre=td.slice(0,7);
+  const n=Object.keys(DY.data).filter(k=>k.startsWith(pre)&&dyHas(DY.data[k])).length;
+  $('dyCardEmo').textContent=!dyLocked()&&dyHas(e)&&e.m!=null?DY_EMO[e.m]:'📔';
+  $('dySub').textContent=dyLocked()?t('dyCardSub'):dyHas(e)?t('dyCardDone',{e:e.m!=null?DY_EMO[e.m]:'✓',n}):t('dyCardTodo',{n})}
+function dyHead(){const ed=DY.view==='edit';$('dyBack').hidden=!ed;$('dyTitle').textContent=ed?(DY.data[DY.date]&&DY.data[DY.date].m!=null?DY_EMO[DY.data[DY.date].m]+' ':'')+t('dyT'):t('dyT')}
+function dyRender(){const B=$('dyBody');dyHead();
+  if(DY.pinStep||dyLocked()){B.innerHTML=`<div class="dyLock"><i>${DY.pinStep?'🔐':'🔒'}</i><b>${esc(DY.pinStep?t('dyLockSet').replace(/^\S+\s/,''):t('dyLockT'))}</b><p id="dyPinMsg">${esc(DY.pinStep==='new'?t('dyNewPin'):DY.pinStep==='again'?t('dyPin2'):t('dyLockD'))}</p>
+    <input class="dyPin" id="dyPin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="PIN">
+    ${DY.pinStep?`<p style="font-size:12.5px">${esc(t('dyLockNote'))}</p><button class="btn ghost" type="button" id="dyPinX">${esc(t('dyCancel'))}</button>`:''}</div>`;
+    setTimeout(()=>{const i=$('dyPin');if(i)i.focus()},250);return}
+  if(DY.view==='edit')return dyEditor();
+  const now=new Date(),td=dk(now);if(!DY.mon)DY.mon=[now.getFullYear(),now.getMonth()];
+  const [Y,M]=DY.mon,first=new Date(Y,M,1),nd=new Date(Y,M+1,0).getDate(),pre=Y+'-'+String(M+1).padStart(2,'0');
+  const isCur=Y===now.getFullYear()&&M===now.getMonth();
+  let cal='';for(let w=0;w<7;w++){const d=new Date(2024,0,7+w);cal+=`<span class="wd">${esc(d.toLocaleDateString(lang,{weekday:'narrow'}))}</span>`}
+  for(let i=0;i<first.getDay();i++)cal+='<span></span>';
+  for(let d=1;d<=nd;d++){const k=pre+'-'+String(d).padStart(2,'0'),e=DY.data[k],fut=k>td;
+    cal+=`<button type="button" class="dyD${dyHas(e)?' has':''}${k===td?' today':''}" data-dd="${k}"${fut?' disabled':''} aria-label="${esc(dyLong(k))}"><span>${d}</span><span class="e">${dyHas(e)?(e.m!=null?DY_EMO[e.m]:'📝'):''}</span></button>`}
+  const all=Object.keys(DY.data).filter(k=>dyHas(DY.data[k])).sort().reverse();
+  const monN=all.filter(k=>k.startsWith(td.slice(0,7))).length;
+  const q=DY.q.trim().toLowerCase();
+  const hits=q?all.filter(k=>{const e=DY.data[k];return ((e.x||'')+' '+(e.st||'')+' '+(e.sa||'')+' '+k).toLowerCase().includes(q)}):all.slice(0,5);
+  const item=k=>{const e=DY.data[k];return `<button type="button" class="dyIt" data-dd="${k}"><span class="e">${e.m!=null?DY_EMO[e.m]:'📝'}</span><div><b>${esc(dyLong(k))}</b>${(e.x||'').trim()?`<p>${esc(e.x.trim())}</p>`:''}${e.st?`<small>🎵 ${esc(e.st)}${e.sa?' · '+esc(e.sa):''}</small>`:''}</div></button>`};
+  const tdE=DY.data[td];
+  B.innerHTML=`<button class="btn" type="button" id="dyToday" style="margin:0 0 14px;width:100%">${esc(t(dyHas(tdE)?'dyOpenToday':'dyWriteToday'))}</button>
+  <div class="dyStats"><div><b>${esc(t('dyPieces',{n:monN}))}</b><span>${esc(t('dyMonthN'))}</span></div><div><b>${esc(t('dyDaysN',{n:dyStreak()}))}</b><span>${esc(t('dyStreakN'))}</span></div><div><b>${esc(t('dyPieces',{n:all.length}))}</b><span>${esc(t('dyTotalN'))}</span></div></div>
+  <div class="dyMon"><button type="button" id="dyPrevM" aria-label="‹">‹</button><b>${esc(first.toLocaleDateString(lang,{year:'numeric',month:'long'}))}</b><button type="button" id="dyNextM" aria-label="›"${isCur?' disabled':''}>›</button></div>
+  <div class="dyCal">${cal}</div>
+  <input class="dyQ" id="dyQ" type="search" placeholder="🔍 ${esc(t('dySearch'))}" value="${esc(DY.q)}" aria-label="${esc(t('dySearch'))}">
+  ${q?'':`<h4 class="repH">${esc(t('dyRecent'))}</h4>`}
+  <div id="dyList">${hits.length?hits.map(item).join(''):`<p class="dyNone">${esc(t(q?'dyNoHit':'dyNone'))}</p>`}</div>
+  <button class="btn ghost" type="button" id="dyLockB" style="margin-top:16px">${esc(t(LS.get('diaryLock','')?'dyLockOff':'dyLockSet'))}</button>`}
+function dySongCands(){const out=[],seen=new Set(),add=(id,now)=>{const x=byId(id);if(x&&!seen.has(id)){seen.add(id);out.push([x,now])}};
+  if(cur)add(cur,true);
+  Object.entries(LIS.t).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([id])=>add(id));
+  tracks.filter(x=>stats[x.id]&&stats[x.id].l).sort((a,b)=>stats[b.id].l-stats[a.id].l).slice(0,6).forEach(x=>add(x.id));
+  return out.slice(0,6)}
+function dyEditor(){const k=DY.date,e=DY.data[k]||{},B=$('dyBody');
+  const ph=t('dyPh'+(dyKeyD(k).getDate()%4));
+  const song=e.s||e.st?`<div class="dySong"><span class="e">🎵</span><div><b>${esc(e.st||'')}</b><span>${esc(e.sa||'')}</span></div>${e.s&&byId(e.s)?`<button type="button" id="dyPlayS" aria-label="${esc(t('dyPlayS'))}">▶</button>`:''}<button type="button" id="dyRmS" aria-label="${esc(t('dyRmS'))}">✕</button></div>`:`<p class="dyNone" style="padding:4px 4px 8px;text-align:left">${esc(t('dySongNone'))}</p>`;
+  const cands=dySongCands().filter(([x])=>x.id!==e.s);
+  B.innerHTML=`<p class="dyDate">${esc(dyLong(k))}</p>
+  <div class="dySongH">${esc(t('dyMood'))}</div>
+  <div class="dyMoods" role="radiogroup" aria-label="${esc(t('dyMood'))}">${DY_EMO.map((em,i)=>`<button type="button" role="radio" aria-checked="${e.m===i}" data-mood="${i}" class="${e.m===i?'on':''}"><i>${em}</i>${esc(t('dyM'+i))}</button>`).join('')}</div>
+  <textarea class="dyTa" id="dyTa" placeholder="${esc(ph)}" maxlength="5000">${esc(e.x||'')}</textarea>
+  <div class="dyMeta"><span id="dyCnt">${esc(t('dyChars',{n:(e.x||'').length}))}</span><span id="dySavedL"></span></div>
+  <div class="dySongH">${esc(t('dySongT'))}</div>${song}
+  ${cands.length?`<div class="dyChips">${cands.map(([x,now])=>`<button type="button" data-song="${esc(x.id)}" class="${now?'now':''}">${now?'▶ ':''}${esc(x.title)}</button>`).join('')}</div>`:''}
+  <div class="dyRow2"><button class="btn" type="button" id="dyDoneB">${esc(t('dyDone'))}</button>${dyHas(DY.data[k])?`<button class="btn ghost" type="button" id="dyDelB">${esc(t('dyDel'))}</button>`:''}</div>`}
+function dyUpd(f){const k=DY.date;const e=DY.data[k]||(DY.data[k]={});f(e);e.at=Date.now();if(!dyHas(e))delete DY.data[k];dySaveAll();dyCardUI()}
+function dyOpen(k){if(k>dk(new Date())){toast(t('dyFuture'));return}DY.view='edit';DY.date=k;DY.delArm=0;dyRender();$('dyBody').scrollTop=0}
+function dyHome(){DY.view='home';dyRender()}
+const dyBody=$('dyBody');
+dyBody.addEventListener('click',async e=>{
+  const g=id=>e.target.closest('#'+id);
+  const d=e.target.closest('[data-dd]');if(d&&!d.disabled){dyOpen(d.dataset.dd);return}
+  if(g('dyToday')){dyOpen(dk(new Date()));return}
+  if(g('dyPrevM')||g('dyNextM')){let [Y,M]=DY.mon;M+=g('dyPrevM')?-1:1;if(M<0){M=11;Y--}if(M>11){M=0;Y++}DY.mon=[Y,M];dyRender();return}
+  const m=e.target.closest('[data-mood]');if(m){const i=+m.dataset.mood;dyUpd(x=>{x.m=x.m===i?null:i;if(x.m==null)delete x.m});const v=$('dyTa').value;dyEditor();$('dyTa').value=v;dyHead();return}
+  const s=e.target.closest('[data-song]');if(s){const x=byId(s.dataset.song);if(x){const v=$('dyTa').value;dyUpd(o=>{o.s=x.id;o.st=x.title;o.sa=x.artist||''});dyEditor();$('dyTa').value=v}return}
+  if(g('dyRmS')){const v=$('dyTa').value;dyUpd(o=>{delete o.s;delete o.st;delete o.sa});dyEditor();$('dyTa').value=v;return}
+  if(g('dyPlayS')){const x=byId((DY.data[DY.date]||{}).s);if(x)playFrom([x],x.id);return}
+  if(g('dyDoneB')){dyFlush();dyHome();return}
+  const del=g('dyDelB');if(del){if(Date.now()-DY.delArm>3000){DY.delArm=Date.now();del.textContent=t('dyDel2');setTimeout(()=>{if(del.isConnected)del.textContent=t('dyDel')},3000);return}
+    delete DY.data[DY.date];dySaveAll();dyCardUI();toast(t('dyDeleted'));dyHome();return}
+  if(g('dyLockB')){if(LS.get('diaryLock','')){LS.set('diaryLock','');DY.unlocked=false;toast(t('dyUnlockedOff'));dyRender()}else{DY.pinStep='new';DY.pin1='';dyRender()}return}
+  if(g('dyPinX')){DY.pinStep=null;dyRender();return}});
+function dyFlush(){const ta=$('dyTa');if(!ta||DY.view!=='edit')return;const v=ta.value;if(((DY.data[DY.date]||{}).x||'')!==v)dyUpd(o=>{o.x=v})}
+dyBody.addEventListener('input',async e=>{
+  if(e.target.id==='dyTa'){$('dyCnt').textContent=t('dyChars',{n:e.target.value.length});dyFlush();$('dySavedL').textContent='';clearTimeout(DY.saveT);DY.saveT=setTimeout(()=>{const l=$('dySavedL');if(l)l.textContent='✓ '+t('dySaved')},700);return}
+  if(e.target.id==='dyQ'){DY.q=e.target.value;const pos=e.target.selectionStart;dyRender();const q=$('dyQ');if(q){q.focus();try{q.setSelectionRange(pos,pos)}catch(_){}}return}
+  if(e.target.id==='dyPin'){const i=e.target;i.value=i.value.replace(/\D/g,'').slice(0,4);if(i.value.length<4)return;const v=i.value;
+    const bad=msg=>{i.value='';i.classList.remove('bad');void i.offsetWidth;i.classList.add('bad');$('dyPinMsg').textContent=t(msg)};
+    if(DY.pinStep==='new'){DY.pin1=v;DY.pinStep='again';dyRender();return}
+    if(DY.pinStep==='again'){if(v!==DY.pin1){DY.pinStep='new';DY.pin1='';dyRender();setTimeout(()=>{$('dyPinMsg').textContent=t('dyPinMis')},10);return}
+      LS.set('diaryLock',await dyHash(v));DY.unlocked=true;DY.pinStep=null;DY.pin1='';toast(t('dyLocked'));dyRender();return}
+    if(await dyHash(v)===LS.get('diaryLock','')){DY.unlocked=true;dyRender();dyCardUI()}else bad('dyPinBad')}});
+function openDiary(k){if(!labOn('diary'))return;DY.view='home';DY.q='';DY.pinStep=null;DY.mon=null;
+  if(typeof k==='string'&&!dyLocked()){DY.view='edit';DY.date=k}dyRender();openSheet('diarySheet')}
+$('diaryCard').onclick=()=>openDiary();
+$('dyBack').onclick=()=>{dyFlush();dyHome()};
+{const _cs=closeSheet;closeSheet=function(){if(stack[stack.length-1]==='diarySheet'){dyFlush();const a=document.activeElement;if(a&&a.blur)a.blur()}return _cs.apply(this,arguments)}}
+{const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if($('diarySheet').classList.contains('on')&&stack[stack.length-1]==='diarySheet'&&(DY.view==='edit'||DY.pinStep)&&!dyLocked()){dyFlush();DY.pinStep=null;dyHome();return true}return _bk?_bk():false}}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){dyFlush();if(LS.get('diaryLock','')){DY.unlocked=false;if($('diarySheet').classList.contains('on'))dyRender()}}else dyCardUI()});
+dyCardUI();setInterval(dyCardUI,60000);
+{const _al=applyLang;applyLang=function(){_al.apply(this,arguments);dyCardUI();if($('diarySheet').classList.contains('on')){dyFlush();dyRender()}}}
+window.__dy={DY,openDiary,dyRender,dyCardUI,dyHash};
 
 /* ---------- 긴 오디오 이어 듣기 (10분 이상) ---------- */
 const RES=LS.get('resumeAt',{});let resSaveT=0;
@@ -3504,7 +3684,7 @@ addEventListener('keydown',e=>{if(!ST.on)return;const tg=e.target;
   e.stopImmediatePropagation();if(h){e.preventDefault();if(stCur())stShowCtl()}},true);
 {const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(ST.on){if(!$('stSpd').hidden)$('stSpd').hidden=true;else if(stPanelOn())stPanel(null);else if(stFsEl())stFull();else closeStar();return true}return _bk?_bk():false}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ST.on&&stCur())stSave()});
-if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}else if(b.dataset.v==='report'){e.stopImmediatePropagation();openReport()}},true)}
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}else if(b.dataset.v==='report'){e.stopImmediatePropagation();openReport()}else if(b.dataset.v==='diary'){e.stopImmediatePropagation();openDiary()}},true)}
 window.__star={ST,openStar,closeStar,stAddFiles,stOpenUrl,stLoad,stSrt,stSmi,stCover,stABCycle,stBmAdd,stRate,stCapture,labOn,setLab,openLabs};
 
 initDesk();window.__player={audio,get cur(){return cur}};window.__lib={get tracks(){return tracks},playFrom,sorted,closeSheet,get obSteps(){return obSteps}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
