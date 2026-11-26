@@ -7,6 +7,8 @@
 .field public static geoCb:Landroid/webkit/GeolocationPermissions$Callback;
 .field public static geoOrigin:Ljava/lang/String;
 .field public static waiting:Z
+.field public static cv:Landroid/view/View;
+.field public static cvCb:Landroid/webkit/WebChromeClient$CustomViewCallback;
 
 .method public constructor <init>()V
     .locals 0
@@ -423,4 +425,93 @@
     sput-object v0, Lcom/turntable/player/Br;->geoCb:Landroid/webkit/GeolocationPermissions$Callback;
     :r
     return-void
+.end method
+
+.method public static showCv(Landroid/view/View;Landroid/webkit/WebChromeClient$CustomViewCallback;)V
+    .locals 4
+    sget-object v0, Lcom/turntable/player/Br;->cv:Landroid/view/View;
+    if-eqz v0, :fresh
+    invoke-static {}, Lcom/turntable/player/Br;->hideCv()Z
+    :fresh
+    sget-object v0, Lcom/turntable/player/MainActivity;->inst:Lcom/turntable/player/MainActivity;
+    if-nez v0, :go
+    invoke-interface {p1}, Landroid/webkit/WebChromeClient$CustomViewCallback;->onCustomViewHidden()V
+    return-void
+    :go
+    :try_start
+    const v1, 0x1020002
+    invoke-virtual {v0, v1}, Lcom/turntable/player/MainActivity;->findViewById(I)Landroid/view/View;
+    move-result-object v1
+    check-cast v1, Landroid/view/ViewGroup;
+    const/high16 v2, -0x1000000
+    invoke-virtual {p0, v2}, Landroid/view/View;->setBackgroundColor(I)V
+    new-instance v2, Landroid/widget/FrameLayout$LayoutParams;
+    const/4 v3, -0x1
+    invoke-direct {v2, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+    invoke-virtual {v1, p0, v2}, Landroid/view/ViewGroup;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    sput-object p0, Lcom/turntable/player/Br;->cv:Landroid/view/View;
+    sput-object p1, Lcom/turntable/player/Br;->cvCb:Landroid/webkit/WebChromeClient$CustomViewCallback;
+    invoke-virtual {v0}, Lcom/turntable/player/MainActivity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+    move-result-object v1
+    const/16 v2, 0x1706
+    invoke-virtual {v1, v2}, Landroid/view/View;->setSystemUiVisibility(I)V
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :e
+    return-void
+    :e
+    invoke-interface {p1}, Landroid/webkit/WebChromeClient$CustomViewCallback;->onCustomViewHidden()V
+    return-void
+.end method
+
+# 웹이 전체 화면을 끝냈을 때: 보기만 치운다
+.method public static removeCv()V
+    .locals 3
+    sget-object v0, Lcom/turntable/player/Br;->cv:Landroid/view/View;
+    if-eqz v0, :r
+    :try_start
+    invoke-virtual {v0}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+    move-result-object v1
+    instance-of v2, v1, Landroid/view/ViewGroup;
+    if-eqz v2, :np
+    check-cast v1, Landroid/view/ViewGroup;
+    invoke-virtual {v1, v0}, Landroid/view/ViewGroup;->removeView(Landroid/view/View;)V
+    :np
+    sget-object v1, Lcom/turntable/player/MainActivity;->inst:Lcom/turntable/player/MainActivity;
+    if-eqz v1, :ns
+    invoke-virtual {v1}, Lcom/turntable/player/MainActivity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+    move-result-object v1
+    const/4 v2, 0x0
+    invoke-virtual {v1, v2}, Landroid/view/View;->setSystemUiVisibility(I)V
+    :ns
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :r
+    :r
+    const/4 v0, 0x0
+    sput-object v0, Lcom/turntable/player/Br;->cv:Landroid/view/View;
+    sput-object v0, Lcom/turntable/player/Br;->cvCb:Landroid/webkit/WebChromeClient$CustomViewCallback;
+    return-void
+.end method
+
+# 뒤로 버튼: 전체 화면이면 먼저 빠져나온다
+.method public static hideCv()Z
+    .locals 2
+    sget-object v0, Lcom/turntable/player/Br;->cv:Landroid/view/View;
+    if-nez v0, :has
+    const/4 v0, 0x0
+    return v0
+    :has
+    sget-object v1, Lcom/turntable/player/Br;->cvCb:Landroid/webkit/WebChromeClient$CustomViewCallback;
+    invoke-static {}, Lcom/turntable/player/Br;->removeCv()V
+    if-eqz v1, :d
+    :try_start
+    invoke-interface {v1}, Landroid/webkit/WebChromeClient$CustomViewCallback;->onCustomViewHidden()V
+    :try_end
+    .catch Ljava/lang/Exception; {:try_start .. :try_end} :d
+    :d
+    const/4 v0, 0x1
+    return v0
 .end method

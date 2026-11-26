@@ -101,3 +101,15 @@
     sput-object v0, Lcom/turntable/player/Br;->geoCb:Landroid/webkit/GeolocationPermissions$Callback;
     return-void
 .end method
+
+.method public onShowCustomView(Landroid/view/View;Landroid/webkit/WebChromeClient$CustomViewCallback;)V
+    .locals 0
+    invoke-static {p1, p2}, Lcom/turntable/player/Br;->showCv(Landroid/view/View;Landroid/webkit/WebChromeClient$CustomViewCallback;)V
+    return-void
+.end method
+
+.method public onHideCustomView()V
+    .locals 0
+    invoke-static {}, Lcom/turntable/player/Br;->removeCv()V
+    return-void
+.end method

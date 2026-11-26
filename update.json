@@ -1,11 +1,11 @@
 {
- "version": "5.0.2",
- "native": "5.1",
- "web": "web/5.0.2.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.1.apk",
+ "version": "5.1.0",
+ "native": "5.2",
+ "web": "web/5.1.0.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.2.apk",
  "notes": {
-  "ko": "· ✌️ 새 미니 게임: 가위바위보 (단판·3판·5판, 해피봇 난이도 3단계)",
-  "en": "· ✌️ New mini game: Rock Paper Scissors"
+  "ko": "· 🎬 도구: 보안 동영상 플레이어 · 만능 뷰어 (영상·PDF·한글·PPT·엑셀)\n· ⏰ 도구: 디지털 시계 (알람·타이머·시각 안내·빗소리)\n· 휴대폰: 동영상·문서 파일 선택, 전체 화면 지원 (앱 5.2)",
+  "en": "· 🎬 Tool: secure video player & document viewer\n· ⏰ Tool: digital clock with alarms and timer\n· Phone: video/document picking and fullscreen (app 5.2)"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe"

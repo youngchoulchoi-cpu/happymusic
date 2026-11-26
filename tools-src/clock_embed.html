@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 시계 (Digital Clock with TTS, Timer & Burn-in Prevention)</title>
+    
+    
+    
+    <style>/* 해피뮤직: 인터넷 없이도 보이도록 넣은 꾸밈 (Tailwind 대체) */
+*,::before,::after{box-sizing:border-box;border:0 solid #262626}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,"Noto Sans KR",sans-serif}body{margin:0;line-height:inherit}
+h1,h2,h3,p{margin:0;font-size:inherit;font-weight:inherit}button,input,select{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button{background-color:transparent;background-image:none;cursor:pointer}button:disabled{cursor:default}
+input::placeholder{color:#737373}img,svg,video{display:block;max-width:100%}[hidden]{display:none}
+@keyframes twpulse{50%{opacity:.5}}@keyframes twbounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}
+.absolute{position:absolute}
+.animate-bounce{animation:twbounce 1s infinite}
+.animate-pulse{animation:twpulse 2s cubic-bezier(.4,0,.6,1) infinite}
+.backdrop-blur-md{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.backdrop-blur-sm{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.bg-amber-500{background-color:#f59e0b}
+.bg-black{background-color:#000000}
+.bg-black\/80{background-color:rgba(0,0,0,0.8)}
+.bg-black\/85{background-color:rgba(0,0,0,0.85)}
+.bg-cyan-500{background-color:#06b6d4}
+.bg-cyan-500\/10{background-color:rgba(6,182,212,0.1)}
+.bg-cyan-500\/20{background-color:rgba(6,182,212,0.2)}
+.bg-neutral-800{background-color:#262626}
+.bg-neutral-900{background-color:#171717}
+.bg-neutral-900\/60{background-color:rgba(23,23,23,0.6)}
+.bg-neutral-900\/80{background-color:rgba(23,23,23,0.8)}
+.bg-neutral-950{background-color:#0a0a0a}
+.bg-neutral-950\/50{background-color:rgba(10,10,10,0.5)}
+.bg-red-500{background-color:#ef4444}
+.block{display:block}
+.border{border-width:1px}
+.border-cyan-400{border-color:#22d3ee}
+.border-cyan-500\/30{border-color:rgba(6,182,212,0.3)}
+.border-cyan-500\/40{border-color:rgba(6,182,212,0.4)}
+.border-neutral-600{border-color:#525252}
+.border-neutral-700{border-color:#404040}
+.border-neutral-800{border-color:#262626}
+.border-neutral-800\/80{border-color:rgba(38,38,38,0.8)}
+.border-neutral-900{border-color:#171717}
+.cursor-default{cursor:default}
+.cursor-pointer{cursor:pointer}
+.duration-300{transition-duration:300ms}
+.fixed{position:fixed}
+.flex{display:flex}
+.flex-1{flex:1 1 0%}
+.flex-col{flex-direction:column}
+.font-bold{font-weight:700}
+.font-light{font-weight:300}
+.font-medium{font-weight:500}
+.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.font-normal{font-weight:400}
+.font-semibold{font-weight:600}
+.gap-2{gap:0.5rem}
+.gap-3{gap:0.75rem}
+.grid{display:grid}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.h-12{height:3rem}
+.h-16{height:4rem}
+.h-3{height:0.75rem}
+.h-4{height:1rem}
+.h-6{height:1.5rem}
+.h-screen{height:100vh}
+.inline-flex{display:inline-flex}
+.inset-0{inset:0}
+.items-baseline{align-items:baseline}
+.items-center{align-items:center}
+.justify-around{justify-content:space-around}
+.justify-between{justify-content:space-between}
+.justify-center{justify-content:center}
+.leading-none{line-height:1}
+.leading-relaxed{line-height:1.625}
+.max-h-\[85vh\]{max-height:85vh}
+.max-w-\[120px\]{max-width:120px}
+.max-w-\[80vw\]{max-width:80vw}
+.max-w-full{max-width:100%}
+.max-w-lg{max-width:32rem}
+.max-w-md{max-width:28rem}
+.max-w-sm{max-width:24rem}
+.mb-1{margin-bottom:0.25rem}
+.mb-2{margin-bottom:0.5rem}
+.mb-4{margin-bottom:1rem}
+.mb-5{margin-bottom:1.25rem}
+.mb-6{margin-bottom:1.5rem}
+.ml-2{margin-left:0.5rem}
+.ml-3{margin-left:0.75rem}
+.mt-1{margin-top:0.25rem}
+.mt-4{margin-top:1rem}
+.mt-6{margin-top:1.5rem}
+.mx-4{margin-left:1rem;margin-right:1rem}
+.mx-auto{margin-left:auto;margin-right:auto}
+.opacity-0{opacity:0}
+.opacity-85{opacity:.85}
+.overflow-hidden{overflow:hidden}
+.overflow-x-auto{overflow-x:auto}
+.overflow-y-auto{overflow-y:auto}
+.p-1\.5{padding:0.375rem}
+.p-2{padding:0.5rem}
+.p-3{padding:0.75rem}
+.p-3\.5{padding:0.875rem}
+.p-4{padding:1rem}
+.p-6{padding:1.5rem}
+.p-8{padding:2rem}
+.pb-12{padding-bottom:3rem}
+.pointer-events-none{pointer-events:none}
+.pr-1{padding-right:0.25rem}
+.pt-10{padding-top:2.5rem}
+.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}
+.px-2{padding-left:0.5rem;padding-right:0.5rem}
+.px-3{padding-left:0.75rem;padding-right:0.75rem}
+.px-3\.5{padding-left:0.875rem;padding-right:0.875rem}
+.px-4{padding-left:1rem;padding-right:1rem}
+.py-0\.2{padding-top:0.05rem;padding-bottom:0.05rem}
+.py-1{padding-top:0.25rem;padding-bottom:0.25rem}
+.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}
+.py-2{padding-top:0.5rem;padding-bottom:0.5rem}
+.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}
+.py-3{padding-top:0.75rem;padding-bottom:0.75rem}
+.py-8{padding-top:2rem;padding-bottom:2rem}
+.relative{position:relative}
+.rounded-2xl{border-radius:1rem}
+.rounded-3xl{border-radius:1.5rem}
+.rounded-full{border-radius:9999px}
+.rounded-xl{border-radius:.75rem}
+.select-none{user-select:none;-webkit-user-select:none}
+.self-center{align-self:center}
+.shadow-2xl{box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+.shadow-amber-500\/10{--tw-sc:rgba(245,158,11,0.1)}
+.shadow-cyan-500\/10{--tw-sc:rgba(6,182,212,0.1)}
+.shadow-cyan-500\/20{--tw-sc:rgba(6,182,212,0.2)}
+.shadow-inner{box-shadow:inset 0 2px 4px 0 rgba(0,0,0,.05)}
+.shadow-lg{box-shadow:0 10px 15px -3px var(--tw-sc,rgba(0,0,0,.1)),0 4px 6px -4px var(--tw-sc,rgba(0,0,0,.1))}
+.shrink-0{flex-shrink:0}
+.text-3xl{font-size:1.875rem;line-height:2.25rem}
+.text-5xl{font-size:3rem;line-height:1}
+.text-6xl{font-size:3.75rem;line-height:1}
+.text-\[10px\]{font-size:10px}
+.text-\[11px\]{font-size:11px}
+.text-amber-400{color:#fbbf24}
+.text-base{font-size:1rem;line-height:1.5rem}
+.text-black{color:#000000}
+.text-blue-400{color:#60a5fa}
+.text-center{text-align:center}
+.text-cyan-400{color:#22d3ee}
+.text-green-400{color:#4ade80}
+.text-lg{font-size:1.125rem;line-height:1.75rem}
+.text-neutral-200{color:#e5e5e5}
+.text-neutral-400{color:#a3a3a3}
+.text-neutral-500{color:#737373}
+.text-neutral-600{color:#525252}
+.text-purple-400{color:#c084fc}
+.text-rose-400{color:#fb7185}
+.text-rose-500{color:#f43f5e}
+.text-sm{font-size:.875rem;line-height:1.25rem}
+.text-white{color:#ffffff}
+.text-xl{font-size:1.25rem;line-height:1.75rem}
+.text-xs{font-size:.75rem;line-height:1rem}
+.tracking-tight{letter-spacing:-.025em}
+.tracking-wide{letter-spacing:.025em}
+.tracking-wider{letter-spacing:.05em}
+.tracking-widest{letter-spacing:.1em}
+.transition{transition-property:color,background-color,border-color,opacity,box-shadow,transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.transition-colors{transition-property:color,background-color,border-color;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.underline{text-decoration-line:underline}
+.uppercase{text-transform:uppercase}
+.w-12{width:3rem}
+.w-3{width:0.75rem}
+.w-4{width:1rem}
+.w-full{width:100%}
+.w-screen{width:100vw}
+.z-10{z-index:10}
+.z-20{z-index:20}
+.z-50{z-index:50}
+.space-x-1\.5>:not([hidden])~:not([hidden]){margin-left:0.375rem}
+.space-x-2>:not([hidden])~:not([hidden]){margin-left:0.5rem}
+.space-x-3>:not([hidden])~:not([hidden]){margin-left:0.75rem}
+.space-y-2>:not([hidden])~:not([hidden]){margin-top:0.5rem}
+.space-y-3>:not([hidden])~:not([hidden]){margin-top:0.75rem}
+.space-y-4>:not([hidden])~:not([hidden]){margin-top:1rem}
+.hidden{display:none}
+.file\:bg-neutral-800::file-selector-button{background-color:#262626}
+.file\:border-0::file-selector-button{border-width:0}
+.file\:font-semibold::file-selector-button{font-weight:600}
+.file\:mr-4::file-selector-button{margin-right:1rem}
+.file\:px-3::file-selector-button{padding-left:0.75rem;padding-right:0.75rem}
+.file\:px-4::file-selector-button{padding-left:1rem;padding-right:1rem}
+.file\:py-1\.5::file-selector-button{padding-top:0.375rem;padding-bottom:0.375rem}
+.file\:py-2::file-selector-button{padding-top:0.5rem;padding-bottom:0.5rem}
+.file\:rounded-xl::file-selector-button{border-radius:.75rem}
+.file\:text-amber-400::file-selector-button{color:#fbbf24}
+.file\:text-cyan-400::file-selector-button{color:#22d3ee}
+.file\:text-xs::file-selector-button{font-size:.75rem;line-height:1rem}
+.focus\:border-amber-500:focus{border-color:#f59e0b}
+.focus\:border-cyan-500:focus{border-color:#06b6d4}
+.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+.hover\:bg-amber-400:hover{background-color:#fbbf24}
+.hover\:bg-cyan-400:hover{background-color:#22d3ee}
+.hover\:bg-neutral-700:hover{background-color:#404040}
+.hover\:file\:bg-neutral-700:hover::file-selector-button{background-color:#404040}
+.hover\:text-neutral-300:hover{color:#d4d4d4}
+.hover\:text-rose-500:hover{color:#f43f5e}
+.hover\:text-white:hover{color:#ffffff}
+@media (min-width:640px){.sm\:inline{display:inline}.sm\:max-w-none{max-width:none}.sm\:max-w-xs{max-width:20rem}.sm\:mb-4{margin-bottom:1rem}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:text-6xl{font-size:3.75rem;line-height:1}.sm\:text-8xl{font-size:6rem;line-height:1}.sm\:text-base{font-size:1rem;line-height:1.5rem}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}}
+@media (min-width:768px){.md\:space-x-3>:not([hidden])~:not([hidden]){margin-left:0.75rem}.md\:text-2xl{font-size:1.5rem;line-height:2rem}}}
+@media (min-width:1024px){.lg\:text-3xl{font-size:1.875rem;line-height:2.25rem}}}
+#ampm-display{white-space:nowrap}.fa-solid{display:inline-block;font-style:normal;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}.fa-bell::before{content:"🔔"}.fa-bell-ring::before{content:"🔔"}.fa-bell-slash::before{content:"🔕"}.fa-stopwatch::before{content:"⏱️"}.fa-volume-high::before{content:"🔊"}.fa-gamepad::before{content:"🎮"}.fa-cloud-rain::before{content:"🌧️"}.fa-expand::before{content:"⛶"}.fa-xmark::before{content:"✕"}.fa-battery-empty::before{content:"🪫"}.fa-battery-half::before{content:"🔋"}.fa-battery-full::before{content:"🔋"}.fa-bolt::before{content:"⚡"}.fa-trash-can::before{content:"🗑️"}.fa-info::before{content:"ℹ️"}.fa-lock::before{content:"🔒"}
+</style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow: hidden;
+            user-select: none;
+        }
+        .clock-font {
+            font-family: 'Share Tech Mono', monospace;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+        .glow-cyan { text-shadow: 0 0 40px rgba(6, 182, 212, 0.65); }
+        .glow-green { text-shadow: 0 0 40px rgba(34, 197, 94, 0.65); }
+        .glow-amber { text-shadow: 0 0 40px rgba(245, 158, 11, 0.65); }
+        .glow-purple { text-shadow: 0 0 40px rgba(168, 85, 247, 0.65); }
+        .glow-rose { text-shadow: 0 0 40px rgba(244, 63, 94, 0.65); }
+        .glow-white { text-shadow: 0 0 40px rgba(255, 255, 255, 0.65); }
+        
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .slider-track {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            touch-action: none;
+        }
+        .slider-thumb {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            width: 60px;
+            background: #06b6d4;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+        .slider-thumb:active {
+            background: #22d3ee;
+        }
+
+        #clock-shift-wrapper {
+            transition: transform 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-black w-screen h-screen flex flex-col justify-between items-center relative cursor-default overflow-hidden">
+
+    <header id="control-bar" class="w-full p-4 sm:p-6 flex justify-between items-center z-20 transition-opacity duration-300">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+            <span class="text-xs uppercase tracking-widest text-neutral-400 font-semibold">Live Digital Clock</span>
+        </div>
+        
+        <div class="flex items-center space-x-2 md:space-x-3 bg-neutral-900/80 backdrop-blur-md p-1.5 rounded-full border border-neutral-800 shadow-2xl overflow-x-auto max-w-[80vw] sm:max-w-none">
+            <button id="format-btn" title="12시간/24시간 형식 전환" class="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 shrink-0">
+                12H
+            </button>
+            <button id="seconds-btn" title="초 표시 켜기/끄기" class="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 shrink-0">
+                초 표시
+            </button>
+            <button id="alarm-open-btn" title="알람 설정" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-bell text-cyan-400"></i>
+                <span class="hidden sm:inline">알람</span>
+                <span id="alarm-badge" class="px-1.5 py-0.2 bg-cyan-500 text-black rounded-full text-[10px] font-bold hidden">0</span>
+            </button>
+            <button id="timer-open-btn" title="타이머 설정" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                <span class="hidden sm:inline">타이머</span>
+            </button>
+            <button id="tts-toggle-btn" title="1분마다 시각 음성(TTS) 안내" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-volume-high text-neutral-400" id="tts-icon"></i>
+                <span id="tts-label" class="hidden sm:inline">정각 알림: 꺼짐</span>
+            </button>
+            <button id="game-open-btn" title="가위바위보 미니게임" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-gamepad text-purple-400"></i>
+                <span class="hidden sm:inline">미니게임</span>
+            </button>
+            <button id="rain-sound-btn" title="비 소리 재생" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 hover:bg-neutral-700 transition text-neutral-200 flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-cloud-rain text-blue-400" id="rain-icon"></i>
+                <span id="rain-label" class="hidden sm:inline">비 소리: 꺼짐</span>
+            </button>
+            <button id="fullscreen-btn" title="전체화면" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 transition text-black flex items-center space-x-1.5 shadow-lg shadow-cyan-500/20 shrink-0">
+                <i class="fa-solid fa-expand"></i>
+                <span id="fullscreen-btn-text" class="hidden sm:inline">전체화면</span>
+            </button>
+        </div>
+    </header>
+
+    <main id="clock-container" class="flex-1 flex flex-col justify-center items-center px-4 z-10 w-full max-w-full overflow-hidden">
+        <div id="clock-shift-wrapper" class="flex flex-col items-center justify-center">
+            <div id="date-display" class="text-neutral-400 text-base sm:text-xl md:text-2xl lg:text-3xl font-light tracking-widest mb-2 sm:mb-4 opacity-85 uppercase transition-all text-center">
+                2026년 09월 06일 일요일
+            </div>
+
+            <div id="clock-wrapper" class="flex items-baseline justify-center max-w-full leading-none">
+                <div id="clock-display" class="clock-font font-bold tracking-tight text-white glow-white transition-colors duration-300 leading-none">
+                    00:00<span id="seconds-span" class="text-neutral-500 font-normal ml-2">00</span>
+                </div>
+                <div id="ampm-display" class="font-semibold text-neutral-400 ml-3 self-center hidden">
+                    AM
+                </div>
+            </div>
+
+            <!-- Battery Status Indicator Below Clock -->
+            <div id="battery-status" class="mt-4 flex items-center space-x-2 px-3 py-1 rounded-full bg-neutral-900/60 border border-neutral-800 text-neutral-400 text-xs hidden">
+                <i id="battery-icon" class="fa-solid fa-battery-half text-cyan-400"></i>
+                <span id="battery-text">배터리 100%</span>
+            </div>
+        </div>
+
+        <div id="status-msg" class="mt-6 text-xs sm:text-sm text-neutral-600 tracking-wider text-center">
+            번인 방지를 위해 시계 위치가 주기적으로 좌우로 미세하게 이동합니다.
+        </div>
+    </main>
+
+    <footer class="w-full p-4 text-center text-neutral-600 text-xs z-10">
+        <p>&copy; Digital Clock App. Galaxy Swipe Alarm, Timer, TTS & Burn-in Prevention</p>
+    </footer>
+
+    <div id="alarm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-3xl max-w-lg w-full mx-4 shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-semibold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-bell text-cyan-400"></i>
+                    <span>알람 관리 및 오디오 업로드</span>
+                </h3>
+                <button id="alarm-close-btn" class="text-neutral-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="bg-neutral-950 p-4 rounded-2xl border border-neutral-800/80 mb-4 space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-medium text-neutral-400 mb-1">알람 시간 (24H)</label>
+                        <input type="time" id="alarm-time-input" class="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-medium text-neutral-400 mb-1">알람음 선택</label>
+                        <select id="alarm-sound-select" class="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-500">
+                            <option value="default">기본 비프음 (Standard Beep)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-neutral-400 mb-1">오디오 파일 업로드 (MP3, WAV 등)</label>
+                    <input type="file" id="alarm-audio-file" accept="audio/*" class="w-full text-xs text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-cyan-400 hover:file:bg-neutral-700 cursor-pointer">
+                </div>
+                <button id="alarm-add-btn" class="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-xl text-xs transition shadow-lg shadow-cyan-500/10">
+                    알람 추가하기
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="alarm-list-container">
+                <div id="no-alarm-msg" class="text-center py-8 text-neutral-500 text-xs">
+                    등록된 알람이 없습니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="timer-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-3xl max-w-md w-full mx-4 shadow-2xl flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-semibold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                    <span>타이머 (시간 / 분 / 초)</span>
+                </h3>
+                <button id="timer-close-btn" class="text-neutral-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="text-center mb-6">
+                <div id="timer-display" class="clock-font font-bold text-5xl sm:text-6xl text-white tracking-wider mb-2">00:00:00</div>
+                <p id="timer-status-text" class="text-xs text-neutral-400">시간을 설정하고 타이머를 시작하세요.</p>
+            </div>
+
+            <div id="timer-inputs" class="grid grid-cols-3 gap-3 mb-6">
+                <div>
+                    <label class="block text-[11px] font-medium text-neutral-400 mb-1 text-center">시간 (Hours)</label>
+                    <input type="number" id="timer-h" min="0" max="23" value="0" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl py-2.5 text-center text-white text-lg font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-neutral-400 mb-1 text-center">분 (Minutes)</label>
+                    <input type="number" id="timer-m" min="0" max="59" value="3" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl py-2.5 text-center text-white text-lg font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-neutral-400 mb-1 text-center">초 (Seconds)</label>
+                    <input type="number" id="timer-s" min="0" max="59" value="0" class="w-full bg-neutral-950 border border-neutral-800 rounded-xl py-2.5 text-center text-white text-lg font-mono focus:outline-none focus:border-amber-500">
+                </div>
+            </div>
+
+            <div class="mb-4 bg-neutral-950 p-3 rounded-2xl border border-neutral-800/80">
+                <label class="block text-[11px] font-medium text-neutral-400 mb-1">타이머 완료 알람음 업로드</label>
+                <input type="file" id="timer-audio-file" accept="audio/*" class="w-full text-xs text-neutral-400 file:mr-4 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-amber-400 hover:file:bg-neutral-700 cursor-pointer">
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+                <button id="timer-start-btn" class="py-3 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-xl text-xs transition shadow-lg shadow-amber-500/10">
+                    시작
+                </button>
+                <button id="timer-pause-btn" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-semibold rounded-xl text-xs transition" disabled>
+                    일시정지
+                </button>
+                <button id="timer-reset-btn" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-semibold rounded-xl text-xs transition">
+                    초기화
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-3xl max-w-sm w-full mx-4 shadow-2xl text-center">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-gamepad text-purple-400"></i>
+                    <span>가위바위보 미니게임</span>
+                </h3>
+                <button id="game-close-btn" class="text-neutral-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="game-score" class="text-xs text-neutral-400 mb-4 font-mono">0승 0무 0패</div>
+
+            <div class="flex justify-around items-center bg-neutral-950 p-4 rounded-2xl border border-neutral-800 mb-6">
+                <div class="text-center">
+                    <div class="text-[10px] text-neutral-500 mb-1">플레이어</div>
+                    <div id="player-choice" class="text-3xl">❓</div>
+                </div>
+                <div class="text-neutral-600 font-bold text-lg">VS</div>
+                <div class="text-center">
+                    <div class="text-[10px] text-neutral-500 mb-1">컴퓨터</div>
+                    <div id="com-choice" class="text-3xl">❓</div>
+                </div>
+            </div>
+
+            <div id="game-result-text" class="text-sm font-semibold text-cyan-400 mb-6 h-6">
+                가위, 바위, 보 중 하나를 선택하세요!
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="playRPS('scissors')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xl transition flex flex-col items-center justify-center">
+                    <span>✌️</span>
+                    <span class="text-[10px] text-neutral-400 mt-1">가위</span>
+                </button>
+                <button onclick="playRPS('rock')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xl transition flex flex-col items-center justify-center">
+                    <span>✊</span>
+                    <span class="text-[10px] text-neutral-400 mt-1">바위</span>
+                </button>
+                <button onclick="playRPS('paper')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xl transition flex flex-col items-center justify-center">
+                    <span>🖐️</span>
+                    <span class="text-[10px] text-neutral-400 mt-1">보</span>
+                </button>
+            </div>
+            <button onclick="resetRPSScore()" class="mt-4 text-[11px] text-neutral-500 hover:text-neutral-300 underline">전적 초기화</button>
+        </div>
+    </div>
+
+    <div id="alarm-ringing-modal" class="fixed inset-0 bg-black z-50 flex flex-col justify-between items-center p-8 hidden">
+        <div class="w-full flex justify-center pt-10">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-400 text-sm font-medium animate-pulse border border-cyan-500/40">
+                <i id="ringing-icon" class="fa-solid fa-bell-ring"></i>
+                <span id="ringing-title-label">알람이 울리고 있습니다</span>
+            </div>
+        </div>
+
+        <div class="text-center space-y-4">
+            <p id="ringing-time-label" class="clock-font font-bold text-6xl sm:text-8xl text-white tracking-tight">00:00</p>
+            <p class="text-neutral-400 text-sm sm:text-base">오른쪽으로 밀어서 알람 및 타이머 끄기</p>
+        </div>
+
+        <div class="w-full max-w-md pb-12">
+            <div id="swipe-track" class="slider-track w-full h-16 rounded-full relative shadow-inner">
+                <div id="swipe-bg-text" class="absolute inset-0 flex items-center justify-center text-neutral-400 text-sm font-semibold tracking-wide pointer-events-none select-none">
+                    밀어서 끄기 &rarr;&rarr;&rarr;
+                </div>
+                <div id="swipe-thumb" class="slider-thumb flex items-center justify-center text-black font-bold">
+                    <i class="fa-solid fa-bell-slash text-lg"></i>
+                </div>
+            </div>
+            <div class="flex justify-between mt-4 px-2">
+                <button id="snooze-btn" class="text-xs text-neutral-400 hover:text-white transition py-2 px-4 rounded-xl bg-neutral-900 border border-neutral-800">
+                    5분 뒤 다시 울림 (Snooze)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pin-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-3xl max-w-sm w-full mx-4 shadow-2xl text-center">
+            <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1">전체화면 해제 비밀번호</h3>
+            <p class="text-neutral-400 text-xs mb-5">비밀번호 4자리(1234)를 입력하세요.</p>
+            
+            <div id="pin-display" class="flex justify-center space-x-3 mb-6">
+                <div class="pin-dot w-4 h-4 rounded-full border border-neutral-600 bg-neutral-800 transition"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border border-neutral-600 bg-neutral-800 transition"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border border-neutral-600 bg-neutral-800 transition"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border border-neutral-600 bg-neutral-800 transition"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <button onclick="pressPin('1')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">1</button>
+                <button onclick="pressPin('2')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">2</button>
+                <button onclick="pressPin('3')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">3</button>
+                <button onclick="pressPin('4')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">4</button>
+                <button onclick="pressPin('5')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">5</button>
+                <button onclick="pressPin('6')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">6</button>
+                <button onclick="pressPin('7')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">7</button>
+                <button onclick="pressPin('8')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">8</button>
+                <button onclick="pressPin('9')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">9</button>
+                <button onclick="clearPin()" class="py-3 bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white font-semibold rounded-xl text-xs transition">지우기</button>
+                <button onclick="pressPin('0')" class="py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl text-lg transition">0</button>
+                <button onclick="closePinModal()" class="py-3 bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white font-semibold rounded-xl text-xs transition">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="msg-box-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 rounded-3xl max-w-sm w-full mx-4 shadow-2xl text-center">
+            <div id="msg-box-icon" class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                <i class="fa-solid fa-info"></i>
+            </div>
+            <h3 id="msg-box-title" class="text-base font-semibold text-white mb-2">알림</h3>
+            <p id="msg-box-desc" class="text-neutral-400 text-xs mb-6 leading-relaxed">메시지 내용</p>
+            <button id="msg-box-ok-btn" class="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black rounded-xl text-xs font-semibold transition">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let is24HourFormat = false;
+        let showSeconds = true;
+        let inactivityTimer = null;
+
+        let alarms = []; 
+        let customSounds = {}; 
+        let timerCustomSounds = {};
+        let activeAudioElement = null;
+        let activeRingingType = 'alarm'; // 'alarm' or 'timer'
+
+        let enteredPin = '';
+        const correctPin = '1234';
+
+        // RPS Game Stats
+        let rpsWins = 0;
+        let rpsTies = 0;
+        let rpsLosses = 0;
+
+        // TTS announcement state (every 1 minute)
+        let isTtsEnabled = false;
+        let lastTtsHour = -1;
+        let lastTtsMinute = -1;
+
+        // Rain Sound state
+        let isRainPlaying = false;
+        let rainAudioNode = null;
+
+        // Burn-in prevention position shift state
+        let burnInShiftStep = 0;
+        const shiftOffsets = [0, -35, 35, -20, 20, 0];
+
+        // Timer state
+        let timerInterval = null;
+        let timerTotalSeconds = 0;
+        let timerRemainingSeconds = 0;
+        let timerIsRunning = false;
+
+        const clockContainer = document.getElementById('clock-container');
+        const clockShiftWrapper = document.getElementById('clock-shift-wrapper');
+        const clockWrapper = document.getElementById('clock-wrapper');
+        const clockDisplay = document.getElementById('clock-display');
+        const secondsSpan = document.getElementById('seconds-span');
+        const ampmDisplay = document.getElementById('ampm-display');
+        const dateDisplay = document.getElementById('date-display');
+        const formatBtn = document.getElementById('format-btn');
+        const secondsBtn = document.getElementById('seconds-btn');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const fullscreenBtnText = document.getElementById('fullscreen-btn-text');
+        const controlBar = document.getElementById('control-bar');
+
+        const batteryStatus = document.getElementById('battery-status');
+        const batteryText = document.getElementById('battery-text');
+        const batteryIcon = document.getElementById('battery-icon');
+
+        const alarmOpenBtn = document.getElementById('alarm-open-btn');
+        const alarmBadge = document.getElementById('alarm-badge');
+        const alarmModal = document.getElementById('alarm-modal');
+        const alarmCloseBtn = document.getElementById('alarm-close-btn');
+        const alarmTimeInput = document.getElementById('alarm-time-input');
+        const alarmSoundSelect = document.getElementById('alarm-sound-select');
+        const alarmAudioFile = document.getElementById('alarm-audio-file');
+        const alarmAddBtn = document.getElementById('alarm-add-btn');
+        const alarmListContainer = document.getElementById('alarm-list-container');
+        noAlarmMsg = document.getElementById('no-alarm-msg');
+
+        // Timer DOM elements
+        const timerOpenBtn = document.getElementById('timer-open-btn');
+        const timerModal = document.getElementById('timer-modal');
+        const timerCloseBtn = document.getElementById('timer-close-btn');
+        const timerDisplay = document.getElementById('timer-display');
+        const timerStatusText = document.getElementById('timer-status-text');
+        const timerH = document.getElementById('timer-h');
+        const timerM = document.getElementById('timer-m');
+        const timerS = document.getElementById('timer-s');
+        const timerAudioFile = document.getElementById('timer-audio-file');
+        const timerStartBtn = document.getElementById('timer-start-btn');
+        const timerPauseBtn = document.getElementById('timer-pause-btn');
+        const timerResetBtn = document.getElementById('timer-reset-btn');
+
+        // TTS & Rain Sound DOM elements
+        const ttsToggleBtn = document.getElementById('tts-toggle-btn');
+        const ttsIcon = document.getElementById('tts-icon');
+        const ttsLabel = document.getElementById('tts-label');
+        const rainSoundBtn = document.getElementById('rain-sound-btn');
+        const rainIcon = document.getElementById('rain-icon');
+        const rainLabel = document.getElementById('rain-label');
+
+        // Game DOM elements
+        const gameOpenBtn = document.getElementById('game-open-btn');
+        const gameModal = document.getElementById('game-modal');
+        const gameCloseBtn = document.getElementById('game-close-btn');
+        const playerChoiceDisplay = document.getElementById('player-choice');
+        const comChoiceDisplay = document.getElementById('com-choice');
+        const gameResultText = document.getElementById('game-result-text');
+        const gameScore = document.getElementById('game-score');
+
+        // Ringing Modal
+        const alarmRingingModal = document.getElementById('alarm-ringing-modal');
+        const ringingTimeLabel = document.getElementById('ringing-time-label');
+        const ringingTitleLabel = document.getElementById('ringing-title-label');
+        const ringingIcon = document.getElementById('ringing-icon');
+        const snoozeBtn = document.getElementById('snooze-btn');
+
+        const pinModal = document.getElementById('pin-modal');
+        const pinDots = document.querySelectorAll('.pin-dot');
+
+        const msgBoxModal = document.getElementById('msg-box-modal');
+        const msgBoxDesc = document.getElementById('msg-box-desc');
+        const msgBoxOkBtn = document.getElementById('msg-box-ok-btn');
+
+        function showMessage(text) {
+            msgBoxDesc.textContent = text;
+            msgBoxModal.classList.remove('hidden');
+            setTimeout(() => msgBoxModal.classList.remove('opacity-0'), 10);
+        }
+
+        msgBoxOkBtn.addEventListener('click', () => {
+            msgBoxModal.classList.add('opacity-0');
+            setTimeout(() => msgBoxModal.classList.add('hidden'), 300);
+        });
+
+        const themeGlowClasses = {
+            cyan: 'glow-cyan text-cyan-400',
+            green: 'glow-green text-green-400',
+            amber: 'glow-amber text-amber-400',
+            purple: 'glow-purple text-purple-400',
+            rose: 'glow-rose text-rose-400',
+            white: 'glow-white text-white'
+        };
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            clockDisplay.className = `clock-font font-bold tracking-tight leading-none transition-colors duration-300 ${themeGlowClasses[theme] || themeGlowClasses.cyan}`;
+            themeMenu.classList.add('hidden');
+        }
+
+        function fitClockToScreen() {
+            if (!clockContainer || !clockWrapper) return;
+            const containerWidth = clockContainer.clientWidth * 0.92;
+            const containerHeight = clockContainer.clientHeight * 0.60;
+
+            let fontSize = Math.min(containerWidth / 3.2, containerHeight * 1.1);
+            if (!showSeconds && is24HourFormat) {
+                fontSize = Math.min(containerWidth / 2.5, containerHeight * 1.3);
+            } else if (!showSeconds) {
+                fontSize = Math.min(containerWidth / 2.8, containerHeight * 1.2);
+            }
+
+            clockDisplay.style.fontSize = `${fontSize}px`;
+            secondsSpan.style.fontSize = `${fontSize * 0.38}px`;
+            ampmDisplay.style.fontSize = `${fontSize * 0.25}px`;
+            // 해피뮤직: 글꼴이 달라도 화면 밖으로 넘치지 않게 실제 너비로 한 번 더 맞춤
+            const maxW = clockContainer.clientWidth * 0.94, realW = clockWrapper.scrollWidth;
+            if (maxW > 0 && realW > maxW) {
+                const k = maxW / realW;
+                clockDisplay.style.fontSize = `${fontSize * k}px`;
+                secondsSpan.style.fontSize = `${fontSize * k * 0.38}px`;
+                ampmDisplay.style.fontSize = `${fontSize * k * 0.25}px`;
+            }
+        }
+
+        // --- Battery Status Monitoring ---
+        async function updateBatteryStatus() {
+            if ('getBattery' in navigator) {
+                try {
+                    const battery = await navigator.getBattery();
+                    function renderBattery() {
+                        const level = Math.round(battery.level * 100);
+                        const isCharging = battery.charging;
+                        batteryText.textContent = `배터리 ${level}% ${isCharging ? '(충전중)' : ''}`;
+                        
+                        if (isCharging) {
+                            batteryIcon.className = "fa-solid fa-bolt text-amber-400 animate-pulse";
+                        } else if (level <= 20) {
+                            batteryIcon.className = "fa-solid fa-battery-empty text-rose-500 animate-pulse";
+                        } else if (level <= 50) {
+                            batteryIcon.className = "fa-solid fa-battery-half text-amber-400";
+                        } else {
+                            batteryIcon.className = "fa-solid fa-battery-full text-cyan-400";
+                        }
+                        batteryStatus.classList.remove('hidden');
+                    }
+                    renderBattery();
+                    battery.addEventListener('levelchange', renderBattery);
+                    battery.addEventListener('chargingchange', renderBattery);
+                } catch(e) {
+                    batteryStatus.classList.add('hidden');
+                }
+            } else {
+                batteryStatus.classList.add('hidden');
+            }
+        }
+        updateBatteryStatus();
+
+        // --- Hourly & 1-minute TTS Announcement Logic ---
+        ttsToggleBtn.addEventListener('click', () => {
+            isTtsEnabled = !isTtsEnabled;
+            if (isTtsEnabled) {
+                ttsIcon.className = "fa-solid fa-volume-high text-green-400 animate-bounce";
+                ttsLabel.textContent = "정각 알림: 켜짐";
+                showMessage("1분마다 시간 음성(TTS) 안내가 켜졌습니다.");
+                speakTime(new Date().getHours(), new Date().getMinutes());
+            } else {
+                ttsIcon.className = "fa-solid fa-volume-high text-neutral-400";
+                ttsLabel.textContent = "정각 알림: 꺼짐";
+                showMessage("시간 음성(TTS) 안내가 꺼졌습니다.");
+            }
+        });
+
+        function speakTime(hour, minute) {
+            if (!('speechSynthesis' in window)) {
+                return;
+            }
+            window.speechSynthesis.cancel();
+
+            let displayHour = hour;
+            const ampm = hour >= 12 ? '오후' : '오전';
+            displayHour = hour % 12;
+            displayHour = displayHour ? displayHour : 12;
+
+            let text = `${ampm} ${displayHour}시 정각입니다.`;
+            if (minute > 0) {
+                text = `${ampm} ${displayHour}시 ${minute}분입니다.`;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ko-KR';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // --- Rain Sound White Noise Generator ---
+        rainSoundBtn.addEventListener('click', () => {
+            if (!isRainPlaying) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    const rainAudioCtx = new AudioContext();
+
+                    const bufferSize = 2 * rainAudioCtx.sampleRate;
+                    const noiseBuffer = rainAudioCtx.createBuffer(1, bufferSize, rainAudioCtx.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        output[i] = Math.random() * 2 - 1;
+                    }
+
+                    const whiteNoise = rainAudioCtx.createBufferSource();
+                    whiteNoise.buffer = noiseBuffer;
+                    whiteNoise.loop = true;
+
+                    const filter = rainAudioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 800;
+
+                    const gainNode = rainAudioCtx.createGain();
+                    gainNode.gain.value = 0.25;
+
+                    whiteNoise.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(rainAudioCtx.destination);
+
+                    whiteNoise.start();
+                    rainAudioNode = {
+                        stop: () => {
+                            try { whiteNoise.stop(); rainAudioCtx.close(); } catch(e){}
+                        }
+                    };
+
+                    isRainPlaying = true;
+                    rainIcon.className = "fa-solid fa-cloud-rain text-blue-400 animate-pulse";
+                    rainLabel.textContent = "비 소리: 켜짐";
+                    showMessage("자연스러운 비 소리 재생을 시작합니다.");
+                } catch(e) {
+                    showMessage("오디오 권한 제약으로 비 소리를 실행할 수 없습니다.");
+                }
+            } else {
+                if (rainAudioNode) {
+                    rainAudioNode.stop();
+                    rainAudioNode = null;
+                }
+                isRainPlaying = false;
+                rainIcon.className = "fa-solid fa-cloud-rain text-blue-400";
+                rainLabel.textContent = "비 소리: 꺼짐";
+                showMessage("비 소리가 중지되었습니다.");
+            }
+        });
+
+        // --- Main Clock Update & Burn-in Shift ---
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = parseInt(now.getMinutes(), 10);
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const currentHours24 = String(hours).padStart(2, '0');
+            const currentMinutesStr = String(minutes).padStart(2, '0');
+            const currentTimeStr = `${currentHours24}:${currentMinutesStr}`;
+
+            const minuteChanged = window.__lastMin !== undefined && window.__lastMin !== currentTimeStr;
+            window.__lastMin = currentTimeStr;
+            if (minuteChanged) {
+                checkAlarms(currentTimeStr);
+
+                // 1-minute interval TTS
+                if (isTtsEnabled) {
+                    if (lastTtsHour !== hours || lastTtsMinute !== minutes) {
+                        lastTtsHour = hours;
+                        lastTtsMinute = minutes;
+                        speakTime(hours, minutes);
+                    }
+                }
+
+                // Burn-in prevention position shift every 1 minute
+                burnInShiftStep = (burnInShiftStep + 1) % shiftOffsets.length;
+                clockShiftWrapper.style.transform = `translateX(${shiftOffsets[burnInShiftStep]}px)`;
+            }
+
+            if (!is24HourFormat) {
+                const ampm = hours >= 12 ? '오후' : '오전';
+                ampmDisplay.textContent = ampm;
+                ampmDisplay.classList.remove('hidden');
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+            } else {
+                ampmDisplay.classList.add('hidden');
+            }
+
+            const formattedHours = String(hours).padStart(2, '0');
+            clockDisplay.firstChild.nodeValue = `${formattedHours}:${currentMinutesStr}`;
+
+            if (showSeconds) {
+                secondsSpan.textContent = `:${seconds}`;
+                secondsSpan.style.display = 'inline';
+            } else {
+                secondsSpan.style.display = 'none';
+            }
+
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const dayName = days[now.getDay()];
+            
+            dateDisplay.textContent = `${year}년 ${String(month).padStart(2, '0')}월 ${String(date).padStart(2, '0')}일 ${dayName}`;
+            fitClockToScreen();
+        }
+
+        // --- Alarm Handling ---
+        alarmAudioFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const soundKey = 'custom_' + Date.now();
+                customSounds[soundKey] = event.target.result;
+
+                const option = document.createElement('option');
+                option.value = soundKey;
+                option.textContent = `🎵 ${file.name}`;
+                alarmSoundSelect.appendChild(option);
+                alarmSoundSelect.value = soundKey;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        alarmAddBtn.addEventListener('click', () => {
+            const timeVal = alarmTimeInput.value;
+            if (!timeVal) {
+                showMessage("알람 시간을 올바르게 입력해주세요.");
+                return;
+            }
+
+            const soundKey = alarmSoundSelect.value;
+            const newAlarm = {
+                id: Date.now(),
+                time: timeVal,
+                soundKey: soundKey,
+                active: true
+            };
+
+            alarms.push(newAlarm);
+            renderAlarmList();
+            updateAlarmBadge();
+            alarmTimeInput.value = '';
+            showMessage("새로운 알람이 추가되었습니다.");
+        });
+
+        function renderAlarmList() {
+            if (alarms.length === 0) {
+                noAlarmMsg.style.display = 'block';
+                alarmListContainer.innerHTML = '';
+                alarmListContainer.appendChild(noAlarmMsg);
+                return;
+            }
+
+            noAlarmMsg.style.display = 'none';
+            alarmListContainer.innerHTML = '';
+
+            alarms.forEach(alarm => {
+                const item = document.createElement('div');
+                item.className = `flex items-center justify-between p-3.5 rounded-2xl border ${alarm.active ? 'bg-neutral-900 border-neutral-800' : 'bg-neutral-950/50 border-neutral-900 opacity-50'}`;
+                
+                let soundName = "기본 비프음";
+                if (alarm.soundKey !== 'default') {
+                    const opt = alarmSoundSelect.querySelector(`option[value="${alarm.soundKey}"]`);
+                    soundName = opt ? opt.textContent : "사용자 업로드 음원";
+                }
+
+                let displayTime = alarm.time;
+                if (!is24HourFormat) {
+                    const [h, m] = alarm.time.split(':');
+                    let hourInt = parseInt(h, 10);
+                    const ampm = hourInt >= 12 ? '오후' : '오전';
+                    hourInt = hourInt % 12;
+                    hourInt = hourInt ? hourInt : 12;
+                    displayTime = `${ampm} ${hourInt}:${m}`;
+                }
+
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="text-lg font-mono font-bold text-white">${displayTime}</div>
+                        <div class="text-xs text-neutral-400 truncate max-w-[120px] sm:max-w-xs">${soundName}</div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleAlarmActive(${alarm.id})" class="px-3 py-1.5 rounded-xl text-xs font-medium transition ${alarm.active ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30' : 'bg-neutral-800 text-neutral-500'}">
+                            ${alarm.active ? '켜짐' : '꺼짐'}
+                        </button>
+                        <button onclick="deleteAlarm(${alarm.id})" class="p-2 text-neutral-500 hover:text-rose-500 transition">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                alarmListContainer.appendChild(item);
+            });
+        }
+
+        window.toggleAlarmActive = function(id) {
+            const alarm = alarms.find(a => a.id === id);
+            if (alarm) {
+                alarm.active = !alarm.active;
+                renderAlarmList();
+                updateAlarmBadge();
+            }
+        };
+
+        window.deleteAlarm = function(id) {
+            alarms = alarms.filter(a => a.id !== id);
+            renderAlarmList();
+            updateAlarmBadge();
+        };
+
+        function updateAlarmBadge() {
+            const activeCount = alarms.filter(a => a.active).length;
+            if (activeCount > 0) {
+                alarmBadge.textContent = activeCount;
+                alarmBadge.classList.remove('hidden');
+            } else {
+                alarmBadge.classList.add('hidden');
+            }
+        }
+
+        function checkAlarms(currentTimeStr) {
+            alarms.forEach(alarm => {
+                if (alarm.active && alarm.time === currentTimeStr) {
+                    triggerRinging('alarm', alarm.time, alarm.soundKey);
+                }
+            });
+        }
+
+        // --- Timer Logic ---
+        timerAudioFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                timerCustomSounds['timer_custom'] = event.target.result;
+                showMessage("타이머 완료 오디오가 업로드되었습니다.");
+            };
+            reader.readAsDataURL(file);
+        });
+
+        timerStartBtn.addEventListener('click', () => {
+            if (!timerIsRunning) {
+                const h = parseInt(timerH.value, 10) || 0;
+                const m = parseInt(timerM.value, 10) || 0;
+                const s = parseInt(timerS.value, 10) || 0;
+
+                if (h === 0 && m === 0 && s === 0) {
+                    showMessage("타이머 시간을 1초 이상 설정해주세요.");
+                    return;
+                }
+
+                if (timerRemainingSeconds <= 0) {
+                    timerTotalSeconds = h * 3600 + m * 60 + s;
+                    timerRemainingSeconds = timerTotalSeconds;
+                }
+
+                timerIsRunning = true;
+                timerStartBtn.textContent = '재개';
+                timerStartBtn.disabled = true;
+                timerPauseBtn.disabled = false;
+                timerStatusText.textContent = "타이머가 작동 중입니다...";
+
+                timerInterval = setInterval(() => {
+                    if (timerRemainingSeconds > 0) {
+                        timerRemainingSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerIsRunning = false;
+                        timerStartBtn.textContent = '시작';
+                        timerStartBtn.disabled = false;
+                        timerPauseBtn.disabled = true;
+                        timerModal.classList.add('hidden');
+                        
+                        const soundKey = timerCustomSounds['timer_custom'] ? 'timer_custom' : 'default';
+                        triggerRinging('timer', '00:00:00', soundKey);
+                    }
+                }, 1000);
+            }
+        });
+
+        timerPauseBtn.addEventListener('click', () => {
+            if (timerIsRunning) {
+                clearInterval(timerInterval);
+                timerIsRunning = false;
+                timerStartBtn.disabled = false;
+                timerStartBtn.textContent = '재개';
+                timerPauseBtn.disabled = true;
+                timerStatusText.textContent = "타이머가 일시정지되었습니다.";
+            }
+        });
+
+        timerResetBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerIsRunning = false;
+            timerRemainingSeconds = 0;
+            timerStartBtn.textContent = '시작';
+            timerStartBtn.disabled = false;
+            timerPauseBtn.disabled = true;
+            timerH.value = 0;
+            timerM.value = 3;
+            timerS.value = 0;
+            updateTimerDisplay();
+            timerStatusText.textContent = "시간을 설정하고 타이머를 시작하세요.";
+        });
+
+        function updateTimerDisplay() {
+            const hrs = Math.floor(timerRemainingSeconds / 3600);
+            const mins = Math.floor((timerRemainingSeconds % 3600) / 60);
+            const secs = timerRemainingSeconds % 60;
+            timerDisplay.textContent = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // --- Ringing Modal Management (Alarm & Timer) ---
+        function triggerRinging(type, timeStr, soundKey) {
+            activeRingingType = type;
+            window.__lastSnd = soundKey;
+            ringingTimeLabel.textContent = timeStr;
+            if (type === 'alarm') {
+                ringingTitleLabel.textContent = "알람이 울리고 있습니다";
+                ringingIcon.className = "fa-solid fa-bell-ring";
+            } else {
+                ringingTitleLabel.textContent = "타이머 완료! 시간이 종료되었습니다";
+                ringingIcon.className = "fa-solid fa-stopwatch";
+            }
+            alarmRingingModal.classList.remove('hidden');
+            playAudio(soundKey);
+            resetSwipeSlider();
+        }
+
+        function playAudio(soundKey) {
+            stopAudio();
+
+            let audioSrc = customSounds[soundKey] || timerCustomSounds[soundKey];
+            if (audioSrc) {
+                activeAudioElement = new Audio(audioSrc);
+                activeAudioElement.loop = true;
+                activeAudioElement.play().catch(err => console.warn("Audio play blocked:", err));
+            } else {
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.start();
+                    activeAudioElement = {
+                        stop: () => {
+                            try { oscillator.stop(); audioCtx.close(); } catch(e){}
+                        }
+                    };
+                } catch(e) {
+                    console.warn("Web Audio API error", e);
+                }
+            }
+        }
+
+        function stopAudio() {
+            if (activeAudioElement) {
+                if (typeof activeAudioElement.pause === 'function') {
+                    activeAudioElement.pause();
+                } else if (typeof activeAudioElement.stop === 'function') {
+                    activeAudioElement.stop();
+                }
+                activeAudioElement = null;
+            }
+        }
+
+        // --- Swipe Slider for Dismissing Ringing ---
+        const swipeTrack = document.getElementById('swipe-track');
+        const swipeThumb = document.getElementById('swipe-thumb');
+        const swipeBgText = document.getElementById('swipe-bg-text');
+        
+        let isDragging = false;
+        let startX = 0;
+        let thumbLeft = 4;
+
+        function resetSwipeSlider() {
+            isDragging = false;
+            thumbLeft = 4;
+            swipeThumb.style.left = `${thumbLeft}px`;
+            swipeBgText.style.opacity = '1';
+        }
+
+        function handleDragStart(e) {
+            isDragging = true;
+            startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        }
+
+        function handleDragMove(e) {
+            if (!isDragging) return;
+            const currentX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+            const diffX = currentX - startX;
+            
+            const maxTrackWidth = swipeTrack.clientWidth;
+            const maxThumbLeft = maxTrackWidth - swipeThumb.clientWidth - 4;
+            
+            thumbLeft = Math.max(4, Math.min(4 + diffX, maxThumbLeft));
+            swipeThumb.style.left = `${thumbLeft}px`;
+
+            const progress = (thumbLeft - 4) / (maxThumbLeft - 4);
+            swipeBgText.style.opacity = `${Math.max(0, 1 - progress * 1.5)}`;
+
+            if (progress >= 0.85) {
+                dismissRinging();
+            }
+        }
+
+        function handleDragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            const maxTrackWidth = swipeTrack.clientWidth;
+            const maxThumbLeft = maxTrackWidth - swipeThumb.clientWidth - 4;
+            const progress = (thumbLeft - 4) / (maxThumbLeft - 4);
+
+            if (progress < 0.85) {
+                swipeThumb.style.transition = 'left 0.2s ease';
+                thumbLeft = 4;
+                swipeThumb.style.left = `${thumbLeft}px`;
+                swipeBgText.style.opacity = '1';
+                setTimeout(() => swipeThumb.style.transition = 'none', 200);
+            }
+        }
+
+        swipeThumb.addEventListener('mousedown', handleDragStart);
+        window.addEventListener('mousemove', handleDragMove);
+        window.addEventListener('mouseup', handleDragEnd);
+
+        swipeThumb.addEventListener('touchstart', handleDragStart);
+        window.addEventListener('touchmove', handleDragMove);
+        window.addEventListener('touchend', handleDragEnd);
+
+        function dismissRinging() {
+            stopAudio();
+            alarmRingingModal.classList.add('hidden');
+            resetSwipeSlider();
+        }
+
+        snoozeBtn.addEventListener('click', () => {
+            stopAudio();
+            alarmRingingModal.classList.add('hidden');
+            resetSwipeSlider();
+            const snoozeType = activeRingingType, snoozeSnd = window.__lastSnd || 'default';
+            clearTimeout(window.__snoozeT);
+            window.__snoozeT = setTimeout(() => triggerRinging(snoozeType, snoozeType === 'alarm' ? ringingTimeLabel.textContent : '00:00:00', snoozeSnd), 5 * 60 * 1000);
+            if (activeRingingType === 'alarm') {
+                showMessage("알람이 5분 뒤에 다시 울립니다.");
+            } else {
+                showMessage("타이머가 5분 연장되었습니다.");
+            }
+        });
+
+        // --- Rock-Paper-Scissors Mini Game ---
+        window.playRPS = function(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const comChoice = choices[Math.floor(Math.random() * choices.length)];
+
+            const emojis = {
+                rock: '✊',
+                paper: '🖐️',
+                scissors: '✌️'
+            };
+
+            playerChoiceDisplay.textContent = emojis[playerChoice];
+            comChoiceDisplay.textContent = emojis[comChoice];
+
+            if (playerChoice === comChoice) {
+                rpsTies++;
+                gameResultText.textContent = "비겼습니다!";
+                gameResultText.className = "text-sm font-semibold text-amber-400 mb-6 h-6";
+            } else if (
+                (playerChoice === 'rock' && comChoice === 'scissors') ||
+                (playerChoice === 'paper' && comChoice === 'rock') ||
+                (playerChoice === 'scissors' && comChoice === 'paper')
+            ) {
+                rpsWins++;
+                gameResultText.textContent = "플레이어 승리!";
+                gameResultText.className = "text-sm font-semibold text-green-400 mb-6 h-6";
+            } else {
+                rpsLosses++;
+                gameResultText.textContent = "컴퓨터 승리!";
+                gameResultText.className = "text-sm font-semibold text-rose-400 mb-6 h-6";
+            }
+
+            gameScore.textContent = `${rpsWins}승 ${rpsTies}무 ${rpsLosses}패`;
+        };
+
+        window.resetRPSScore = function() {
+            rpsWins = 0;
+            rpsTies = 0;
+            rpsLosses = 0;
+            gameScore.textContent = `0승 0무 0패`;
+            playerChoiceDisplay.textContent = '❓';
+            comChoiceDisplay.textContent = '❓';
+            gameResultText.textContent = "가위, 바위, 보 중 하나를 선택하세요!";
+            gameResultText.className = "text-sm font-semibold text-cyan-400 mb-6 h-6";
+        };
+
+        // --- Modal Event Listeners ---
+        alarmOpenBtn.addEventListener('click', () => {
+            alarmModal.classList.remove('hidden');
+            setTimeout(() => alarmModal.classList.remove('opacity-0'), 10);
+            renderAlarmList();
+        });
+        alarmCloseBtn.addEventListener('click', () => {
+            alarmModal.classList.add('opacity-0');
+            setTimeout(() => alarmModal.classList.add('hidden'), 300);
+        });
+
+        timerOpenBtn.addEventListener('click', () => {
+            timerModal.classList.remove('hidden');
+            setTimeout(() => timerModal.classList.remove('opacity-0'), 10);
+        });
+        timerCloseBtn.addEventListener('click', () => {
+            timerModal.classList.add('opacity-0');
+            setTimeout(() => timerModal.classList.add('hidden'), 300);
+        });
+
+        gameOpenBtn.addEventListener('click', () => {
+            gameModal.classList.remove('hidden');
+            setTimeout(() => gameModal.classList.remove('opacity-0'), 10);
+        });
+        gameCloseBtn.addEventListener('click', () => {
+            gameModal.classList.add('opacity-0');
+            setTimeout(() => gameModal.classList.add('hidden'), 300);
+        });
+
+        // --- Format & Theme Toggles ---
+        formatBtn.addEventListener('click', () => {
+            is24HourFormat = !is24HourFormat;
+            formatBtn.textContent = is24HourFormat ? '24H' : '12H';
+            updateClock();
+            renderAlarmList();
+        });
+
+        secondsBtn.addEventListener('click', () => {
+            showSeconds = !showSeconds;
+            secondsBtn.style.opacity = showSeconds ? '1' : '0.5';
+            updateClock();
+        });
+
+        window.addEventListener('resize', fitClockToScreen);
+
+        // --- PIN & Fullscreen Handling ---
+        function toggleFullScreen() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                const docElem = document.documentElement;
+                const requestFullscreen = docElem.requestFullscreen || docElem.webkitRequestFullscreen || docElem.msRequestFullscreen;
+
+                if (requestFullscreen) {
+                    requestFullscreen.call(docElem).then(() => {
+                        fullscreenBtnText.textContent = '해제';
+                    }).catch((err) => {
+                        showMessage("브라우저 보안 설정으로 전체화면이 제한되었습니다.");
+                    });
+                } else {
+                    showMessage("이 브라우저는 전체화면 API를 지원하지 않습니다.");
+                }
+            } else {
+                openPinModal();
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+        function openPinModal() {
+            enteredPin = '';
+            updatePinDots();
+            pinModal.classList.remove('hidden');
+            setTimeout(() => pinModal.classList.remove('opacity-0'), 10);
+        }
+
+        function closePinModal() {
+            pinModal.classList.add('opacity-0');
+            setTimeout(() => pinModal.classList.add('hidden'), 300);
+        }
+
+        window.pressPin = function(digit) {
+            if (enteredPin.length < 4) {
+                enteredPin += digit;
+                updatePinDots();
+
+                if (enteredPin.length === 4) {
+                    if (enteredPin === correctPin) {
+                        closePinModal();
+                        const exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+                        if (exitFullscreen) {
+                            exitFullscreen.call(document);
+                        }
+                        fullscreenBtnText.textContent = '전체화면';
+                    } else {
+                        setTimeout(() => {
+                            showMessage("비밀번호가 틀렸습니다. (정답: 1234)");
+                            enteredPin = '';
+                            updatePinDots();
+                        }, 150);
+                    }
+                }
+            }
+        };
+
+        window.clearPin = function() {
+            enteredPin = '';
+            updatePinDots();
+        };
+
+        function updatePinDots() {
+            pinDots.forEach((dot, index) => {
+                if (index < enteredPin.length) {
+                    dot.classList.remove('bg-neutral-800', 'border-neutral-600');
+                    dot.classList.add('bg-cyan-500', 'border-cyan-400');
+                } else {
+                    dot.classList.add('bg-neutral-800', 'border-neutral-600');
+                    dot.classList.remove('bg-cyan-500', 'border-cyan-400');
+                }
+            });
+        }
+
+        function resetInactivityTimer() {
+            controlBar.classList.remove('fade-out');
+            document.body.style.cursor = 'default';
+            
+            if (inactivityTimer) clearTimeout(inactivityTimer);
+
+            if (document.fullscreenElement) {
+                inactivityTimer = setTimeout(() => {
+                    controlBar.classList.add('fade-out');
+                    document.body.style.cursor = 'none';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('mousemove', resetInactivityTimer);
+        window.addEventListener('keydown', resetInactivityTimer);
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                controlBar.classList.remove('fade-out');
+                document.body.style.cursor = 'default';
+                fullscreenBtnText.textContent = '전체화면';
+                if (inactivityTimer) clearTimeout(inactivityTimer);
+            } else {
+                resetInactivityTimer();
+            }
+        });
+
+        formatBtn.textContent = '12H';
+        setInterval(updateClock, 1000);
+        updateClock();
+        fitClockToScreen();
+    </script>
+<script data-ok="1">/* 해피뮤직 안에서: 링크는 앱 브라우저로, 영상 재생 시 음악 일시정지 */(function(){var P=window.parent;if(!P||P===window)return;
+document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a&&/^https?:/i.test(a.href)){e.preventDefault();e.stopPropagation();try{P.__toolOpenUrl(a.href)}catch(x){}}},true);
+document.addEventListener('play',function(){try{P.__toolMedia&&P.__toolMedia()}catch(x){}},true);
+})();</script>
+<script data-ok="1">/* 해피뮤직: 알람 저장(앱을 다시 켜도 유지), 알람이 울리면 시계 화면을 앞으로 */(function(){
+try{var a=JSON.parse(localStorage.getItem('clk_alarms')||'[]');if(Array.isArray(a)&&a.length){alarms=a.filter(function(x){return x&&/^\d\d:\d\d$/.test(x.time)}).map(function(x){return{id:x.id,time:x.time,soundKey:customSounds[x.soundKey]?x.soundKey:'default',active:!!x.active}});renderAlarmList();updateAlarmBadge()}}catch(e){}
+var _r=renderAlarmList;renderAlarmList=function(){_r.apply(this,arguments);try{localStorage.setItem('clk_alarms',JSON.stringify(alarms.map(function(x){return{id:x.id,time:x.time,soundKey:x.soundKey,active:x.active}})))}catch(e){}};
+var _t=triggerRinging;triggerRinging=function(){try{parent.__toolShow&&parent.__toolShow('clock')}catch(e){}return _t.apply(this,arguments)};
+})();</script>
+</body>
+</html>

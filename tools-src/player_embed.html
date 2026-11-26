@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>보안 동영상 플레이어</title>
+<style>
+:root{box-sizing:border-box;--bg:#000;--fg:#fff;--ac:#4f8cff;--panel:rgba(20,20,24,.88);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"Noto Sans KR",sans-serif;overflow:hidden}
+*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
+input{-webkit-user-select:text;user-select:text}
+#player{position:relative;width:100%;height:100%;background:#000}
+video{width:100%;height:100%;object-fit:contain;background:#000;display:block;pointer-events:none}
+#player.fill video{object-fit:cover}
+#shield{position:absolute;inset:0;z-index:2}
+#empty{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;padding:20px;text-align:center}
+#empty.hide{display:none}
+#empty input[type=text]{width:min(420px,90%);padding:10px;border-radius:8px;border:1px solid #444;background:#111;color:#fff}
+.btn{background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:9px 14px;font-size:14px;cursor:pointer}
+.btn.pri{background:var(--ac);border-color:var(--ac)}
+#bar{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,rgba(0,0,0,.85));transition:opacity .25s}
+#player.idle #bar{opacity:0;pointer-events:none}
+#player.idle{cursor:none}
+#seek{width:100%;accent-color:var(--ac);margin:0 0 6px}
+.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.row .sp{flex:1}
+.ib{background:none;border:0;color:#fff;font-size:20px;padding:6px 8px;cursor:pointer;border-radius:6px}
+.ib:hover,.ib.on{background:rgba(255,255,255,.18)}
+#time{font-size:13px;font-variant-numeric:tabular-nums;opacity:.9}
+#vol{width:70px;accent-color:var(--ac)}
+select{background:#222;color:#fff;border:1px solid #444;border-radius:6px;padding:4px}
+#alert{position:fixed;inset:0;z-index:99;background:#0b0b0d;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+#alert.show{display:flex}
+#alert h2{color:#ff5a5a;margin:0}
+#toast{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:6;background:var(--panel);padding:8px 14px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.show{opacity:1}
+body{--cbg:rgba(30,34,56,.92);--cfg:#fff;--cbd:transparent;--cardbg:#1a1e36;--r:22px;--ac:#7c9cff;background:#0f1220;display:flex;flex-direction:column}
+body.t-glass{--cbg:rgba(255,255,255,.14);--cfg:#fff;--cbd:rgba(255,255,255,.32);--cardbg:rgba(255,255,255,.1);--r:20px;--blur:blur(18px);--ac:#ff8fb1;background:linear-gradient(135deg,#1d2b64,#7b3fa0 55%,#f093a0)}
+body.t-simple{--cbg:#fff;--cfg:#111;--cbd:#ddd;--cardbg:#fff;--r:3px;--ac:#2563eb;background:#f4f4f5}
+#player{width:auto;height:auto;flex:1;min-height:0}
+#player video{position:absolute;inset:0}
+#player.hidden{display:none}
+body.t-round #player,body.t-glass #player{margin:10px;border-radius:var(--r);overflow:hidden;border:1px solid var(--cbd)}
+#player:fullscreen{margin:0;border-radius:0;border:0}
+body.t-round #bar,body.t-glass #bar{left:10px;right:10px;bottom:10px;border-radius:var(--r);background:rgba(20,22,40,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.2)}
+body.t-glass #bar{background:rgba(255,255,255,.16)}
+#tabs{display:flex;gap:6px;align-items:center;padding:8px 10px;z-index:10;background:var(--cbg);color:var(--cfg);border-bottom:1px solid var(--cbd);backdrop-filter:var(--blur,none);-webkit-backdrop-filter:var(--blur,none)}
+body.t-round #tabs,body.t-glass #tabs{margin:10px 10px 0;border:1px solid var(--cbd);border-radius:calc(var(--r) + 4px)}
+#tabs .sp{flex:1}
+.tab,.th{background:none;border:1px solid transparent;color:inherit;padding:8px 13px;border-radius:var(--r);font-size:14px;cursor:pointer}
+.th{padding:6px 8px;font-size:12px;border-color:var(--cbd);opacity:.8}
+.tab.on,.th.on{background:var(--ac);color:#fff;opacity:1}
+.btn,#empty input[type=text],select{border-radius:var(--r)}
+#viewer{flex:1;min-height:0;display:none;flex-direction:column;color:var(--cfg)}
+#viewer.show{display:flex}
+#viewer .ib{color:inherit}
+#vbar{display:flex;gap:6px;align-items:center;padding:8px 10px}
+#vname{flex:1;font-size:12px;opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:60px}
+#vc{flex:1;min-height:0;overflow:auto;margin:0 10px 10px;border-radius:var(--r);background:var(--cardbg);border:1px solid var(--cbd);backdrop-filter:var(--blur,none);-webkit-backdrop-filter:var(--blur,none);padding:12px}
+#vc:fullscreen{background:#fff;color:#111}
+#vc canvas{display:block;margin:0 auto 12px;max-width:100%;height:auto;box-shadow:0 2px 12px rgba(0,0,0,.35)}
+#vc iframe{width:100%;height:calc(100dvh - 190px);border:0;background:#fff;border-radius:calc(var(--r)/2)}
+#vc pre{white-space:pre-wrap;word-break:break-word;margin:0;font:13px/1.6 ui-monospace,monospace}
+#vc p{margin:0 0 .7em;line-height:1.7;font-size:15px}
+#vc img,#vc video{max-width:100%;display:block;margin:auto}
+.msg{opacity:.75;text-align:center;padding:40px 10px;font-size:14px;line-height:1.7}
+.note{font-size:12px;opacity:.7;margin-bottom:10px;border-left:3px solid var(--ac);padding-left:8px}
+#tabs{overflow-x:auto;flex:none}
+.tab,.th{white-space:nowrap;flex:none}
+.tab{padding:8px 11px}
+#vc video{max-height:calc(100dvh - 210px);background:#000;border-radius:calc(var(--r)/2)}
+#vc audio{width:100%}
+#recent{width:min(420px,90%);text-align:left;font-size:13px}
+.ri{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:var(--r);background:rgba(255,255,255,.09);margin-top:6px;cursor:pointer}
+.ri span:nth-child(2){flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#secpane{flex:1;min-height:0;display:none;overflow:auto;margin:0 10px 10px;padding:12px;border-radius:var(--r);background:var(--cardbg);border:1px solid var(--cbd);backdrop-filter:var(--blur,none);-webkit-backdrop-filter:var(--blur,none);color:var(--cfg)}
+#secpane.show{display:block}
+#sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:10px}
+.sc{padding:10px;border-radius:var(--r);border:1px solid var(--cbd);background:rgba(128,128,128,.14)}
+.sc b{display:block;font-size:19px;margin-top:2px}
+.sc small{opacity:.75;font-size:12px}
+.sc.bad b{color:#ff5a5a}
+.sc.ok b{color:#3ecf8e}
+.stitle{font-size:13px;opacity:.8;margin:14px 0 6px;display:flex;align-items:center;justify-content:space-between}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;font-size:14px}
+.lg{font-size:12px;padding:6px 4px;border-bottom:1px solid var(--cbd);display:flex;gap:8px}
+.lg i{opacity:.6;font-style:normal;white-space:nowrap}
+#ad{flex:none;display:flex;align-items:center;gap:10px;margin:0 10px 10px;padding:10px 12px;border-radius:var(--r);background:linear-gradient(120deg,#d97757,#c2410c);color:#fff;font-size:13px;line-height:1.4}
+#ad.gone{display:none}
+#ad .tg{font-size:10px;border:1px solid rgba(255,255,255,.7);border-radius:4px;padding:0 4px;opacity:.85}
+#ad .tx{flex:1;min-width:0}
+#ad .tx b{display:block;font-size:14px}
+#ad a{background:#fff;color:#c2410c;text-decoration:none;font-weight:700;padding:7px 12px;border-radius:var(--r);white-space:nowrap}
+#ad button{background:none;border:0;color:#fff;font-size:18px;opacity:.8;cursor:pointer;padding:2px 6px}
+@media print{body{display:none}}
+</style>
+</head>
+<body>
+<div id="tabs"><button class="tab on" id="tHome">🎬 홈</button><button class="tab" id="tView">📄 뷰어</button><button class="tab" id="tSec">🛡 보안</button><span class="sp"></span><button class="th" data-t="round">둥근</button><button class="th" data-t="glass">글래스</button><button class="th" data-t="simple">심플</button></div>
+<div id="player">
+  <video id="v" playsinline webkit-playsinline controlsList="nodownload noremoteplayback" disableRemotePlayback oncontextmenu="return false"></video>
+  <div id="shield"></div>
+  <div id="toast"></div>
+  <div id="empty">
+    <div style="font-size:18px">🎬 재생할 동영상을 선택하세요</div>
+    <label class="btn pri">파일 선택<input id="file" type="file" accept="video/*" hidden></label>
+    <input id="url" type="text" placeholder="또는 동영상 주소(URL) 입력 후 Enter">
+  <div id="recent"></div>
+  </div>
+  <div id="bar">
+    <input id="seek" type="range" min="0" max="1000" value="0">
+    <div class="row">
+      <button class="ib" id="play" title="재생/일시정지 (Space)">▶</button>
+      <button class="ib" id="mute" title="음소거 (M)">🔊</button>
+      <input id="vol" type="range" min="0" max="1" step="0.05" value="1">
+      <span id="time">0:00 / 0:00</span>
+      <span class="sp"></span>
+      <select id="rate" title="배속"><option>0.5</option><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option><option>2</option></select>
+      <button class="ib" id="lst" title="최근 파일 / 새 파일">📂</button><button class="ib" id="fill" title="화면 꽉 채우기 (C)">⤢</button>
+      <button class="ib" id="pip" title="PIP 미니 플레이어 (P)">⧉</button>
+      <button class="ib" id="popup" title="팝업 플레이어">🗗</button>
+      <button class="ib" id="fs" title="전체 화면 (F)">⛶</button>
+    </div>
+  </div>
+</div>
+
+<div id="viewer">
+  <div id="vbar"><label class="btn pri">파일 열기<input id="vfile" type="file" hidden></label><span id="vname">선택된 파일 없음</span><button class="ib" id="zo">−</button><button class="ib" id="zi">+</button><button class="ib" id="vfs">⛶</button></div>
+  <div id="vc"><div id="vin"><div class="msg">📂 파일을 열거나 여기로 끌어다 놓으세요<br>hwp · hwpx · pptx · ppt · pdf · docx · xlsx · csv · html · 이미지 · 영상 · 오디오 · 텍스트/코드</div></div></div>
+</div>
+
+<div id="secpane">
+  <div id="sgrid"></div>
+  <div class="stitle">보호 설정</div>
+  <label class="srow"><span>개발자 도구 감지</span><input type="checkbox" id="sDt" checked></label>
+  <div class="srow"><span>최근 파일 기록</span><button class="btn" id="sRc">삭제</button></div>
+  <div class="stitle"><span>차단·감지 기록</span><button class="btn" id="sClr">지우기</button></div>
+  <div id="slog"></div>
+  <div class="note" style="margin-top:14px">우클릭·복사·인쇄·개발자 도구 단축키 차단, DOM 변조·자동화 도구 감지가 항상 동작합니다. 브라우저 측 보호는 억제 수단이므로 중요한 자료는 서버 측 보호를 함께 사용하세요.</div>
+</div>
+
+<div id="ad"><span class="tg">AD</span><div class="tx"><b>Claude 앱 설치</b>문서 요약·번역·질문을 어디서나, 무료로 시작하세요</div><a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer">설치하기</a><button id="adx" aria-label="닫기">✕</button></div>
+
+<div id="alert">
+  <h2>⚠ 보안 경고</h2>
+  <div id="alertMsg"></div>
+  <button class="btn pri" id="retry" style="display:none">다시 확인</button>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(i){return document.getElementById(i)};
+var P=$('player'),v=$('v'),bar=$('bar'),seek=$('seek'),toastEl=$('toast');
+var locked=false,permLock=false,idleT,toastT;
+
+/* ---------- 유틸 ---------- */
+function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show')},1600)}
+function fmt(s){if(!isFinite(s))return'0:00';var h=Math.floor(s/3600),m=Math.floor(s%3600/60),c=Math.floor(s%60);return(h?h+':'+(m<10?'0':''):'')+m+':'+(c<10?'0':'')+c}
+
+/* ---------- 복사 / 우클릭 / 선택 / 드래그 차단 ---------- */
+['contextmenu','copy','cut','paste','dragstart','selectstart','drop'].forEach(function(e){
+  document.addEventListener(e,function(ev){
+    if(ev.target&&ev.target.id==='url'&&(e==='paste'||e==='selectstart'))return;
+    ev.preventDefault();return false},true)});
+document.addEventListener('keydown',function(e){
+  var k=e.key.toLowerCase(),c=e.ctrlKey||e.metaKey;
+  var blocked=e.key==='F12'||e.key==='PrintScreen'||(c&&['c','x','s','u','p','a'].indexOf(k)>-1&&e.target.id!=='url')||(c&&e.shiftKey&&['i','j','c','k'].indexOf(k)>-1)||(e.metaKey&&e.altKey&&['i','j','c','u'].indexOf(k)>-1);
+  if(blocked){e.preventDefault();e.stopPropagation();if(e.key==='PrintScreen'){try{navigator.clipboard.writeText('')}catch(x){}}cnt.key++;toast('차단된 동작입니다');return false}
+  if(e.target.tagName==='INPUT'&&e.target.type==='text')return;
+  if(k===' '){e.preventDefault();toggle()}
+  else if(k==='f')fs();
+  else if(k==='m')v.muted=!v.muted;
+  else if(k==='c'&&!c)fill();
+  else if(k==='p'&&!c)pip();
+  else if(e.key==='ArrowRight')v.currentTime+=5;
+  else if(e.key==='ArrowLeft')v.currentTime-=5;
+},true);
+
+/* ---------- 플레이어 ---------- */
+function load(src){v.src=src;v.load();$('empty').classList.add('hide');v.play().catch(function(){})}
+$('file').onchange=function(e){var f=e.target.files[0];if(f){rec(f.name,'video');load(URL.createObjectURL(f))}};
+$('url').onkeydown=function(e){if(e.key==='Enter'&&this.value.trim()){var s=this.value.trim();rec(s.slice(0,100),'url');load(s)}};
+function toggle(){if(locked||!v.src||P.classList.contains('hidden'))return;v.paused?v.play():v.pause()}
+$('play').onclick=toggle;
+$('shield').onclick=toggle;
+$('shield').ondblclick=fs;
+v.onplay=function(){$('play').textContent='⏸'};
+v.onpause=function(){$('play').textContent='▶'};
+v.ontimeupdate=function(){if(v.duration)seek.value=v.currentTime/v.duration*1000;$('time').textContent=fmt(v.currentTime)+' / '+fmt(v.duration)};
+seek.oninput=function(){if(v.duration)v.currentTime=seek.value/1000*v.duration};
+$('vol').oninput=function(){v.volume=this.value;v.muted=false};
+v.onvolumechange=function(){$('mute').textContent=v.muted||v.volume===0?'🔇':'🔊'};
+$('mute').onclick=function(){v.muted=!v.muted};
+$('rate').onchange=function(){v.playbackRate=parseFloat(this.value)};
+
+/* 화면 꽉 채우기 */
+function fill(){P.classList.toggle('fill');$('fill').classList.toggle('on',P.classList.contains('fill'));toast(P.classList.contains('fill')?'화면 꽉 채우기: 켜짐':'원본 비율 유지')}
+$('fill').onclick=fill;
+
+/* 전체 화면 */
+function fs(){
+  var d=document;
+  if(P.classList.contains('hidden'))return;
+  if(d.fullscreenElement||d.webkitFullscreenElement){(d.exitFullscreen||d.webkitExitFullscreen).call(d)}
+  else if(P.requestFullscreen){P.requestFullscreen().catch(function(){toast('전체 화면을 지원하지 않습니다')})}
+  else if(P.webkitRequestFullscreen){P.webkitRequestFullscreen()}
+  else if(v.webkitEnterFullscreen){v.webkitEnterFullscreen()}
+}
+$('fs').onclick=fs;
+
+/* PIP */
+function pip(){
+  if(!document.pictureInPictureEnabled){toast('PIP를 지원하지 않는 브라우저입니다');return}
+  if(document.pictureInPictureElement)document.exitPictureInPicture();
+  else v.requestPictureInPicture().catch(function(){toast('PIP를 실행할 수 없습니다')});
+}
+$('pip').onclick=pip;
+
+/* 팝업 플레이어 */
+$('popup').onclick=function(){
+  if(!v.src){toast('먼저 동영상을 선택하세요');return}
+  var w=window.open('','popplayer','popup=yes,width=640,height=380,resizable=yes');
+  if(!w){toast('팝업이 차단되어 PIP로 전환합니다');pip();return}
+  var t=v.currentTime,src=v.currentSrc;v.pause();
+  w.document.open();
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>팝업 플레이어</title><style>html,body{margin:0;height:100%;background:#000;overflow:hidden;-webkit-user-select:none;user-select:none}video{width:100%;height:100%;object-fit:contain}</style></head><body><video id="pv" controls controlsList="nodownload noremoteplayback" disablePictureInPicture autoplay></video></body></html>');
+  w.document.close();
+  var pv=w.document.getElementById('pv');
+  pv.src=src;pv.onloadedmetadata=function(){pv.currentTime=t};
+  ['contextmenu','copy','cut','dragstart','selectstart'].forEach(function(e){w.document.addEventListener(e,function(x){x.preventDefault()})});
+  w.document.addEventListener('keydown',function(x){var k=x.key.toLowerCase();if(x.key==='F12'||((x.ctrlKey||x.metaKey)&&['c','s','u','p','a'].indexOf(k)>-1)||(x.ctrlKey&&x.shiftKey&&['i','j','c'].indexOf(k)>-1))x.preventDefault()});
+  var iv=setInterval(function(){if(w.closed){clearInterval(iv);try{v.currentTime=pv.currentTime}catch(e){}}else if(locked){pv.pause()}},500);
+};
+
+/* 컨트롤 자동 숨김 */
+function wake(){P.classList.remove('idle');clearTimeout(idleT);idleT=setTimeout(function(){if(!v.paused)P.classList.add('idle')},2500)}
+['mousemove','touchstart','click','keydown'].forEach(function(e){P.addEventListener(e,wake,{passive:true})});
+wake();
+
+/* ---------- 해킹 / 변조 감지 ---------- */
+function lock(reason,perm){if(!permLock&&(!locked||perm))secLog(reason,perm);
+  if(permLock)return;
+  locked=true;permLock=!!perm;
+  v.pause();v.style.visibility='hidden';bar.style.display='none';
+  $('alertMsg').textContent=reason;
+  $('retry').style.display=perm?'none':'inline-block';
+  $('alert').classList.add('show');
+  if(document.pictureInPictureElement)document.exitPictureInPicture().catch(function(){});
+}
+function unlock(){
+  if(permLock)return;
+  locked=false;v.style.visibility='';bar.style.display='';$('alert').classList.remove('show');
+}
+$('retry').onclick=function(){if(!devtoolsOpen())unlock();else toast('개발자 도구를 닫은 뒤 다시 시도하세요')};
+
+/* 1) 개발자 도구 감지 */
+var dtFlag=false;
+var probe=new Image();
+Object.defineProperty(probe,'id',{get:function(){dtFlag=true;return''}});
+function devtoolsOpen(){
+  dtFlag=false;
+  var fsOn=document.fullscreenElement||document.webkitFullscreenElement;
+  var sizeHit=window.top===window.self&&!fsOn&&((window.outerWidth-window.innerWidth>170)||(window.outerHeight-window.innerHeight>200));
+  try{console.log(probe);console.clear&&console.clear()}catch(e){}
+  var t=performance.now();
+  try{(new Function('debugger'))()}catch(e){}
+  var slow=performance.now()-t>100;
+  return sizeHit||dtFlag||slow;
+}
+setInterval(function(){
+  if(permLock)return;
+  if(secOn.dt&&devtoolsOpen())lock('개발자 도구가 감지되었습니다. 도구를 닫고 [다시 확인]을 눌러주세요.',false);
+},1000);
+
+/* 2) 자동화 / 헤드리스 도구 */
+if(navigator.webdriver)lock('자동화 도구가 감지되어 재생이 차단되었습니다.',true);
+
+/* 3) DOM 변조 감지 (컨트롤/보호막 삭제, 속성 변경) */
+new MutationObserver(function(list){
+  list.forEach(function(m){
+    if(m.type==='attributes'&&m.target===v){
+      var a=m.attributeName;
+      if(a==='controls'||a==='download'||(a==='controlslist'&&v.getAttribute('controlslist').indexOf('nodownload')<0)){
+        v.removeAttribute('controls');lock('플레이어 변조가 감지되었습니다. 페이지를 새로고침하세요.',true)}
+    }
+    if(m.type==='childList'){
+      m.removedNodes.forEach(function(n){if(n.id==='shield'||n.id==='v'||n.id==='bar')lock('보호 요소 삭제가 감지되었습니다. 페이지를 새로고침하세요.',true)});
+      m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&!n.dataset.ok&&!/^https:\/\/(cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net)\//.test(n.src))lock('외부 스크립트 주입이 감지되었습니다.',true)});
+    }
+  });
+}).observe(document.documentElement,{attributes:true,childList:true,subtree:true,attributeFilter:['controls','download','controlslist','src','style']});
+
+/* 4) 보호 요소 스타일 변조(shield 숨김 등) 주기적 점검 */
+setInterval(function(){
+  if(permLock)return;
+  var s=$('shield');
+  if(!s||getComputedStyle(s).display==='none'||getComputedStyle(s).pointerEvents==='none')lock('보호막 변조가 감지되었습니다. 페이지를 새로고침하세요.',true);
+},1500);
+
+/* 5) iframe 임베드(프레임 도용) 감지 — 게시 환경에서는 생략될 수 있음 */
+try{if(window.top!==window.self&&!/claude\.ai|claudeusercontent/.test(document.referrer||''))void 0}catch(e){}
+
+/* 인쇄 / 화면 이탈 시 일시정지 */
+window.addEventListener('beforeprint',function(){v.pause()});
+
+/* ---------- 탭 / 테마 ---------- */
+function tab(n){var h=n==='home';P.classList.toggle('hidden',!h);$('viewer').classList.toggle('show',!h);$('tHome').classList.toggle('on',h);$('tView').classList.toggle('on',!h);if(!h)v.pause()}
+$('tHome').onclick=function(){tab('home')};$('tView').onclick=function(){tab('view')};
+var ths=document.querySelectorAll('.th');
+function theme(t){document.body.className='t-'+t;ths.forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});try{localStorage.setItem('th',t)}catch(e){}}
+ths.forEach(function(b){b.onclick=function(){theme(b.dataset.t)}});
+var t0='round';try{t0=localStorage.getItem('th')||'round'}catch(e){}
+theme(['round','glass','simple'].indexOf(t0)>-1?t0:'round');
+
+/* ---------- 만능 뷰어 ---------- */
+/* ---------- 보안 탭 / 최근 파일(쿠키) ---------- */
+var cnt={ctx:0,copy:0,key:0,hit:0},secOn={dt:true},slog=[];
+try{slog=JSON.parse(localStorage.getItem('seclog')||'[]')}catch(e){}
+document.addEventListener('contextmenu',function(){cnt.ctx++},true);
+['copy','cut'].forEach(function(e){document.addEventListener(e,function(){cnt.copy++},true)});
+function secLog(m,p){cnt.hit++;slog.unshift({t:Date.now(),m:m,p:!!p});slog=slog.slice(0,30);try{localStorage.setItem('seclog',JSON.stringify(slog))}catch(e){}}
+function fmtT(t){return new Date(t).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+function card(l,val,c){var d=document.createElement('div');d.className='sc '+(c||'');var s=document.createElement('small');s.textContent=l;var b=document.createElement('b');b.textContent=val;d.append(s,b);return d}
+function renderSec(){var g=$('sgrid');g.innerHTML='';g.append(card('현재 상태',locked?'잠금':'정상',locked?'bad':'ok'),card('개발자 도구 감지',secOn.dt?'켜짐':'꺼짐',secOn.dt?'ok':'bad'),card('우클릭 차단',cnt.ctx+'회'),card('복사·잘라내기 차단',cnt.copy+'회'),card('단축키 차단',cnt.key+'회'),card('감지(이번 접속)',cnt.hit+'회',cnt.hit?'bad':''));var l=$('slog');l.innerHTML='';if(!slog.length){var e=document.createElement('div');e.className='lg';e.textContent='기록 없음';l.appendChild(e)}slog.forEach(function(x){var d=document.createElement('div');d.className='lg';var i=document.createElement('i');i.textContent=fmtT(x.t);var s=document.createElement('span');s.textContent=(x.p?'[영구] ':'')+x.m;d.append(i,s);l.appendChild(d)})}
+$('sDt').onchange=function(){secOn.dt=this.checked;renderSec()};
+$('sClr').onclick=function(){slog=[];try{localStorage.removeItem('seclog')}catch(e){}renderSec()};
+$('sRc').onclick=function(){ckSet([]);try{document.cookie='recent=;max-age=0;path=/'}catch(e){}renderRecent()};
+
+function ckGet(){try{var m=document.cookie.match(/(?:^|; )recent=([^;]*)/);if(m)return JSON.parse(decodeURIComponent(m[1]))}catch(e){}try{return JSON.parse(localStorage.getItem('recent')||'[]')}catch(e){}return[]}
+function ckSet(a){var s=JSON.stringify(a);try{document.cookie='recent='+encodeURIComponent(s)+';max-age=31536000;path=/;SameSite=Lax'}catch(e){}try{localStorage.setItem('recent',s)}catch(e){}}
+function rec(name,kind){var a=ckGet().filter(function(x){return x.n!==name});a.unshift({n:name.slice(0,kind==='url'?100:30),t:Date.now(),k:kind});a=a.slice(0,8);while(a.length>1&&encodeURIComponent(JSON.stringify(a)).length>3500)a.pop();ckSet(a);renderRecent()}
+function renderRecent(){var r=$('recent'),a=ckGet();r.innerHTML='';if(!a.length)return;var h=document.createElement('div');h.textContent='🕘 최근 연 파일';h.style.cssText='opacity:.7;margin:6px 0 2px';r.appendChild(h);a.forEach(function(x){var d=document.createElement('div');d.className='ri';var i=document.createElement('span');i.textContent=x.k==='doc'?'📄':x.k==='url'?'🔗':'🎬';var n=document.createElement('span');n.textContent=x.n;var t=document.createElement('span');t.textContent=fmtT(x.t);t.style.opacity='.55';d.append(i,n,t);d.onclick=function(){if(x.k==='url'){load(x.n)}else if(x.k==='doc'){tab('view');$('vfile').click()}else $('file').click()};r.appendChild(d)})}
+$('lst').onclick=function(){v.pause();renderRecent();$('empty').classList.remove('hide')};
+
+function tab(n){var h=n==='home',w=n==='view',s=n==='sec';P.classList.toggle('hidden',!h);$('viewer').classList.toggle('show',w);$('secpane').classList.toggle('show',s);$('tHome').classList.toggle('on',h);$('tView').classList.toggle('on',w);$('tSec').classList.toggle('on',s);if(!h)v.pause();if(!w){var m=document.querySelector('#vin video,#vin audio');if(m)m.pause()}if(h)renderRecent();if(s)renderSec()}
+$('tHome').onclick=function(){tab('home')};$('tView').onclick=function(){tab('view')};$('tSec').onclick=function(){tab('sec')};
+var VEXT=/^(mp4|m4v|mov|mkv|webm|avi|ogv|3gp|wmv|flv|ts)$/,AEXT=/^(mp3|wav|m4a|ogg|oga|flac|aac|opus)$/,IEXT=/^(svg|webp|avif|png|jpe?g|gif|bmp|ico)$/;
+function mkind(f,ext){var m=f.type.split('/')[0];if(m==='video'||m==='audio'||m==='image')return m;return VEXT.test(ext)?'video':AEXT.test(ext)?'audio':IEXT.test(ext)?'image':''}
+renderRecent();
+
+try{if(sessionStorage.getItem('adx'))$('ad').classList.add('gone')}catch(e){}
+$('adx').onclick=function(){$('ad').classList.add('gone');try{sessionStorage.setItem('adx','1')}catch(e){}};
+var vin=$('vin'),z=1,L={};
+var CJ='https://cdnjs.cloudflare.com/ajax/libs/';
+var U={pdf:CJ+'pdf.js/3.11.174/pdf.min.js',worker:CJ+'pdf.js/3.11.174/pdf.worker.min.js',zip:CJ+'jszip/3.10.1/jszip.min.js',xlsx:CJ+'xlsx/0.18.5/xlsx.full.min.js',mam:CJ+'mammoth/1.6.0/mammoth.browser.min.js',pptx:'https://cdn.jsdelivr.net/npm/pptx-preview@1.0.5/dist/pptx-preview.umd.js'};
+function lib(u){return L[u]||(L[u]=new Promise(function(ok,no){var s=document.createElement('script');s.dataset.ok=1;s.src=u;s.onload=ok;s.onerror=function(){delete L[u];no(new Error('라이브러리를 불러오지 못했습니다'))};document.head.appendChild(s)}))}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function msg(t){vin.innerHTML='';var d=document.createElement('div');d.className='msg';d.textContent=t;vin.appendChild(d)}
+function frame(h){vin.innerHTML='';var f=document.createElement('iframe');f.setAttribute('sandbox','');f.srcdoc=h;vin.appendChild(f)}
+function paras(a,note){vin.innerHTML='';if(note){var n=document.createElement('div');n.className='note';n.textContent=note;vin.appendChild(n)}if(!a.length){msg('추출된 텍스트가 없습니다');return}a.forEach(function(t){var p=document.createElement('p');p.textContent=t;vin.appendChild(p)})}
+function xmlParas(x,Pt,T){var d=new DOMParser().parseFromString(x,'text/xml'),ps=d.getElementsByTagName(Pt),out=[];for(var i=0;i<ps.length;i++){var ts=ps[i].getElementsByTagName(T),s='';for(var j=0;j<ts.length;j++){var n=ts[j].parentNode;while(n&&n.nodeName!==Pt)n=n.parentNode;if(n===ps[i])s+=ts[j].textContent}if(s.trim())out.push(s)}return out}
+function num(s){return parseInt(s.replace(/\D/g,''),10)||0}
+
+async function showPdf(buf){await lib(U.pdf);pdfjsLib.GlobalWorkerOptions.workerSrc=U.worker;var doc=await pdfjsLib.getDocument({data:buf}).promise;vin.innerHTML='';for(var n=1;n<=doc.numPages;n++){var pg=await doc.getPage(n),vp=pg.getViewport({scale:1.6}),cv=document.createElement('canvas');cv.width=vp.width;cv.height=vp.height;vin.appendChild(cv);await pg.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise}}
+async function pptxText(buf){await lib(U.zip);var zp=await JSZip.loadAsync(buf),names=Object.keys(zp.files).filter(function(k){return /^ppt\/slides\/slide\d+\.xml$/.test(k)}).sort(function(a,b){return num(a)-num(b)}),out=[];for(var i=0;i<names.length;i++){out.push('— 슬라이드 '+(i+1)+' —');out=out.concat(xmlParas(await zp.files[names[i]].async('string'),'a:p','a:t'))}paras(out,'슬라이드 텍스트만 표시됩니다.')}
+async function showPptx(buf){try{await lib(U.pptx);vin.innerHTML='';var box=document.createElement('div');vin.appendChild(box);var w=Math.min(vin.clientWidth||900,1100);await pptxPreview.init(box,{width:w,height:Math.round(w*9/16)}).preview(buf)}catch(e){await pptxText(buf)}}
+async function showHwpx(buf){await lib(U.zip);var zp=await JSZip.loadAsync(buf),names=Object.keys(zp.files).filter(function(k){return /^Contents\/section\d+\.xml$/i.test(k)}).sort(function(a,b){return num(a)-num(b)}),out=[];for(var i=0;i<names.length;i++)out=out.concat(xmlParas(await zp.files[names[i]].async('string'),'hp:p','hp:t'));paras(out,'HWPX 본문 텍스트만 표시됩니다.')}
+async function inflate(d){var s=new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(s).arrayBuffer())}
+function hwpRec(d){var dv=new DataView(d.buffer,d.byteOffset,d.byteLength),i=0,out=[];while(i+4<=d.length){var h=dv.getUint32(i,true);i+=4;var tag=h&1023,sz=h>>>20;if(sz===4095){sz=dv.getUint32(i,true);i+=4}if(tag===67){var s='';for(var j=i;j+1<i+sz;){var c=dv.getUint16(j,true);j+=2;if(c===13){out.push(s);s=''}else if(c===10)s+='\n';else if(c===9){s+='\t';j+=14}else if(c===0||c>=24){if(c>=32)s+=String.fromCharCode(c)}else j+=14}if(s.trim())out.push(s)}i+=sz}return out}
+async function showHwp(u){await lib(U.xlsx);var c=XLSX.CFB.read(u,{type:'array'}),h=XLSX.CFB.find(c,'FileHeader'),fl=h?h.content[36]:0;if(fl&2||fl&16)return msg('암호화/배포용 HWP는 지원하지 않습니다');var secs=c.FileIndex.filter(function(e){return /^Section\d+$/.test(e.name)}).sort(function(a,b){return num(a.name)-num(b.name)}),out=[];for(var i=0;i<secs.length;i++){var d=new Uint8Array(secs[i].content);if(fl&1)d=await inflate(d);out=out.concat(hwpRec(d))}paras(out,'HWP 본문 텍스트만 표시됩니다 (서식·표·이미지 제외).')}
+async function showPpt(u){await lib(U.xlsx);var c=XLSX.CFB.read(u,{type:'array'}),e=XLSX.CFB.find(c,'PowerPoint Document');if(!e)return msg('PPT 구조를 읽을 수 없습니다');var d=new Uint8Array(e.content),dv=new DataView(d.buffer),out=[];(function walk(a,b){var i=a;while(i+8<=b){var ver=dv.getUint16(i,true)&15,t=dv.getUint16(i+2,true),l=dv.getUint32(i+4,true);i+=8;if(i+l>b)l=b-i;if(ver===15)walk(i,i+l);else if(t===4000)out.push(new TextDecoder('utf-16le').decode(d.subarray(i,i+l)).replace(/[\r\v]+/g,'\n'));else if(t===4008)out.push(new TextDecoder('latin1').decode(d.subarray(i,i+l)).replace(/[\r\v]+/g,'\n'));i+=l}})(0,d.length);paras(out.filter(function(s){return s.trim()}),'PPT 텍스트만 표시됩니다. 전체 서식은 PPTX로 변환 후 열어주세요.')}
+async function showDocx(buf){await lib(U.mam);var r=await mammoth.convertToHtml({arrayBuffer:buf});frame('<style>body{font:15px/1.7 sans-serif;padding:16px;max-width:820px;margin:auto;color:#111}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #bbb;padding:4px 8px}</style>'+r.value)}
+async function showSheet(buf){await lib(U.xlsx);var wb=XLSX.read(buf,{type:'array'});frame('<style>body{font:13px sans-serif;padding:10px;color:#111}table{border-collapse:collapse;margin-bottom:20px}td,th{border:1px solid #bbb;padding:3px 8px;white-space:nowrap}</style>'+wb.SheetNames.map(function(n){return'<h3>'+esc(n)+'</h3>'+XLSX.utils.sheet_to_html(wb.Sheets[n],{header:'',footer:''})}).join(''))}
+function showMedia(f,t){vin.innerHTML='';var u=URL.createObjectURL(f),e=document.createElement(t==='image'?'img':t);e.src=u;if(t!=='image'){e.controls=true;e.setAttribute('controlsList','nodownload');e.setAttribute('playsinline','')}vin.appendChild(e)}
+
+async function openFile(f){
+  var ext=(f.name.split('.').pop()||'').toLowerCase();rec(f.name,(mkind(f,ext)==='video'||mkind(f,ext)==='audio')?'video':'doc');
+  $('vname').textContent=f.name;msg('불러오는 중…');z=1;vin.style.zoom=1;
+  try{
+    if(mkind(f,ext))return showMedia(f,mkind(f,ext));
+    var buf=await f.arrayBuffer(),u8=new Uint8Array(buf);
+    if(ext==='pdf')await showPdf(buf);
+    else if(['pptx','ppsx','potx'].indexOf(ext)>-1)await showPptx(buf);
+    else if(ext==='ppt'||ext==='pps')await showPpt(u8);
+    else if(ext==='hwpx')await showHwpx(buf);
+    else if(ext==='hwp')await showHwp(u8);
+    else if(ext==='docx')await showDocx(buf);
+    else if(['xlsx','xlsm','xls','csv','ods'].indexOf(ext)>-1)await showSheet(buf);
+    else if(['html','htm','xhtml'].indexOf(ext)>-1){frame(new TextDecoder().decode(u8));}
+    else if(ext==='doc'||ext==='odt'||ext==='zip')msg('이 형식은 직접 볼 수 없습니다. DOCX 또는 PDF로 변환해 주세요.');
+    else{var t=new TextDecoder().decode(u8.subarray(0,2000000));if(t.slice(0,3000).indexOf('\u0000')>-1)msg('지원하지 않는 형식입니다.');else{vin.innerHTML='';var pre=document.createElement('pre');pre.textContent=t;vin.appendChild(pre)}}
+  }catch(e){msg('파일을 열 수 없습니다: '+(e&&e.message||e))}
+}
+$('vfile').onchange=function(e){var f=e.target.files[0];if(f)openFile(f);e.target.value=''};
+$('vc').addEventListener('dragover',function(e){e.preventDefault()});
+$('vc').addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files[0];if(f)openFile(f)});
+$('zi').onclick=function(){z=Math.min(3,z+.2);vin.style.zoom=z};
+$('zo').onclick=function(){z=Math.max(.4,z-.2);vin.style.zoom=z};
+$('vfs').onclick=function(){var e=$('vc');(e.requestFullscreen||e.webkitRequestFullscreen||function(){toast('전체 화면 미지원')}).call(e)};
+})();
+</script>
+<script data-ok="1">/* 해피뮤직 안에서: 링크는 앱 브라우저로, 영상 재생 시 음악 일시정지 */(function(){var P=window.parent;if(!P||P===window)return;
+document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a&&/^https?:/i.test(a.href)){e.preventDefault();e.stopPropagation();try{P.__toolOpenUrl(a.href)}catch(x){}}},true);
+document.addEventListener('play',function(){try{P.__toolMedia&&P.__toolMedia()}catch(x){}},true);
+})();</script>
+</body>
+</html>
