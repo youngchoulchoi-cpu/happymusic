@@ -2473,7 +2473,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.7.1';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.7.2';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2512,7 +2512,7 @@ async function preLaunchUpdate(){
   const tf=(u,ms)=>{const c=new AbortController(),k=setTimeout(()=>c.abort(),ms);return fetch(u,{cache:'no-store',signal:c.signal}).finally(()=>clearTimeout(k))};
   try{
     const repo=REPO;bar.style.width='35%';
-    const r=await tf(RAW(repo,'update.json')+'?t='+Date.now(),4000);if(!r.ok)throw 0;
+    const r=await tf(RAW(repo,'update.json')+'?t='+Date.now(),7000);if(!r.ok)throw 0;
     const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||'',talkUrl:m.talkUrl||'',talkKey:m.talkKey||''});bar.style.width='55%';
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(newer&&LS.get('updTried','')!==m.version){
@@ -2520,8 +2520,9 @@ async function preLaunchUpdate(){
       const w=await tf(RAW(repo,m.web||'web/index.html')+'?t='+Date.now(),15000);if(!w.ok)throw 0;
       const h=await w.text();bar.style.width='90%';
       if(validWeb(h,m.version)&&(LS.set('updTried',m.version),AND.saveWeb(h))){LS.set('updJust',m.version);bar.style.width='100%';$('splashMsg').textContent=t('updDone');setTimeout(()=>location.reload(),500);return 'reload'}
+      updInfo={...m,repo,apk:needApk};done();setTimeout(showUpd,300);return
     }else if(needApk&&LS.get('updSkip','')!==m.version){updInfo={...m,repo,apk:true};done();setTimeout(showUpd,300);return}
-  }catch(e){}
+  }catch(e){setTimeout(()=>{if(!updInfo)checkUpdate(false)},8000)}
   done();
 }
 async function applyWeb(){
@@ -2685,9 +2686,10 @@ $('gSyncP').onclick=()=>{G.sync=Math.min(300,G.sync+10);LS.set('gSync',G.sync);g
 window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 
 $('updCheckBtn').onclick=()=>checkUpdate(true);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>5*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["▶️","숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기","Shorts: open the YouTube Shorts tab in the in-app browser from Home"],
+const WEB_NOTES=[["🔄","업데이트 확인을 더 자주, 더 확실하게 (내려받기 실패 시 업데이트 창 표시)","More reliable update checks"],
+ ["▶️","숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기","Shorts: open the YouTube Shorts tab in the in-app browser from Home"],
  ["🔋","해피톡: 앱을 닫아도 알림 받기 (배터리 절약형 알림 대기 모드, 앱 5.7)","HappyTalk: alerts even when the app is closed (battery-saving, app 5.7)"],
  ["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
  ["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],

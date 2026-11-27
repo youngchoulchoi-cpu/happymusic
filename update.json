@@ -1,7 +1,7 @@
 {
- "version": "5.7.1",
+ "version": "5.7.2",
  "native": "5.7",
- "web": "web/5.7.1.html",
+ "web": "web/5.7.2.html",
  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.7.apk",
  "notes": {
   "ko": "· ▶️ 숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기\n· 🔋 해피톡: 앱을 닫아도 새 메시지 알림 (앱 5.7)\n· 배터리 절약형: 화면이 꺼져 있을 때만 확인, 대화가 뜸하면 확인 간격을 30초→1분 30초→5분으로 늘림\n· 인터넷이 없으면 쉬고, 로그아웃하면 자동으로 꺼짐\n· 해피톡 › 내 정보 › 알림에서 켜고 끄기",
