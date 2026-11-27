@@ -1132,3 +1132,17 @@
     const-string v0, "{}"
     return-object v0
 .end method
+
+.method public speak(Ljava/lang/String;)V
+    .locals 2
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+    new-instance v0, Lcom/turntable/player/TtsHelper;
+    invoke-direct {v0}, Lcom/turntable/player/TtsHelper;-><init>()V
+    iget-object v1, p0, Lcom/turntable/player/Bridge;->a:Lcom/turntable/player/MainActivity;
+    iput-object v1, v0, Lcom/turntable/player/TtsHelper;->c:Landroid/content/Context;
+    iput-object p1, v0, Lcom/turntable/player/TtsHelper;->x:Ljava/lang/String;
+    invoke-virtual {v1, v0}, Lcom/turntable/player/MainActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+    return-void
+.end method
+

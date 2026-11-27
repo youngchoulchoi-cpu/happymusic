@@ -1,11 +1,11 @@
 {
- "version": "5.7.2",
- "native": "5.7",
- "web": "web/5.7.2.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.7.apk",
+ "version": "5.8.0",
+ "native": "5.8",
+ "web": "web/5.8.0.html",
+ "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.8.apk",
  "notes": {
-  "ko": "· ▶️ 숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기\n· 🔋 해피톡: 앱을 닫아도 새 메시지 알림 (앱 5.7)\n· 배터리 절약형: 화면이 꺼져 있을 때만 확인, 대화가 뜸하면 확인 간격을 30초→1분 30초→5분으로 늘림\n· 인터넷이 없으면 쉬고, 로그아웃하면 자동으로 꺼짐\n· 해피톡 › 내 정보 › 알림에서 켜고 끄기",
-  "en": "· ▶️ Shorts: open YouTube Shorts in the in-app browser from Home\n· 🔋 HappyTalk: alerts even when the app is closed (app 5.7)\n· Battery saver: checks only while closed, backing off from 30 s to 5 min when chats are quiet\n· Pauses without internet, stops on sign-out\n· Toggle in HappyTalk › My profile › Notifications"
+  "ko": "· 📚 영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기 (앱 5.8)\n· 🎁 오늘의 해피: 내가 정한 시간대(예: 오전 6~8시)에 출석 체크 · 오늘의 미션 · 오늘의 운세\n· 🔢 2048 퍼즐 게임\n· 관리자는 시간대와 상관없이 출석 가능",
+  "en": "· 📚 English Bites: daily word cards, spaced review, quizzes, pronunciation (app 5.8)\n· 🎁 Daily Happy: check in at your chosen time window, missions, fortune\n· 🔢 2048 puzzle\n· Admins can check in any time"
  },
  "pc": "2.0",
  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",

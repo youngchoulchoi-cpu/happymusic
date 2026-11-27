@@ -691,6 +691,74 @@ html.lab-no-report #repCard,html.lab-no-report .dNav [data-v=report]{display:non
 .labC{background:linear-gradient(120deg,rgba(190,150,255,.5),rgba(120,140,255,.32) 60%,var(--mixEnd))}
 #repSheet [hidden]{display:none!important}
 #diarySheet [hidden]{display:none!important}
+html.lab-no-happy #hpCard,html.lab-no-happy .dNav [data-v=happy]{display:none!important}
+.hpC{background:linear-gradient(120deg,rgba(255,196,0,.55),rgba(255,120,160,.32) 60%,var(--mixEnd))}
+.g2C{background:linear-gradient(120deg,rgba(237,194,46,.5),rgba(242,177,121,.32) 60%,var(--mixEnd))}
+#hpSheet [hidden]{display:none!important}
+.hpAdm{margin:0 0 10px;padding:10px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(255,196,0,.25),rgba(255,140,0,.15));font-size:13.5px;font-weight:700}
+.hpTop{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.hpTop>div{padding:14px;border-radius:20px;background:rgba(127,127,127,.12);display:flex;flex-direction:column;gap:2px}
+.hpTop span{font-size:12.5px;color:var(--mute)}.hpTop b{font-size:24px;font-weight:900;white-space:nowrap}.hpTop b small{font-size:14px}
+.hpDays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px}
+.hpDay{border-radius:14px;padding:8px 0 7px;text-align:center;background:rgba(127,127,127,.1);display:flex;flex-direction:column;gap:2px;opacity:.75}
+.hpDay small{font-size:10.5px;color:var(--mute)}.hpDay b{font-size:18px;line-height:1.3}
+.hpDay.on{background:linear-gradient(180deg,rgba(255,196,0,.35),rgba(255,160,0,.18));opacity:1}
+.hpDay.now{box-shadow:inset 0 0 0 2px var(--blue);opacity:1}
+.hpMis{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid rgba(127,127,127,.18)}
+.hpMis .e{font-size:24px;width:32px;text-align:center;flex:none}
+.hpMis>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.hpMis b{font-size:14.5px}.hpMis small{font-size:11.5px;color:var(--mute)}
+.hpBar{display:block;height:6px;border-radius:3px;background:rgba(127,127,127,.18);overflow:hidden}.hpBar i{display:block;height:100%;background:linear-gradient(90deg,#ffc400,#ff7a59)}
+.hpMis.done{opacity:.65}
+.hpFort{padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,rgba(164,108,255,.18),rgba(90,140,255,.12))}
+.hpFort .st{font-size:22px;color:#f5a524;letter-spacing:2px}.hpFort p{margin:8px 0;font-size:15px;line-height:1.5;font-weight:600}
+.hpFort .act{font-size:13.5px;font-weight:500;margin:6px 0 0}
+.hpFG{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--sub)}.hpFG b{margin-left:4px;color:inherit}
+.hpOk{font-size:22px;flex:none}
+#hpSlots .nx{border-style:dashed;border-color:var(--blue)}
+.enC{background:linear-gradient(120deg,rgba(60,140,255,.5),rgba(120,220,200,.3) 60%,var(--mixEnd))}
+html.lab-no-english #enCard,html.lab-no-english .dNav [data-v=english]{display:none!important}
+#en{position:fixed;inset:0;z-index:74;background:var(--bg,#f4f5fb);display:flex;flex-direction:column}
+#en[hidden]{display:none}#en [hidden]{display:none!important}
+#enMain{flex:1;overflow:auto;padding:12px 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
+.enWrap{max-width:560px;margin:0 auto}
+.enToday{display:flex;flex-direction:column;gap:2px;margin:14px 2px 10px}.enToday b{font-size:17px}.enToday small{color:var(--mute);font-size:12.5px}
+.enBar{height:6px;border-radius:3px;background:rgba(127,127,127,.18);overflow:hidden;margin:2px 0 14px}.enBar i{display:block;height:100%;background:linear-gradient(90deg,#3c8cff,#38d39f);transition:width .3s}
+.enCard{position:relative;width:100%;min-height:300px;border:0;border-radius:26px;background:var(--card,#fff);box-shadow:0 12px 34px -14px rgba(40,50,80,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:26px 20px;color:inherit;font:inherit;cursor:pointer;text-align:center}
+html[data-theme=dark] .enCard{background:#1d1f27}
+.enCard .w{font-size:40px;font-weight:900;letter-spacing:-.01em}.enCard .pos{font-size:13px;color:var(--mute);padding:3px 10px;border-radius:99px;background:rgba(127,127,127,.12)}
+.enCard .m{font-size:24px;font-weight:800;color:var(--blue);margin-top:6px}.enCard .ex{font-size:16px;margin-top:10px;line-height:1.45}.enCard .ek{font-size:14px;color:var(--mute)}
+.enCard .tap{font-size:13px;color:var(--mute);margin-top:18px}
+.enNew{position:absolute;top:14px;left:14px;font-style:normal;font-size:11.5px;font-weight:800;color:#fff;background:#ff7a59;padding:3px 9px;border-radius:99px}
+.enQ{text-align:center;padding:26px 10px 18px;display:flex;flex-direction:column;gap:6px}.enQ small{color:var(--mute);font-size:13px}.enQ b{font-size:32px;font-weight:900}
+.enOpts{display:grid;gap:10px}
+.enOpts button{min-height:56px;border:1.5px solid rgba(127,127,127,.25);border-radius:16px;background:var(--card,#fff);color:inherit;font:700 16px inherit;font-family:inherit;cursor:pointer;padding:10px 14px}
+html[data-theme=dark] .enOpts button{background:#1d1f27}
+.enOpts button.ok{background:#22c55e;color:#fff;border-color:#22c55e}.enOpts button.no{background:#e5484d;color:#fff;border-color:#e5484d}
+.enRow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(127,127,127,.18)}
+.enRow>div{flex:1;min-width:0;display:flex;flex-direction:column}.enRow b{font-size:16px}.enRow small{font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.enRow .lv{font-size:10px;color:var(--blue);letter-spacing:1px}.enRow button{border:0;background:rgba(127,127,127,.12);border-radius:10px;padding:7px 10px;cursor:pointer;color:inherit}
+#g2{position:fixed;inset:0;z-index:74;background:var(--bg,#faf8ef);display:flex;flex-direction:column;align-items:center;overflow:auto}
+#g2[hidden]{display:none}#g2 [hidden]{display:none!important}
+.g2Top{width:100%;max-width:480px;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 6px;box-sizing:border-box}
+.g2Top h2{flex:1;margin:0;font-size:20px;font-weight:900}
+.g2Sc{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:6px 10px;border-radius:12px;background:#bbada0;color:#fff}
+.g2Sc span{font-size:10.5px;font-weight:700;opacity:.85}.g2Sc b{font-size:17px}
+.g2Bar{width:100%;max-width:480px;display:flex;justify-content:space-between;align-items:center;padding:4px 14px 10px;box-sizing:border-box;font-size:13px;color:var(--mute)}
+.g2Bar button{border:0;border-radius:12px;padding:9px 14px;background:#8f7a66;color:#fff;font:800 14px inherit;font-family:inherit;cursor:pointer}
+.g2Wrap{position:relative;width:min(92vw,440px);aspect-ratio:1}
+#g2Board{display:grid;grid-template-columns:repeat(4,1fr);gap:3%;padding:3%;width:100%;height:100%;box-sizing:border-box;border-radius:14px;background:#bbada0;touch-action:none;user-select:none;-webkit-user-select:none}
+.g2c{background:rgba(238,228,218,.35);border-radius:8px;position:relative}
+.g2t{position:absolute;inset:0;border-radius:8px;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:clamp(18px,7vw,36px);color:#776e65;background:#eee4da}
+.g2t.nw{animation:g2n .18s}.g2t.mg{animation:g2m .18s}
+@keyframes g2n{from{transform:scale(.3)}}@keyframes g2m{50%{transform:scale(1.15)}}
+.g2t.v4{background:#ede0c8}.g2t.v8{background:#f2b179;color:#fff}.g2t.v16{background:#f59563;color:#fff}.g2t.v32{background:#f67c5f;color:#fff}.g2t.v64{background:#f65e3b;color:#fff}
+.g2t.v128{background:#edcf72;color:#fff;font-size:clamp(16px,6vw,30px)}.g2t.v256{background:#edcc61;color:#fff;font-size:clamp(16px,6vw,30px)}.g2t.v512{background:#edc850;color:#fff;font-size:clamp(16px,6vw,30px)}
+.g2t.v1024{background:#edc53f;color:#fff;font-size:clamp(14px,5vw,24px)}.g2t.v2048{background:#edc22e;color:#fff;font-size:clamp(14px,5vw,24px)}.g2t.vbig{background:#3c3a32;color:#fff;font-size:clamp(12px,4.5vw,22px)}
+#g2Over{position:absolute;inset:0;border-radius:14px;background:rgba(238,228,218,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#776e65;text-align:center}
+#g2Over h3{margin:0;font-size:24px;font-weight:900}#g2Over p{margin:0;font-weight:700}
+#g2Over button{margin-top:8px;border:0;border-radius:14px;padding:12px 22px;background:#8f7a66;color:#fff;font:800 16px inherit;font-family:inherit;cursor:pointer}
+
 #talk{position:fixed;inset:0;z-index:74;display:flex;flex-direction:column;background:var(--bg,#f4f5fb);color:var(--fg,inherit);overflow:hidden}
 html.dark #talk,html[data-theme=dark] #talk{background:#101016}
 #talk[hidden]{display:none}
@@ -894,7 +962,7 @@ html.lab-no-diary #diaryCard,html.lab-no-diary .dNav [data-v=diary]{display:none
 .repEmpty i{display:block;font-style:normal;font-size:44px;margin-bottom:6px}
 html.lab-no-web #webBtn,html.lab-no-web #webCard,html.lab-no-web .dNav [data-v=web]{display:none!important}
 html.lab-no-web #plCard{grid-column:1/-1}
-html.lab-no-games #gameCard,html.lab-no-games #rpsCard,html.lab-no-games .dNav .game,html.lab-no-games .dNav p[data-i18n=dFun]{display:none!important}
+html.lab-no-games #gameCard,html.lab-no-games #rpsCard,html.lab-no-games #g2Card,html.lab-no-games .dNav .game,html.lab-no-games .dNav p[data-i18n=dFun]{display:none!important}
 html.lab-no-tools #playerCard,html.lab-no-tools #clockCard,html.lab-no-tools .dNav [data-v^=tool-],html.lab-no-tools .dNav p[data-i18n=tTools]{display:none!important}
 html.lab-no-tools .duo:has(#playerCard){display:none}
 #labSheet [hidden]{display:none!important}
@@ -1050,8 +1118,11 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix a glass" id="mixFreq"><span class="ic"><svg viewBox="0 0 24 24"><path d="M10.6 9.2 5.4 4 4 5.4l5.2 5.2 1.4-1.4zM14.5 4l2 2L4 18.6 5.4 20 18 7.5l2 2V4h-5.5zm.3 9.4-1.4 1.4 3.1 3.1-2 2.1H20v-5.5l-2 2-3.2-3.1z"/></svg></span><b data-i18n="mixFreq">자주 듣는 곡 셔플</b><span data-i18n="mixFreqS">내 기록에서</span></button>
     <button class="mix b glass" id="mixAll"><span class="ic"><svg viewBox="0 0 24 24"><path d="M13.5.7s.7 2.6.7 4.8c0 2-1.3 3.7-3.4 3.7-2 0-3.6-1.6-3.6-3.7l.1-.4A13.4 13.4 0 0 0 4 13a8 8 0 0 0 16 0c0-5.4-2.6-10.2-6.5-12.3zM11.7 19c-1.8 0-3.2-1.4-3.2-3.1 0-1.6 1-2.8 2.8-3.1 1.8-.4 3.6-1.2 4.6-2.6.4 1.3.6 2.6.6 4 0 2.6-2.1 4.8-4.8 4.8z"/></svg></span><b data-i18n="mixAll">전체 셔플</b><span data-i18n="mixAllS">보관함 모든 곡에서</span></button>
   </div>
+  <button class="gameCard hpC glass" id="hpCard"><span class="ic"><span class="emo">🎁</span></span><em class="tkCardBadge" id="hpDot" hidden>!</em><b data-i18n="hpT">오늘의 해피</b><span id="hpSub" data-i18n="hpCardPick">출석 시간대를 정해 주세요 ⏰</span></button>
+  <button class="gameCard enC glass" id="enCard"><span class="ic"><span class="emo">📚</span></span><em class="new">NEW</em><b data-i18n="enT">영어 한 입</b><span id="enSub" data-i18n="enSubD">매일 단어 카드로 영어 공부</span></button>
   <button class="gameCard glass" id="gameCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></span><b data-i18n="gameT">리듬 탭</b><span data-i18n="gCardSub">듣는 곡으로 박자 맞추기 게임</span><em class="new">NEW</em><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
   <button class="gameCard rpsC glass" id="rpsCard"><span class="ic"><span class="emo">✌️</span></span><b data-i18n="rTitle">가위바위보</b><span data-i18n="rCardSub">해피봇과 한판 승부!</span><em class="new">NEW</em></button>
+  <button class="gameCard g2C glass" id="g2Card"><span class="ic"><span class="emo">🔢</span></span><em class="new">NEW</em><b data-i18n="g2T">2048 퍼즐</b><span id="g2Sub" data-i18n="g2Sub">같은 숫자를 합쳐 2048 만들기</span></button>
   <div class="duo">
     <button class="mix c glass" id="plCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h12v2H3zm0 4h12v2H3zm0 4h8v2H3zm14-4v6.3a3 3 0 1 0 2 2.7V12h3v-2h-5z"/></svg></span><b data-i18n="pMyPls">내 플레이리스트</b><span data-i18n="pPls">플레이리스트</span><em class="cnt" id="plCnt">0</em></button>
     <button class="mix d glass" id="webCard"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 17.9A8 8 0 0 1 4 12l1-.1L9 16v1a2 2 0 0 0 2 2v.9zm6.9-2.5A2 2 0 0 0 16 16h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.4a8 8 0 0 1 2.9 12.8z"/></svg></span><b data-i18n="wTitle">인터넷</b><span data-i18n="wSub">음악을 들으면서 웹 서핑</span></button>
@@ -1289,10 +1360,13 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button type="button" data-v="tool-player"><svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm-7.5 6.5v-7L15 12z"/></svg><span data-i18n="tPlayer">동영상 · 뷰어</span></button>
       <button type="button" data-v="tool-clock"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg><span data-i18n="tClock">디지털 시계</span></button>
       <p data-i18n="dFun">즐기기</p>
+      <button type="button" data-v="g2048" class="game"><span style="width:20px;text-align:center;flex:none">🔢</span><span data-i18n="g2T">2048 퍼즐</span></button>
       <button type="button" data-v="rps" class="game"><svg viewBox="0 0 24 24"><path d="M9 2a2 2 0 0 0-2 2v7.3l-1.3-1.2a2 2 0 0 0-2.8 2.8l4.6 4.7A6 6 0 0 0 11.8 20H14a6 6 0 0 0 6-6V8a2 2 0 0 0-3-1.7V6a2 2 0 0 0-3-1.7V4a2 2 0 0 0-4-.3A2 2 0 0 0 9 2z"/></svg><span data-i18n="rTitle">가위바위보</span></button>
       <button type="button" data-v="game" class="game"><svg viewBox="0 0 24 24"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a3 3 0 0 1-5.2 1.4L14 16h-4l-1.9 2.4A3 3 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v1.5H6.5V13H8v1.5h1.5V13H11v-1.5H9.5V10H8zm7.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2.5-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span data-i18n="gameT">리듬 탭</span></button>
       <p data-i18n="labT">실험실</p>
       <button type="button" data-v="star"><span style="width:20px;text-align:center;flex:none">🎞️</span><span data-i18n="stName">해피플레이어</span></button>
+      <button type="button" data-v="english"><span style="width:20px;text-align:center;flex:none">📚</span><span data-i18n="enT">영어 한 입</span></button>
+      <button type="button" data-v="happy"><span style="width:20px;text-align:center;flex:none">🎁</span><span data-i18n="hpT">오늘의 해피</span></button>
       <button type="button" data-v="talk"><span style="width:20px;text-align:center;flex:none">💬</span><span data-i18n="tkT">해피톡</span></button>
       <button type="button" data-v="shorts"><span style="width:20px;text-align:center;flex:none">▶️</span><span data-i18n="shT">숏폼</span></button>
       <button type="button" data-v="diary"><span style="width:20px;text-align:center;flex:none">📔</span><span data-i18n="dyT">음악 일기</span></button>
@@ -1366,6 +1440,21 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="btn ghost" id="bkRestore" type="button" data-i18n="pRestore">복원하기</button>
   </div>
 </section>
+<section class="sheet glass" id="hpSheet" aria-label="오늘의 해피" data-i18n-aria="hpT">
+  <div class="grab"></div>
+  <div class="sh"><h3 data-i18n="hpT">오늘의 해피</h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
+  <div class="sb" id="hpBody"></div>
+</section>
+<div id="en" hidden role="dialog" aria-label="English">
+  <header class="tkTop"><button class="tkB" type="button" id="enX" aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button><div class="tkHt"><b id="enTitle" data-i18n="enT">영어 한 입</b></div></header>
+  <main id="enMain"></main>
+</div>
+<div id="g2" hidden role="dialog" aria-label="2048" >
+  <div class="g2Top"><button class="tkB" type="button" id="g2X" aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button><h2 data-i18n="g2T">2048 퍼즐</h2>
+    <div class="g2Sc"><span data-i18n="g2Score">점수</span><b id="g2Score">0</b></div><div class="g2Sc"><span data-i18n="g2Best">최고</span><b id="g2BestV">0</b></div></div>
+  <div class="g2Bar"><span data-i18n="g2Help">밀어서(스와이프) 또는 방향키로 움직여요</span><button type="button" id="g2NewB" data-i18n="g2New">새 게임</button></div>
+  <div class="g2Wrap"><div id="g2Board"></div><div id="g2Over" hidden><h3 data-i18n="g2OverT">더 움직일 수 없어요</h3><p id="g2OverS"></p><button type="button" id="g2Again" data-i18n="g2Again">다시 하기</button></div></div>
+</div>
 <section class="sheet glass" id="diarySheet" aria-label="음악 일기" data-i18n-aria="dyT">
   <div class="grab"></div>
   <div class="sh"><button class="cb" id="dyBack" hidden aria-label="뒤로" data-i18n-aria="back"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button><h3 id="dyTitle" data-i18n="dyT">음악 일기</h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
@@ -1657,6 +1746,33 @@ Object.assign(I18N.T,{
  tkEPw:X13('비밀번호는 6자 이상이어야 해요','Password must be at least 6 characters'),tkEEmail:X13('이메일 주소를 확인해 주세요','Check the email address'),tkENick:X13('닉네임을 1~20자로 넣어 주세요','Nickname must be 1–20 characters'),
  tkEPerm:X13('권한이 없어요','You don’t have permission'),tkELastAdmin:X13('관리자가 최소 한 명은 있어야 해요','There must be at least one admin'),tkENotSelf:X13('자기 자신은 바꿀 수 없어요','You can’t change yourself'),
  tkEBig:X13('파일이 너무 커요','File is too large'),tkERate:X13('요청이 너무 많아요. 잠시 후 다시 시도해 주세요','Too many requests. Try again shortly'),tkEGen:X13('문제가 생겼어요: {m}','Something went wrong: {m}'),
+});
+Object.assign(I18N.T,{
+ hfMsg:X13('오늘은 작은 친절이 큰 행운으로 돌아와요|생각지 못한 연락이 기분을 바꿔 줄 거예요|미뤄 둔 일을 시작하기 딱 좋은 날이에요|좋아하는 노래가 오늘의 힘이 돼 줄 거예요|천천히 가도 괜찮아요, 방향이 맞으니까요|오늘 웃은 만큼 내일이 가벼워져요|새로운 걸 하나 시도해 보면 좋은 일이 생겨요|주변 사람에게 고맙다고 말해 보세요|잠깐의 휴식이 최고의 아이디어를 데려와요|오늘의 선택은 생각보다 훨씬 좋은 결과로 이어져요|작은 목표 하나를 이루면 하루가 반짝여요|마음이 맞는 사람과 이야기하면 운이 올라가요','Small kindness comes back as big luck today|An unexpected message will brighten your mood|A perfect day to start what you put off|Your favorite song will be your strength today|Slow is fine — you are headed the right way|Every smile today makes tomorrow lighter|Try one new thing and something good happens|Tell someone around you thank you|A short break brings your best idea|Today’s choice leads somewhere better than you think|Finish one small goal and the day sparkles|Talking with a like-minded friend raises your luck'),hfColor:X13('하늘색|민트|보라|노랑|주황|분홍|초록|하양|남색|빨강','Sky blue|Mint|Purple|Yellow|Orange|Pink|Green|White|Navy|Red'),hfAct:X13('좋아하는 노래 한 곡 크게 듣기|10분 산책하기|물 한 잔 더 마시기|친구에게 안부 메시지 보내기|오늘 하루 일기 세 줄 쓰기|창문 열고 깊게 숨쉬기|안 듣던 장르 한 곡 들어 보기|책상 위 정리하기','Play your favorite song loud|Take a 10-minute walk|Drink one more glass of water|Text a friend hello|Write three lines in your diary|Open the window and breathe deep|Try a song from a new genre|Tidy your desk'),
+ hpT:X13('오늘의 해피','Daily Happy'),hpCardPick:X13('출석 시간대를 정해 주세요 ⏰','Pick your check-in time ⏰'),hpCardOpen:X13('⏰ 지금 출석할 시간이에요!','⏰ Time to check in!'),
+ hpCardWait:X13('출석 {r} · 미션 {a}/{b}','Check-in {r} · Missions {a}/{b}'),hpCardDone:X13('✅ 출석 완료 · 🔥 {n}일 · 미션 {a}/{b}','✅ Checked in · 🔥 {n} days · Missions {a}/{b}'),
+ labHappy:X13('오늘의 해피 (출석 · 미션 · 운세)','Daily Happy (check-in · missions · fortune)'),labHappyD:X13('내가 정한 시간대에 출석 체크, 오늘의 미션, 오늘의 운세','Check in at your chosen time, daily missions, daily fortune'),
+ hpAdmin:X13('관리자: 시간대와 상관없이 출석할 수 있어요','Admin: check in any time'),
+ hpStreak:X13('연속 출석','Streak'),hpTotal:X13('전체 출석','Total check-ins'),hpCk:X13('출석 체크','Check-in'),
+ hpCkGo:X13('지금 출석하기','Check in now'),hpCkOk:X13('오늘 출석 완료 ✓ 내일 또 만나요','Checked in today ✓ See you tomorrow'),hpCkDone:X13('{n}일째 출석했어요','Day {n} checked in'),
+ hpCkBefore:X13('{r}에 출석할 수 있어요','Check-in opens {r}'),hpCkAfter:X13('오늘 출석 시간({r})이 지났어요','Today’s check-in time ({r}) has passed'),
+ hpNotNow:X13('출석은 {r}에만 할 수 있어요','You can check in only at {r}'),hpPickFirst:X13('아래에서 매일 출석할 시간대를 골라 주세요','Pick your daily check-in time below'),
+ hpSlotQ:X13('매일 출석할 시간대 (2시간)','Daily check-in window (2 hours)'),hpSlotSet:X13('출석 시간을 {r}로 정했어요','Check-in time set to {r}'),hpSlotNext:X13('내일부터 {r}에 출석해요','From tomorrow: {r}'),hpSlotNextNote:X13('내일부터 {r}로 바뀌어요','Changes to {r} from tomorrow'),
+ hpMis:X13('오늘의 미션','Today’s missions'),hpAllDone:X13('오늘의 미션을 모두 끝냈어요!','All of today’s missions done!'),
+ hpM_listen:X13('음악 10분 듣기','Listen for 10 minutes'),hpM_game:X13('미니게임 한 판 끝내기','Finish a mini-game'),hpM_g2048:X13('2048에서 1,000점 넘기','Score 1,000 in 2048'),hpM_diary:X13('오늘 일기 쓰기','Write today’s diary'),hpM_talk:X13('해피톡에 메시지 보내기','Send a HappyTalk message'),hpM_shorts:X13('숏폼 보러 가기','Watch Shorts'),hpM_fortune:X13('오늘의 운세 보기','Check today’s fortune'),hpM_report:X13('음악 리포트 보기','Open your music report'),hpM_english:X13('영어 단어 공부하기','Study English words'),
+ hpFortT:X13('오늘의 운세','Today’s fortune'),hpFun:X13('· 재미로 보세요','· just for fun'),hpFortGo:X13('오늘의 운세 보기','See today’s fortune'),hfC:X13('행운의 색 ','Lucky color '),hfN:X13('행운의 숫자 ','Lucky number '),hfA:X13('오늘의 추천','Try today'),
+ g2T:X13('2048 퍼즐','2048 Puzzle'),g2Sub:X13('같은 숫자를 합쳐 2048 만들기','Merge numbers to reach 2048'),g2CardBest:X13('최고 {n}점 · 기록을 깨 보세요','Best {n} · beat it'),g2Play:X13('2048 퍼즐 하기','Play 2048'),g2Best:X13('최고','Best'),
+ g2Score:X13('점수','Score'),g2New:X13('새 게임','New game'),g2OverT:X13('더 움직일 수 없어요','No more moves'),g2OverS:X13('{n}점','{n} points'),g2Again:X13('다시 하기','Play again'),g2Help:X13('밀어서(스와이프) 또는 방향키로 움직여요','Swipe or use arrow keys'),
+ enT:X13('영어 한 입','English Bites'),enCardN:X13('오늘 공부할 단어 {n}개','{n} words to study today'),enCardDone:X13('오늘 공부 완료 ✓ · 🔥 {s}일','Done for today ✓ · 🔥 {s} days'),enSubD:X13('매일 단어 카드로 영어 공부','Daily English word cards'),
+ labEng:X13('영어 한 입 (영어 공부)','English Bites (study)'),labEngD:X13('매일 새 단어 카드, 잊을 때쯤 다시 보여 주는 복습, 4지선다 퀴즈, 발음 듣기','Daily word cards, spaced review, quizzes and pronunciation'),
+ enLearned:X13('익힌 단어','Words learned'),enTodayN:X13('오늘: 새 단어 {a}개 · 복습 {b}개','Today: {a} new · {b} review'),enTodayDone:X13('오늘 공부를 다 했어요 👏','All done for today 👏'),enMaster:X13('완전히 외운 단어 {n}개','{n} words mastered'),
+ enStart:X13('오늘의 단어 공부 시작','Start today’s words'),enAllDone:X13('내일 새 단어가 기다려요','New words tomorrow'),enQuiz:X13('퀴즈','Quiz'),enList:X13('내 단어장','My words'),
+ enPer:X13('하루 새 단어 수','New words per day'),enPerN:X13('{n}개','{n}'),enAuto:X13('카드가 나오면 발음 자동 재생','Auto-play pronunciation'),enQBest:X13('퀴즈 최고 기록 {n}/10','Best quiz score {n}/10'),
+ enHow:X13('“알아요”를 누른 단어는 1·2·4·7·15·30일 뒤에 다시 나와요. “몰라요”는 내일 다시 보여 줘요.','Words you know come back after 1, 2, 4, 7, 15 and 30 days; ones you don’t, tomorrow.'),
+ enNew:X13('새 단어','New'),enTap:X13('눌러서 뜻 보기','Tap to see the meaning'),enShow:X13('뜻 보기','Show meaning'),enSayW:X13('단어','Word'),enSayEx:X13('예문','Example'),
+ enNo:X13('몰라요','Not yet'),enYes:X13('알아요','Got it'),enDoneT:X13('오늘 공부 끝!','Done for today!'),enDoneD:X13('{n}장 중 {k}장을 알았어요 · 🔥 {s}일째','You knew {k} of {n} · 🔥 day {s}'),enBack:X13('처음으로','Back'),
+ enQfw:X13('이 단어의 뜻은?','What does this mean?'),enQrev:X13('이 뜻의 영어 단어는?','Which word means this?'),enQRes:X13('{n}문제 중 {s}개 정답','{s} / {n} correct'),enQPerfect:X13('완벽해요! 🎯','Perfect! 🎯'),enQMore:X13('틀린 단어는 내일 다시 복습해요','Missed words come back tomorrow'),enQAgain:X13('한 번 더','Again'),
+ enSearch:X13('단어 검색','Search words'),enListEmpty:X13('아직 공부한 단어가 없어요','No words studied yet'),
 });
 Object.assign(I18N.T,{
  labT:X13('실험실','Labs'),labD:X13('새 기능과 추가 기능을 직접 켜고 끌 수 있어요. 끈 기능은 화면에서 사라지고, 다시 켜면 그대로 돌아와요.','Turn new and extra features on or off. Turned-off features disappear and come back exactly as they were.'),
@@ -2473,7 +2589,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.7.2';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.8.0';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2688,7 +2804,10 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>5*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🔄","업데이트 확인을 더 자주, 더 확실하게 (내려받기 실패 시 업데이트 창 표시)","More reliable update checks"],
+const WEB_NOTES=[["📚","영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기","English Bites: daily word cards, spaced review, quizzes, pronunciation"],
+ ["🎁","오늘의 해피: 내가 정한 시간대에 출석 체크 · 오늘의 미션 · 오늘의 운세","Daily Happy: check in at your chosen time, missions, fortune"],
+ ["🔢","2048 퍼즐 게임 (최고 기록 저장)","2048 puzzle (best score)"],
+ ["🔄","업데이트 확인을 더 자주, 더 확실하게 (내려받기 실패 시 업데이트 창 표시)","More reliable update checks"],
  ["▶️","숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기","Shorts: open the YouTube Shorts tab in the in-app browser from Home"],
  ["🔋","해피톡: 앱을 닫아도 알림 받기 (배터리 절약형 알림 대기 모드, 앱 5.7)","HappyTalk: alerts even when the app is closed (battery-saving, app 5.7)"],
  ["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
@@ -3420,9 +3539,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={star:false,shorts:true,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
+const LAB_DEF={happy:true,english:true,star:false,shorts:true,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['talk','💬','labTalk','labTalkD'],['shorts','▶️','labShorts','labShortsD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['happy','🎁','labHappy','labHappyD'],['english','📚','labEng','labEngD'],['talk','💬','labTalk','labTalkD'],['shorts','▶️','labShorts','labShortsD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
 window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
@@ -3435,6 +3554,9 @@ function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
     if(k==='star'&&ST.on)closeStar();
     if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
     if(k==='diary'&&$('diarySheet').classList.contains('on'))closeSheet();
+    if(k==='happy'&&$('hpSheet').classList.contains('on'))closeSheet();
+    if(k==='english'&&window.__en&&!$('en').hidden)__en.closeEng();
+    if(k==='games'&&window.__hp&&!$('g2').hidden)__hp.closeG2();
     if(k==='talk'&&tkOn())closeTalk();
     if(k==='talk'&&window.__tk&&__tk.tkSvcSync)__tk.tkSvcSync();
     if(k==='web'&&typeof webOn==='function'&&webOn())closeWeb();
@@ -3447,7 +3569,7 @@ $('labReset').onclick=()=>{Object.assign(LAB,LAB_DEF);LS.set('labs',LAB);applyLa
 $('labStarGo').onclick=()=>{closeAll();openStar()};
 /* ---------- 숏폼: 유튜브 쇼츠 탭 바로 열기 ---------- */
 const SHORTS_URL=()=>IS_PC||DESK?'https://www.youtube.com/shorts':'https://m.youtube.com/shorts';
-function openShorts(){if(!labOn('shorts'))return;const u=SHORTS_URL();
+function openShorts(){if(!labOn('shorts'))return;const u=SHORTS_URL();window.__hpMark&&window.__hpMark('shorts');
   if(typeof wHasNative==='function'&&(wHasNative()||IS_PC)){openWeb(u);return}
   if(AND&&typeof AND.openExternal==='function'){AND.openExternal(u);toast(t('shExt'));return}
   window.open(u,'_blank','noopener')}
@@ -3827,7 +3949,7 @@ function tkUpload(path,file,onp){return new Promise((res,rej)=>{const x=new XMLH
   x.upload.onprogress=e=>{if(e.lengthComputable)onp(Math.round(e.loaded/e.total*100))};
   x.onload=()=>{if(x.status>=200&&x.status<300)res();else{let m='HTTP '+x.status;try{const j=JSON.parse(x.responseText);m=j.message||j.error||m}catch(e){}rej(new TkErr(m,x.status,x.status))}};
   x.onerror=()=>rej(new TkErr('network','network',0));x.send(file)})}
-async function tkSendFiles(files){if(!TK.room)return;const max=((TK.settings&&TK.settings.max_file_mb)||20)*1048576;
+async function tkSendFiles(files){if(!TK.room)return;const max=(TK.me&&TK.me.role==='admin'?50:((TK.settings&&TK.settings.max_file_mb)||20))*1048576;
   for(const f of files){if(f.size>max){toast(t('tkTooBig',{n:f.name,m:Math.round(max/1048576)}));continue}if(!f.size){continue}
     await tkEnsure();const ext=(f.name.match(/\.([a-z0-9]{1,8})$/i)||[])[1];const path=TK.room.id+'/'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)+(ext?'.'+ext.toLowerCase():'');
     const tmp={id:-(++TK.sending),_tmp:true,_up:true,_p:0,room_id:TK.room.id,sender:TK.me.id,file_name:f.name,file_size:f.size,file_type:f.type,created_at:new Date().toISOString()};TK.msgs.push(tmp);tkRoomRender(true);
@@ -4027,6 +4149,211 @@ tkCardUI();
 {const _al=applyLang;applyLang=function(){_al.apply(this,arguments);tkCardUI();if(tkOn())tkRender()}}
 if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=talk]');if(b){e.stopImmediatePropagation();openTalk()}},true)}
 window.__tk={tkSvcSync,tkSvcOn,TK,openTalk,closeTalk,tkDeepLink,tkBoot,tkShow,tkLogout,tkSendFiles,tkBgCheck,tkInviteText};
+
+
+/* ---------- 오늘의 해피: 시간대 출석 · 오늘의 미션 · 운세 (관리자는 시간 제한 없음) ---------- */
+const HP=Object.assign({streak:0,last:'',ck:[],slot:null,slotNext:null,slotFrom:'',done:{},pick:{},allDone:{},g2best:0,g2day:{},fort:{}},LS.get('hp',{}));
+const hpSave=()=>LS.set('hp',HP);
+const hpToday=()=>dk(new Date());
+const hpAdmin=()=>{try{const m=window.__tk&&window.__tk.TK.me;return !!(m&&m.role==='admin'&&m.status==='active')}catch(e){return false}};
+const HP_SLOTS=[5,6,7,8,9,12,18,21];
+function hpPrune(){const keep=new Set([...Array(8)].map((_,i)=>dk(repDay(i))));for(const k of ['done','pick','allDone','g2day','fort'])for(const d of Object.keys(HP[k]||{}))if(!keep.has(d))delete HP[k][d];if(HP.ck.length>120)HP.ck=HP.ck.slice(-120)}
+/* 출석 시간대 */
+function hpSlot(){const td=hpToday();if(HP.slotNext!=null&&HP.slotFrom&&td>=HP.slotFrom){HP.slot=HP.slotNext;HP.slotNext=null;HP.slotFrom='';hpSave()}return HP.slot}
+const hpHour=h=>{try{return new Date(2000,0,1,h).toLocaleTimeString(lang,{hour:'numeric',minute:'2-digit'})}catch(e){return h+':00'}};
+const hpRange=s=>hpHour(s)+' ~ '+hpHour(s+2);
+function hpSetSlot(s){if(HP.slot==null||!HP.ck.length){HP.slot=s;HP.slotNext=null;HP.slotFrom='';toast(t('hpSlotSet',{r:hpRange(s)}))}
+  else if(s===HP.slot){HP.slotNext=null;HP.slotFrom=''}
+  else{HP.slotNext=s;HP.slotFrom=dk(repDay(-1));toast(t('hpSlotNext',{r:hpRange(s)}))}
+  hpSave();hpRender();hpCardUI()}
+function hpWindow(){const s=hpSlot();if(s==null)return 'none';const h=new Date().getHours();return h<s?'before':h<s+2?'open':'after'}
+const hpCheckedIn=()=>HP.last===hpToday();
+function hpCheckIn(){if(hpCheckedIn())return;const w=hpWindow();if(w!=='open'&&!hpAdmin()){toast(w==='none'?t('hpPickFirst'):t('hpNotNow',{r:hpRange(hpSlot())}));return}
+  const td=hpToday(),y=dk(repDay(1));HP.streak=HP.last===y?HP.streak+1:1;HP.last=td;if(!HP.ck.includes(td))HP.ck.push(td);hpPrune();hpSave();
+  toast('✅ '+t('hpCkDone',{n:HP.streak}));hpRender();hpCardUI()}
+const hpStreakNow=()=>HP.last===hpToday()||HP.last===dk(repDay(1))?HP.streak:0;
+/* 미션 (포인트 없이 완료 표시만) */
+const HM_POOL=[
+  {id:'listen',e:'🎧',need:()=>true,prog:()=>Math.min(10,Math.floor((LIS.d[hpToday()]||0)/60)),goal:10},
+  {id:'game',e:'🎮',need:()=>labOn('games'),ev:1},
+  {id:'g2048',e:'🔢',need:()=>labOn('games'),prog:()=>Math.min(1000,HP.g2day[hpToday()]||0),goal:1000},
+  {id:'diary',e:'📔',need:()=>labOn('diary'),prog:()=>dyHas(DY.data[hpToday()])?1:0,goal:1},
+  {id:'talk',e:'💬',need:()=>labOn('talk')&&!!(window.__tk&&window.__tk.TK.me),ev:1},
+  {id:'shorts',e:'▶️',need:()=>labOn('shorts'),ev:1},
+  {id:'fortune',e:'🔮',need:()=>true,ev:1},
+  {id:'report',e:'📊',need:()=>labOn('report'),ev:1}];
+const hpSeed=s=>{let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return ()=>{h^=h<<13;h>>>=0;h^=h>>17;h^=h<<5;h>>>=0;return h/4294967296}};
+function hpMissions(){const d=hpToday();if(!HP.pick[d]){const r=hpSeed('m'+d),rest=HM_POOL.filter(m=>m.id!=='listen'&&m.need()).sort(()=>r()-.5);HP.pick[d]=['listen',...rest.slice(0,3).map(m=>m.id)];hpPrune();hpSave()}
+  return HP.pick[d].map(id=>HM_POOL.find(m=>m.id===id)).filter(Boolean)}
+function hpProg(m){const d=hpToday();if(m.ev)return {p:(HP.done[d]||{})[m.id]?1:0,g:1};return {p:m.prog(),g:m.goal}}
+const hpDone=m=>{const p=hpProg(m);return p.p>=p.g};
+function hpCheckAll(){const d=hpToday(),ms=hpMissions();if(!HP.allDone[d]&&ms.every(hpDone)){HP.allDone[d]=1;hpSave();toast('🎉 '+t('hpAllDone'))}}
+window.__hpMark=id=>{const d=hpToday();(HP.done[d]||(HP.done[d]={}))[id]=true;hpSave();hpCheckAll();hpCardUI();if($('hpSheet').classList.contains('on'))hpRender()};
+/* 운세 (재미로) */
+function hpFortune(){const d=hpToday(),n=(window.__tk&&window.__tk.TK.me&&window.__tk.TK.me.id)||nick||'me',r=hpSeed('f'+d+n),pick=k=>{const a=t(k).split('|');return a[Math.floor(r()*a.length)]};
+  return {stars:2+Math.floor(r()*4),msg:pick('hfMsg'),color:pick('hfColor'),num:1+Math.floor(r()*45),act:pick('hfAct')}}
+function hpOpenFortune(){const d=hpToday();if(!HP.fort[d]){HP.fort[d]=1;hpSave();window.__hpMark('fortune')}hpRender()}
+/* 화면 */
+function hpRender(){const B=$('hpBody');if(!B)return;const adm=hpAdmin(),ck=hpCheckedIn(),ms=hpMissions(),d=hpToday(),s=hpSlot(),w=hpWindow();
+  const days=[...Array(7)].map((_,i)=>{const dd=repDay(6-i),k=dk(dd),on=HP.ck.includes(k);return `<div class="hpDay${on?' on':''}${k===d?' now':''}"><small>${esc(dd.toLocaleDateString(lang,{weekday:'short'}))}</small><b>${on?'✅':k===d?'⏰':'·'}</b></div>`}).join('');
+  let ckBtn;if(ck)ckBtn=`<button class="tkBtn" type="button" disabled>${esc(t('hpCkOk'))}</button>`;
+  else if(s==null)ckBtn=`<p class="tkNote" style="margin:0 2px 8px">${esc(t('hpPickFirst'))}</p>`;
+  else if(w==='open'||adm)ckBtn=`<button class="tkBtn" type="button" id="hpCkB">✅ ${esc(t('hpCkGo'))}</button>`;
+  else ckBtn=`<button class="tkBtn" type="button" disabled>${esc(t(w==='before'?'hpCkBefore':'hpCkAfter',{r:hpRange(s)}))}</button>`;
+  const f=HP.fort[d]?hpFortune():null,doneN=ms.filter(hpDone).length;
+  B.innerHTML=`${adm?`<p class="hpAdm">👑 ${esc(t('hpAdmin'))}</p>`:''}
+  <div class="hpTop"><div><span>${esc(t('hpStreak'))}</span><b>🔥 ${esc(t('dyDaysN',{n:hpStreakNow()}))}</b></div><div><span>${esc(t('hpTotal'))}</span><b>📅 ${esc(t('dyDaysN',{n:HP.ck.length}))}</b></div></div>
+  <h4 class="repH">⏰ ${esc(t('hpCk'))}${s!=null?` <small style="font-weight:700;color:var(--blue)">${esc(hpRange(s))}</small>`:''}</h4>
+  <div class="hpDays">${days}</div>${ckBtn}
+  <div class="tkF" style="margin-top:12px"><span>${esc(t('hpSlotQ'))}</span><div class="tkChips" id="hpSlots">${HP_SLOTS.map(h=>`<button type="button" data-slot="${h}" class="${s===h?'on':''}${HP.slotNext===h?' nx':''}">${esc(hpRange(h))}</button>`).join('')}</div>
+    ${HP.slotNext!=null?`<small class="tkNote" style="margin:0">${esc(t('hpSlotNextNote',{r:hpRange(HP.slotNext)}))}</small>`:''}</div>
+  <h4 class="repH">🎯 ${esc(t('hpMis'))} <small style="font-weight:600;color:var(--mute)">${doneN}/${ms.length}</small></h4>
+  ${ms.map(m=>{const pr=hpProg(m),ok=pr.p>=pr.g;return `<div class="hpMis${ok?' done':''}"><span class="e">${m.e}</span><div><b>${esc(t('hpM_'+m.id))}</b><i class="hpBar"><i style="width:${Math.min(100,pr.p/pr.g*100)}%"></i></i>${pr.g>1?`<small>${esc(pr.p+' / '+pr.g)}</small>`:''}</div><span class="hpOk">${ok?'✅':'⬜'}</span></div>`}).join('')}
+  <h4 class="repH">🔮 ${esc(t('hpFortT'))} <small style="font-weight:600;color:var(--mute)">${esc(t('hpFun'))}</small></h4>
+  ${f?`<div class="hpFort"><div class="st">${'★'.repeat(f.stars)}${'☆'.repeat(5-f.stars)}</div><p>${esc(f.msg)}</p><div class="hpFG"><span>🎨 ${esc(t('hfC'))}<b>${esc(f.color)}</b></span><span>🔢 ${esc(t('hfN'))}<b>${f.num}</b></span></div><p class="act">✅ ${esc(t('hfA'))}: ${esc(f.act)}</p></div>`:`<button class="tkBtn ghost" type="button" id="hpFortB">🔮 ${esc(t('hpFortGo'))}</button>`}
+  <button class="tkBtn ghost" type="button" id="hpG2B" style="margin-top:14px">🔢 ${esc(t('g2Play'))}${HP.g2best?' · '+esc(t('g2Best'))+' '+HP.g2best.toLocaleString(lang):''}</button>`}
+const hpAttention=()=>!hpCheckedIn()&&hpWindow()==='open';
+function hpCardUI(){if(!labOn('happy'))return;const ms=hpMissions(),n=ms.filter(hpDone).length,s=hpSlot(),w=hpWindow();
+  $('hpDot').hidden=!hpAttention();
+  $('hpSub').textContent=s==null?t('hpCardPick'):hpCheckedIn()?t('hpCardDone',{n:hpStreakNow(),a:n,b:ms.length}):w==='open'?t('hpCardOpen'):t('hpCardWait',{r:hpRange(s),a:n,b:ms.length})}
+function openHappy(){if(!labOn('happy'))return;hpRender();openSheet('hpSheet')}
+$('hpCard').onclick=openHappy;
+$('hpBody').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
+  if(g('#hpCkB')){hpCheckIn();return}if(g('#hpFortB')){hpOpenFortune();return}if(g('#hpG2B')){closeAll();openG2();return}
+  if(b=g('[data-slot]')){hpSetSlot(+b.dataset.slot);return}});
+{const watch=(id,attr,fn)=>{const el=$(id);if(el)new MutationObserver(()=>fn(el)).observe(el,{attributes:true,attributeFilter:[attr]})};
+  watch('gResult','hidden',el=>{if(!el.hidden)window.__hpMark('game')});
+  watch('rpsEnd','hidden',el=>{if(!el.hidden)window.__hpMark('game')});
+  watch('repSheet','class',el=>{if(el.classList.contains('on'))window.__hpMark('report')})}
+{const _s=tkSendText;tkSendText=function(){const had=$('tkIn').value.trim();const r=_s.apply(this,arguments);if(had)window.__hpMark('talk');return r}}
+/* ---------- 2048 퍼즐 ---------- */
+const G2=Object.assign({b:Array(16).fill(0),score:0,over:false,won:false},LS.get('g2',{}));
+const g2Save=()=>LS.set('g2',{b:G2.b,score:G2.score,over:G2.over,won:G2.won});
+function g2Add(){const e=[];G2.b.forEach((v,i)=>{if(!v)e.push(i)});if(!e.length)return -1;const i=e[Math.floor(Math.random()*e.length)];G2.b[i]=Math.random()<.9?2:4;return i}
+function g2New(){G2.b=Array(16).fill(0);G2.score=0;G2.over=false;G2.won=false;g2Add();g2Add();g2Save();g2Render()}
+function g2CanMove(){const b=G2.b;for(let i=0;i<16;i++){if(!b[i])return true;if(i%4<3&&b[i]===b[i+1])return true;if(i<12&&b[i]===b[i+4])return true}return false}
+function g2Move(dir){if(G2.over)return false;const b=G2.b;let moved=false,gain=0;const merged=[];
+  for(let k=0;k<4;k++){const idx=[];for(let j=0;j<4;j++){let r,c;if(dir<2){r=k;c=dir===0?j:3-j}else{c=k;r=dir===2?j:3-j}idx.push(r*4+c)}
+    const line=idx.map(i=>b[i]).filter(v=>v),out=[],mg=[];
+    for(let i=0;i<line.length;i++){if(line[i]===line[i+1]){out.push(line[i]*2);gain+=line[i]*2;mg.push(out.length-1);i++}else out.push(line[i])}
+    while(out.length<4)out.push(0);idx.forEach((p,i)=>{if(b[p]!==out[i]){moved=true;b[p]=out[i]}});mg.forEach(i=>merged.push(idx[i]))}
+  if(!moved)return false;G2.score+=gain;const nw=g2Add();
+  if(!G2.won&&b.some(v=>v>=2048)){G2.won=true;toast('🎉 2048!')}
+  const d=hpToday();if(G2.score>(HP.g2day[d]||0))HP.g2day[d]=G2.score;if(G2.score>HP.g2best)HP.g2best=G2.score;
+  if(!g2CanMove()){G2.over=true;window.__hpMark('game')}
+  hpSave();g2Save();g2Render(nw,merged);if(HP.g2day[d]>=1000)hpCheckAll();return true}
+function g2Render(nw,merged){const B=$('g2Board');if(!B)return;
+  B.innerHTML=G2.b.map((v,i)=>`<div class="g2c">${v?`<i class="g2t v${v>2048?'big':v}${i===nw?' nw':''}${merged&&merged.includes(i)?' mg':''}">${v}</i>`:''}</div>`).join('');
+  $('g2Score').textContent=G2.score.toLocaleString(lang);$('g2BestV').textContent=Math.max(HP.g2best,G2.score).toLocaleString(lang);
+  $('g2Over').hidden=!G2.over;$('g2OverS').textContent=t('g2OverS',{n:G2.score.toLocaleString(lang)})}
+function openG2(){if(!labOn('games'))return;closeAll();$('g2').hidden=false;if(!G2.b.some(v=>v))g2New();else g2Render()}
+function closeG2(){$('g2').hidden=true;g2CardUI()}
+const g2On=()=>!$('g2').hidden;
+function g2CardUI(){const s=$('g2Sub');if(s)s.textContent=HP.g2best?t('g2CardBest',{n:HP.g2best.toLocaleString(lang)}):t('g2Sub')}
+$('g2Card').onclick=openG2;$('g2X').onclick=closeG2;$('g2NewB').onclick=g2New;$('g2Again').onclick=g2New;
+document.addEventListener('keydown',e=>{if(!g2On())return;const k={ArrowLeft:0,ArrowRight:1,ArrowUp:2,ArrowDown:3,a:0,d:1,w:2,s:3}[e.key];if(k!=null){e.preventDefault();g2Move(k)}else if(e.key==='Escape')closeG2()},true);
+{let sx=0,sy=0,on=false;const B=$('g2Board');
+  B.addEventListener('pointerdown',e=>{on=true;sx=e.clientX;sy=e.clientY});
+  B.addEventListener('pointerup',e=>{if(!on)return;on=false;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;g2Move(Math.abs(dx)>Math.abs(dy)?(dx<0?0:1):(dy<0?2:3))});
+  B.addEventListener('pointercancel',()=>{on=false})}
+{const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(g2On()){closeG2();return true}return _bk?_bk():false}}
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=happy],[data-v=g2048]');if(!b)return;e.stopImmediatePropagation();b.dataset.v==='happy'?openHappy():openG2()},true)}
+hpCardUI();g2CardUI();setInterval(()=>{hpCardUI();if($('hpSheet').classList.contains('on')&&!document.hidden)hpRender()},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)hpCardUI()});
+{const _al=applyLang;applyLang=function(){_al.apply(this,arguments);hpCardUI();g2CardUI();if($('hpSheet').classList.contains('on'))hpRender();if(g2On())g2Render()}}
+window.__hp={HP,G2,HM_POOL,openHappy,openG2,closeG2,g2Move,g2New,hpCheckIn,hpSetSlot,hpRender,hpCardUI,hpAdmin,hpWindow,hpCheckAll};
+
+/* ---------- 영어 한 입: 매일 단어 카드 · 간격 반복 복습 · 퀴즈 ---------- */
+const EN_W=[["apple", "명사", "사과", "I eat an apple every morning.", "나는 매일 아침 사과를 하나 먹는다."], ["borrow", "동사", "빌리다", "Can I borrow your pen?", "펜 좀 빌려도 될까요?"], ["careful", "형용사", "조심하는, 신중한", "Be careful on the stairs.", "계단에서 조심해."], ["decide", "동사", "결정하다", "We decided to stay home.", "우리는 집에 있기로 결정했다."], ["early", "부사", "일찍", "She gets up early.", "그녀는 일찍 일어난다."], ["favorite", "형용사", "가장 좋아하는", "What is your favorite song?", "가장 좋아하는 노래가 뭐예요?"], ["grateful", "형용사", "감사하는", "I am grateful for your help.", "도와줘서 고마워요."], ["habit", "명사", "습관", "Reading is a good habit.", "독서는 좋은 습관이다."], ["improve", "동사", "향상시키다, 나아지다", "My English is improving.", "내 영어 실력이 나아지고 있다."], ["journey", "명사", "여행, 여정", "Life is a long journey.", "인생은 긴 여정이다."], ["kind", "형용사", "친절한", "He is kind to everyone.", "그는 모두에게 친절하다."], ["listen", "동사", "듣다", "Listen to this song.", "이 노래 들어 봐."], ["memory", "명사", "기억, 추억", "This song brings back memories.", "이 노래는 추억을 떠올리게 한다."], ["nervous", "형용사", "긴장한", "I feel nervous before the test.", "시험 전에 긴장된다."], ["order", "동사", "주문하다", "Let's order some pizza.", "피자 좀 시키자."], ["practice", "동사", "연습하다", "I practice the piano every day.", "나는 매일 피아노를 연습한다."], ["quiet", "형용사", "조용한", "The library is quiet.", "도서관은 조용하다."], ["remember", "동사", "기억하다", "Do you remember me?", "저 기억하세요?"], ["share", "동사", "나누다, 공유하다", "Let's share this cake.", "이 케이크 나눠 먹자."], ["tired", "형용사", "피곤한", "I am too tired to go out.", "너무 피곤해서 못 나가겠어."], ["usually", "부사", "보통, 대개", "I usually walk to school.", "나는 보통 학교에 걸어간다."], ["visit", "동사", "방문하다", "I will visit my grandma.", "할머니 댁에 갈 거야."], ["weather", "명사", "날씨", "The weather is nice today.", "오늘 날씨가 좋다."], ["young", "형용사", "젊은, 어린", "He looks young for his age.", "그는 나이에 비해 어려 보인다."], ["advice", "명사", "조언", "Thank you for your advice.", "조언해 줘서 고마워."], ["believe", "동사", "믿다", "I believe in you.", "난 너를 믿어."], ["change", "동사", "바꾸다, 변하다", "People can change.", "사람은 변할 수 있다."], ["different", "형용사", "다른", "We have different ideas.", "우리는 생각이 다르다."], ["enjoy", "동사", "즐기다", "Enjoy your meal!", "맛있게 드세요!"], ["forget", "동사", "잊다", "Don't forget your umbrella.", "우산 잊지 마."], ["guess", "동사", "추측하다", "Guess what happened!", "무슨 일이 있었는지 맞혀 봐!"], ["hurry", "동사", "서두르다", "Hurry up, we're late!", "서둘러, 늦었어!"], ["invite", "동사", "초대하다", "I invited her to my party.", "나는 그녀를 파티에 초대했다."], ["join", "동사", "함께하다, 가입하다", "Can I join you?", "나도 같이 해도 돼?"], ["keep", "동사", "유지하다, 계속하다", "Keep going!", "계속 해!"], ["laugh", "동사", "웃다", "They laughed at the joke.", "그들은 그 농담에 웃었다."], ["mistake", "명사", "실수", "Everyone makes mistakes.", "누구나 실수를 한다."], ["neighbor", "명사", "이웃", "My neighbor is very friendly.", "우리 이웃은 아주 다정하다."], ["offer", "동사", "제안하다, 권하다", "She offered me a drink.", "그녀가 나에게 음료를 권했다."], ["promise", "동사", "약속하다", "I promise to call you.", "전화하겠다고 약속할게."], ["question", "명사", "질문", "Can I ask a question?", "질문 하나 해도 될까요?"], ["reason", "명사", "이유", "What is the reason?", "이유가 뭐야?"], ["simple", "형용사", "간단한", "The answer is simple.", "답은 간단하다."], ["together", "부사", "함께", "Let's go together.", "같이 가자."], ["understand", "동사", "이해하다", "I don't understand this word.", "이 단어를 이해 못 하겠어."], ["vacation", "명사", "휴가, 방학", "We went to the beach on vacation.", "우리는 휴가 때 바닷가에 갔다."], ["wonder", "동사", "궁금해하다", "I wonder why he left.", "그가 왜 떠났는지 궁금하다."], ["yesterday", "부사", "어제", "I saw him yesterday.", "나는 어제 그를 봤다."], ["afraid", "형용사", "두려워하는", "Don't be afraid.", "두려워하지 마."], ["because", "접속사", "~때문에", "I stayed home because it rained.", "비가 와서 집에 있었다."], ["choose", "동사", "고르다", "Choose one color.", "색 하나를 골라."], ["during", "전치사", "~동안", "I slept during the movie.", "영화 보는 동안 잠들었다."], ["explain", "동사", "설명하다", "Can you explain this?", "이거 설명해 줄 수 있어?"], ["finish", "동사", "끝내다", "I finished my homework.", "숙제를 끝냈다."], ["gather", "동사", "모이다, 모으다", "We gathered in the park.", "우리는 공원에 모였다."], ["honest", "형용사", "정직한", "Please be honest with me.", "나한테 솔직하게 말해 줘."], ["important", "형용사", "중요한", "Sleep is important for health.", "잠은 건강에 중요하다."], ["jealous", "형용사", "질투하는", "He was jealous of his brother.", "그는 형을 질투했다."], ["knowledge", "명사", "지식", "Knowledge is power.", "아는 것이 힘이다."], ["lonely", "형용사", "외로운", "I felt lonely at night.", "밤에 외로웠다."], ["moment", "명사", "순간", "Wait a moment, please.", "잠시만 기다려 주세요."], ["nearly", "부사", "거의", "I nearly missed the bus.", "버스를 거의 놓칠 뻔했다."], ["opinion", "명사", "의견", "What is your opinion?", "네 의견은 어때?"], ["prepare", "동사", "준비하다", "I prepared dinner for my family.", "가족을 위해 저녁을 준비했다."], ["quickly", "부사", "빨리", "He ran quickly.", "그는 빨리 달렸다."], ["relax", "동사", "쉬다, 긴장을 풀다", "Relax and take a deep breath.", "긴장 풀고 숨을 깊게 쉬어."], ["special", "형용사", "특별한", "Today is a special day.", "오늘은 특별한 날이다."], ["travel", "동사", "여행하다", "I love to travel.", "나는 여행하는 걸 정말 좋아한다."], ["until", "전치사", "~까지", "Wait until tomorrow.", "내일까지 기다려."], ["voice", "명사", "목소리", "She has a beautiful voice.", "그녀는 목소리가 아름답다."], ["worry", "동사", "걱정하다", "Don't worry about it.", "그건 걱정하지 마."], ["always", "부사", "항상", "He is always on time.", "그는 항상 시간을 지킨다."], ["brave", "형용사", "용감한", "You were very brave.", "너 정말 용감했어."], ["celebrate", "동사", "축하하다", "Let's celebrate your birthday!", "네 생일을 축하하자!"], ["dream", "명사", "꿈", "Follow your dream.", "꿈을 따라가."], ["easy", "형용사", "쉬운", "This game is easy.", "이 게임은 쉽다."], ["famous", "형용사", "유명한", "She is a famous singer.", "그녀는 유명한 가수다."], ["gift", "명사", "선물", "Thank you for the gift.", "선물 고마워."], ["healthy", "형용사", "건강한", "Eat healthy food.", "건강한 음식을 먹어."], ["interesting", "형용사", "흥미로운", "This book is interesting.", "이 책은 흥미롭다."], ["kitchen", "명사", "부엌", "Mom is in the kitchen.", "엄마는 부엌에 계신다."], ["lucky", "형용사", "운이 좋은", "I am lucky to have you.", "네가 있어서 난 운이 좋아."], ["mean", "동사", "의미하다", "What does this word mean?", "이 단어는 무슨 뜻이야?"], ["normal", "형용사", "보통의, 평범한", "It was a normal day.", "평범한 하루였다."], ["often", "부사", "자주", "I often listen to music.", "나는 자주 음악을 듣는다."], ["popular", "형용사", "인기 있는", "This song is very popular.", "이 노래는 아주 인기 있다."], ["recommend", "동사", "추천하다", "Can you recommend a song?", "노래 하나 추천해 줄래?"], ["suddenly", "부사", "갑자기", "Suddenly, it started to rain.", "갑자기 비가 오기 시작했다."], ["thirsty", "형용사", "목마른", "I'm thirsty. Can I have water?", "목말라. 물 좀 줄래?"], ["upset", "형용사", "속상한", "She was upset about the news.", "그녀는 그 소식에 속상해했다."], ["village", "명사", "마을", "He lives in a small village.", "그는 작은 마을에 산다."], ["wait", "동사", "기다리다", "Please wait here.", "여기서 기다려 주세요."], ["already", "부사", "이미, 벌써", "I already ate lunch.", "나는 이미 점심을 먹었다."], ["bored", "형용사", "지루해하는", "I'm bored. Let's play a game.", "심심해. 게임하자."], ["comfortable", "형용사", "편안한", "This chair is comfortable.", "이 의자는 편안하다."], ["deliver", "동사", "배달하다", "They deliver food at night.", "그들은 밤에 음식을 배달한다."], ["excited", "형용사", "신이 난", "I'm excited about the trip.", "여행 생각에 신이 나."], ["fix", "동사", "고치다", "Can you fix my bike?", "내 자전거 고쳐 줄 수 있어?"], ["goal", "명사", "목표", "My goal is to run a marathon.", "내 목표는 마라톤 완주다."], ["hobby", "명사", "취미", "My hobby is drawing.", "내 취미는 그림 그리기다."], ["instead", "부사", "대신에", "Let's walk instead.", "대신 걷자."], ["lesson", "명사", "수업, 교훈", "I learned a lesson today.", "오늘 교훈을 하나 얻었다."], ["miss", "동사", "그리워하다, 놓치다", "I miss you so much.", "네가 너무 보고 싶어."], ["noisy", "형용사", "시끄러운", "The street is noisy.", "거리가 시끄럽다."], ["outside", "부사", "밖에", "Let's play outside.", "밖에서 놀자."], ["patient", "형용사", "참을성 있는", "Be patient, it takes time.", "참아, 시간이 걸려."], ["rest", "명사", "휴식", "You need some rest.", "너는 좀 쉬어야 해."], ["surprise", "명사", "놀라움, 깜짝 선물", "What a nice surprise!", "정말 멋진 깜짝 선물이네!"], ["trust", "동사", "믿다, 신뢰하다", "I trust my friends.", "나는 친구들을 믿는다."], ["useful", "형용사", "유용한", "This app is very useful.", "이 앱은 아주 유용하다."], ["wish", "동사", "바라다", "I wish you good luck.", "행운을 빌어."], ["answer", "동사", "대답하다", "Please answer the phone.", "전화 좀 받아 줘."], ["busy", "형용사", "바쁜", "I'm busy this week.", "이번 주는 바빠."], ["clever", "형용사", "영리한", "What a clever idea!", "정말 똑똑한 생각이다!"], ["describe", "동사", "묘사하다, 설명하다", "Describe your best friend.", "가장 친한 친구를 묘사해 봐."], ["empty", "형용사", "빈", "The box is empty.", "상자가 비어 있다."], ["follow", "동사", "따라가다", "Follow me, please.", "저를 따라오세요."], ["grow", "동사", "자라다, 키우다", "Plants grow fast in summer.", "식물은 여름에 빨리 자란다."], ["hope", "동사", "바라다, 희망하다", "I hope you feel better.", "네가 나아지길 바라."], ["idea", "명사", "생각, 아이디어", "That's a great idea!", "좋은 생각이다!"], ["kindness", "명사", "친절", "Thank you for your kindness.", "친절에 감사드려요."], ["light", "형용사", "가벼운", "This bag is light.", "이 가방은 가볍다."], ["message", "명사", "메시지", "I sent you a message.", "너한테 메시지 보냈어."], ["nature", "명사", "자연", "I love being in nature.", "나는 자연 속에 있는 게 좋다."], ["proud", "형용사", "자랑스러워하는", "I'm proud of you.", "네가 자랑스러워."], ["ready", "형용사", "준비된", "Are you ready?", "준비됐어?"], ["smile", "동사", "웃다, 미소 짓다", "Smile for the camera!", "카메라 보고 웃어!"], ["tonight", "부사", "오늘 밤에", "Let's meet tonight.", "오늘 밤에 만나자."], ["uniform", "명사", "제복, 교복", "We wear a uniform at school.", "우리는 학교에서 교복을 입는다."], ["view", "명사", "경치, 전망", "The view from here is amazing.", "여기서 보는 경치가 굉장하다."], ["win", "동사", "이기다", "Our team won the game.", "우리 팀이 경기에서 이겼다."], ["anyway", "부사", "어쨌든", "Anyway, let's start.", "어쨌든 시작하자."], ["bright", "형용사", "밝은", "The sun is bright today.", "오늘은 햇살이 밝다."], ["cheap", "형용사", "값싼", "This shirt was cheap.", "이 셔츠는 쌌다."], ["dangerous", "형용사", "위험한", "It's dangerous to swim here.", "여기서 수영하는 건 위험하다."], ["exercise", "동사", "운동하다", "I exercise three times a week.", "나는 일주일에 세 번 운동한다."], ["free", "형용사", "자유로운, 무료의", "The concert is free.", "그 콘서트는 무료다."], ["heavy", "형용사", "무거운", "This box is too heavy.", "이 상자는 너무 무겁다."], ["introduce", "동사", "소개하다", "Let me introduce myself.", "제 소개를 할게요."], ["late", "형용사", "늦은", "Sorry, I'm late.", "늦어서 미안해."], ["music", "명사", "음악", "Music makes me happy.", "음악은 나를 행복하게 한다."], ["plan", "명사", "계획", "What's your plan for today?", "오늘 계획이 뭐야?"], ["rhythm", "명사", "리듬", "This song has a great rhythm.", "이 노래는 리듬이 좋다."], ["song", "명사", "노래", "Sing a song with me.", "나랑 노래 부르자."], ["tune", "명사", "곡조, 멜로디", "I can't get this tune out of my head.", "이 멜로디가 머리에서 떠나질 않아."]];
+const EN_INT=[0,1,2,4,7,15,30];
+const EN=Object.assign({s:{},per:5,intro:{},streak:0,last:'',days:[],quizBest:0,auto:true},LS.get('eng',{}));
+const enSave=()=>LS.set('eng',EN);
+const enDay=n=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return dk(d)};
+const enCan=()=>!!((AND&&typeof AND.speak==='function'&&!IS_PC)||('speechSynthesis' in window));
+function enSpeak(txt){try{if(AND&&typeof AND.speak==='function'&&!IS_PC){AND.speak(txt);return}
+  if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=.85;const v=speechSynthesis.getVoices().find(x=>/^en(-|_)US/i.test(x.lang))||speechSynthesis.getVoices().find(x=>/^en/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u)}}catch(e){}}
+function enQueue(){const td=hpToday(),due=Object.entries(EN.s).filter(([w,s])=>s.d<=td).sort((a,b)=>a[1].d.localeCompare(b[1].d)).map(([w])=>w);
+  const left=Math.max(0,EN.per-(EN.intro[td]||0)),fresh=EN_W.filter(x=>!EN.s[x[0]]).slice(0,left).map(x=>x[0]);return {due,fresh}}
+const enWord=w=>EN_W.find(x=>x[0]===w);
+const enStudied=()=>EN.last===hpToday();
+const enStreakNow=()=>EN.last===hpToday()||EN.last===enDay(-1)?EN.streak:0;
+let ES=null;
+function openEng(){if(!labOn('english'))return;closeAll();$('en').hidden=false;enHome()}
+function closeEng(){$('en').hidden=true;ES=null;try{speechSynthesis&&speechSynthesis.cancel()}catch(e){}enCardUI()}
+const enOn=()=>!$('en').hidden;
+function enHome(){ES=null;const q=enQueue(),n=q.due.length+q.fresh.length,learned=Object.keys(EN.s).length,master=Object.values(EN.s).filter(s=>s.b>=5).length;
+  $('enTitle').textContent=t('enT');
+  $('enMain').innerHTML=`<div class="enWrap"><div class="hpTop"><div><span>${esc(t('hpStreak'))}</span><b>🔥 ${esc(t('dyDaysN',{n:enStreakNow()}))}</b></div><div><span>${esc(t('enLearned'))}</span><b>📚 ${learned}<small> / ${EN_W.length}</small></b></div></div>
+  <div class="enToday"><b>${esc(t(n?'enTodayN':'enTodayDone',{a:q.fresh.length,b:q.due.length}))}</b><small>${esc(t('enMaster',{n:master}))}</small></div>
+  <button class="tkBtn" type="button" data-en="learn"${n?'':' disabled'}>📖 ${esc(t(n?'enStart':'enAllDone'))}</button>
+  <div class="tkRow2" style="margin-top:8px"><button class="tkBtn ghost" type="button" data-en="quiz">🧩 ${esc(t('enQuiz'))}</button><button class="tkBtn ghost" type="button" data-en="list">🗂️ ${esc(t('enList'))}</button></div>
+  <div class="tkF" style="margin-top:14px"><span>${esc(t('enPer'))}</span><div class="tkChips">${[3,5,10,15].map(k=>`<button type="button" data-per="${k}" class="${EN.per===k?'on':''}">${esc(t('enPerN',{n:k}))}</button>`).join('')}</div></div>
+  ${enCan()?`<label class="tkSw"><span>🔊 ${esc(t('enAuto'))}</span><input type="checkbox" class="sw" id="enAuto"${EN.auto?' checked':''}></label>`:''}
+  ${EN.quizBest?`<p class="tkNote">${esc(t('enQBest',{n:EN.quizBest}))}</p>`:''}
+  <p class="tkNote">${esc(t('enHow'))}</p></div>`}
+function enLearn(){const q=enQueue(),items=[...q.due.map(w=>({w,n:false})),...q.fresh.map(w=>({w,n:true}))];if(!items.length){enHome();return}
+  ES={mode:'learn',items,i:0,flip:false,again:new Set(),ok:0};enCard()}
+function enCard(){const it=ES.items[ES.i];if(!it){enFinish();return}const x=enWord(it.w);
+  $('enTitle').textContent=`${ES.i+1} / ${ES.items.length}`;
+  $('enMain').innerHTML=`<div class="enWrap"><div class="enBar"><i style="width:${ES.i/ES.items.length*100}%"></i></div>
+  <button type="button" class="enCard${ES.flip?' flip':''}" id="enCardB">${it.n?`<em class="enNew">${esc(t('enNew'))}</em>`:''}
+    <b class="w">${esc(x[0])}</b><span class="pos">${esc(x[1])}</span>
+    ${ES.flip?`<span class="m">${esc(x[2])}</span><span class="ex">${esc(x[3])}</span><span class="ek">${esc(x[4])}</span>`:`<span class="tap">${esc(t('enTap'))}</span>`}</button>
+  ${enCan()?`<div class="tkRow2" style="margin:10px 0"><button class="tkBtn ghost" type="button" data-say="w">🔊 ${esc(t('enSayW'))}</button><button class="tkBtn ghost" type="button" data-say="ex">🔊 ${esc(t('enSayEx'))}</button></div>`:''}
+  ${ES.flip?`<div class="tkRow2"><button class="tkBtn red" type="button" data-ans="0">😵 ${esc(t('enNo'))}</button><button class="tkBtn" type="button" data-ans="1">😎 ${esc(t('enYes'))}</button></div>`:`<button class="tkBtn" type="button" data-en="flip">${esc(t('enShow'))}</button>`}</div>`;
+  if(!ES.flip&&EN.auto&&enCan())enSpeak(x[0])}
+function enAnswer(ok){const it=ES.items[ES.i],td=hpToday(),s=EN.s[it.w]||{b:0,d:td};
+  if(it.n&&!EN.s[it.w])EN.intro[td]=(EN.intro[td]||0)+1;
+  if(ok){s.b=Math.min(6,s.b+1);s.d=enDay(EN_INT[s.b]);ES.ok++}else{s.b=1;s.d=enDay(1);if(!ES.again.has(it.w)){ES.again.add(it.w);ES.items.push({w:it.w,n:false,re:true})}}
+  EN.s[it.w]=s;enSave();ES.i++;ES.flip=false;enCard()}
+function enStudyDay(){const td=hpToday();if(EN.last!==td){EN.streak=EN.last===enDay(-1)?EN.streak+1:1;EN.last=td;EN.days.push(td);if(EN.days.length>120)EN.days=EN.days.slice(-120);enSave()}window.__hpMark&&window.__hpMark('english')}
+function enFinish(){enStudyDay();$('enTitle').textContent=t('enT');
+  $('enMain').innerHTML=`<div class="enWrap"><div class="tkHero"><i>🎉</i><h2>${esc(t('enDoneT'))}</h2><p>${esc(t('enDoneD',{n:ES.items.length,k:ES.ok,s:EN.streak}))}</p></div>
+  <button class="tkBtn" type="button" data-en="quiz">🧩 ${esc(t('enQuiz'))}</button><button class="tkBtn ghost" type="button" data-en="home" style="margin-top:8px">${esc(t('enBack'))}</button></div>`;ES=null}
+function enQuiz(){const pool=Object.keys(EN.s);const words=(pool.length>=4?pool:EN_W.slice(0,20).map(x=>x[0])).slice();
+  for(let i=words.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[words[i],words[j]]=[words[j],words[i]]}
+  ES={mode:'quiz',qs:words.slice(0,10).map(w=>({w,rev:Math.random()<.4})),i:0,score:0,picked:null};enQ()}
+function enQ(){const q=ES.qs[ES.i];if(!q){enQuizEnd();return}const x=enWord(q.w);
+  const others=EN_W.filter(y=>y[0]!==q.w).sort(()=>Math.random()-.5).slice(0,3),opts=[x,...others].sort(()=>Math.random()-.5);q.opts=opts.map(y=>y[0]);
+  $('enTitle').textContent=`🧩 ${ES.i+1} / ${ES.qs.length}`;
+  $('enMain').innerHTML=`<div class="enWrap"><div class="enBar"><i style="width:${ES.i/ES.qs.length*100}%"></i></div>
+  <div class="enQ"><small>${esc(t(q.rev?'enQrev':'enQfw'))}</small><b>${esc(q.rev?x[2]:x[0])}</b>${!q.rev&&enCan()?`<button class="tkBtn ghost" type="button" data-say="w" style="width:auto;padding:0 16px;margin:6px auto 0">🔊</button>`:''}</div>
+  <div class="enOpts">${opts.map(y=>`<button type="button" data-opt="${esc(y[0])}">${esc(q.rev?y[0]:y[2])}</button>`).join('')}</div></div>`;
+  if(!q.rev&&EN.auto&&enCan())enSpeak(x[0])}
+function enPick(w){const q=ES.qs[ES.i];if(q.done)return;q.done=1;const ok=w===q.w;if(ok)ES.score++;
+  for(const b of $('enMain').querySelectorAll('[data-opt]')){b.disabled=true;if(b.dataset.opt===q.w)b.classList.add('ok');else if(b.dataset.opt===w)b.classList.add('no')}
+  if(!ok){const x=enWord(q.w),s=EN.s[q.w];if(s){s.b=1;s.d=enDay(1);enSave()}toast(`${x[0]} = ${x[2]}`)}
+  setTimeout(()=>{if(ES&&ES.mode==='quiz'){ES.i++;enQ()}},ok?650:1500)}
+function enQuizEnd(){const n=ES.qs.length,sc=ES.score;if(sc>EN.quizBest)EN.quizBest=sc;enSave();enStudyDay();$('enTitle').textContent=t('enT');
+  $('enMain').innerHTML=`<div class="enWrap"><div class="tkHero"><i>${sc===n?'🏆':sc>=n*.7?'👏':'💪'}</i><h2>${esc(t('enQRes',{s:sc,n}))}</h2><p>${esc(t(sc===n?'enQPerfect':'enQMore'))}</p></div>
+  <button class="tkBtn" type="button" data-en="quiz">${esc(t('enQAgain'))}</button><button class="tkBtn ghost" type="button" data-en="home" style="margin-top:8px">${esc(t('enBack'))}</button></div>`;ES=null}
+function enList(q){$('enTitle').textContent=t('enList');const ws=EN_W.filter(x=>EN.s[x[0]]),qq=(q||'').trim().toLowerCase(),f=qq?ws.filter(x=>(x[0]+' '+x[2]).toLowerCase().includes(qq)):ws;
+  $('enMain').innerHTML=`<div class="enWrap"><input class="dyQ" id="enQ" type="search" placeholder="🔍 ${esc(t('enSearch'))}" value="${esc(q||'')}">
+  ${f.length?f.map(x=>{const s=EN.s[x[0]];return `<div class="enRow"><div><b>${esc(x[0])}</b><small>${esc(x[1])} · ${esc(x[2])}</small></div><span class="lv">${'●'.repeat(Math.min(5,s.b))}${'○'.repeat(Math.max(0,5-s.b))}</span>${enCan()?`<button type="button" data-sayw="${esc(x[0])}">🔊</button>`:''}</div>`}).join(''):`<div class="tkEmpty"><i>🗂️</i>${esc(t(ws.length?'dyNoHit':'enListEmpty'))}</div>`}
+  <button class="tkBtn ghost" type="button" data-en="home" style="margin-top:12px">${esc(t('enBack'))}</button></div>`}
+$('enMain').addEventListener('click',e=>{const g=s=>e.target.closest(s);let b;
+  if(b=g('[data-en]')){const a=b.dataset.en;if(a==='learn')enLearn();else if(a==='quiz')enQuiz();else if(a==='list')enList('');else if(a==='home')enHome();else if(a==='flip'&&ES){ES.flip=true;enCard()}return}
+  if(g('#enCardB')&&ES&&ES.mode==='learn'){if(!ES.flip){ES.flip=true;enCard()}return}
+  if(b=g('[data-ans]')){enAnswer(b.dataset.ans==='1');return}
+  if(b=g('[data-say]')){const it=ES&&(ES.mode==='learn'?ES.items[ES.i]:ES.qs[ES.i]);if(it){const x=enWord(it.w);enSpeak(b.dataset.say==='ex'?x[3]:x[0])}return}
+  if(b=g('[data-sayw]')){enSpeak(b.dataset.sayw);return}
+  if(b=g('[data-opt]')){enPick(b.dataset.opt);return}
+  if(b=g('[data-per]')){EN.per=+b.dataset.per;enSave();enHome();return}});
+$('enMain').addEventListener('change',e=>{if(e.target.id==='enAuto'){EN.auto=e.target.checked;enSave()}});
+$('enMain').addEventListener('input',e=>{if(e.target.id==='enQ'){const v=e.target.value,p=e.target.selectionStart;enList(v);const i=$('enQ');i.focus();try{i.setSelectionRange(p,p)}catch(_){}}});
+document.addEventListener('keydown',e=>{if(!enOn()||!ES||e.target.closest('input'))return;
+  if(ES.mode==='learn'){if(e.key===' '||e.key==='Enter'){e.preventDefault();if(!ES.flip){ES.flip=true;enCard()}}else if(ES.flip&&(e.key==='ArrowRight'||e.key==='1'))enAnswer(true);else if(ES.flip&&(e.key==='ArrowLeft'||e.key==='0'))enAnswer(false)}
+  else if(ES.mode==='quiz'&&/^[1-4]$/.test(e.key)){const q=ES.qs[ES.i];if(q&&q.opts)enPick(q.opts[+e.key-1])}},true);
+$('enX').onclick=()=>{if(ES||$('enTitle').textContent!==t('enT'))enHome();else closeEng()};
+{const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(enOn()){if(ES||$('enTitle').textContent!==t('enT'))enHome();else closeEng();return true}return _bk?_bk():false}}
+function enCardUI(){if(!labOn('english'))return;const q=enQueue(),n=q.due.length+q.fresh.length;
+  $('enSub').textContent=n?t('enCardN',{n}):t('enCardDone',{s:enStreakNow()})}
+$('enCard').onclick=openEng;
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=english]');if(b){e.stopImmediatePropagation();openEng()}},true)}
+if(window.__hp)__hp.HM_POOL.push({id:'english',e:'📚',need:()=>labOn('english'),ev:1});
+enCardUI();setInterval(enCardUI,60000);
+{const _al=applyLang;applyLang=function(){_al.apply(this,arguments);enCardUI();if(enOn()&&!ES)enHome()}}
+window.__en={EN,EN_W,openEng,closeEng,enLearn,enQuiz,enHome,enQueue};
 
 /* ---------- 긴 오디오 이어 듣기 (10분 이상) ---------- */
 const RES=LS.get('resumeAt',{});let resSaveT=0;

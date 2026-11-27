@@ -22,6 +22,7 @@
     <uses-feature android:name="android.hardware.microphone" android:required="false"/>
     <queries>
         <package android:name="com.turntable.updater"/>
+        <intent><action android:name="android.intent.action.TTS_SERVICE"/></intent>
     </queries>
     <application android:label="해피뮤직" android:requestLegacyExternalStorage="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher" android:theme="@style/AppTheme">
         <activity android:name="com.turntable.player.MainActivity" android:label="해피뮤직" android:exported="true" android:launchMode="singleTask" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode">
