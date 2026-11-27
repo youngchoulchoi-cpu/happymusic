@@ -810,6 +810,8 @@ html.dark #talk,html[data-theme=dark] #talk{background:#101016}
 html.lab-no-talk #talkCard,html.lab-no-talk .dNav [data-v=talk]{display:none!important}
 .gameCard .tkCardBadge{position:absolute;right:14px;top:14px;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:#ff4d6d;color:#fff;font:800 12px/22px inherit;font-family:inherit;font-style:normal;text-align:center;box-sizing:border-box}
 @media(min-width:900px){.tkMain{padding:18px 24px 24px}.tkM{max-width:62%}}
+.shC{background:linear-gradient(120deg,rgba(255,60,60,.55),rgba(255,120,80,.3) 60%,var(--mixEnd))}
+html.lab-no-shorts #shortsCard,html.lab-no-shorts .dNav [data-v=shorts]{display:none!important}
 html.lab-no-diary #diaryCard,html.lab-no-diary .dNav [data-v=diary]{display:none!important}
 .dyC{background:linear-gradient(120deg,rgba(255,170,120,.5),rgba(255,120,160,.32) 60%,var(--mixEnd))}
 .dyMon{display:flex;align-items:center;justify-content:space-between;margin:2px 0 10px}
@@ -1063,6 +1065,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix i glass" id="repCard"><span class="ic"><span class="emo">📊</span></span><em class="new">NEW</em><b data-i18n="repT">음악 리포트</b><span id="repSub" data-i18n="repCardSub">나의 감상 기록</span></button>
   </div>
   <button class="gameCard tkC glass" id="talkCard"><span class="ic"><span class="emo">💬</span></span><em class="tkCardBadge" id="tkCardBadge" hidden></em><b data-i18n="tkT">해피톡</b><span id="tkCardSub" data-i18n="tkCardSub">멤버와 채팅하고 파일을 주고받아요</span></button>
+  <button class="gameCard shC glass" id="shortsCard"><span class="ic"><span class="emo">▶️</span></span><em class="new">NEW</em><b data-i18n="shT">숏폼</b><span data-i18n="shSub">유튜브 쇼츠를 앱 안에서 바로 봐요</span></button>
   <button class="gameCard dyC glass" id="diaryCard"><span class="ic"><span class="emo" id="dyCardEmo">📔</span></span><em class="new">NEW</em><b data-i18n="dyT">음악 일기</b><span id="dySub" data-i18n="dyCardSub">오늘 하루와 노래를 기록해요</span></button>
   <button class="gameCard labC glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span id="labSub" data-i18n="labCardSub">기능 켜고 끄기</span></button>
 
@@ -1291,6 +1294,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <p data-i18n="labT">실험실</p>
       <button type="button" data-v="star"><span style="width:20px;text-align:center;flex:none">🎞️</span><span data-i18n="stName">해피플레이어</span></button>
       <button type="button" data-v="talk"><span style="width:20px;text-align:center;flex:none">💬</span><span data-i18n="tkT">해피톡</span></button>
+      <button type="button" data-v="shorts"><span style="width:20px;text-align:center;flex:none">▶️</span><span data-i18n="shT">숏폼</span></button>
       <button type="button" data-v="diary"><span style="width:20px;text-align:center;flex:none">📔</span><span data-i18n="dyT">음악 일기</span></button>
       <button type="button" data-v="report"><span style="width:20px;text-align:center;flex:none">📊</span><span data-i18n="repT">음악 리포트</span></button>
       <button type="button" data-v="labs"><span style="width:20px;text-align:center;flex:none">🧪</span><span data-i18n="labT">실험실</span></button>
@@ -1657,6 +1661,8 @@ Object.assign(I18N.T,{
 Object.assign(I18N.T,{
  labT:X13('실험실','Labs'),labD:X13('새 기능과 추가 기능을 직접 켜고 끌 수 있어요. 끈 기능은 화면에서 사라지고, 다시 켜면 그대로 돌아와요.','Turn new and extra features on or off. Turned-off features disappear and come back exactly as they were.'),
  labCardSub:X13('기능 켜고 끄기','Turn features on/off'),labCnt:X13('기능 켜고 끄기 · {n}/{m}개 켜짐','Turn features on/off · {n} of {m} on'),
+ shT:X13('숏폼','Shorts'),shSub:X13('유튜브 쇼츠를 앱 안에서 바로 봐요','Watch YouTube Shorts right in the app'),shExt:X13('유튜브 쇼츠를 열었어요','Opened YouTube Shorts'),
+ labShorts:X13('숏폼 (유튜브 쇼츠)','Shorts (YouTube)'),labShortsD:X13('홈의 숏폼 카드로 유튜브 쇼츠 탭을 바로 열어요 · 앱 안 브라우저에서 위아래로 넘겨 보기','Opens the YouTube Shorts tab from a Home card, in the in-app browser'),
  labDiary:X13('음악 일기','Music diary'),labDiaryD:X13('하루 기분과 그날의 노래를 함께 기록 · 달력·검색·잠금 · 켜면 홈에 카드가 생겨요','Write about your day with a mood and a song · calendar, search, lock · adds a Home card'),
  dyT:X13('음악 일기','Music diary'),dyCardSub:X13('오늘 하루와 노래를 기록해요','Write about today and its song'),dyCardDone:X13('오늘 {e} 썼어요 · 이번 달 {n}편','Today {e} done · {n} this month'),dyCardTodo:X13('오늘 일기를 아직 안 썼어요 · 이번 달 {n}편','Not written today yet · {n} this month'),
  dyWriteToday:X13('✏️ 오늘 일기 쓰기','✏️ Write today'),dyOpenToday:X13('📖 오늘 일기 보기','📖 Open today'),
@@ -2467,7 +2473,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.7.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.7.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2681,7 +2687,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>30*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["🔋","해피톡: 앱을 닫아도 알림 받기 (배터리 절약형 알림 대기 모드, 앱 5.7)","HappyTalk: alerts even when the app is closed (battery-saving, app 5.7)"],
+const WEB_NOTES=[["▶️","숏폼: 홈 카드로 유튜브 쇼츠 탭을 앱 안 브라우저에서 바로 열기","Shorts: open the YouTube Shorts tab in the in-app browser from Home"],
+ ["🔋","해피톡: 앱을 닫아도 알림 받기 (배터리 절약형 알림 대기 모드, 앱 5.7)","HappyTalk: alerts even when the app is closed (battery-saving, app 5.7)"],
  ["🔔","해피톡 새 메시지 알림: 전용 알림음 + 휴대폰 알림 (앱 5.6), 앱 안에서는 알림 배너","HappyTalk alerts: its own chime + phone notifications (app 5.6) and in-app banners"],
  ["💬","해피톡: 관리자·멤버 계정, 1:1·전체 채팅, 사진·음악·문서 주고받기, 초대 코드로 해피앱 초대 (홈 카드)","HappyTalk: admin/member accounts, chats, file sharing and invite codes (Home card)"],
  ["📔","음악 일기: 오늘 기분과 그날의 노래를 함께 기록 · 달력·검색·연속 기록·비밀번호 잠금 (홈 카드)","Music diary: mood + song of the day, calendar, search, streaks and PIN lock (Home card)"],
@@ -3411,9 +3418,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={star:false,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
+const LAB_DEF={star:false,shorts:true,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['talk','💬','labTalk','labTalkD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['talk','💬','labTalk','labTalkD'],['shorts','▶️','labShorts','labShortsD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
 window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
@@ -3436,6 +3443,14 @@ function openLabs(){labUI();openSheet('labSheet')}
 $('labList').addEventListener('change',e=>{const i=e.target.closest('[data-lab]');if(i)setLab(i.dataset.lab,i.checked)});
 $('labReset').onclick=()=>{Object.assign(LAB,LAB_DEF);LS.set('labs',LAB);applyLabs();labUI();toast(t('labResetT'))};
 $('labStarGo').onclick=()=>{closeAll();openStar()};
+/* ---------- 숏폼: 유튜브 쇼츠 탭 바로 열기 ---------- */
+const SHORTS_URL=()=>IS_PC||DESK?'https://www.youtube.com/shorts':'https://m.youtube.com/shorts';
+function openShorts(){if(!labOn('shorts'))return;const u=SHORTS_URL();
+  if(typeof wHasNative==='function'&&(wHasNative()||IS_PC)){openWeb(u);return}
+  if(AND&&typeof AND.openExternal==='function'){AND.openExternal(u);toast(t('shExt'));return}
+  window.open(u,'_blank','noopener')}
+window.openShorts=openShorts;
+$('shortsCard').onclick=openShorts;
 $('labCard').onclick=openLabs;$('labBtn').onclick=openLabs;
 applyLabs();labSubUI();
 
@@ -4300,7 +4315,7 @@ addEventListener('keydown',e=>{if(!ST.on)return;const tg=e.target;
   e.stopImmediatePropagation();if(h){e.preventDefault();if(stCur())stShowCtl()}},true);
 {const _bk=window.onAndroidBack;window.onAndroidBack=()=>{if(ST.on){if(!$('stSpd').hidden)$('stSpd').hidden=true;else if(stPanelOn())stPanel(null);else if(stFsEl())stFull();else closeStar();return true}return _bk?_bk():false}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ST.on&&stCur())stSave()});
-if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}else if(b.dataset.v==='report'){e.stopImmediatePropagation();openReport()}else if(b.dataset.v==='diary'){e.stopImmediatePropagation();openDiary()}},true)}
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(b.dataset.v==='star'){e.stopImmediatePropagation();openStar()}else if(b.dataset.v==='labs'){e.stopImmediatePropagation();openLabs()}else if(b.dataset.v==='report'){e.stopImmediatePropagation();openReport()}else if(b.dataset.v==='diary'){e.stopImmediatePropagation();openDiary()}else if(b.dataset.v==='shorts'){e.stopImmediatePropagation();openShorts()}},true)}
 window.__star={ST,openStar,closeStar,stAddFiles,stOpenUrl,stLoad,stSrt,stSmi,stCover,stABCycle,stBmAdd,stRate,stCapture,labOn,setLab,openLabs};
 
 initDesk();window.__player={audio,get cur(){return cur}};window.__lib={get tracks(){return tracks},playFrom,sorted,closeSheet,get obSteps(){return obSteps}};window.__art={cache:artCache,isVoice,byId,artKey};window.__q={get order(){return order},nextId};window.__upd={checkUpdate,WEB_VERSION,vcmp,normRepo};
