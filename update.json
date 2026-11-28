@@ -1,16 +1,16 @@
 {
- "version": "5.8.1",
- "native": "5.8",
- "web": "web/5.8.1.html",
- "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.8.apk",
- "notes": {
-  "ko": "· 🎵 유튜브 뮤직 연동: 앱 안에서 열기 · 유튜브 뮤직 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기\n· 📚 영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기 (앱 5.8)\n· 🎁 오늘의 해피: 내가 정한 시간대(예: 오전 6~8시)에 출석 체크 · 오늘의 미션 · 오늘의 운세\n· 🔢 2048 퍼즐 게임\n· 관리자는 시간대와 상관없이 출석 가능",
-  "en": "· 🎵 YouTube Music: open in-app or in its app, search, find the playing song\n· 📚 English Bites: daily word cards, spaced review, quizzes, pronunciation (app 5.8)\n· 🎁 Daily Happy: check in at your chosen time window, missions, fortune\n· 🔢 2048 puzzle\n· Admins can check in any time"
- },
- "pc": "2.0",
- "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
- "agent": "1.0",
- "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk",
- "talkUrl": "https://rcntvjtlmrircjcynuiv.supabase.co",
- "talkKey": "sb_publishable_OBK-qqAb5xfn056S4hIFFQ_cHZ5PuMP"
+  "version": "5.8.2",
+  "native": "5.8",
+  "web": "web/5.8.2.html",
+  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.8.apk",
+  "notes": {
+    "ko": "· 🐧 새 미니게임: 펭귄 대작전\n· 🎵 유튜브 뮤직 연동: 앱 안에서 열기 · 유튜브 뮤직 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기\n· 📚 영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기 (앱 5.8)\n· 🎁 오늘의 해피: 내가 정한 시간대(예: 오전 6~8시)에 출석 체크 · 오늘의 미션 · 오늘의 운세\n· 🔢 2048 퍼즐 게임\n· 관리자는 시간대와 상관없이 출석 가능",
+    "en": "· 🐧 New mini-game: Penguin Defense\n· 🎵 YouTube Music: open in-app or in its app, search, find the playing song\n· 📚 English Bites: daily word cards, spaced review, quizzes, pronunciation (app 5.8)\n· 🎁 Daily Happy: check in at your chosen time window, missions, fortune\n· 🔢 2048 puzzle\n· Admins can check in any time"
+  },
+  "pc": "2.0",
+  "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
+  "agent": "1.0",
+  "agentUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-UpdateAgent-1.0.apk",
+  "talkUrl": "https://rcntvjtlmrircjcynuiv.supabase.co",
+  "talkKey": "sb_publishable_OBK-qqAb5xfn056S4hIFFQ_cHZ5PuMP"
 }
