@@ -2751,7 +2751,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.9.8';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.9.9';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -5354,15 +5354,17 @@ function vwBtns(p){return`<div class="fxTool"><button type="button" class="clMin
 
 /* ================= 앱 관리자 ================= */
 function apLoad(){const A=FX.apps;A.busy=true;clRender();setTimeout(()=>{try{A.list=JSON.parse(AND.appList()||'[]')}catch(e){A.list=[]}
-  A.uok=false;try{A.uok=AND.appUsageOk()}catch(e){}
-  if(A.uok){try{A.st=JSON.parse(AND.appStats(JSON.stringify(A.list.filter(a=>!a.s||a.us).map(a=>a.p)))||'{}')}catch(e){A.st={}}try{A.lu=JSON.parse(AND.appLastUsed()||'{}')}catch(e){A.lu={}}}
+  let ok=false;try{ok=!!AND.appUsageOk()}catch(e){}
+  try{A.lu=JSON.parse(AND.appLastUsed()||'{}')}catch(e){A.lu={}}
+  try{A.st=JSON.parse(AND.appStats(JSON.stringify(A.list.filter(a=>!a.s||a.us).map(a=>a.p)))||'{}')}catch(e){A.st={}}
+  A.uok=ok||Object.keys(A.lu||{}).length>0||Object.keys(A.st||{}).length>0;if(!A.uok){A.st=null;A.lu=null}
   A.busy=false;clRender()},30)}
 function apSize(a){const s=FX.apps.st&&FX.apps.st[a.p];return s?s[0]+s[1]+s[2]:a.z}
 function apCache(a){const s=FX.apps.st&&FX.apps.st[a.p];return s?s[2]:-1}
 function apView(){const A=FX.apps;clHead(C_('앱 관리자','App manager'),A.list?A.list.length+C_('개 앱',' apps'):'');
   if(!clHas('appList'))return`<p class="clNote">${C_('앱을 5.11로 업데이트하면 쓸 수 있어요','Update the app to 5.11')}</p>`;
   if(!A.list){if(!A.busy)setTimeout(apLoad,0);return`<div class="clMsg"><div class="clSpin"></div><p>${C_('앱 목록 읽는 중…','Reading apps…')}</p></div>`}
-  let h='';if(!A.uok)h+=`<div class="fxBan"><p>${C_('앱별 용량·캐시·마지막 사용일을 보려면 [사용 정보 접근]을 허용해 주세요.','Allow [Usage access] to see per-app size, cache and last use.')}</p><button type="button" class="clMini" data-ap="usage">${C_('허용하러 가기','Allow')}</button></div>`;
+  let h='';if(!A.uok)h+=`<div class="fxBan"><p>${C_('앱별 용량·캐시·마지막 사용일을 보려면 [사용 정보 접근]을 허용해 주세요.','Allow [Usage access] to see per-app size, cache and last use.')}</p><div class="fxTool"><button type="button" class="clMini" data-ap="usage">${C_('허용하러 가기','Allow')}</button><button type="button" class="clMini" data-ap="reload">${C_('허용했어요 · 다시 확인','Allowed · check again')}</button></div></div>`;
   const F=[['user',C_('내 앱','My apps')],['unused',C_('안 쓰는 앱','Unused')],['cache',C_('캐시 많은 앱','Cache')],['upd',C_('업데이트된 기본 앱','Updated preinstalled')],['sys',C_('시스템 앱','System')]];
   h+=`<div class="fxTabs">${F.map(([k,l])=>`<button type="button" data-apf="${k}" class="${A.f===k?'on':''}">${l}</button>`).join('')}</div>`;
   const S=[['size',C_('크기','Size')],['name',C_('이름','Name')],['used',C_('마지막 사용','Last used')],['inst',C_('설치일','Installed')]];
@@ -5377,7 +5379,8 @@ function apView(){const A=FX.apps;clHead(C_('앱 관리자','App manager'),A.lis
   return h}
 function apBar(){const A=FX.apps,n=A.sel.size;if(!n)return'';return`<div class="fxAct"><b>${n}${C_('개 선택',' selected')}</b><button type="button" data-ap="uninst">🗑️<small>${C_('삭제','Uninstall')}</small></button><button type="button" data-ap="apk">📦<small>${C_('APK 추출','Extract APK')}</small></button><button type="button" data-ap="none">✕</button></div>`}
 function apNextUninst(){const A=FX.apps;const p=A.q.shift();if(!p){A.uninst=false;FX.apps.list=null;A.sel.clear();clRender();return}A.uninst=true;try{AND.appAct('android.intent.action.DELETE','package:'+p)}catch(e){apNextUninst()}}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&FX.apps.uninst)setTimeout(apNextUninst,400)});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible')return;if(FX.apps.uninst){setTimeout(apNextUninst,400);return}
+  if(clOn()&&CL.view==='apps'&&FX.apps.list&&!FX.apps.busy&&(FX.apps.waitUsage||!FX.apps.uok)){FX.apps.waitUsage=false;setTimeout(()=>{const had=FX.apps.uok;apLoad();setTimeout(()=>{if(!had&&FX.apps.uok)clToast(C_('사용 정보 접근이 켜졌어요','Usage access is on'))},200)},300)}});
 function apMenu(p){const a=(FX.apps.list||[]).find(x=>x.p===p);if(!a)return;const items=[{l:C_('앱 정보 (캐시 지우기·강제 종료)','App info (clear cache, force stop)'),f:()=>AND.appInfo(p)},{l:C_('APK 추출','Extract APK'),f:()=>{FX.apps.sel=new Set([p]);apExtract()}}];
   if(!a.s||a.us)items.push({l:a.us?C_('업데이트 제거·삭제','Uninstall updates'):C_('삭제','Uninstall'),danger:1,f:()=>{FX.apps.q=[p];apNextUninst()}});items.splice(1,0,{l:C_('앱 실행','Launch'),f:()=>{try{AND.openApp(p)}catch(e){}}});
   fxSheet({title:a.n,items})}
@@ -5508,7 +5511,7 @@ $('cln').addEventListener('click',e=>{const b=e.target.closest('[data-fx],[data-
     else if(a==='ren'){const ps=fmSelPaths();ps.length===1?fmRename(ps[0]):fmBatchRename()}else if(a==='zip')fmZip();else if(a==='del')fmDel();
     else if(a==='share'){const ps=fmSelPaths().filter(p=>!(F.list.find(x=>F.path+'/'+x.n===p)||{}).d);if(ps[0])AND.fmSend(ps[0],fxMime(ps[0]),1);if(ps.length>1)clToast(C_('한 번에 하나씩 공유돼요','Shares one file at a time'))}
     return}
-  if(d.ap){const A=FX.apps,a=d.ap;if(a==='usage')AND.appAct('android.settings.USAGE_ACCESS_SETTINGS',null);else if(a==='none'){A.sel.clear();clRender()}
+  if(d.ap){const A=FX.apps,a=d.ap;if(a==='reload'){apLoad();setTimeout(()=>clToast(A.uok?C_('사용 정보 접근이 켜졌어요','Usage access is on'):C_('아직 허용되지 않았어요. 목록에서 해피뮤직을 찾아 켜 주세요','Not allowed yet. Find HappyMusic in the list and turn it on')),300)}else if(a==='usage'){A.waitUsage=true;AND.appAct('android.settings.USAGE_ACCESS_SETTINGS',null)}else if(a==='none'){A.sel.clear();clRender()}
     else if(a==='uninst'){A.q=[...A.sel];apNextUninst()}else if(a==='apk')apExtract();return}
   if(d.apf){FX.apps.f=d.apf;FX.apps.sel.clear();clRender();return}if(d.aps){FX.apps.sort=d.aps;clRender();return}
   if(d.apRow){const A=FX.apps;if(A.sel.size){const a=A.list.find(x=>x.p===d.apRow);if(a&&(!a.s||a.us)){A.sel.has(d.apRow)?A.sel.delete(d.apRow):A.sel.add(d.apRow);clRender()}return}apMenu(d.apRow);return}
