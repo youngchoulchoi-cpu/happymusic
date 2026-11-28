@@ -2752,7 +2752,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.9.4';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.9.5';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -3631,7 +3631,7 @@ function openWeb(u){
   wRenderStart();W.panel=null;$('wPanel').hidden=true;W.menu=false;$('wMenu').hidden=true;
   requestAnimationFrame(()=>{if(u)wLoad(wNorm(u));else{if(W.native&&W.opened){const [a,b]=wBounds();try{AND.brBounds(a,b)}catch(e){}}wSync()}});
 }
-function closeWeb(){$('web').hidden=true;document.documentElement.classList.remove('webon');if(W.native&&W.opened){try{AND.brCmd(6)}catch(e){}}W.editing=false}
+function closeWeb(){$('web').hidden=true;document.documentElement.classList.remove('webon');if(W.native&&W.opened){try{AND.brCmd(9)}catch(e){try{AND.brCmd(6)}catch(e2){}}W.opened=false}if(W.frame){try{W.frame.src='about:blank';W.frame.dataset.u=''}catch(e){}}W.loading=false;W.editing=false}
 addEventListener('resize',()=>{if(webOn()&&W.native&&W.opened){const [a,b]=wBounds();try{AND.brBounds(a,b)}catch(e){}}});
 $('webBtn').onclick=()=>openWeb();$('webCard').onclick=()=>openWeb();
 // 뒤로 버튼: 브라우저가 열려 있으면 브라우저가 먼저 처리
