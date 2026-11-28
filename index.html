@@ -878,6 +878,16 @@ html.dark #talk,html[data-theme=dark] #talk{background:#101016}
 html.lab-no-talk #talkCard,html.lab-no-talk .dNav [data-v=talk]{display:none!important}
 .gameCard .tkCardBadge{position:absolute;right:14px;top:14px;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:#ff4d6d;color:#fff;font:800 12px/22px inherit;font-family:inherit;font-style:normal;text-align:center;box-sizing:border-box}
 @media(min-width:900px){.tkMain{padding:18px 24px 24px}.tkM{max-width:62%}}
+.ytC{background:linear-gradient(120deg,rgba(255,0,51,.55),rgba(40,40,40,.35) 65%,var(--mixEnd))}
+html.lab-no-ytm #ytmCard,html.lab-no-ytm .dNav [data-v=ytm],html.lab-no-ytm #ytmBtn{display:none!important}
+#ytmSheet [hidden]{display:none!important}
+.ytmBig{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border:0;border-radius:20px;background:linear-gradient(120deg,#ff0033,#c4002a);color:#fff;font:800 16px inherit;font-family:inherit;cursor:pointer;text-align:left;margin-bottom:8px}
+.ytmBig i{font-style:normal;font-size:28px}.ytmBig small{display:block;font-weight:600;font-size:12.5px;opacity:.85;margin-top:2px}
+.ytmBig.alt{background:rgba(127,127,127,.14);color:inherit}
+.ytmSearch{display:flex;gap:8px;margin:14px 0 8px}.ytmSearch input{flex:1;min-width:0;height:48px;border-radius:15px;border:1.5px solid rgba(127,127,127,.3);background:var(--card,#fff);color:inherit;padding:0 14px;font:16px inherit;font-family:inherit}
+.ytmSearch button{flex:none;width:auto;padding:0 18px;margin:0}
+.ytmNow{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:1.5px dashed rgba(255,0,51,.45);border-radius:16px;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left;margin:4px 0 8px}
+.ytmNow div{flex:1;min-width:0;display:flex;flex-direction:column}.ytmNow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ytmNow small{color:var(--mute);font-size:12.5px}
 .shC{background:linear-gradient(120deg,rgba(255,60,60,.55),rgba(255,120,80,.3) 60%,var(--mixEnd))}
 html.lab-no-shorts #shortsCard,html.lab-no-shorts .dNav [data-v=shorts]{display:none!important}
 html.lab-no-diary #diaryCard,html.lab-no-diary .dNav [data-v=diary]{display:none!important}
@@ -1136,6 +1146,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <button class="mix i glass" id="repCard"><span class="ic"><span class="emo">📊</span></span><em class="new">NEW</em><b data-i18n="repT">음악 리포트</b><span id="repSub" data-i18n="repCardSub">나의 감상 기록</span></button>
   </div>
   <button class="gameCard tkC glass" id="talkCard"><span class="ic"><span class="emo">💬</span></span><em class="tkCardBadge" id="tkCardBadge" hidden></em><b data-i18n="tkT">해피톡</b><span id="tkCardSub" data-i18n="tkCardSub">멤버와 채팅하고 파일을 주고받아요</span></button>
+  <button class="gameCard ytC glass" id="ytmCard"><span class="ic"><span class="emo">🎵</span></span><em class="new">NEW</em><b data-i18n="ytmT">유튜브 뮤직</b><span id="ytmSub" data-i18n="ytmSub">유튜브 뮤직을 앱 안에서 듣고 곡 찾기</span></button>
   <button class="gameCard shC glass" id="shortsCard"><span class="ic"><span class="emo">▶️</span></span><em class="new">NEW</em><b data-i18n="shT">숏폼</b><span data-i18n="shSub">유튜브 쇼츠를 앱 안에서 바로 봐요</span></button>
   <button class="gameCard dyC glass" id="diaryCard"><span class="ic"><span class="emo" id="dyCardEmo">📔</span></span><em class="new">NEW</em><b data-i18n="dyT">음악 일기</b><span id="dySub" data-i18n="dyCardSub">오늘 하루와 노래를 기록해요</span></button>
   <button class="gameCard labC glass" id="labCard"><span class="ic"><span class="emo">🧪</span></span><b data-i18n="labT">실험실</b><span id="labSub" data-i18n="labCardSub">기능 켜고 끄기</span></button>
@@ -1250,6 +1261,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button class="tool glass" id="sleepBtn"><svg viewBox="0 0 24 24"><path d="M12.3 2a10 10 0 1 0 9.7 12.6A8 8 0 0 1 12.3 2z"/></svg><span id="sleepLbl" data-i18n="sleep">취침 타이머</span></button>
       <button class="tool glass" id="queueBtn"><svg viewBox="0 0 24 24"><path d="M3 6h12v2H3zm0 5h12v2H3zm0 5h8v2H3zm14-5v6.3a3 3 0 1 0 2 2.7V9h3V7h-5z"/></svg><span data-i18n="queue">재생 대기열</span></button>
       <button class="tool glass" id="addPlBtn"><svg viewBox="0 0 24 24"><path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"/></svg><span data-i18n="pAdd">담기</span></button>
+      <button class="tool glass" id="ytmBtn"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 15.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0-10a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zm-1.5 7V9.5l4 2.5-4 2.5z"/></svg><span data-i18n="ytmShort">유튜브 뮤직</span></button>
       <button class="tool glass" id="soundBtn"><svg viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg><span data-i18n="pSound">사운드</span></button>
     </div>
   </div>
@@ -1368,6 +1380,7 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
       <button type="button" data-v="english"><span style="width:20px;text-align:center;flex:none">📚</span><span data-i18n="enT">영어 한 입</span></button>
       <button type="button" data-v="happy"><span style="width:20px;text-align:center;flex:none">🎁</span><span data-i18n="hpT">오늘의 해피</span></button>
       <button type="button" data-v="talk"><span style="width:20px;text-align:center;flex:none">💬</span><span data-i18n="tkT">해피톡</span></button>
+      <button type="button" data-v="ytm"><span style="width:20px;text-align:center;flex:none">🎵</span><span data-i18n="ytmT">유튜브 뮤직</span></button>
       <button type="button" data-v="shorts"><span style="width:20px;text-align:center;flex:none">▶️</span><span data-i18n="shT">숏폼</span></button>
       <button type="button" data-v="diary"><span style="width:20px;text-align:center;flex:none">📔</span><span data-i18n="dyT">음악 일기</span></button>
       <button type="button" data-v="report"><span style="width:20px;text-align:center;flex:none">📊</span><span data-i18n="repT">음악 리포트</span></button>
@@ -1439,6 +1452,11 @@ html.lab-no-tools .duo:has(#playerCard){display:none}
     <textarea class="backupTa" id="bkTa" spellcheck="false" placeholder="백업 코드를 여기에 붙여 넣으세요" data-i18n-ph="pPastePh" style="margin-top:14px"></textarea>
     <button class="btn ghost" id="bkRestore" type="button" data-i18n="pRestore">복원하기</button>
   </div>
+</section>
+<section class="sheet glass" id="ytmSheet" aria-label="YouTube Music">
+  <div class="grab"></div>
+  <div class="sh"><h3 data-i18n="ytmT">유튜브 뮤직</h3><button class="cb" data-close aria-label="닫기" data-i18n-aria="close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg></button></div>
+  <div class="sb" id="ytmBody"></div>
 </section>
 <section class="sheet glass" id="hpSheet" aria-label="오늘의 해피" data-i18n-aria="hpT">
   <div class="grab"></div>
@@ -1779,6 +1797,12 @@ Object.assign(I18N.T,{
  labCardSub:X13('기능 켜고 끄기','Turn features on/off'),labCnt:X13('기능 켜고 끄기 · {n}/{m}개 켜짐','Turn features on/off · {n} of {m} on'),
  shT:X13('숏폼','Shorts'),shSub:X13('유튜브 쇼츠를 앱 안에서 바로 봐요','Watch YouTube Shorts right in the app'),shExt:X13('유튜브 쇼츠를 열었어요','Opened YouTube Shorts'),
  labShorts:X13('숏폼 (유튜브 쇼츠)','Shorts (YouTube)'),labShortsD:X13('홈의 숏폼 카드로 유튜브 쇼츠 탭을 바로 열어요 · 앱 안 브라우저에서 위아래로 넘겨 보기','Opens the YouTube Shorts tab from a Home card, in the in-app browser'),
+ ytmT:X13('유튜브 뮤직','YouTube Music'),ytmShort:X13('유튜브 뮤직','YT Music'),ytmSub:X13('유튜브 뮤직을 앱 안에서 듣고 곡 찾기','Listen to YouTube Music and find songs'),
+ labYtm:X13('유튜브 뮤직 연동','YouTube Music'),labYtmD:X13('홈 카드로 유튜브 뮤직 열기 · 재생 화면에서 지금 듣는 곡을 유튜브 뮤직에서 찾기','Open YouTube Music from Home · find the playing song from the player'),
+ ytmIn:X13('앱 안에서 유튜브 뮤직 열기','Open YouTube Music here'),ytmOpenWeb:X13('유튜브 뮤직 열기','Open YouTube Music'),ytmInD:X13('로그인하면 내 보관함·재생목록도 볼 수 있어요','Sign in to see your library and playlists'),
+ ytmApp:X13('유튜브 뮤직 앱으로 열기','Open in the YouTube Music app'),ytmAppD:X13('화면을 꺼도 계속 들으려면 이쪽이 좋아요','Best for listening with the screen off'),ytmPh:X13('노래, 가수, 앨범 검색','Search songs, artists, albums'),ytmGo:X13('검색','Search'),
+ ytmNowD:X13('지금 듣는 곡을 유튜브 뮤직에서 찾기','Find the playing song on YouTube Music'),ytmRecent:X13('최근 검색','Recent searches'),ytmExt:X13('유튜브 뮤직을 열었어요','Opened YouTube Music'),
+ ytmNote:X13('앱 안 브라우저에서는 화면을 끄거나 다른 앱으로 가면 재생이 멈출 수 있어요 (유튜브 정책). 계속 들으려면 유튜브 뮤직 앱이나 Premium을 이용하세요.','In the in-app browser, playback may stop when the screen is off or you switch apps (YouTube policy). Use the YouTube Music app or Premium for background play.'),
  labDiary:X13('음악 일기','Music diary'),labDiaryD:X13('하루 기분과 그날의 노래를 함께 기록 · 달력·검색·잠금 · 켜면 홈에 카드가 생겨요','Write about your day with a mood and a song · calendar, search, lock · adds a Home card'),
  dyT:X13('음악 일기','Music diary'),dyCardSub:X13('오늘 하루와 노래를 기록해요','Write about today and its song'),dyCardDone:X13('오늘 {e} 썼어요 · 이번 달 {n}편','Today {e} done · {n} this month'),dyCardTodo:X13('오늘 일기를 아직 안 썼어요 · 이번 달 {n}편','Not written today yet · {n} this month'),
  dyWriteToday:X13('✏️ 오늘 일기 쓰기','✏️ Write today'),dyOpenToday:X13('📖 오늘 일기 보기','📖 Open today'),
@@ -2589,7 +2613,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.8.0';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.8.1';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -2804,7 +2828,8 @@ window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 $('updCheckBtn').onclick=()=>checkUpdate(true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>5*60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
-const WEB_NOTES=[["📚","영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기","English Bites: daily word cards, spaced review, quizzes, pronunciation"],
+const WEB_NOTES=[["🎵","유튜브 뮤직 연동: 앱 안에서 열기 · 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기","YouTube Music: open in-app or in its app, search, find the playing song"],
+ ["📚","영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기","English Bites: daily word cards, spaced review, quizzes, pronunciation"],
  ["🎁","오늘의 해피: 내가 정한 시간대에 출석 체크 · 오늘의 미션 · 오늘의 운세","Daily Happy: check in at your chosen time, missions, fortune"],
  ["🔢","2048 퍼즐 게임 (최고 기록 저장)","2048 puzzle (best score)"],
  ["🔄","업데이트 확인을 더 자주, 더 확실하게 (내려받기 실패 시 업데이트 창 표시)","More reliable update checks"],
@@ -3539,9 +3564,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('settin
 agentUI();
 
 /* ---------- 실험실: 기능을 켜고 끈다 ---------- */
-const LAB_DEF={happy:true,english:true,star:false,shorts:true,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
+const LAB_DEF={ytm:true,happy:true,english:true,star:false,shorts:true,talk:true,diary:true,report:true,resume:true,fade:true,web:true,games:true,tools:true};
 const LAB=Object.assign({},LAB_DEF,LS.get('labs',{}));
-const LAB_ROWS=[['happy','🎁','labHappy','labHappyD'],['english','📚','labEng','labEngD'],['talk','💬','labTalk','labTalkD'],['shorts','▶️','labShorts','labShortsD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
+const LAB_ROWS=[['ytm','🎵','labYtm','labYtmD'],['happy','🎁','labHappy','labHappyD'],['english','📚','labEng','labEngD'],['talk','💬','labTalk','labTalkD'],['shorts','▶️','labShorts','labShortsD'],['star','🎞️','labStar','labStarD'],['diary','📔','labDiary','labDiaryD'],['report','📊','labRep','labRepD'],['resume','🔖','labRes','labResD'],['fade','🌙','labFade','labFadeD'],['web','🌐','labWeb','labWebD'],['games','🎮','labGames','labGamesD'],['tools','🧰','labTools','labToolsD']];
 function labOn(k){return LAB[k]!==false}
 window.__labOn=labOn;
 function applyLabs(){const r=document.documentElement;for(const k of Object.keys(LAB_DEF))r.classList.toggle('lab-no-'+k,!labOn(k))}
@@ -3555,6 +3580,7 @@ function setLab(k,v){LAB[k]=v;LS.set('labs',LAB);applyLabs();
     if(k==='report'&&$('repSheet').classList.contains('on'))closeSheet();
     if(k==='diary'&&$('diarySheet').classList.contains('on'))closeSheet();
     if(k==='happy'&&$('hpSheet').classList.contains('on'))closeSheet();
+    if(k==='ytm'&&$('ytmSheet').classList.contains('on'))closeSheet();
     if(k==='english'&&window.__en&&!$('en').hidden)__en.closeEng();
     if(k==='games'&&window.__hp&&!$('g2').hidden)__hp.closeG2();
     if(k==='talk'&&tkOn())closeTalk();
@@ -4150,6 +4176,33 @@ tkCardUI();
 if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=talk]');if(b){e.stopImmediatePropagation();openTalk()}},true)}
 window.__tk={tkSvcSync,tkSvcOn,TK,openTalk,closeTalk,tkDeepLink,tkBoot,tkShow,tkLogout,tkSendFiles,tkBgCheck,tkInviteText};
 
+
+/* ---------- 유튜브 뮤직 연동: 앱 안에서 열기 · 앱으로 열기 · 곡 찾기 ---------- */
+const YTM='https://music.youtube.com';
+const ytmUrl=q=>q?YTM+'/search?q='+encodeURIComponent(q):YTM;
+const ytmHasApp=()=>!!(AND&&typeof AND.openExternal==='function'&&!IS_PC);
+function ytmNowQ(){const x=cur&&byId(cur);if(!x)return '';return ((x.title||'')+' '+(x.artist&&x.artist!=='Turntable'?x.artist:'')).trim()}
+function ytmGo(q,external){if(!labOn('ytm'))return;const u=ytmUrl(q);
+  if(q){const r=LS.get('ytmRecent',[]).filter(x=>x!==q);r.unshift(q);LS.set('ytmRecent',r.slice(0,8))}
+  closeAll();if(!audio.paused){audio.pause();toast(t('ytmPaused'))}
+  if(!external&&typeof wHasNative==='function'&&(wHasNative()||IS_PC)){openWeb(u);return}
+  if(ytmHasApp()){AND.openExternal(u);toast(t('ytmExt'));return}
+  window.open(u,'_blank','noopener')}
+function ytmRender(){const q=ytmNowQ(),rec=LS.get('ytmRecent',[]),inApp=typeof wHasNative==='function'&&(wHasNative()||IS_PC);
+  $('ytmBody').innerHTML=`<button type="button" class="ytmBig" data-ytm="in"><i>▶</i><div>${esc(t(inApp?'ytmIn':'ytmOpenWeb'))}<small>${esc(t('ytmInD'))}</small></div></button>
+  ${ytmHasApp()?`<button type="button" class="ytmBig alt" data-ytm="app"><i>📱</i><div>${esc(t('ytmApp'))}<small>${esc(t('ytmAppD'))}</small></div></button>`:''}
+  <form class="ytmSearch" id="ytmF"><input id="ytmQ" type="search" enterkeyhint="search" placeholder="${esc(t('ytmPh'))}" autocomplete="off"><button class="tkBtn" type="submit">${esc(t('ytmGo'))}</button></form>
+  ${q?`<button type="button" class="ytmNow" data-ytmq="${esc(q)}"><span style="font-size:24px">🎧</span><div><b>${esc(q)}</b><small>${esc(t('ytmNowD'))}</small></div><span>🔍</span></button>`:''}
+  ${rec.length?`<h4 class="repH">${esc(t('ytmRecent'))}</h4><div class="tkChips">${rec.map(r=>`<button type="button" data-ytmq="${esc(r)}">${esc(r)}</button>`).join('')}</div>`:''}
+  <p class="tkNote">${esc(t('ytmNote'))}</p>`}
+function openYtm(){if(!labOn('ytm'))return;ytmRender();openSheet('ytmSheet')}
+$('ytmCard').onclick=openYtm;
+$('ytmBtn').onclick=e=>{e.stopPropagation();const q=ytmNowQ();if(q)ytmGo(q);else openYtm()};
+$('ytmBody').addEventListener('click',e=>{const b=e.target.closest('[data-ytm],[data-ytmq]');if(!b)return;
+  if(b.dataset.ytmq){ytmGo(b.dataset.ytmq);return}ytmGo('',b.dataset.ytm==='app')});
+$('ytmBody').addEventListener('submit',e=>{e.preventDefault();const v=$('ytmQ').value.trim();ytmGo(v)});
+if(DESK){$('dNav').addEventListener('click',e=>{const b=e.target.closest('[data-v=ytm]');if(b){e.stopImmediatePropagation();openYtm()}},true)}
+window.__ytm={openYtm,ytmGo,ytmUrl,ytmNowQ};
 
 /* ---------- 오늘의 해피: 시간대 출석 · 오늘의 미션 · 운세 (관리자는 시간 제한 없음) ---------- */
 const HP=Object.assign({streak:0,last:'',ck:[],slot:null,slotNext:null,slotFrom:'',done:{},pick:{},allDone:{},g2best:0,g2day:{},fort:{}},LS.get('hp',{}));
