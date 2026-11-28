@@ -2751,11 +2751,11 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.9.2';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.9.3';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
-const NAT=m=>IS_PC?m.pc:m.native,PKG=m=>IS_PC?m.pcUrl:m.apkUrl;
+const NAT=m=>IS_PC?m.pc:m.native,PKG=m=>IS_PC?m.pcUrl:m.apkUrl,SKK=m=>m.version+'|'+(NAT(m)||'');
 const RAW=(repo,path)=>`https://raw.githubusercontent.com/${repo}/main/${path.replace(/^\/+/,'')}`;
 let updInfo=null,updBusy=false,pendingApk=false,updTimer=null;
 function normRepo(v){v=(v||'').trim().replace(/\.git$/,'');const m=v.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/i);if(m)return m[1]+'/'+m[2];
@@ -2772,7 +2772,7 @@ async function checkUpdate(manual){
     const m=await r.json();if(!m||!m.version)throw 0;LS.set('updLast',Date.now());LS.set('updMan',{agent:m.agent||'',agentUrl:m.agentUrl||'',talkUrl:m.talkUrl||'',talkKey:m.talkKey||''});
     const needApk=!!(NAT(m)&&vcmp(appVer(),NAT(m))<0),newer=vcmp(WEB_VERSION,m.version)<0;
     if(!newer&&!needApk){if(manual)updMsg(t('updLatest')+' · '+WEB_VERSION)}
-    else if(!manual&&LS.get('updSkip','')===m.version){}
+    else if(!manual&&LS.get('updSkip','')===SKK(m)){}
     else{updInfo={...m,repo,apk:needApk};if(manual)updMsg('');showUpd()}
   }catch(e){if(manual)updMsg(t('updFail'),true)}
   updBusy=false;
@@ -2799,7 +2799,7 @@ async function preLaunchUpdate(){
       const h=await w.text();bar.style.width='90%';
       if(validWeb(h,m.version)&&(LS.set('updTried',m.version),AND.saveWeb(h))){LS.set('updJust',m.version);bar.style.width='100%';$('splashMsg').textContent=t('updDone');setTimeout(()=>location.reload(),500);return 'reload'}
       updInfo={...m,repo,apk:needApk};done();setTimeout(showUpd,300);return
-    }else if(needApk&&LS.get('updSkip','')!==m.version){updInfo={...m,repo,apk:true};done();setTimeout(showUpd,300);return}
+    }else if(needApk&&LS.get('updSkip','')!==SKK(m)){updInfo={...m,repo,apk:true};done();setTimeout(showUpd,300);return}
   }catch(e){setTimeout(()=>{if(!updInfo)checkUpdate(false)},8000)}
   done();
 }
@@ -2828,7 +2828,7 @@ $('updGo').onclick=()=>{if(!updInfo)return;$('updGo').disabled=true;
   if(!updInfo.apk)return applyWeb();
   if(typeof AND.canInstall==='function'&&!AND.canInstall()){$('updProg').textContent=t('updPerm');pendingApk=true;$('updGo').disabled=false;try{AND.requestInstallPermission()}catch(e){}return}
   startApk()};
-$('updSkipB').onclick=()=>{if(updInfo)LS.set('updSkip',updInfo.version);closeSheet()};
+$('updSkipB').onclick=()=>{if(updInfo)LS.set('updSkip',SKK(updInfo));closeSheet()};
 $('updAuto').onchange=()=>LS.set('updAuto',$('updAuto').checked);
 
 /* ---------- 미니 게임: 리듬 탭 (곡을 분석해 박자에 맞춰 노트 생성) ---------- */
@@ -2964,7 +2964,7 @@ $('gSyncP').onclick=()=>{G.sync=Math.min(300,G.sync+10);LS.set('gSync',G.sync);g
 window.__game={G,gChart,gHit,gClock,openGame,exitGame,gEnd};
 
 $('updCheckBtn').onclick=()=>checkUpdate(true);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>5*60e3)checkUpdate(false)});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&AND&&typeof AND.saveWeb==='function'&&LS.get('updAuto',true)&&!obVisible()&&Date.now()-(+LS.get('updLast',0)||0)>60e3)checkUpdate(false)});
 /* 4.4.2 업데이트 후 바뀐 내용 보여주기 */
 const WEB_NOTES=[["🎵","음악 플레이 위젯: 홈 화면에서 곡 제목 보고 이전·재생/일시정지·다음 (앱 5.12)","Music player widget: see the song and control playback from your home screen (app 5.12)"],["🗂️","폰 클리너 확장: 파일 관리자(복사·이동·ZIP·검색·용량 분석), 앱 관리자(크기·캐시·마지막 사용순, 한꺼번에 삭제, APK 추출), 사진 정리(비슷한·흐린·어두운 사진, 월별 넘기며 정리), 사진·영상 압축, 홈 위젯, 상태바 표시 (앱 5.11) · 실험실은 설정으로 옮겼어요","Cleaner add-ons: file manager, app manager, photo cleanup, media compression, home widget, status bar display (app 5.11) · Labs moved to Settings"],["🧹","폰 클리너: 임시 파일·썸네일·빈 폴더·APK·메신저 사진·중복·큰 파일 정리, 앱 캐시 지우기, 휴지통(되살리기), 기기 정보 — 광고 없음, 전부 무료 (앱 5.10)","Phone Cleaner: junk, duplicates, large files, app caches, trash, device info — no ads, all free (app 5.10)"],["💬","고객지원 챗봇: 설정 → 고객지원에서 사용법·문제 해결을 바로 물어보기, 관리자에게 해피톡으로 문의","Support chatbot: Settings → Support, plus contact the admin on HappyTalk"],["🛡️","캡처·녹화 방지: 설정에서 켜고 끄기 (앱 5.9.1)","Block screenshots & screen recording: toggle in Settings (app 5.9.1)"],["🧊","펭귄 대작전 3D: 입체 전장 · 3D 펭귄·바다 친구들 · 그림자와 빙산 풍경","Penguin Defense 3D: 3D battlefield, characters and scenery"],["🐧","펭귄 대작전 1000 스테이지 · 진행 저장(이어하기) · 10단계마다 보스 · 오래 버티면 펭귄 공격력 상승","Penguin Defense: 1000 stages, saved progress (continue), boss every 10 stages"],["🔤","글씨체 선택: 시스템 / 해피뮤직 / 폰 글씨체 (삼성 글꼴 스타일·설치한 글씨체 앱·파일) — 설정에서","Font choice: system, HappyMusic, or your phone font — in Settings"],["🔊","펭귄 대작전 업그레이드: 배경음악·효과음, 크리티컬·넉백 연출, 상어 왕 보스","Penguin Defense upgrade: music & sound effects, crits, knockback, Shark King boss"],["🐧","새 미니게임: 펭귄 대작전 (펭귄 군단으로 이글루 지키기 · 5개 스테이지)","New mini-game: Penguin Defense (5 stages)"],
  ["🎵","유튜브 뮤직 연동: 앱 안에서 열기 · 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기","YouTube Music: open in-app or in its app, search, find the playing song"],
