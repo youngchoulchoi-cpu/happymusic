@@ -2751,7 +2751,7 @@ $('obLang').onchange=()=>{$('langSel').value=$('obLang').value;$('langSel').onch
 function obStart(){$('obLang').innerHTML=$('langSel').innerHTML;$('obLang').value=lang;$('obNick').value=nick||'';obIdx=0;$('ob').hidden=false;obRender()}
 
 /* ---------- 업데이트 (화면은 설치 없이 바로, 휴대폰 쪽 변경만 APK) ---------- */
-const WEB_VERSION='5.9.7';const REPO='youngchoulchoi-cpu/happymusic';
+const WEB_VERSION='5.9.8';const REPO='youngchoulchoi-cpu/happymusic';
 const vcmp=(a,b)=>{const x=String(a).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0),y=String(b).replace(/^v/i,'').split('.').map(n=>parseInt(n)||0);
   for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d<0?-1:1}return 0};
 const appVer=()=>{try{return AND&&typeof AND.appVersion==='function'?AND.appVersion():'-'}catch(e){return '-'}};
@@ -3486,6 +3486,8 @@ function wNeedNative(){return W.native&&!!(wTab()&&wTab().url)&&!W.panel&&!W.edi
 function wSync(){ // 화면 상태에 맞게 실제 웹 화면 보이기/숨기기
   const tb=wTab(),has=!!(tb&&tb.url);
   $('wStartP').hidden=has&&!W.editing;
+  if(W.native&&W.opened&&!has){try{AND.brCmd(9)}catch(e){try{AND.brCmd(6)}catch(e2){}}W.opened=false}
+  if(!W.native&&!has&&W.frame&&W.frame.dataset.u){try{W.frame.src='about:blank'}catch(e){}W.frame.dataset.u=''}
   if(W.native){if(has&&!W.opened){const [a,b]=wBounds();try{W.opened=AND.brOpen(tb.url,a,b)!==false}catch(e){W.opened=false}if(!W.opened)wFallback()}
     else wShowNative(wNeedNative())}
   else{if(has&&!W.editing&&!W.panel){if(!W.frame){W.frame=document.createElement('iframe');W.frame.setAttribute('referrerpolicy','no-referrer-when-downgrade');W.frame.setAttribute('allow','autoplay; fullscreen; clipboard-write');$('wBody').appendChild(W.frame)}
