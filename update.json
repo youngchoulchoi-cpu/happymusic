@@ -1,11 +1,11 @@
 {
-  "version": "5.8.3",
-  "native": "5.8",
-  "web": "web/5.8.3.html",
-  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.8.apk",
+  "version": "5.8.4",
+  "native": "5.9",
+  "web": "web/5.8.4.html",
+  "apkUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/apk/HappyMusic-v5.9.apk",
   "notes": {
-    "ko": "· 🔤 글씨체 선택: 시스템(기본) / 해피뮤직 — 설정에서 변경\n· 🔊 펭귄 대작전 업그레이드: 배경음악·효과음, 크리티컬·넉백, 상어 왕 보스\n· 🐧 새 미니게임: 펭귄 대작전\n· 🎵 유튜브 뮤직 연동: 앱 안에서 열기 · 유튜브 뮤직 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기\n· 📚 영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기 (앱 5.8)\n· 🎁 오늘의 해피: 내가 정한 시간대(예: 오전 6~8시)에 출석 체크 · 오늘의 미션 · 오늘의 운세\n· 🔢 2048 퍼즐 게임\n· 관리자는 시간대와 상관없이 출석 가능",
-    "en": "· 🔤 Font choice: system (default) or HappyMusic — in Settings\n· 🔊 Penguin Defense upgrade: music & SFX, crits, knockback, Shark King boss\n· 🐧 New mini-game: Penguin Defense\n· 🎵 YouTube Music: open in-app or in its app, search, find the playing song\n· 📚 English Bites: daily word cards, spaced review, quizzes, pronunciation (app 5.8)\n· 🎁 Daily Happy: check in at your chosen time window, missions, fortune\n· 🔢 2048 puzzle\n· Admins can check in any time"
+    "ko": "· 📱 폰 글씨체 적용: 삼성 글꼴 스타일·설치한 글씨체 앱·글씨체 파일 (설정 → 글씨체 → 폰 글씨체)\n· 🔊 펭귄 대작전 업그레이드: 배경음악·효과음, 크리티컬·넉백, 상어 왕 보스\n· 🐧 새 미니게임: 펭귄 대작전\n· 🎵 유튜브 뮤직 연동: 앱 안에서 열기 · 유튜브 뮤직 앱으로 열기 · 검색 · 재생 화면에서 지금 듣는 곡 찾기\n· 📚 영어 한 입: 매일 단어 카드 · 잊을 때쯤 복습 · 퀴즈 · 발음 듣기 (앱 5.8)\n· 🎁 오늘의 해피: 내가 정한 시간대(예: 오전 6~8시)에 출석 체크 · 오늘의 미션 · 오늘의 운세\n· 🔢 2048 퍼즐 게임\n· 관리자는 시간대와 상관없이 출석 가능",
+    "en": "· 📱 Use your phone font: Samsung font style, installed font apps, or a font file (Settings → Font)\n· 🔊 Penguin Defense upgrade: music & SFX, crits, knockback, Shark King boss\n· 🐧 New mini-game: Penguin Defense\n· 🎵 YouTube Music: open in-app or in its app, search, find the playing song\n· 📚 English Bites: daily word cards, spaced review, quizzes, pronunciation (app 5.8)\n· 🎁 Daily Happy: check in at your chosen time window, missions, fortune\n· 🔢 2048 puzzle\n· Admins can check in any time"
   },
   "pc": "2.0",
   "pcUrl": "https://raw.githubusercontent.com/youngchoulchoi-cpu/happymusic/main/pc/HappyMusic-Setup-2.0.exe",
